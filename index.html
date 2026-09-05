@@ -1,428 +1,799 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>Visual Tutorials Help Mapúa Students Learn Software Faster</title>
+<title>Visual Learning | Transform Ideas into Flowcharts</title>
 
 <style>
-
-/* ===== GLOBAL STYLES ===== */
-
-:root{
-    --primary:#0f172a;
-    --secondary:#2563eb;
-    --accent:#dbeafe;
-    --background:#f8fafc;
-    --card:#ffffff;
-    --text:#1e293b;
-    --muted:#64748b;
+:root {
+    --bg: #FAFAF7;
+    --white: #FFFFFF;
+    --blue: #DCEAF7;
+    --accent: #9A6F1A;     /* Accessible gold, passes WCAG AA 4.5:1+ */
+    --accent-bg: #E9D8B4;
+    --text: #1E252D;       /* High-contrast charcoal text */
+    --muted: #4B5563;      /* Secondary accessible text */
+    --border: #D1D5DB;
+    --focus-ring: #2563EB;
 }
 
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
-body{
-    font-family: "Segoe UI", Arial, sans-serif;
-    background:var(--background);
-    color:var(--text);
-    line-height:1.9;
+html {
+    scroll-behavior: smooth;
 }
 
-/* ===== HERO SECTION ===== */
-
-.hero{
-    background:linear-gradient(
-        135deg,
-        #0f172a,
-        #1e3a8a
-    );
-
-    color:white;
-    padding:80px 25px;
+body {
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
 }
 
-.hero-content{
-    max-width:1000px;
-    margin:auto;
+/* ACCESSIBILITY: SKIP LINK & FOCUS INDICATORS */
+.skip-link {
+    position: absolute;
+    top: -40px;
+    left: 20px;
+    background: var(--text);
+    color: var(--white);
+    padding: 10px 16px;
+    z-index: 999;
+    text-decoration: none;
+    font-weight: 600;
+    border-radius: 4px;
+    transition: top 0.2s;
 }
 
-.hero h1{
-    font-size:3rem;
-    line-height:1.15;
-    margin-bottom:20px;
+.skip-link:focus {
+    top: 20px;
 }
 
-.hero p{
-    font-size:1.1rem;
-    max-width:700px;
-    opacity:.95;
+:focus-visible {
+    outline: 3px solid var(--focus-ring);
+    outline-offset: 3px;
 }
 
-/* ===== ARTICLE ===== */
-
-.container{
-    max-width:850px;
-    margin:auto;
-    padding:50px 20px;
+.container {
+    max-width: 1200px;
+    margin: auto;
+    padding: 0 24px;
 }
 
-.author{
-    color:var(--muted);
-    margin-bottom:40px;
-    font-weight:600;
+/* NAVIGATION */
+header {
+    border-bottom: 1px solid var(--border);
+    background: var(--bg);
+    position: sticky;
+    top: 0;
+    z-index: 100;
 }
 
-h2{
-    margin-top:50px;
-    margin-bottom:15px;
-    font-size:1.8rem;
-    color:var(--primary);
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 0;
 }
 
-h2::after{
-    content:"";
-    display:block;
-    width:60px;
-    height:4px;
-    background:var(--secondary);
-    margin-top:10px;
-    border-radius:5px;
+.logo {
+    font-weight: 700;
+    font-size: 1.25rem;
 }
 
-p{
-    margin-bottom:18px;
+.logo span {
+    color: var(--accent);
 }
 
-/* ===== STAT CARDS ===== */
-
-.stats{
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
-    gap:20px;
-    margin:40px 0;
+.nav-links {
+    display: flex;
+    gap: 24px;
+    list-style: none;
 }
 
-.card{
-    background:var(--card);
-    border-radius:18px;
-    padding:25px;
-    text-align:center;
-
-    box-shadow:0 4px 15px rgba(0,0,0,.08);
+.nav-links a {
+    text-decoration: none;
+    color: var(--text);
+    font-weight: 600;
+    font-size: 0.95rem;
+    transition: color 0.2s;
 }
 
-.card h3{
-    font-size:2rem;
-    color:var(--secondary);
-    margin-bottom:10px;
+.nav-links a:hover {
+    color: var(--accent);
 }
 
-.card p{
-    margin:0;
+/* BUTTONS & LINKS */
+.btn {
+    display: inline-block;
+    padding: 12px 24px;
+    border-radius: 999px;
+    font-weight: 600;
+    text-decoration: none;
+    cursor: pointer;
+    border: none;
+    font-size: 1rem;
+    transition: transform 0.2s, background-color 0.2s;
 }
 
-/* ===== QUOTE ===== */
-
-.quote{
-    background:white;
-    border-left:5px solid var(--secondary);
-
-    padding:25px;
-    margin:40px 0;
-
-    border-radius:12px;
-
-    font-size:1.2rem;
-    font-style:italic;
-
-    box-shadow:0 4px 12px rgba(0,0,0,.06);
+.btn:hover {
+    transform: translateY(-2px);
 }
 
-/* ===== LISTS ===== */
-
-ul,
-ol{
-    margin:20px 0 20px 30px;
+.primary {
+    background: var(--text);
+    color: var(--white);
 }
 
-li{
-    margin-bottom:10px;
+.secondary {
+    border: 2px solid var(--border);
+    color: var(--text);
+    background: transparent;
 }
 
-/* ===== STUDY BOX ===== */
-
-.study-box{
-    background:white;
-
-    margin-top:50px;
-
-    padding:30px;
-
-    border-radius:18px;
-
-    box-shadow:0 4px 15px rgba(0,0,0,.08);
+/* SECTIONS COMMON */
+section {
+    padding: 90px 0;
+    scroll-margin-top: 80px;
 }
 
-.study-box h3{
-    margin-bottom:18px;
-    color:var(--primary);
+.section-label {
+    color: var(--accent);
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    font-size: 0.85rem;
 }
 
-.study-box p{
-    margin-bottom:10px;
+.section-title {
+    font-size: clamp(2rem, 4vw, 3rem);
+    line-height: 1.15;
+    margin: 12px 0 24px;
 }
 
-/* ===== FOOTER ===== */
-
-footer{
-    text-align:center;
-    padding:40px 20px;
-    color:var(--muted);
+/* HERO SECTION */
+.hero {
+    display: grid;
+    grid-template-columns: 1.2fr 0.8fr;
+    align-items: center;
+    gap: 48px;
+    min-height: 80vh;
 }
 
-/* ===== MOBILE ===== */
+.hero p {
+    color: var(--muted);
+    font-size: 1.15rem;
+}
 
-@media (max-width:768px){
+.hero .buttons {
+    margin-top: 32px;
+    display: flex;
+    gap: 16px;
+}
 
-    .hero h1{
-        font-size:2.2rem;
+.hero-image {
+    background: var(--blue);
+    border-radius: 24px;
+    height: 380px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 6rem;
+    border: 1px solid var(--border);
+}
+
+/* THE BIG IDEA */
+.split-layout {
+    display: grid;
+    grid-template-columns: 1fr 1.2fr;
+    gap: 40px;
+    align-items: center;
+}
+
+.idea-box {
+    background: #18213A;
+    color: var(--white);
+    padding: 40px;
+    border-radius: 20px;
+}
+
+.idea-box h3 {
+    font-size: 2rem;
+    line-height: 1.2;
+    margin-bottom: 16px;
+}
+
+.idea-box p {
+    color: #E2E8F0;
+}
+
+.split-layout p {
+    color: var(--muted);
+    margin-bottom: 16px;
+}
+
+/* THE JOURNEY */
+.journey-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 16px;
+    margin-top: 36px;
+}
+
+.step-card {
+    background: var(--white);
+    padding: 24px;
+    border-radius: 16px;
+    border: 1px solid var(--border);
+}
+
+.step-number {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: var(--accent-bg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 16px;
+    font-weight: 700;
+}
+
+.step-card h3 {
+    margin-bottom: 8px;
+    font-size: 1.15rem;
+}
+
+.step-card p {
+    color: var(--muted);
+    font-size: 0.9rem;
+}
+
+/* STATEMENTS & BENEFITS */
+.statement {
+    text-align: center;
+    padding: 80px 20px;
+}
+
+.statement h2 {
+    font-size: clamp(2rem, 3.5vw, 3.5rem);
+}
+
+.statement span {
+    color: var(--accent);
+}
+
+.benefits-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    margin-top: 36px;
+}
+
+.card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    padding: 32px;
+    border-radius: 16px;
+}
+
+.card h3 {
+    margin-bottom: 12px;
+}
+
+.card p {
+    color: var(--muted);
+}
+
+/* IMAGE GENERATOR WORKSPACE */
+.converter-workspace {
+    display: grid;
+    grid-template-columns: 1fr 1.2fr;
+    gap: 32px;
+    background: var(--white);
+    padding: 36px;
+    border-radius: 20px;
+    border: 1px solid var(--border);
+    margin-top: 24px;
+}
+
+.input-panel label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 8px;
+}
+
+textarea {
+    width: 100%;
+    height: 180px;
+    padding: 16px;
+    border-radius: 12px;
+    border: 1px solid var(--border);
+    resize: vertical;
+    font-family: inherit;
+    font-size: 0.95rem;
+}
+
+.button-group {
+    display: flex;
+    gap: 12px;
+    margin-top: 16px;
+    flex-wrap: wrap;
+}
+
+.canvas-preview-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: var(--bg);
+    border-radius: 12px;
+    border: 2px dashed var(--border);
+    padding: 16px;
+    min-height: 260px;
+}
+
+canvas {
+    max-width: 100%;
+    height: auto;
+    background: var(--white);
+    border-radius: 8px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+/* WHY IT MATTERS EXPANSION */
+.future-header {
+    max-width: 780px;
+    margin-bottom: 40px;
+}
+
+.section-lead {
+    font-size: 1.15rem;
+    color: var(--muted);
+    line-height: 1.6;
+}
+
+.matters-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+    margin-bottom: 36px;
+}
+
+.matter-card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 18px;
+    padding: 32px;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.matter-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05);
+}
+
+.matter-icon {
+    font-size: 2rem;
+    margin-bottom: 16px;
+    display: inline-block;
+}
+
+.matter-card h3 {
+    font-size: 1.25rem;
+    margin-bottom: 12px;
+    color: var(--text);
+}
+
+.matter-card p {
+    color: var(--muted);
+    font-size: 0.95rem;
+    line-height: 1.6;
+}
+
+.research-banner {
+    background: var(--blue);
+    border: 1px solid #bfdbfe;
+    border-radius: 16px;
+    padding: 24px 30px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.banner-badge {
+    background: #18213A;
+    color: #FFFFFF;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+    padding: 6px 12px;
+    border-radius: 999px;
+    white-space: nowrap;
+}
+
+.research-banner p {
+    color: var(--text);
+    font-size: 1rem;
+    margin: 0;
+}
+
+/* FOOTER */
+footer {
+    text-align: center;
+    padding: 40px 20px;
+    border-top: 1px solid var(--border);
+    color: var(--muted);
+}
+
+/* RESPONSIVE BREAKPOINTS (MOBILE & TABLET) */
+@media (max-width: 992px) {
+    .journey-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+    
+    .converter-workspace {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 768px) {
+    .hero,
+    .split-layout,
+    .benefits-grid,
+    .journey-grid,
+    .matters-grid {
+        grid-template-columns: 1fr;
     }
 
-    h2{
-        font-size:1.5rem;
+    nav {
+        flex-direction: column;
+        gap: 16px;
     }
 
-}
+    .nav-links {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 16px;
+    }
 
+    .hero-image {
+        height: 240px;
+        font-size: 4rem;
+    }
+
+    .hero .buttons {
+        flex-direction: column;
+    }
+
+    .research-banner {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+        padding: 20px;
+    }
+}
 </style>
 </head>
 
 <body>
 
-<header class="hero">
+<a href="#main-content" class="skip-link">Skip to main content</a>
 
-    <div class="hero-content">
-
-        <h1>Visual Tutorials Help Mapúa Students Learn Software Faster, Study Finds</h1>
-
-        <p>
-            A study of Mapúa University students found that visual-centric tutorials reduce
-            cognitive load, increase confidence, and improve software learning efficiency
-            compared to traditional text-heavy manuals.
-        </p>
-
+<header>
+    <div class="container">
+        <nav aria-label="Main Navigation">
+            <div class="logo">Visual <span>Learning</span></div>
+            <ul class="nav-links">
+                <li><a href="#story">The Story</a></li>
+                <li><a href="#journey">The Journey</a></li>
+                <li><a href="#benefits">The Benefits</a></li>
+                <li><a href="#try">Generator</a></li>
+                <li><a href="#future">Why It Matters</a></li>
+            </ul>
+        </nav>
     </div>
-
 </header>
 
-<main class="container">
+<main id="main-content">
 
-    <div class="author">
-        By Keane Zachary S. Dizon
-    </div>
-
-    <section class="stats">
-
-        <div class="card">
-            <h3>43</h3>
-            <p>Students Surveyed</p>
+    <section class="container hero" id="story">
+        <div>
+            <span class="section-label">LEARNING • VISUALS • UNDERSTANDING</span>
+            <h1 class="section-title">Every skill begins with understanding.</h1>
+            <p>Visual learning helps people transform dense information into sequential logic and real-world execution.</p>
+            <div class="buttons">
+                <a href="#journey" class="btn primary">Explore the Journey</a>
+                <a href="#try" class="btn secondary">Try the Generator</a>
+            </div>
         </div>
-
-        <div class="card">
-            <h3>3.91</h3>
-            <p>Mental Effort (Text Manuals)</p>
-        </div>
-
-        <div class="card">
-            <h3>2.88</h3>
-            <p>Mental Effort (Visual Tutorials)</p>
-        </div>
-
+        <div class="hero-image" role="img" aria-label="Illustration of a glowing lightbulb representing comprehension">💡</div>
     </section>
 
-    <p>
-        Mapúa University students overwhelmingly favor visual tutorials over traditional
-        text-heavy manuals when learning complex software, according to a recent study
-        that examined instructional formats and their impact on software proficiency.
-    </p>
+    <section id="idea">
+        <div class="container">
+            <span class="section-label">THE BIG IDEA</span>
+            <h2 class="section-title">Learning is more than the final result.</h2>
+            <div class="split-layout">
+                <div class="idea-box">
+                    <h3>What happens before mastery?</h3>
+                    <p>Growth develops iteratively through observation, practice, mistakes, feedback, and repetition.</p>
+                </div>
+                <div>
+                    <p>We often celebrate outcomes, but true cognition develops gradually. People learn by connecting abstract principles to applied scenarios.</p>
+                    <p>Visual tools shorten this loop by clarifying dependencies, priorities, and workflow sequences on a single canvas.</p>
+                </div>
+            </div>
+        </div>
+    </section>
 
-    <p>
-        As digital tools become increasingly essential in higher education, students are
-        expected to master applications such as AutoCAD, Fusion 360, and MATLAB while
-        navigating the demands of Mapúa University's fast-paced trimestral system.
-        However, a new study suggests that the format of learning materials may
-        significantly influence how efficiently students acquire these technical skills.
-    </p>
+    <section id="journey">
+        <div class="container">
+            <span class="section-label">THE JOURNEY</span>
+            <h2 class="section-title">How understanding takes shape</h2>
+            <div class="journey-grid">
+                <article class="step-card">
+                    <div class="step-number" aria-hidden="true">01</div>
+                    <h3>Discover</h3>
+                    <p>Encountering the core challenge and framing the problem scope.</p>
+                </article>
+                <article class="step-card">
+                    <div class="step-number" aria-hidden="true">02</div>
+                    <h3>Observe</h3>
+                    <p>Analyzing reference patterns, diagrams, and working architectures.</p>
+                </article>
+                <article class="step-card">
+                    <div class="step-number" aria-hidden="true">03</div>
+                    <h3>Practice</h3>
+                    <p>Applying concepts directly through tactile trial and error.</p>
+                </article>
+                <article class="step-card">
+                    <div class="step-number" aria-hidden="true">04</div>
+                    <h3>Improve</h3>
+                    <p>Refining execution through evaluation and corrective iterations.</p>
+                </article>
+                <article class="step-card">
+                    <div class="step-number" aria-hidden="true">05</div>
+                    <h3>Master</h3>
+                    <p>Executing independently with intuitive competence.</p>
+                </article>
+            </div>
+        </div>
+    </section>
 
-    <p>
-        The study, <em>An Analysis of Visual-Centric Tutorials and Software Proficiency
-        Among Mapúa University Students</em>, surveyed 43 undergraduate students who
-        regularly use software applications as part of their academic work. The findings
-        revealed a clear preference for visual-focused learning materials, particularly
-        video tutorials and screen-recorded demonstrations, over traditional text-based
-        manuals.
-    </p>
+    <section class="statement container">
+        <h2>Learning does not happen in a straight line. <span>It evolves.</span></h2>
+    </section>
 
-    <div class="quote">
-        “Visuals reduce mental load and make the steps clearer.”
-    </div>
+    <section id="benefits">
+        <div class="container">
+            <span class="section-label">THE BENEFITS</span>
+            <h2 class="section-title">Why visual learning works</h2>
+            <div class="benefits-grid">
+                <div class="card">
+                    <h3>Accelerate Retention</h3>
+                    <p>Visual structures reinforce semantic connections directly in long-term memory.</p>
+                </div>
+                <div class="card">
+                    <h3>Reduce Cognitive Load</h3>
+                    <p>Translating prose into sequential charts eliminates ambiguity and extraneous detail.</p>
+                </div>
+                <div class="card">
+                    <h3>Encourage Autonomy</h3>
+                    <p>Visual steps serve as clear, actionable self-guided learning checkpoints.</p>
+                </div>
+            </div>
+        </div>
+    </section>
 
-    <h2>Why Students Prefer Visual Learning</h2>
+    <section id="try">
+        <div class="container">
+            <span class="section-label">INTERACTIVE TOOL</span>
+            <h2 class="section-title">Turn notes into an actual diagram</h2>
+            
+            <div class="converter-workspace">
+                <div class="input-panel">
+                    <label for="inputText">Enter your lesson or concept breakdown:</label>
+                    <textarea id="inputText" placeholder="Enter steps separated by periods or new lines. For example: Read requirement. Write prototype. Test accessibility. Publish site.">1. Discover the objective&#10;2. Outline architectural requirements&#10;3. Implement grid layout&#10;4. Verify WCAG contrast & accessibility</textarea>
+                    
+                    <div class="button-group">
+                        <button type="button" class="btn primary" onclick="renderNotesToImage()">Render Image</button>
+                        <button type="button" id="downloadBtn" class="btn secondary" onclick="downloadCanvasImage()" disabled>Download PNG</button>
+                    </div>
+                </div>
 
-    <p>
-        Many participants reported that visual tutorials made software functions easier
-        to understand because they provided direct demonstrations of actions and
-        procedures. Rather than interpreting written instructions and imagining how they
-        should be applied, students were able to observe each step in real time.
-    </p>
+                <div class="canvas-preview-wrapper">
+                    <canvas id="flowchartCanvas" width="500" height="340" role="img" aria-label="Interactive visual flowchart preview"></canvas>
+                </div>
+            </div>
+        </div>
+    </section>
 
-    <p>
-        Several respondents also reported difficulties with text-heavy manuals, citing
-        challenges in visualizing instructions, identifying software tools, and
-        processing lengthy written explanations.
-    </p>
+    <section id="future">
+        <div class="container">
+            <div class="future-header">
+                <span class="section-label">WHY IT MATTERS</span>
+                <h2 class="section-title">The "Show, Don't Tell" Shift in Education</h2>
+                <p class="section-lead">
+                    From 3D design tools like AutoCAD to data analysis suites like MATLAB, learning modern software has outpaced the traditional PDF manual. When learning is visual, mastering complex tools stops feeling like deciphering instructions and starts feeling like second nature.
+                </p>
+            </div>
 
-    <p>
-        According to the study, these findings suggest that visual materials provide a
-        more accessible learning experience by allowing students to immediately connect
-        instructions with actions.
-    </p>
+            <div class="matters-grid">
+                <article class="matter-card">
+                    <div class="matter-icon" aria-hidden="true">🧠</div>
+                    <h3>Cutting Out the Mental Middleman</h3>
+                    <p>
+                        Reading a manual requires two steps: translating written text into a mental picture, then hunting across a crowded screen to find where to click. Visual walkthroughs remove that friction—letting learners focus directly on solving the problem, not translating the guide.
+                    </p>
+                </article>
 
-    <h2>Lower Cognitive Strain and Greater Efficiency</h2>
+                <article class="matter-card">
+                    <div class="matter-icon" aria-hidden="true">🎯</div>
+                    <h3>Confidence Over Guesswork</h3>
+                    <p>
+                        Nothing stalls a beginner faster than the fear of clicking the wrong button. Watching someone perform a command in real time gives immediate reassurance, cutting down trial-and-error mistakes and replacing classroom hesitation with hands-on practice.
+                    </p>
+                </article>
 
-    <p>
-        A major focus of the research was the relationship between instructional format
-        and cognitive load, or the mental effort required to complete a learning task.
-    </p>
+                <article class="matter-card">
+                    <div class="matter-icon" aria-hidden="true">🔍</div>
+                    <h3>Meeting Students Where They Actually Go</h3>
+                    <p>
+                        When a wall of text stalls out, learners immediately turn to YouTube for quick visual demos. Modern instructional design simply brings that reality into the classroom, offering screen-recorded flows that match how people instinctively learn today.
+                    </p>
+                </article>
 
-    <p>
-        Students rated the mental effort involved in using text-heavy manuals at an
-        average of 3.91 out of 5, while visual tutorials received a significantly lower
-        average rating of 2.88 out of 5.
-    </p>
+                <article class="matter-card">
+                    <div class="matter-icon" aria-hidden="true">⚖️</div>
+                    <h3>The Power of Hybrid Design</h3>
+                    <p>
+                        Showing isn't about throwing out reading altogether. The most resilient learning combines high-clarity visual demonstrations with concise written takeaways—giving learners the best of quick visual intuition and easy reference material.
+                    </p>
+                </article>
+            </div>
 
-    <p>
-        The results indicate that students expend less mental energy when learning
-        through visual demonstrations than when relying exclusively on written
-        instructions.
-    </p>
-
-    <ul>
-        <li>Improve understanding of software functions</li>
-        <li>Help users complete tasks faster</li>
-        <li>Increase confidence when using software</li>
-        <li>Enhance overall learning effectiveness</li>
-    </ul>
-
-    <p>
-        These results support established educational theories, including Cognitive Load
-        Theory and the Cognitive Theory of Multimedia Learning, which suggest that
-        learners process information more efficiently when visual and verbal elements
-        complement one another.
-    </p>
-
-    <h2>Translating Instructions Into Action</h2>
-
-    <p>
-        One of the study's most significant findings concerns the challenge students face
-        when translating text into software actions.
-    </p>
-
-    <p>
-        Many respondents agreed that written manuals often require them to mentally
-        convert instructions into visual procedures before they can perform a task. This
-        additional step can slow learning and create unnecessary confusion.
-    </p>
-
-    <p>
-        In contrast, visual tutorials eliminate much of this interpretation process by
-        showing users exactly where to click, what commands to use, and what outcomes to
-        expect.
-    </p>
-
-    <h2>Troubleshooting Beyond the Classroom</h2>
-
-    <p>
-        The study also investigated how students respond when instructional materials
-        fail to answer their questions.
-    </p>
-
-    <ol>
-        <li>Searching for YouTube tutorials</li>
-        <li>Using multiple learning resources simultaneously</li>
-        <li>Engaging in trial-and-error experimentation</li>
-        <li>Seeking assistance from peers</li>
-        <li>Consulting external documentation</li>
-    </ol>
-
-    <p>
-        These behaviors suggest that students actively seek alternative learning
-        materials when official resources lack clarity or visual guidance.
-    </p>
-
-    <h2>Recommendations for Educators</h2>
-
-    <p>
-        Based on the findings, the study encourages educators to adopt a more balanced
-        instructional approach that combines visual demonstrations with concise written
-        explanations.
-    </p>
-
-    <p>
-        Rather than eliminating text-based resources entirely, many students recommended
-        integrating screenshots, annotations, video walkthroughs, and step-by-step
-        demonstrations into software instruction.
-    </p>
-
-    <p>
-        Participants also emphasized the importance of keeping instructional materials
-        updated and accessible while providing opportunities for hands-on practice.
-    </p>
-
-    <h2>Looking Forward</h2>
-
-    <p>
-        Although the study relied on self-reported perceptions from a relatively small
-        sample of 43 students, its findings highlight the growing importance of
-        instructional design in digital learning environments.
-    </p>
-
-    <p>
-        As universities continue to incorporate advanced software into their curricula,
-        the research suggests that how information is presented may be just as important
-        as the information itself.
-    </p>
-
-    <p>
-        For Mapúa University students balancing demanding schedules and technically
-        challenging coursework, visual-centric tutorials appear to offer a more efficient
-        path toward software mastery.
-    </p>
-
-    <section class="study-box">
-
-        <h3>Study at a Glance</h3>
-
-        <p><strong>Participants:</strong> 43 Mapúa University students</p>
-        <p><strong>Focus:</strong> Visual tutorials vs. text-heavy manuals</p>
-        <p><strong>Key Finding:</strong> Students preferred visual tutorials for learning software</p>
-        <p><strong>Mental Effort (Text Manuals):</strong> 3.91/5</p>
-        <p><strong>Mental Effort (Visual Tutorials):</strong> 2.88/5</p>
-        <p><strong>Most Common Troubleshooting Tool:</strong> YouTube tutorials</p>
-        <p><strong>Recommendation:</strong> Combine visual demonstrations with concise written guidance</p>
-
+            <div class="research-banner">
+                <div class="banner-badge">FIELD INSIGHT</div>
+                <p>
+                    <strong>The Core Takeaway:</strong> Software interfaces are inherently spatial and visual. Providing learners with visual demonstrations and clean step-by-step maps turns dense manuals into actionable, lasting skills.
+                </p>
+            </div>
+        </div>
     </section>
 
 </main>
 
 <footer>
-    Research Feature Article | Mapúa University
+    <div class="container">
+        <p>Created by Keane Zachary S. Dizon • Educational Landing Page</p>
+    </div>
 </footer>
+
+<script>
+window.addEventListener("DOMContentLoaded", () => {
+    renderNotesToImage();
+});
+
+function parseInputSteps(text) {
+    return text
+        .split(/\n|\.(?=\s|$)/)
+        .map(s => s.replace(/^\d+[\.\)]\s*/, '').trim())
+        .filter(s => s.length > 0);
+}
+
+function renderNotesToImage() {
+    const text = document.getElementById("inputText").value;
+    const steps = parseInputSteps(text);
+    const canvas = document.getElementById("flowchartCanvas");
+    const ctx = canvas.getContext("2d");
+    const downloadBtn = document.getElementById("downloadBtn");
+
+    if (steps.length === 0) {
+        alert("Please enter at least one step or sentence.");
+        return;
+    }
+
+    // Dynamic sizing based on steps
+    const cardHeight = 52;
+    const gap = 28;
+    const padding = 40;
+    const dynamicHeight = Math.max(300, (steps.length * (cardHeight + gap)) + padding);
+    
+    canvas.width = 600;
+    canvas.height = dynamicHeight;
+
+    // Background fill
+    ctx.fillStyle = "#FFFFFF";
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+    // Grid accent lines
+    ctx.strokeStyle = "#F1F5F9";
+    ctx.lineWidth = 1;
+    for (let x = 0; x < canvas.width; x += 30) {
+        ctx.beginPath();
+        ctx.moveTo(x, 0);
+        ctx.lineTo(x, canvas.height);
+        ctx.stroke();
+    }
+
+    let currentY = padding;
+
+    steps.forEach((step, index) => {
+        const boxX = 60;
+        const boxWidth = canvas.width - 120;
+
+        // Card Container
+        ctx.fillStyle = "#F8FAFC";
+        ctx.strokeStyle = "#CBD5E1";
+        ctx.lineWidth = 1.5;
+        ctx.beginPath();
+        ctx.roundRect(boxX, currentY, boxWidth, cardHeight, 10);
+        ctx.fill();
+        ctx.stroke();
+
+        // Step Badge
+        ctx.fillStyle = "#9A6F1A";
+        ctx.beginPath();
+        ctx.arc(boxX + 26, currentY + cardHeight / 2, 14, 0, Math.PI * 2);
+        ctx.fill();
+
+        ctx.fillStyle = "#FFFFFF";
+        ctx.font = "bold 13px system-ui, sans-serif";
+        ctx.textAlign = "center";
+        ctx.textBaseline = "middle";
+        ctx.fillText(index + 1, boxX + 26, currentY + cardHeight / 2);
+
+        // Text String (truncated cleanly if too long)
+        ctx.fillStyle = "#1E252D";
+        ctx.font = "500 15px system-ui, sans-serif";
+        ctx.textAlign = "left";
+        let displayStr = step;
+        if (displayStr.length > 50) {
+            displayStr = displayStr.substring(0, 47) + "...";
+        }
+        ctx.fillText(displayStr, boxX + 54, currentY + cardHeight / 2);
+
+        // Arrow between cards
+        if (index < steps.length - 1) {
+            const arrowStartY = currentY + cardHeight;
+            const arrowEndY = arrowStartY + gap;
+            const centerX = canvas.width / 2;
+
+            ctx.strokeStyle = "#64748B";
+            ctx.lineWidth = 2;
+            ctx.beginPath();
+            ctx.moveTo(centerX, arrowStartY + 4);
+            ctx.lineTo(centerX, arrowEndY - 4);
+            ctx.stroke();
+
+            ctx.fillStyle = "#64748B";
+            ctx.beginPath();
+            ctx.moveTo(centerX - 5, arrowEndY - 6);
+            ctx.lineTo(centerX + 5, arrowEndY - 6);
+            ctx.lineTo(centerX, arrowEndY);
+            ctx.fill();
+        }
+
+        currentY += cardHeight + gap;
+    });
+
+    downloadBtn.disabled = false;
+}
+
+function downloadCanvasImage() {
+    const canvas = document.getElementById("flowchartCanvas");
+    const link = document.createElement("a");
+    link.download = "learning-flowchart.png";
+    link.href = canvas.toDataURL("image/png");
+    link.click();
+}
+</script>
 
 </body>
 </html>
