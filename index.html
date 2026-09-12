@@ -8,15 +8,27 @@
 
 <style>
 :root {
-    --bg: #FAFAF7;
-    --white: #FFFFFF;
-    --blue: #DCEAF7;
-    --accent: #9A6F1A;     /* Accessible gold, passes WCAG AA 4.5:1+ */
-    --accent-bg: #E9D8B4;
-    --text: #1E252D;       /* High-contrast charcoal text */
-    --muted: #4B5563;      /* Secondary accessible text */
-    --border: #D1D5DB;
-    --focus-ring: #2563EB;
+    /* Sophisticated Dark Wine, Gold & White Palette */
+    --bg: #220B10;           /* Deep wine-red canvas */
+    --surface: #2E1218;      /* Card background */
+    --surface-elevated: #3D1821; /* Highlighting panels and inputs */
+    --surface-light: #52202C; /* Interactive hover states */
+    
+    --gold: #E5C158;         /* Warm luminous gold */
+    --gold-muted: #B89738;   /* Accessible secondary gold */
+    --gold-light: #F5E6B8;   /* Soft pale champagne for badges */
+    
+    --text-primary: #FFFFFF; /* Crisp white for titles & headings */
+    --text-secondary: #E8D6D9; /* Soft cream-white for paragraph text */
+    --text-muted: #BFA5AA;   /* Secondary descriptions */
+    
+    --border: #4A222B;       /* Crimson border */
+    --border-highlight: #703340;
+    --focus-ring: #F59E0B;   /* Amber focus indicator */
+    
+    --error: #FCA5A5;
+    --error-bg: #491319;
+    --success: #86EFAC;
 }
 
 * {
@@ -32,7 +44,7 @@ html {
 body {
     font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
     background: var(--bg);
-    color: var(--text);
+    color: var(--text-secondary);
     line-height: 1.6;
 }
 
@@ -41,13 +53,13 @@ body {
     position: absolute;
     top: -40px;
     left: 20px;
-    background: var(--text);
-    color: var(--white);
+    background: var(--gold);
+    color: #1A070B;
     padding: 10px 16px;
     z-index: 999;
     text-decoration: none;
-    font-weight: 600;
-    border-radius: 4px;
+    font-weight: 700;
+    border-radius: 6px;
     transition: top 0.2s;
 }
 
@@ -69,7 +81,8 @@ body {
 /* NAVIGATION */
 header {
     border-bottom: 1px solid var(--border);
-    background: var(--bg);
+    background: rgba(34, 11, 16, 0.95);
+    backdrop-filter: blur(8px);
     position: sticky;
     top: 0;
     z-index: 100;
@@ -85,10 +98,12 @@ nav {
 .logo {
     font-weight: 700;
     font-size: 1.25rem;
+    color: var(--text-primary);
+    letter-spacing: 0.5px;
 }
 
 .logo span {
-    color: var(--accent);
+    color: var(--gold);
 }
 
 .nav-links {
@@ -99,42 +114,56 @@ nav {
 
 .nav-links a {
     text-decoration: none;
-    color: var(--text);
+    color: var(--text-secondary);
     font-weight: 600;
     font-size: 0.95rem;
     transition: color 0.2s;
 }
 
 .nav-links a:hover {
-    color: var(--accent);
+    color: var(--gold);
 }
 
 /* BUTTONS & LINKS */
 .btn {
     display: inline-block;
-    padding: 12px 24px;
+    padding: 12px 26px;
     border-radius: 999px;
     font-weight: 600;
     text-decoration: none;
     cursor: pointer;
     border: none;
     font-size: 1rem;
-    transition: transform 0.2s, background-color 0.2s;
+    transition: transform 0.2s, background-color 0.2s, box-shadow 0.2s;
 }
 
-.btn:hover {
+.btn:hover:not(:disabled) {
     transform: translateY(-2px);
 }
 
+.btn:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+}
+
 .primary {
-    background: var(--text);
-    color: var(--white);
+    background: var(--gold);
+    color: #1E080C;
+    box-shadow: 0 4px 14px rgba(229, 193, 88, 0.25);
+}
+
+.primary:hover:not(:disabled) {
+    background: #F0D078;
 }
 
 .secondary {
-    border: 2px solid var(--border);
-    color: var(--text);
+    border: 2px solid var(--gold-muted);
+    color: var(--gold-light);
     background: transparent;
+}
+
+.secondary:hover:not(:disabled) {
+    background: rgba(229, 193, 88, 0.1);
 }
 
 /* SECTIONS COMMON */
@@ -144,30 +173,33 @@ section {
 }
 
 .section-label {
-    color: var(--accent);
+    color: var(--gold);
     font-weight: 700;
     letter-spacing: 1.5px;
     font-size: 0.85rem;
+    display: inline-block;
 }
 
 .section-title {
     font-size: clamp(2rem, 4vw, 3rem);
     line-height: 1.15;
     margin: 12px 0 24px;
+    color: var(--text-primary);
 }
 
 /* HERO SECTION */
 .hero {
     display: grid;
-    grid-template-columns: 1.2fr 0.8fr;
+    grid-template-columns: 1.15fr 0.85fr;
     align-items: center;
     gap: 48px;
     min-height: 80vh;
 }
 
 .hero p {
-    color: var(--muted);
+    color: var(--text-secondary);
     font-size: 1.15rem;
+    max-width: 520px;
 }
 
 .hero .buttons {
@@ -176,15 +208,45 @@ section {
     gap: 16px;
 }
 
-.hero-image {
-    background: var(--blue);
-    border-radius: 24px;
-    height: 380px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 6rem;
-    border: 1px solid var(--border);
+.hero-image-wrapper {
+    position: relative;
+    border-radius: 28px;
+    overflow: hidden;
+    height: 400px;
+    border: 1px solid var(--border-highlight);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.45);
+}
+
+.hero-image-wrapper img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    filter: contrast(105%) brightness(95%);
+    transition: transform 0.4s ease;
+}
+
+.hero-image-wrapper:hover img {
+    transform: scale(1.03);
+}
+
+.hero-image-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(34, 11, 16, 0.1) 0%, rgba(34, 11, 16, 0.75) 100%);
+    pointer-events: none;
+}
+
+.hero-image-caption {
+    position: absolute;
+    bottom: 16px;
+    left: 20px;
+    right: 20px;
+    color: var(--gold-light);
+    font-size: 0.85rem;
+    font-weight: 600;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
+    pointer-events: none;
 }
 
 /* THE BIG IDEA */
@@ -196,24 +258,27 @@ section {
 }
 
 .idea-box {
-    background: #18213A;
-    color: var(--white);
+    background: #19080C;
+    border: 1px solid var(--border-highlight);
+    color: var(--text-primary);
     padding: 40px;
     border-radius: 20px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
 }
 
 .idea-box h3 {
     font-size: 2rem;
     line-height: 1.2;
     margin-bottom: 16px;
+    color: var(--gold);
 }
 
 .idea-box p {
-    color: #E2E8F0;
+    color: var(--text-secondary);
 }
 
 .split-layout p {
-    color: var(--muted);
+    color: var(--text-secondary);
     margin-bottom: 16px;
 }
 
@@ -226,31 +291,39 @@ section {
 }
 
 .step-card {
-    background: var(--white);
+    background: var(--surface);
     padding: 24px;
     border-radius: 16px;
     border: 1px solid var(--border);
+    transition: transform 0.2s, border-color 0.2s;
+}
+
+.step-card:hover {
+    border-color: var(--gold-muted);
+    transform: translateY(-3px);
 }
 
 .step-number {
-    width: 36px;
-    height: 36px;
+    width: 38px;
+    height: 38px;
     border-radius: 50%;
-    background: var(--accent-bg);
+    background: var(--gold);
+    color: #19080C;
     display: flex;
     align-items: center;
     justify-content: center;
     margin-bottom: 16px;
-    font-weight: 700;
+    font-weight: 800;
 }
 
 .step-card h3 {
     margin-bottom: 8px;
     font-size: 1.15rem;
+    color: var(--text-primary);
 }
 
 .step-card p {
-    color: var(--muted);
+    color: var(--text-muted);
     font-size: 0.9rem;
 }
 
@@ -262,10 +335,11 @@ section {
 
 .statement h2 {
     font-size: clamp(2rem, 3.5vw, 3.5rem);
+    color: var(--text-primary);
 }
 
 .statement span {
-    color: var(--accent);
+    color: var(--gold);
 }
 
 .benefits-grid {
@@ -276,77 +350,559 @@ section {
 }
 
 .card {
-    background: var(--white);
+    background: var(--surface);
     border: 1px solid var(--border);
     padding: 32px;
     border-radius: 16px;
+    transition: transform 0.2s ease, border-color 0.2s ease;
+}
+
+.card:hover {
+    transform: translateY(-4px);
+    border-color: var(--gold-muted);
 }
 
 .card h3 {
     margin-bottom: 12px;
+    color: var(--gold-light);
 }
 
 .card p {
-    color: var(--muted);
+    color: var(--text-secondary);
 }
 
-/* IMAGE GENERATOR WORKSPACE */
-.converter-workspace {
-    display: grid;
-    grid-template-columns: 1fr 1.2fr;
-    gap: 32px;
-    background: var(--white);
-    padding: 36px;
-    border-radius: 20px;
+/* ======================================================
+   INTERACTIVE LESSON STUDIO (DARK RED / GOLD PALETTE)
+====================================================== */
+.studio-widget {
+    background: var(--surface);
     border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 28px;
     margin-top: 24px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
 }
 
-.input-panel label {
-    display: block;
+.studio-grid {
+    display: grid;
+    grid-template-columns: 340px 1fr;
+    gap: 28px;
+    min-height: 480px;
+}
+
+/* Left Panel: Input & Drop Area */
+.studio-input-panel {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.drop-area {
+    border: 2px dashed var(--border-highlight);
+    border-radius: 16px;
+    padding: 22px 16px;
+    text-align: center;
+    background: var(--surface-elevated);
+    transition: all 0.2s ease;
+    cursor: pointer;
+}
+
+.drop-area:hover,
+.drop-area.dragover {
+    border-color: var(--gold);
+    background: #441A23;
+}
+
+.drop-area-icon {
+    font-size: 2rem;
+    margin-bottom: 6px;
+}
+
+.drop-area p {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+}
+
+.drop-area strong {
+    color: var(--text-primary);
+}
+
+.hidden-file-input {
+    display: none;
+}
+
+.input-label-row {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.85rem;
     font-weight: 600;
+    color: var(--text-secondary);
+}
+
+.char-counter {
+    color: var(--text-muted);
+    font-weight: normal;
+}
+
+.studio-textarea {
+    width: 100%;
+    height: 180px;
+    padding: 14px;
+    border-radius: 12px;
+    border: 1px solid var(--border-highlight);
+    background: var(--surface-elevated);
+    color: var(--text-primary);
+    font-family: inherit;
+    font-size: 0.9rem;
+    resize: none;
+    line-height: 1.5;
+}
+
+.studio-textarea::placeholder {
+    color: #9C7D84;
+}
+
+.status-box {
+    font-size: 0.85rem;
+    padding: 10px 14px;
+    border-radius: 8px;
+    display: none;
+}
+
+.status-box.error {
+    display: block;
+    background: var(--error-bg);
+    color: var(--error);
+    border: 1px solid #781F28;
+}
+
+/* Right Panel: Output & Controls */
+.studio-output-panel {
+    border: 1px solid var(--border-highlight);
+    border-radius: 16px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    background: var(--bg);
+    position: relative;
+}
+
+.studio-top-controls {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 14px;
+    border-bottom: 1px solid var(--border);
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.mode-selector {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.mode-selector label {
+    font-size: 0.85rem;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    color: var(--gold);
+}
+
+.mode-select {
+    padding: 8px 14px;
+    border-radius: 8px;
+    border: 1px solid var(--border-highlight);
+    background: var(--surface-elevated);
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    cursor: pointer;
+}
+
+/* 3-Dot Export Menu Dropdown */
+.extra-tools {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    position: relative;
+}
+
+.tool-btn {
+    padding: 8px 16px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    border-radius: 8px;
+    border: 1px solid var(--border-highlight);
+    background: var(--surface-elevated);
+    color: var(--text-secondary);
+    cursor: pointer;
+    transition: background 0.2s, color 0.2s;
+}
+
+.tool-btn:hover:not(:disabled) {
+    background: var(--surface-light);
+    color: var(--gold-light);
+}
+
+.dropdown-container {
+    position: relative;
+}
+
+.more-btn {
+    width: 38px;
+    height: 38px;
+    border-radius: 8px;
+    border: 1px solid var(--border-highlight);
+    background: var(--surface-elevated);
+    color: var(--gold-light);
+    font-size: 1.25rem;
+    line-height: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background 0.2s, border-color 0.2s;
+}
+
+.more-btn:hover:not(:disabled) {
+    background: var(--surface-light);
+    border-color: var(--gold);
+}
+
+.more-btn:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+}
+
+.dropdown-menu {
+    position: absolute;
+    top: calc(100% + 8px);
+    right: 0;
+    width: 220px;
+    background: #1D090D;
+    border: 1px solid var(--border-highlight);
+    border-radius: 12px;
+    padding: 8px;
+    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.6);
+    display: none;
+    flex-direction: column;
+    z-index: 50;
+}
+
+.dropdown-menu.show {
+    display: flex;
+}
+
+.dropdown-header {
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: var(--gold);
+    letter-spacing: 1px;
+    padding: 6px 12px 4px;
+    text-transform: uppercase;
+}
+
+.dropdown-item {
+    padding: 10px 12px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--text-secondary);
+    background: transparent;
+    border: none;
+    border-radius: 6px;
+    text-align: left;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    transition: background 0.15s, color 0.15s;
+}
+
+.dropdown-item:hover {
+    background: var(--surface-light);
+    color: var(--gold-light);
+}
+
+.dropdown-divider {
+    height: 1px;
+    background: var(--border);
+    margin: 6px 0;
+}
+
+/* Center Content Stage */
+.studio-stage {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px 12px;
+    position: relative;
+    min-height: 280px;
+}
+
+.stage-placeholder {
+    text-align: center;
+    color: var(--text-muted);
+}
+
+.stage-placeholder span {
+    font-size: 3rem;
+    display: block;
     margin-bottom: 8px;
 }
 
-textarea {
-    width: 100%;
-    height: 180px;
-    padding: 16px;
-    border-radius: 12px;
-    border: 1px solid var(--border);
-    resize: vertical;
-    font-family: inherit;
-    font-size: 0.95rem;
-}
-
-.button-group {
-    display: flex;
-    gap: 12px;
-    margin-top: 16px;
-    flex-wrap: wrap;
-}
-
-.canvas-preview-wrapper {
-    display: flex;
+/* Progress / Loading Screen */
+.loading-overlay {
+    display: none;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    background: var(--bg);
-    border-radius: 12px;
-    border: 2px dashed var(--border);
-    padding: 16px;
-    min-height: 260px;
+    text-align: center;
+    gap: 14px;
+    width: 80%;
 }
 
-canvas {
-    max-width: 100%;
-    height: auto;
-    background: var(--white);
+.loading-overlay p {
+    font-weight: 600;
+    color: var(--gold-light);
+}
+
+.progress-bar-container {
+    width: 100%;
+    height: 8px;
+    background: var(--surface-elevated);
+    border-radius: 999px;
+    overflow: hidden;
+}
+
+.progress-bar-fill {
+    width: 0%;
+    height: 100%;
+    background: var(--gold);
+    transition: width 0.05s linear;
+}
+
+/* Presentation Card Display */
+.presentation-card {
+    background: var(--surface);
+    border: 1px solid var(--border-highlight);
+    border-radius: 14px;
+    padding: 30px;
+    width: 100%;
+    max-width: 580px;
+    min-height: 230px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+}
+
+.presentation-card .slide-tag {
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: var(--gold);
+    letter-spacing: 1px;
+    margin-bottom: 8px;
+}
+
+.presentation-card h3 {
+    font-size: 1.35rem;
+    margin-bottom: 14px;
+    color: var(--text-primary);
+}
+
+.presentation-card p {
+    color: var(--text-secondary);
+    font-size: 1rem;
+    line-height: 1.6;
+}
+
+/* Flashcard 3D Interactive Flip */
+.flashcard-scene {
+    perspective: 1000px;
+    width: 100%;
+    max-width: 440px;
+    height: 230px;
+    cursor: pointer;
+}
+
+.flashcard-object {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    transform-style: preserve-3d;
+    transition: transform 0.6s cubic-bezier(0.4, 0.2, 0.2, 1);
+}
+
+.flashcard-object.is-flipped {
+    transform: rotateY(180deg);
+}
+
+.flashcard-face {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    border-radius: 14px;
+    border: 1px solid var(--border-highlight);
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+}
+
+.flashcard-front {
+    background: var(--surface);
+    color: var(--text-primary);
+}
+
+.flashcard-back {
+    background: #140508;
+    border-color: var(--gold-muted);
+    color: var(--text-primary);
+    transform: rotateY(180deg);
+}
+
+.card-hint {
+    font-size: 0.75rem;
+    margin-top: 12px;
+    color: var(--gold-muted);
+    font-weight: 600;
+}
+
+/* Quiz Card Display */
+.quiz-box {
+    width: 100%;
+    max-width: 580px;
+    background: var(--surface);
+    border: 1px solid var(--border-highlight);
+    border-radius: 14px;
+    padding: 26px;
+}
+
+.quiz-box h4 {
+    font-size: 1.15rem;
+    margin-bottom: 16px;
+    color: var(--text-primary);
+}
+
+.quiz-options {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.quiz-opt-btn {
+    padding: 12px 16px;
     border-radius: 8px;
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    border: 1px solid var(--border-highlight);
+    background: var(--surface-elevated);
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+    cursor: pointer;
+    text-align: left;
+    transition: all 0.2s;
 }
 
-/* WHY IT MATTERS EXPANSION */
+.quiz-opt-btn:hover:not(:disabled) {
+    background: var(--surface-light);
+    border-color: var(--gold-muted);
+    color: var(--text-primary);
+}
+
+.quiz-opt-btn.correct {
+    background: #144026;
+    border-color: var(--success);
+    color: #DCFCE7;
+    font-weight: bold;
+}
+
+.quiz-opt-btn.wrong {
+    background: #501319;
+    border-color: #F87171;
+    color: #FEE2E2;
+}
+
+/* Bottom Navigation Controls */
+.studio-bottom-controls {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 14px;
+    border-top: 1px solid var(--border);
+    gap: 16px;
+}
+
+.nav-arrows-group {
+    display: flex;
+    gap: 8px;
+}
+
+.nav-arrow-btn {
+    padding: 8px 16px;
+    border-radius: 8px;
+    border: 1px solid var(--border-highlight);
+    background: var(--surface-elevated);
+    color: var(--text-secondary);
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.nav-arrow-btn:hover:not(:disabled) {
+    background: var(--surface-light);
+    color: var(--gold-light);
+}
+
+.nav-arrow-btn:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+}
+
+.progress-pill {
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--gold-light);
+    background: var(--surface-elevated);
+    border: 1px solid var(--border-highlight);
+    padding: 4px 12px;
+    border-radius: 999px;
+}
+
+.page-jump-links {
+    display: flex;
+    gap: 6px;
+    list-style: none;
+}
+
+.jump-dot {
+    width: 28px;
+    height: 28px;
+    border-radius: 6px;
+    border: 1px solid var(--border-highlight);
+    background: var(--surface-elevated);
+    color: var(--text-secondary);
+    font-size: 0.75rem;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.jump-dot:hover {
+    border-color: var(--gold);
+}
+
+.jump-dot.active {
+    background: var(--gold);
+    color: #19080C;
+    border-color: var(--gold);
+}
+
+/* WHY IT MATTERS SECTION */
 .future-header {
     max-width: 780px;
     margin-bottom: 40px;
@@ -354,7 +910,7 @@ canvas {
 
 .section-lead {
     font-size: 1.15rem;
-    color: var(--muted);
+    color: var(--text-secondary);
     line-height: 1.6;
 }
 
@@ -366,16 +922,16 @@ canvas {
 }
 
 .matter-card {
-    background: var(--white);
+    background: var(--surface);
     border: 1px solid var(--border);
     border-radius: 18px;
     padding: 32px;
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    transition: transform 0.2s ease, border-color 0.2s ease;
 }
 
 .matter-card:hover {
     transform: translateY(-3px);
-    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05);
+    border-color: var(--gold-muted);
 }
 
 .matter-icon {
@@ -387,18 +943,18 @@ canvas {
 .matter-card h3 {
     font-size: 1.25rem;
     margin-bottom: 12px;
-    color: var(--text);
+    color: var(--text-primary);
 }
 
 .matter-card p {
-    color: var(--muted);
+    color: var(--text-secondary);
     font-size: 0.95rem;
     line-height: 1.6;
 }
 
 .research-banner {
-    background: var(--blue);
-    border: 1px solid #bfdbfe;
+    background: #1A070B;
+    border: 1px solid var(--gold-muted);
     border-radius: 16px;
     padding: 24px 30px;
     display: flex;
@@ -407,10 +963,10 @@ canvas {
 }
 
 .banner-badge {
-    background: #18213A;
-    color: #FFFFFF;
+    background: var(--gold);
+    color: #1A070B;
     font-size: 0.75rem;
-    font-weight: 700;
+    font-weight: 800;
     letter-spacing: 1px;
     padding: 6px 12px;
     border-radius: 999px;
@@ -418,7 +974,7 @@ canvas {
 }
 
 .research-banner p {
-    color: var(--text);
+    color: var(--text-primary);
     font-size: 1rem;
     margin: 0;
 }
@@ -428,16 +984,16 @@ footer {
     text-align: center;
     padding: 40px 20px;
     border-top: 1px solid var(--border);
-    color: var(--muted);
+    color: var(--text-muted);
 }
 
-/* RESPONSIVE BREAKPOINTS (MOBILE & TABLET) */
+/* RESPONSIVE BREAKPOINTS */
 @media (max-width: 992px) {
     .journey-grid {
         grid-template-columns: repeat(3, 1fr);
     }
     
-    .converter-workspace {
+    .studio-grid {
         grid-template-columns: 1fr;
     }
 }
@@ -462,9 +1018,8 @@ footer {
         gap: 16px;
     }
 
-    .hero-image {
-        height: 240px;
-        font-size: 4rem;
+    .hero-image-wrapper {
+        height: 280px;
     }
 
     .hero .buttons {
@@ -476,6 +1031,15 @@ footer {
         align-items: flex-start;
         gap: 12px;
         padding: 20px;
+    }
+
+    .studio-bottom-controls {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .page-jump-links {
+        justify-content: center;
     }
 }
 </style>
@@ -493,7 +1057,7 @@ footer {
                 <li><a href="#story">The Story</a></li>
                 <li><a href="#journey">The Journey</a></li>
                 <li><a href="#benefits">The Benefits</a></li>
-                <li><a href="#try">Generator</a></li>
+                <li><a href="#studio">Visual Studio</a></li>
                 <li><a href="#future">Why It Matters</a></li>
             </ul>
         </nav>
@@ -506,13 +1070,20 @@ footer {
         <div>
             <span class="section-label">LEARNING • VISUALS • UNDERSTANDING</span>
             <h1 class="section-title">Every skill begins with understanding.</h1>
-            <p>Visual learning helps people transform dense information into sequential logic and real-world execution.</p>
+            <p>Visual learning helps students and creators transform complex software, technical workflows, and abstract ideas into fluid, confidence-backed execution.</p>
             <div class="buttons">
                 <a href="#journey" class="btn primary">Explore the Journey</a>
-                <a href="#try" class="btn secondary">Try the Generator</a>
+                <a href="#studio" class="btn secondary">Open Visual Studio</a>
             </div>
         </div>
-        <div class="hero-image" role="img" aria-label="Illustration of a glowing lightbulb representing comprehension">💡</div>
+
+        <div class="hero-image-wrapper">
+            <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=900&q=80" 
+                 alt="College student deeply focused while working on technical software on a laptop in a modern study space" 
+                 loading="eager">
+            <div class="hero-image-overlay"></div>
+            <div class="hero-image-caption">Hands-on software learning in action</div>
+        </div>
     </section>
 
     <section id="idea">
@@ -591,24 +1162,126 @@ footer {
         </div>
     </section>
 
-    <section id="try">
+    <!-- ======================================================
+         INTERACTIVE LESSON STUDIO COMPONENT
+    ======================================================= -->
+    <section id="studio">
         <div class="container">
-            <span class="section-label">INTERACTIVE TOOL</span>
-            <h2 class="section-title">Turn notes into an actual diagram</h2>
-            
-            <div class="converter-workspace">
-                <div class="input-panel">
-                    <label for="inputText">Enter your lesson or concept breakdown:</label>
-                    <textarea id="inputText" placeholder="Enter steps separated by periods or new lines. For example: Read requirement. Write prototype. Test accessibility. Publish site.">1. Discover the objective&#10;2. Outline architectural requirements&#10;3. Implement grid layout&#10;4. Verify WCAG contrast & accessibility</textarea>
-                    
-                    <div class="button-group">
-                        <button type="button" class="btn primary" onclick="renderNotesToImage()">Render Image</button>
-                        <button type="button" id="downloadBtn" class="btn secondary" onclick="downloadCanvasImage()" disabled>Download PNG</button>
-                    </div>
-                </div>
+            <span class="section-label">INTERACTIVE STUDIO</span>
+            <h2 class="section-title">Transform Lessons into Visual Media</h2>
+            <p class="section-lead">Drop your lesson notes below to generate presentations, study flashcards, or interactive quizzes.</p>
 
-                <div class="canvas-preview-wrapper">
-                    <canvas id="flowchartCanvas" width="500" height="340" role="img" aria-label="Interactive visual flowchart preview"></canvas>
+            <div class="studio-widget">
+                <div class="studio-grid">
+                    
+                    <!-- LEFT COLUMN: Input & Upload -->
+                    <div class="studio-input-panel">
+                        <div class="drop-area" id="dropArea" tabindex="0" role="button" aria-label="Upload lesson file">
+                            <div class="drop-area-icon">📄</div>
+                            <strong>Drag & Drop Files</strong>
+                            <p>or click to browse (.txt files accepted)</p>
+                            <input type="file" id="fileInput" class="hidden-file-input" accept=".txt">
+                        </div>
+
+                        <div class="input-label-row">
+                            <label for="lessonText">Or Paste Lesson Text:</label>
+                            <span class="char-counter" id="charCounter">0 / 3,000</span>
+                        </div>
+
+                        <textarea id="lessonText" class="studio-textarea" placeholder="Paste your lesson, documentation, or lecture notes here (50 - 3,000 characters)..."></textarea>
+
+                        <div id="statusMessage" class="status-box" role="alert"></div>
+
+                        <button type="button" class="btn primary" id="generateBtn" onclick="handleGenerateAction()">Generate Content</button>
+                    </div>
+
+                    <!-- RIGHT COLUMN: Output Canvas / Results -->
+                    <div class="studio-output-panel">
+                        
+                        <!-- Top Bar: Mode Switcher & 3-Dot Menu -->
+                        <div class="studio-top-controls">
+                            <div class="mode-selector">
+                                <label for="learningMode">MODE:</label>
+                                <select id="learningMode" class="mode-select" onchange="handleModeChange()">
+                                    <option value="presentation">Presentation Deck</option>
+                                    <option value="flashcards">Flashcards</option>
+                                    <option value="quiz">Interactive Quiz</option>
+                                </select>
+                            </div>
+
+                            <div class="extra-tools">
+                                <button type="button" class="tool-btn" onclick="clearStudio()">Clear</button>
+
+                                <!-- 3-Dot Export Dropdown Menu -->
+                                <div class="dropdown-container">
+                                    <button type="button" class="more-btn" id="exportMenuBtn" onclick="toggleExportMenu(event)" aria-haspopup="true" aria-expanded="false" aria-label="Export settings and options" disabled>
+                                        &#8942;
+                                    </button>
+
+                                    <div class="dropdown-menu" id="exportMenu" role="menu">
+                                        <div class="dropdown-header">Export Format</div>
+                                        <button type="button" class="dropdown-item" role="menuitem" onclick="exportAs('txt')">
+                                            <span>Text Document</span>
+                                            <span style="color:var(--gold-muted); font-size:0.75rem;">.TXT</span>
+                                        </button>
+                                        <button type="button" class="dropdown-item" role="menuitem" onclick="exportAs('md')">
+                                            <span>Markdown</span>
+                                            <span style="color:var(--gold-muted); font-size:0.75rem;">.MD</span>
+                                        </button>
+                                        <button type="button" class="dropdown-item" role="menuitem" onclick="exportAs('html')">
+                                            <span>Standalone Web Page</span>
+                                            <span style="color:var(--gold-muted); font-size:0.75rem;">.HTML</span>
+                                        </button>
+                                        <button type="button" class="dropdown-item" role="menuitem" onclick="exportAs('json')">
+                                            <span>Structured Data</span>
+                                            <span style="color:var(--gold-muted); font-size:0.75rem;">.JSON</span>
+                                        </button>
+                                        <div class="dropdown-divider"></div>
+                                        <button type="button" class="dropdown-item" role="menuitem" onclick="printStudioContent()">
+                                            <span>Print / Save as PDF</span>
+                                            <span style="font-size:0.85rem;">🖨️</span>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Center Display Stage -->
+                        <div class="studio-stage" id="studioStage">
+                            
+                            <!-- Initial Empty State -->
+                            <div class="stage-placeholder" id="placeholderView">
+                                <span>🎨</span>
+                                <p>Generated visual content will appear here.</p>
+                            </div>
+
+                            <!-- Loading State with Centered Message and Progress Bar -->
+                            <div class="loading-overlay" id="loadingView">
+                                <p>Success! Please wait a moment...</p>
+                                <div class="progress-bar-container">
+                                    <div class="progress-bar-fill" id="progressBar"></div>
+                                </div>
+                            </div>
+
+                            <!-- Rendered Views -->
+                            <div id="activeRenderContainer" style="display:none; width: 100%; display: flex; justify-content: center;"></div>
+
+                        </div>
+
+                        <!-- Bottom Navigation Controls -->
+                        <div class="studio-bottom-controls" id="bottomNavControls" style="display:none;">
+                            <div class="nav-arrows-group">
+                                <button type="button" class="nav-arrow-btn" id="prevBtn" onclick="navigateStep(-1)" aria-label="Previous Item">← Previous</button>
+                                <button type="button" class="nav-arrow-btn" id="nextBtn" onclick="navigateStep(1)" aria-label="Next Item">Next →</button>
+                            </div>
+
+                            <span class="progress-pill" id="itemCounter">1 / 3</span>
+
+                            <ul class="page-jump-links" id="pageDots" aria-label="Skip to page"></ul>
+                        </div>
+
+                    </div>
+
                 </div>
             </div>
         </div>
@@ -676,122 +1349,409 @@ footer {
 </footer>
 
 <script>
-window.addEventListener("DOMContentLoaded", () => {
-    renderNotesToImage();
+/* ======================================================
+   STUDIO INTERACTIVE CONTROLLER (Vanilla JS Engine)
+====================================================== */
+const lessonTextInput = document.getElementById("lessonText");
+const charCounter = document.getElementById("charCounter");
+const statusMessage = document.getElementById("statusMessage");
+const dropArea = document.getElementById("dropArea");
+const fileInput = document.getElementById("fileInput");
+const learningModeSelect = document.getElementById("learningMode");
+const placeholderView = document.getElementById("placeholderView");
+const loadingView = document.getElementById("loadingView");
+const progressBar = document.getElementById("progressBar");
+const activeRenderContainer = document.getElementById("activeRenderContainer");
+const bottomNavControls = document.getElementById("bottomNavControls");
+const prevBtn = document.getElementById("prevBtn");
+const nextBtn = document.getElementById("nextBtn");
+const itemCounter = document.getElementById("itemCounter");
+const pageDots = document.getElementById("pageDots");
+const exportMenuBtn = document.getElementById("exportMenuBtn");
+const exportMenu = document.getElementById("exportMenu");
+
+let activeDataset = [];
+let currentIndex = 0;
+
+// Character Count Handler
+lessonTextInput.addEventListener("input", () => {
+    const len = lessonTextInput.value.length;
+    charCounter.textContent = `${len.toLocaleString()} / 3,000`;
+    if (len > 3000) {
+        charCounter.style.color = "var(--error)";
+    } else {
+        charCounter.style.color = "var(--text-muted)";
+    }
 });
 
-function parseInputSteps(text) {
-    return text
-        .split(/\n|\.(?=\s|$)/)
-        .map(s => s.replace(/^\d+[\.\)]\s*/, '').trim())
-        .filter(s => s.length > 0);
+// Drag & Drop / File Upload Listeners
+dropArea.addEventListener("click", () => fileInput.click());
+dropArea.addEventListener("keydown", (e) => {
+    if (e.key === "Enter" || e.key === " ") {
+        fileInput.click();
+    }
+});
+
+["dragenter", "dragover"].forEach(eventName => {
+    dropArea.addEventListener(eventName, (e) => {
+        e.preventDefault();
+        dropArea.classList.add("dragover");
+    });
+});
+
+["dragleave", "drop"].forEach(eventName => {
+    dropArea.addEventListener(eventName, (e) => {
+        e.preventDefault();
+        dropArea.classList.remove("dragover");
+    });
+});
+
+dropArea.addEventListener("drop", (e) => {
+    const files = e.dataTransfer.files;
+    if (files.length > 0) {
+        handleFileSelection(files[0]);
+    }
+});
+
+fileInput.addEventListener("change", (e) => {
+    if (e.target.files.length > 0) {
+        handleFileSelection(e.target.files[0]);
+    }
+});
+
+function handleFileSelection(file) {
+    if (!file.name.endsWith(".txt")) {
+        showError("Please upload a valid .txt text document.");
+        return;
+    }
+    const reader = new FileReader();
+    reader.onload = (e) => {
+        lessonTextInput.value = e.target.result;
+        lessonTextInput.dispatchEvent(new Event("input"));
+        clearError();
+    };
+    reader.readAsText(file);
 }
 
-function renderNotesToImage() {
-    const text = document.getElementById("inputText").value;
-    const steps = parseInputSteps(text);
-    const canvas = document.getElementById("flowchartCanvas");
-    const ctx = canvas.getContext("2d");
-    const downloadBtn = document.getElementById("downloadBtn");
+function showError(msg) {
+    statusMessage.textContent = msg;
+    statusMessage.className = "status-box error";
+}
 
-    if (steps.length === 0) {
-        alert("Please enter at least one step or sentence.");
+function clearError() {
+    statusMessage.textContent = "";
+    statusMessage.className = "status-box";
+}
+
+// Generation & Synthesis Engine
+function handleGenerateAction() {
+    const text = lessonTextInput.value.trim();
+
+    // Boundary check from Technical Scope (50 - 3000 characters)
+    if (text.length === 0) {
+        showError("Oops! You forgot to provide me a lesson.");
+        return;
+    }
+    if (text.length < 50) {
+        showError("Lesson text is too short. Please provide at least 50 characters.");
+        return;
+    }
+    if (text.length > 3000) {
+        showError("Lesson text exceeds maximum limit of 3,000 characters.");
         return;
     }
 
-    // Dynamic sizing based on steps
-    const cardHeight = 52;
-    const gap = 28;
-    const padding = 40;
-    const dynamicHeight = Math.max(300, (steps.length * (cardHeight + gap)) + padding);
-    
-    canvas.width = 600;
-    canvas.height = dynamicHeight;
+    clearError();
 
-    // Background fill
-    ctx.fillStyle = "#FFFFFF";
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    // Trigger Success Loading Animation
+    placeholderView.style.display = "none";
+    activeRenderContainer.style.display = "none";
+    bottomNavControls.style.display = "none";
+    loadingView.style.display = "flex";
+    progressBar.style.width = "0%";
 
-    // Grid accent lines
-    ctx.strokeStyle = "#F1F5F9";
-    ctx.lineWidth = 1;
-    for (let x = 0; x < canvas.width; x += 30) {
-        ctx.beginPath();
-        ctx.moveTo(x, 0);
-        ctx.lineTo(x, canvas.height);
-        ctx.stroke();
-    }
+    let progress = 0;
+    const interval = setInterval(() => {
+        progress += 10;
+        progressBar.style.width = progress + "%";
 
-    let currentY = padding;
-
-    steps.forEach((step, index) => {
-        const boxX = 60;
-        const boxWidth = canvas.width - 120;
-
-        // Card Container
-        ctx.fillStyle = "#F8FAFC";
-        ctx.strokeStyle = "#CBD5E1";
-        ctx.lineWidth = 1.5;
-        ctx.beginPath();
-        ctx.roundRect(boxX, currentY, boxWidth, cardHeight, 10);
-        ctx.fill();
-        ctx.stroke();
-
-        // Step Badge
-        ctx.fillStyle = "#9A6F1A";
-        ctx.beginPath();
-        ctx.arc(boxX + 26, currentY + cardHeight / 2, 14, 0, Math.PI * 2);
-        ctx.fill();
-
-        ctx.fillStyle = "#FFFFFF";
-        ctx.font = "bold 13px system-ui, sans-serif";
-        ctx.textAlign = "center";
-        ctx.textBaseline = "middle";
-        ctx.fillText(index + 1, boxX + 26, currentY + cardHeight / 2);
-
-        // Text String (truncated cleanly if too long)
-        ctx.fillStyle = "#1E252D";
-        ctx.font = "500 15px system-ui, sans-serif";
-        ctx.textAlign = "left";
-        let displayStr = step;
-        if (displayStr.length > 50) {
-            displayStr = displayStr.substring(0, 47) + "...";
+        if (progress >= 100) {
+            clearInterval(interval);
+            setTimeout(() => {
+                loadingView.style.display = "none";
+                synthesizeContent(text);
+            }, 200);
         }
-        ctx.fillText(displayStr, boxX + 54, currentY + cardHeight / 2);
-
-        // Arrow between cards
-        if (index < steps.length - 1) {
-            const arrowStartY = currentY + cardHeight;
-            const arrowEndY = arrowStartY + gap;
-            const centerX = canvas.width / 2;
-
-            ctx.strokeStyle = "#64748B";
-            ctx.lineWidth = 2;
-            ctx.beginPath();
-            ctx.moveTo(centerX, arrowStartY + 4);
-            ctx.lineTo(centerX, arrowEndY - 4);
-            ctx.stroke();
-
-            ctx.fillStyle = "#64748B";
-            ctx.beginPath();
-            ctx.moveTo(centerX - 5, arrowEndY - 6);
-            ctx.lineTo(centerX + 5, arrowEndY - 6);
-            ctx.lineTo(centerX, arrowEndY);
-            ctx.fill();
-        }
-
-        currentY += cardHeight + gap;
-    });
-
-    downloadBtn.disabled = false;
+    }, 40);
 }
 
-function downloadCanvasImage() {
-    const canvas = document.getElementById("flowchartCanvas");
+function synthesizeContent(rawText) {
+    const sentences = rawText
+        .split(/(?<=[.?!])\s+/)
+        .map(s => s.trim())
+        .filter(s => s.length > 10);
+
+    const mode = learningModeSelect.value;
+    activeDataset = [];
+
+    if (mode === "presentation") {
+        const chunkSize = Math.max(1, Math.ceil(sentences.length / 4));
+        for (let i = 0; i < sentences.length; i += chunkSize) {
+            const chunk = sentences.slice(i, i + chunkSize);
+            activeDataset.push({
+                title: `Key Focus: Concept Phase ${Math.floor(i / chunkSize) + 1}`,
+                body: chunk.join(" ")
+            });
+        }
+    } else if (mode === "flashcards") {
+        sentences.slice(0, 5).forEach((sentence, idx) => {
+            const words = sentence.split(" ");
+            const prompt = words.slice(0, 4).join(" ") + "...";
+            activeDataset.push({
+                front: `Term / Question #${idx + 1}`,
+                prompt: prompt,
+                back: sentence
+            });
+        });
+    } else if (mode === "quiz") {
+        sentences.slice(0, 4).forEach((sentence, idx) => {
+            const words = sentence.split(" ");
+            const targetWord = words.find(w => w.length > 5) || "concept";
+            activeDataset.push({
+                question: `Q${idx + 1}: According to the lesson, which factor relates directly to: "${sentence.slice(0, 45)}..."?`,
+                options: [
+                    targetWord.replace(/[.,]/g, ""),
+                    "Extraneous Cognitive Friction",
+                    "Passive Text Memorization"
+                ].sort(() => 0.5 - Math.random()),
+                answer: targetWord.replace(/[.,]/g, "")
+            });
+        });
+    }
+
+    currentIndex = 0;
+    renderCurrentItem();
+    renderPageJumpDots();
+    bottomNavControls.style.display = "flex";
+    exportMenuBtn.disabled = false;
+}
+
+function renderCurrentItem() {
+    activeRenderContainer.style.display = "flex";
+    activeRenderContainer.innerHTML = "";
+
+    const mode = learningModeSelect.value;
+    const item = activeDataset[currentIndex];
+
+    if (mode === "presentation") {
+        const slide = document.createElement("div");
+        slide.className = "presentation-card";
+        slide.innerHTML = `
+            <div class="slide-tag">SLIDE ${currentIndex + 1} OF ${activeDataset.length}</div>
+            <h3>${item.title}</h3>
+            <p>${item.body}</p>
+        `;
+        activeRenderContainer.appendChild(slide);
+    } else if (mode === "flashcards") {
+        const scene = document.createElement("div");
+        scene.className = "flashcard-scene";
+        scene.innerHTML = `
+            <div class="flashcard-object" id="activeCardObject" onclick="this.classList.toggle('is-flipped')">
+                <div class="flashcard-face flashcard-front">
+                    <span class="slide-tag">${item.front}</span>
+                    <h3 style="margin-top: 10px; color: var(--text-primary);">${item.prompt}</h3>
+                    <p class="card-hint">Click or tap to flip card ↻</p>
+                </div>
+                <div class="flashcard-face flashcard-back">
+                    <span class="slide-tag" style="color:var(--gold);">ANSWER & CONTEXT</span>
+                    <p style="margin-top:10px; color: var(--text-secondary);">${item.back}</p>
+                    <p class="card-hint">Click to flip back</p>
+                </div>
+            </div>
+        `;
+        activeRenderContainer.appendChild(scene);
+    } else if (mode === "quiz") {
+        const quizCard = document.createElement("div");
+        quizCard.className = "quiz-box";
+        
+        let optionsHtml = "";
+        item.options.forEach(opt => {
+            optionsHtml += `<button type="button" class="quiz-opt-btn" onclick="checkQuizAnswer(this, '${opt}', '${item.answer}')">${opt}</button>`;
+        });
+
+        quizCard.innerHTML = `
+            <h4>${item.question}</h4>
+            <div class="quiz-options">${optionsHtml}</div>
+        `;
+        activeRenderContainer.appendChild(quizCard);
+    }
+
+    // Update bottom pagination indicators
+    itemCounter.textContent = `${currentIndex + 1} / ${activeDataset.length}`;
+    prevBtn.disabled = currentIndex === 0;
+    nextBtn.disabled = currentIndex === activeDataset.length - 1;
+
+    // Update active jump dot
+    const dots = document.querySelectorAll(".jump-dot");
+    dots.forEach((dot, i) => {
+        dot.classList.toggle("active", i === currentIndex);
+    });
+}
+
+function checkQuizAnswer(btn, selected, correct) {
+    const parent = btn.closest(".quiz-options");
+    const buttons = parent.querySelectorAll(".quiz-opt-btn");
+    buttons.forEach(b => b.disabled = true);
+
+    if (selected === correct) {
+        btn.classList.add("correct");
+    } else {
+        btn.classList.add("wrong");
+        buttons.forEach(b => {
+            if (b.textContent === correct) b.classList.add("correct");
+        });
+    }
+}
+
+function renderPageJumpDots() {
+    pageDots.innerHTML = "";
+    activeDataset.forEach((_, idx) => {
+        const li = document.createElement("li");
+        li.className = `jump-dot ${idx === currentIndex ? "active" : ""}`;
+        li.textContent = idx + 1;
+        li.setAttribute("aria-label", `Jump to item ${idx + 1}`);
+        li.addEventListener("click", () => {
+            currentIndex = idx;
+            renderCurrentItem();
+        });
+        pageDots.appendChild(li);
+    });
+}
+
+function navigateStep(direction) {
+    const newIdx = currentIndex + direction;
+    if (newIdx >= 0 && newIdx < activeDataset.length) {
+        currentIndex = newIdx;
+        renderCurrentItem();
+    }
+}
+
+function handleModeChange() {
+    if (lessonTextInput.value.trim().length >= 50) {
+        handleGenerateAction();
+    }
+}
+
+function clearStudio() {
+    lessonTextInput.value = "";
+    charCounter.textContent = "0 / 3,000";
+    charCounter.style.color = "var(--text-muted)";
+    activeDataset = [];
+    currentIndex = 0;
+    activeRenderContainer.innerHTML = "";
+    activeRenderContainer.style.display = "none";
+    bottomNavControls.style.display = "none";
+    placeholderView.style.display = "block";
+    exportMenuBtn.disabled = true;
+    exportMenu.classList.remove("show");
+    clearError();
+}
+
+/* ======================================================
+   3-DOT EXPORT MENU & MULTI-FORMAT ENGINES
+====================================================== */
+function toggleExportMenu(e) {
+    e.stopPropagation();
+    const isShowing = exportMenu.classList.toggle("show");
+    exportMenuBtn.setAttribute("aria-expanded", isShowing);
+}
+
+// Close dropdown on outside click or ESC
+document.addEventListener("click", (e) => {
+    if (!e.target.closest(".dropdown-container")) {
+        exportMenu.classList.remove("show");
+        exportMenuBtn.setAttribute("aria-expanded", "false");
+    }
+});
+
+document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && exportMenu.classList.contains("show")) {
+        exportMenu.classList.remove("show");
+        exportMenuBtn.setAttribute("aria-expanded", "false");
+        exportMenuBtn.focus();
+    }
+});
+
+function exportAs(format) {
+    if (activeDataset.length === 0) return;
+    exportMenu.classList.remove("show");
+
+    const mode = learningModeSelect.value;
+    let content = "";
+    let mimeType = "text/plain";
+    let filename = `visual-learning-${mode}.${format}`;
+
+    if (format === "txt") {
+        content = `VISUAL LEARNING STUDIO EXPORT\nMode: ${mode.toUpperCase()}\n\n`;
+        activeDataset.forEach((item, i) => {
+            content += `--- ITEM ${i + 1} ---\n`;
+            if (item.title) content += `Title: ${item.title}\nContent: ${item.body}\n\n`;
+            if (item.front) content += `Prompt: ${item.prompt}\nAnswer: ${item.back}\n\n`;
+            if (item.question) content += `Question: ${item.question}\nAnswer: ${item.answer}\n\n`;
+        });
+        mimeType = "text/plain";
+    } else if (format === "md") {
+        content = `# Visual Learning Export: ${mode.toUpperCase()}\n\n`;
+        activeDataset.forEach((item, i) => {
+            content += `## Item ${i + 1}\n\n`;
+            if (item.title) content += `### ${item.title}\n\n${item.body}\n\n---\n\n`;
+            if (item.front) content += `**Front:** ${item.prompt}\n\n**Back:** ${item.back}\n\n---\n\n`;
+            if (item.question) content += `**${item.question}**\n\n*Options:*\n${item.options.map(o => `- ${o}`).join("\n")}\n\n*Correct:* **${item.answer}**\n\n---\n\n`;
+        });
+        mimeType = "text/markdown";
+    } else if (format === "json") {
+        content = JSON.stringify({ mode: mode, items: activeDataset }, null, 2);
+        mimeType = "application/json";
+    } else if (format === "html") {
+        content = `<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Exported Visual Learning - ${mode.toUpperCase()}</title>
+<style>
+body { font-family: system-ui, sans-serif; max-width: 800px; margin: 40px auto; padding: 0 20px; line-height: 1.6; color: #1E252D; }
+.card { border: 1px solid #D1D5DB; border-radius: 12px; padding: 24px; margin-bottom: 24px; background: #FBFBFA; }
+h1 { color: #8A1528; }
+.badge { display: inline-block; background: #E5C158; color: #1E080C; padding: 4px 10px; border-radius: 99px; font-size: 0.8rem; font-weight: bold; }
+</style>
+</head>
+<body>
+<h1>Visual Learning Studio Export</h1>
+<p><strong>Mode:</strong> ${mode.toUpperCase()}</p>
+<hr>
+${activeDataset.map((item, i) => `
+    <div class="card">
+        <span class="badge">Item ${i + 1}</span>
+        ${item.title ? `<h2>${item.title}</h2><p>${item.body}</p>` : ''}
+        ${item.front ? `<h3>${item.prompt}</h3><p><strong>Answer:</strong> ${item.back}</p>` : ''}
+        ${item.question ? `<h3>${item.question}</h3><ul>${item.options.map(o => `<li>${o}</li>`).join('')}</ul><p><strong>Correct:</strong> ${item.answer}</p>` : ''}
+    </div>
+`).join('')}
+</body>
+</html>`;
+        mimeType = "text/html";
+    }
+
+    const blob = new Blob([content], { type: mimeType });
     const link = document.createElement("a");
-    link.download = "learning-flowchart.png";
-    link.href = canvas.toDataURL("image/png");
+    link.href = URL.createObjectURL(blob);
+    link.download = filename;
     link.click();
+}
+
+function printStudioContent() {
+    exportMenu.classList.remove("show");
+    window.print();
 }
 </script>
 
