@@ -4,31 +4,35 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Visual Learning | Transform Ideas into Flowcharts</title>
+<title>CogniFlow | Transform Dense Text into Intuitive Visuals</title>
+
+<!-- PDF.js library for genuine, robust client-side PDF reading -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
 
 <style>
 :root {
-    /* Sophisticated Dark Wine, Gold & White Palette */
-    --bg: #220B10;           /* Deep wine-red canvas */
-    --surface: #2E1218;      /* Card background */
-    --surface-elevated: #3D1821; /* Highlighting panels and inputs */
-    --surface-light: #52202C; /* Interactive hover states */
+    /* Refined Dark Wine, Gold & White Palette */
+    --bg: #18060A;
+    --surface: #240C12;
+    --surface-elevated: #32111A;
+    --surface-light: #4A1926;
     
-    --gold: #E5C158;         /* Warm luminous gold */
-    --gold-muted: #B89738;   /* Accessible secondary gold */
-    --gold-light: #F5E6B8;   /* Soft pale champagne for badges */
+    --gold: #E5C158;
+    --gold-muted: #B89738;
+    --gold-light: #F5E6B8;
     
-    --text-primary: #FFFFFF; /* Crisp white for titles & headings */
-    --text-secondary: #E8D6D9; /* Soft cream-white for paragraph text */
-    --text-muted: #BFA5AA;   /* Secondary descriptions */
+    --text-primary: #FFFFFF;
+    --text-secondary: #EBE0E2;
+    --text-muted: #C4ABB0;
     
-    --border: #4A222B;       /* Crimson border */
-    --border-highlight: #703340;
-    --focus-ring: #F59E0B;   /* Amber focus indicator */
+    --border: #441A23;
+    --border-highlight: #682936;
+    --focus-ring: #F59E0B;
     
     --error: #FCA5A5;
     --error-bg: #491319;
     --success: #86EFAC;
+    --success-bg: #144026;
 }
 
 * {
@@ -81,7 +85,7 @@ body {
 /* NAVIGATION */
 header {
     border-bottom: 1px solid var(--border);
-    background: rgba(34, 11, 16, 0.95);
+    background: rgba(24, 6, 10, 0.95);
     backdrop-filter: blur(8px);
     position: sticky;
     top: 0;
@@ -96,8 +100,8 @@ nav {
 }
 
 .logo {
-    font-weight: 700;
-    font-size: 1.25rem;
+    font-weight: 800;
+    font-size: 1.35rem;
     color: var(--text-primary);
     letter-spacing: 0.5px;
 }
@@ -135,6 +139,7 @@ nav {
     border: none;
     font-size: 1rem;
     transition: transform 0.2s, background-color 0.2s, box-shadow 0.2s;
+    text-align: center;
 }
 
 .btn:hover:not(:disabled) {
@@ -190,7 +195,7 @@ section {
 /* HERO SECTION */
 .hero {
     display: grid;
-    grid-template-columns: 1.15fr 0.85fr;
+    grid-template-columns: 1.1fr 0.9fr;
     align-items: center;
     gap: 48px;
     min-height: 80vh;
@@ -208,45 +213,35 @@ section {
     gap: 16px;
 }
 
-.hero-image-wrapper {
-    position: relative;
+/* BESPOKE SVG HERO VISUAL */
+.hero-visual-container {
+    background: radial-gradient(circle at center, #35131B 0%, #19080C 100%);
     border-radius: 28px;
-    overflow: hidden;
-    height: 400px;
     border: 1px solid var(--border-highlight);
-    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.45);
+    padding: 24px;
+    box-shadow: 0 16px 36px rgba(0, 0, 0, 0.5);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
 }
 
-.hero-image-wrapper img {
+.hero-visual-container svg {
     width: 100%;
-    height: 100%;
-    object-fit: cover;
+    height: auto;
+    max-height: 380px;
     display: block;
-    filter: contrast(105%) brightness(95%);
-    transition: transform 0.4s ease;
 }
 
-.hero-image-wrapper:hover img {
-    transform: scale(1.03);
-}
-
-.hero-image-overlay {
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(180deg, rgba(34, 11, 16, 0.1) 0%, rgba(34, 11, 16, 0.75) 100%);
-    pointer-events: none;
-}
-
-.hero-image-caption {
-    position: absolute;
-    bottom: 16px;
-    left: 20px;
-    right: 20px;
+.hero-visual-caption {
+    margin-top: 14px;
     color: var(--gold-light);
     font-size: 0.85rem;
     font-weight: 600;
-    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
-    pointer-events: none;
+    letter-spacing: 0.5px;
+    text-align: center;
 }
 
 /* THE BIG IDEA */
@@ -372,25 +367,37 @@ section {
 }
 
 /* ======================================================
-   INTERACTIVE LESSON STUDIO (DARK RED / GOLD PALETTE)
+   INTERACTIVE STUDIO WIDGET (AI POWERED & FULLSCREEN)
 ====================================================== */
 .studio-widget {
     background: var(--surface);
     border: 1px solid var(--border);
     border-radius: 20px;
-    padding: 28px;
+    padding: 32px;
     margin-top: 24px;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.studio-widget.is-fullscreen {
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    border-radius: 0;
+    padding: 24px 32px;
+    margin: 0;
+    overflow-y: auto;
+    background: #140508;
 }
 
 .studio-grid {
     display: grid;
-    grid-template-columns: 340px 1fr;
+    grid-template-columns: 380px 1fr;
     gap: 28px;
-    min-height: 480px;
+    min-height: 600px;
 }
 
-/* Left Panel: Input & Drop Area */
+/* Left Panel */
 .studio-input-panel {
     display: flex;
     flex-direction: column;
@@ -410,7 +417,7 @@ section {
 .drop-area:hover,
 .drop-area.dragover {
     border-color: var(--gold);
-    background: #441A23;
+    background: #3F151F;
 }
 
 .drop-area-icon {
@@ -427,6 +434,19 @@ section {
     color: var(--text-primary);
 }
 
+.file-status-pill {
+    display: none;
+    margin-top: 10px;
+    background: #19080C;
+    border: 1px solid var(--gold-muted);
+    border-radius: 8px;
+    padding: 6px 12px;
+    font-size: 0.8rem;
+    color: var(--gold-light);
+    align-items: center;
+    justify-content: space-between;
+}
+
 .hidden-file-input {
     display: none;
 }
@@ -440,13 +460,13 @@ section {
 }
 
 .char-counter {
-    color: var(--text-muted);
-    font-weight: normal;
+    color: var(--gold-muted);
+    font-size: 0.8rem;
 }
 
 .studio-textarea {
     width: 100%;
-    height: 180px;
+    height: 140px;
     padding: 14px;
     border-radius: 12px;
     border: 1px solid var(--border-highlight);
@@ -454,12 +474,81 @@ section {
     color: var(--text-primary);
     font-family: inherit;
     font-size: 0.9rem;
-    resize: none;
+    resize: vertical;
     line-height: 1.5;
 }
 
 .studio-textarea::placeholder {
     color: #9C7D84;
+}
+
+/* Prompt Directive Box */
+.prompt-directive-box {
+    background: var(--surface-elevated);
+    border: 1px solid var(--gold-muted);
+    border-radius: 12px;
+    padding: 12px 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.prompt-directive-box label {
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--gold);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.prompt-input {
+    width: 100%;
+    padding: 10px 12px;
+    border-radius: 8px;
+    border: 1px solid var(--border-highlight);
+    background: var(--surface);
+    color: var(--text-primary);
+    font-size: 0.85rem;
+    font-family: inherit;
+}
+
+.prompt-input::placeholder {
+    color: #9C7D84;
+}
+
+.quiz-config-panel {
+    background: var(--surface-elevated);
+    border: 1px solid var(--border-highlight);
+    border-radius: 12px;
+    padding: 12px 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.config-toggle-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.85rem;
+    font-weight: 600;
+}
+
+.config-select-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.85rem;
+}
+
+.config-select {
+    padding: 6px 10px;
+    border-radius: 6px;
+    background: var(--surface);
+    color: var(--text-primary);
+    border: 1px solid var(--border-highlight);
+    font-size: 0.85rem;
 }
 
 .status-box {
@@ -476,11 +565,87 @@ section {
     border: 1px solid #781F28;
 }
 
-/* Right Panel: Output & Controls */
+/* AI Engine Config Flyout / Bar */
+.ai-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: #3B121B;
+    border: 1px solid var(--gold);
+    color: var(--gold-light);
+    font-size: 0.75rem;
+    font-weight: 700;
+    padding: 4px 10px;
+    border-radius: 999px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.ai-badge:hover {
+    background: #4E1824;
+}
+
+/* Modal for API Key Settings */
+.modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(10, 2, 4, 0.85);
+    backdrop-filter: blur(4px);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 1100;
+}
+
+.modal-overlay.show {
+    display: flex;
+}
+
+.modal-card {
+    background: var(--surface);
+    border: 1px solid var(--gold-muted);
+    border-radius: 18px;
+    padding: 28px;
+    width: 100%;
+    max-width: 500px;
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.7);
+}
+
+.modal-card h3 {
+    color: var(--gold);
+    margin-bottom: 8px;
+    font-size: 1.3rem;
+}
+
+.modal-card p {
+    color: var(--text-secondary);
+    font-size: 0.88rem;
+    margin-bottom: 16px;
+}
+
+.modal-input {
+    width: 100%;
+    padding: 12px;
+    border-radius: 8px;
+    border: 1px solid var(--border-highlight);
+    background: var(--surface-elevated);
+    color: var(--text-primary);
+    font-family: monospace;
+    font-size: 0.9rem;
+    margin-bottom: 18px;
+}
+
+.modal-buttons {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+}
+
+/* Right Panel: Output Stage */
 .studio-output-panel {
     border: 1px solid var(--border-highlight);
     border-radius: 16px;
-    padding: 20px;
+    padding: 24px;
     display: flex;
     flex-direction: column;
     background: var(--bg);
@@ -491,7 +656,7 @@ section {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding-bottom: 14px;
+    padding-bottom: 16px;
     border-bottom: 1px solid var(--border);
     flex-wrap: wrap;
     gap: 12px;
@@ -521,7 +686,19 @@ section {
     cursor: pointer;
 }
 
-/* 3-Dot Export Menu Dropdown */
+.timer-badge {
+    background: #38121A;
+    border: 1px solid var(--gold-muted);
+    color: var(--gold);
+    font-weight: 800;
+    padding: 6px 14px;
+    border-radius: 999px;
+    font-size: 0.9rem;
+    display: none;
+    align-items: center;
+    gap: 6px;
+}
+
 .extra-tools {
     display: flex;
     align-items: center;
@@ -544,6 +721,11 @@ section {
 .tool-btn:hover:not(:disabled) {
     background: var(--surface-light);
     color: var(--gold-light);
+}
+
+.fullscreen-btn {
+    padding: 8px 14px;
+    font-size: 0.95rem;
 }
 
 .dropdown-container {
@@ -637,9 +819,9 @@ section {
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 24px 12px;
+    padding: 24px 0;
     position: relative;
-    min-height: 280px;
+    min-height: 440px;
 }
 
 .stage-placeholder {
@@ -648,7 +830,7 @@ section {
 }
 
 .stage-placeholder span {
-    font-size: 3rem;
+    font-size: 3.5rem;
     display: block;
     margin-bottom: 8px;
 }
@@ -684,50 +866,131 @@ section {
     transition: width 0.05s linear;
 }
 
-/* Presentation Card Display */
-.presentation-card {
+/* ======================================================
+   MODE 1: PRESENTATION DUAL-PANE (DIAGRAM LEFT, DETAILS RIGHT)
+====================================================== */
+.true-slide-deck {
     background: var(--surface);
     border: 1px solid var(--border-highlight);
-    border-radius: 14px;
-    padding: 30px;
+    border-radius: 16px;
     width: 100%;
-    max-width: 580px;
-    min-height: 230px;
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+    max-width: 880px;
+    display: grid;
+    grid-template-columns: 0.95fr 1.05fr;
+    overflow: hidden;
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.45);
+    min-height: 400px;
 }
 
-.presentation-card .slide-tag {
+.slide-visual-column {
+    background: #140508;
+    border-right: 1px solid var(--border-highlight);
+    padding: 28px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+.slide-diagram-canvas {
+    width: 100%;
+    height: 240px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.slide-diagram-canvas svg {
+    max-width: 100%;
+    max-height: 100%;
+}
+
+.diagram-label {
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: var(--gold-light);
+    letter-spacing: 0.5px;
+    margin-top: 14px;
+    text-align: center;
+}
+
+.slide-content-column {
+    padding: 32px 28px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    overflow-y: auto;
+    max-height: 460px;
+}
+
+.slide-tag {
     font-size: 0.75rem;
     font-weight: 700;
     color: var(--gold);
     letter-spacing: 1px;
     margin-bottom: 8px;
+    text-transform: uppercase;
 }
 
-.presentation-card h3 {
-    font-size: 1.35rem;
-    margin-bottom: 14px;
+.slide-content-column h3 {
+    font-size: 1.4rem;
+    margin-bottom: 12px;
     color: var(--text-primary);
+    line-height: 1.3;
 }
 
-.presentation-card p {
+.slide-lead-concept {
+    font-size: 0.95rem;
     color: var(--text-secondary);
-    font-size: 1rem;
-    line-height: 1.6;
+    margin-bottom: 16px;
+    line-height: 1.55;
 }
 
-/* Flashcard 3D Interactive Flip */
+.slide-bullets {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.slide-bullets li {
+    position: relative;
+    padding-left: 20px;
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    line-height: 1.5;
+}
+
+.slide-bullets li::before {
+    content: "▸";
+    position: absolute;
+    left: 0;
+    color: var(--gold);
+    font-size: 1.1rem;
+    top: -2px;
+}
+
+.slide-bullets strong {
+    color: var(--gold-light);
+}
+
+/* ======================================================
+   MODE 2: FLASHCARDS (SINGLE SENTENCE DISTILLATION)
+====================================================== */
 .flashcard-scene {
-    perspective: 1000px;
+    perspective: 1200px;
     width: 100%;
-    max-width: 440px;
-    height: 230px;
+    max-width: 660px;
+    min-height: 300px;
+    display: flex;
+    justify-content: center;
     cursor: pointer;
 }
 
 .flashcard-object {
     width: 100%;
-    height: 100%;
+    min-height: 300px;
     position: relative;
     transform-style: preserve-3d;
     transition: transform 0.6s cubic-bezier(0.4, 0.2, 0.2, 1);
@@ -739,18 +1002,18 @@ section {
 
 .flashcard-face {
     position: absolute;
-    width: 100%;
-    height: 100%;
+    inset: 0;
     backface-visibility: hidden;
-    border-radius: 14px;
+    border-radius: 16px;
     border: 1px solid var(--border-highlight);
-    padding: 24px;
+    padding: 36px 30px;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
     text-align: center;
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+    overflow-y: auto;
 }
 
 .flashcard-front {
@@ -759,44 +1022,62 @@ section {
 }
 
 .flashcard-back {
-    background: #140508;
+    background: #150508;
     border-color: var(--gold-muted);
     color: var(--text-primary);
     transform: rotateY(180deg);
 }
 
-.card-hint {
-    font-size: 0.75rem;
-    margin-top: 12px;
-    color: var(--gold-muted);
+.flashcard-core-text {
+    font-size: 1.25rem;
     font-weight: 600;
+    line-height: 1.6;
+    margin: auto 0;
+    color: var(--text-primary);
+    max-width: 90%;
 }
 
-/* Quiz Card Display */
+.flashcard-back .flashcard-core-text {
+    color: var(--gold-light);
+    font-weight: 500;
+}
+
+.card-hint {
+    font-size: 0.8rem;
+    color: var(--gold-muted);
+    font-weight: 600;
+    margin-top: 14px;
+}
+
+/* ======================================================
+   MODE 3: HIGH-STIMULATION QUIZ WITH PEDAGOGICAL FEEDBACK
+====================================================== */
 .quiz-box {
     width: 100%;
-    max-width: 580px;
+    max-width: 680px;
     background: var(--surface);
     border: 1px solid var(--border-highlight);
-    border-radius: 14px;
-    padding: 26px;
+    border-radius: 16px;
+    padding: 32px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
 }
 
 .quiz-box h4 {
-    font-size: 1.15rem;
-    margin-bottom: 16px;
+    font-size: 1.2rem;
+    margin-bottom: 20px;
     color: var(--text-primary);
+    line-height: 1.5;
 }
 
 .quiz-options {
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 12px;
 }
 
 .quiz-opt-btn {
-    padding: 12px 16px;
-    border-radius: 8px;
+    padding: 14px 18px;
+    border-radius: 10px;
     border: 1px solid var(--border-highlight);
     background: var(--surface-elevated);
     color: var(--text-secondary);
@@ -804,6 +1085,7 @@ section {
     cursor: pointer;
     text-align: left;
     transition: all 0.2s;
+    line-height: 1.4;
 }
 
 .quiz-opt-btn:hover:not(:disabled) {
@@ -813,7 +1095,7 @@ section {
 }
 
 .quiz-opt-btn.correct {
-    background: #144026;
+    background: var(--success-bg);
     border-color: var(--success);
     color: #DCFCE7;
     font-weight: bold;
@@ -825,14 +1107,93 @@ section {
     color: #FEE2E2;
 }
 
+/* Learning Explanation Box */
+.quiz-explanation-box {
+    margin-top: 18px;
+    padding: 16px 18px;
+    border-radius: 10px;
+    background: #140508;
+    border: 1px solid var(--gold-muted);
+    font-size: 0.88rem;
+    line-height: 1.5;
+    color: var(--gold-light);
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.quiz-explanation-box strong {
+    color: var(--gold);
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* Quiz Review Dashboard */
+.quiz-results-card {
+    background: var(--surface);
+    border: 1px solid var(--border-highlight);
+    border-radius: 16px;
+    padding: 32px;
+    width: 100%;
+    max-width: 700px;
+    max-height: 480px;
+    overflow-y: auto;
+}
+
+.results-score-banner {
+    text-align: center;
+    padding-bottom: 24px;
+    border-bottom: 1px solid var(--border-highlight);
+}
+
+.results-score-banner h3 {
+    font-size: 2.2rem;
+    color: var(--gold);
+    margin-bottom: 6px;
+}
+
+.review-list {
+    margin: 24px 0;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.review-item {
+    background: var(--surface-elevated);
+    border-radius: 10px;
+    padding: 16px;
+    border-left: 4px solid var(--border-highlight);
+    font-size: 0.9rem;
+}
+
+.review-item.is-correct {
+    border-left-color: var(--success);
+}
+
+.review-item.is-incorrect {
+    border-left-color: var(--error);
+}
+
+.review-q-title {
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 6px;
+}
+
 /* Bottom Navigation Controls */
 .studio-bottom-controls {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding-top: 14px;
+    padding-top: 16px;
     border-top: 1px solid var(--border);
     gap: 16px;
+    margin-top: 12px;
+    position: relative;
+    z-index: 10;
+    background: var(--bg);
 }
 
 .nav-arrows-group {
@@ -866,14 +1227,18 @@ section {
     color: var(--gold-light);
     background: var(--surface-elevated);
     border: 1px solid var(--border-highlight);
-    padding: 4px 12px;
+    padding: 4px 14px;
     border-radius: 999px;
+    white-space: nowrap;
 }
 
 .page-jump-links {
     display: flex;
     gap: 6px;
     list-style: none;
+    flex-wrap: wrap;
+    max-height: 60px;
+    overflow-y: auto;
 }
 
 .jump-dot {
@@ -987,7 +1352,7 @@ footer {
     color: var(--text-muted);
 }
 
-/* RESPONSIVE BREAKPOINTS */
+/* RESPONSIVE LAYOUT BREAKPOINTS */
 @media (max-width: 992px) {
     .journey-grid {
         grid-template-columns: repeat(3, 1fr);
@@ -996,10 +1361,23 @@ footer {
     .studio-grid {
         grid-template-columns: 1fr;
     }
+
+    .true-slide-deck {
+        grid-template-columns: 1fr;
+    }
+
+    .slide-visual-column {
+        border-right: none;
+        border-bottom: 1px solid var(--border-highlight);
+    }
+
+    .hero {
+        grid-template-columns: 1fr;
+        gap: 36px;
+    }
 }
 
 @media (max-width: 768px) {
-    .hero,
     .split-layout,
     .benefits-grid,
     .journey-grid,
@@ -1018,12 +1396,39 @@ footer {
         gap: 16px;
     }
 
-    .hero-image-wrapper {
-        height: 280px;
+    .hero-visual-container {
+        padding: 16px;
     }
 
     .hero .buttons {
         flex-direction: column;
+    }
+
+    .studio-widget {
+        padding: 20px 16px;
+    }
+
+    .studio-top-controls {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .mode-selector {
+        justify-content: space-between;
+    }
+
+    .extra-tools {
+        justify-content: flex-end;
+    }
+
+    .studio-bottom-controls {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 12px;
+    }
+
+    .page-jump-links {
+        justify-content: center;
     }
 
     .research-banner {
@@ -1031,15 +1436,6 @@ footer {
         align-items: flex-start;
         gap: 12px;
         padding: 20px;
-    }
-
-    .studio-bottom-controls {
-        flex-direction: column;
-        align-items: stretch;
-    }
-
-    .page-jump-links {
-        justify-content: center;
     }
 }
 </style>
@@ -1052,7 +1448,7 @@ footer {
 <header>
     <div class="container">
         <nav aria-label="Main Navigation">
-            <div class="logo">Visual <span>Learning</span></div>
+            <div class="logo">Cogni<span>Flow</span></div>
             <ul class="nav-links">
                 <li><a href="#story">The Story</a></li>
                 <li><a href="#journey">The Journey</a></li>
@@ -1066,30 +1462,92 @@ footer {
 
 <main id="main-content">
 
+    <!-- HERO SECTION -->
     <section class="container hero" id="story">
         <div>
-            <span class="section-label">LEARNING • VISUALS • UNDERSTANDING</span>
-            <h1 class="section-title">Every skill begins with understanding.</h1>
-            <p>Visual learning helps students and creators transform complex software, technical workflows, and abstract ideas into fluid, confidence-backed execution.</p>
+            <span class="section-label">COGNITIVE CLARITY • VISUAL ARCHITECTURE</span>
+            <h1 class="section-title">CogniFlow: Turn dense information into direct understanding.</h1>
+            <p>Mastering complex software, intricate literature, and technical manuals shouldn't feel like deciphering walls of text. CogniFlow extracts core principles and turns them into sequential, bite-sized visual workflows.</p>
             <div class="buttons">
                 <a href="#journey" class="btn primary">Explore the Journey</a>
                 <a href="#studio" class="btn secondary">Open Visual Studio</a>
             </div>
         </div>
 
-        <div class="hero-image-wrapper">
-            <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=900&q=80" 
-                 alt="College student deeply focused while working on technical software on a laptop in a modern study space" 
-                 loading="eager">
-            <div class="hero-image-overlay"></div>
-            <div class="hero-image-caption">Hands-on software learning in action</div>
+        <div class="hero-visual-container">
+            <svg viewBox="0 0 520 340" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Diagram showing dense technical prose transforming into structured visual modules">
+                <defs>
+                    <pattern id="heroGrid" width="24" height="24" patternUnits="userSpaceOnUse">
+                        <path d="M 24 0 L 0 0 0 24" fill="none" stroke="#441A23" stroke-width="0.75" opacity="0.6" />
+                    </pattern>
+                    <linearGradient id="wineGlow" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" stop-color="#4A1926" />
+                        <stop offset="100%" stop-color="#240C12" />
+                    </linearGradient>
+                </defs>
+
+                <rect width="520" height="340" rx="16" fill="url(#wineGlow)" />
+                <rect width="520" height="340" rx="16" fill="url(#heroGrid)" />
+
+                <!-- Left Panel: Raw Unstructured Text -->
+                <rect x="28" y="45" width="180" height="250" rx="12" fill="#18060A" stroke="#682936" stroke-width="1.5" />
+                <rect x="42" y="60" width="90" height="10" rx="5" fill="#E5C158" opacity="0.9" />
+                <rect x="42" y="82" width="150" height="6" rx="3" fill="#682936" />
+                <rect x="42" y="96" width="138" height="6" rx="3" fill="#441A23" />
+                <rect x="42" y="110" width="144" height="6" rx="3" fill="#682936" />
+                <rect x="42" y="124" width="120" height="6" rx="3" fill="#441A23" />
+                
+                <rect x="42" y="148" width="110" height="8" rx="4" fill="#B89738" opacity="0.7" />
+                <rect x="42" y="166" width="148" height="6" rx="3" fill="#441A23" />
+                <rect x="42" y="180" width="135" height="6" rx="3" fill="#682936" />
+                <rect x="42" y="194" width="140" height="6" rx="3" fill="#441A23" />
+                <rect x="42" y="208" width="115" height="6" rx="3" fill="#682936" />
+                
+                <rect x="42" y="235" width="150" height="36" rx="8" fill="#32111A" stroke="#B89738" stroke-dasharray="3 3" />
+                <text x="117" y="258" fill="#F5E6B8" font-size="10" font-family="system-ui, sans-serif" font-weight="700" text-anchor="middle">Dense Raw Document</text>
+
+                <!-- Center: Dynamic Synthesis Pathways -->
+                <path d="M 218 170 C 248 170, 248 95, 278 95" stroke="#E5C158" stroke-width="2.5" stroke-linecap="round" fill="none" />
+                <circle cx="248" cy="132" r="6" fill="#E5C158" />
+                
+                <path d="M 218 170 C 248 170, 248 170, 278 170" stroke="#E5C158" stroke-width="2.5" stroke-linecap="round" fill="none" />
+                
+                <path d="M 218 170 C 248 170, 248 245, 278 245" stroke="#E5C158" stroke-width="2.5" stroke-linecap="round" fill="none" />
+                <circle cx="248" cy="208" r="6" fill="#E5C158" />
+
+                <!-- Right Visual Modules -->
+                <g filter="drop-shadow(0px 6px 12px rgba(0,0,0,0.5))">
+                    <rect x="285" y="65" width="205" height="62" rx="10" fill="#240C12" stroke="#E5C158" stroke-width="1.5" />
+                    <circle cx="310" cy="96" r="14" fill="#E5C158" />
+                    <text x="310" y="100" fill="#18060A" font-size="11" font-weight="900" text-anchor="middle">01</text>
+                    <text x="334" y="90" fill="#FFFFFF" font-size="12" font-weight="700">EXTRACT CORE</text>
+                    <text x="334" y="106" fill="#C4ABB0" font-size="9.5">Filters noise & front-matter</text>
+                </g>
+
+                <g filter="drop-shadow(0px 6px 12px rgba(0,0,0,0.5))">
+                    <rect x="285" y="140" width="205" height="62" rx="10" fill="#32111A" stroke="#E5C158" stroke-width="1.5" />
+                    <circle cx="310" cy="171" r="14" fill="#E5C158" />
+                    <text x="310" y="175" fill="#18060A" font-size="11" font-weight="900" text-anchor="middle">02</text>
+                    <text x="334" y="165" fill="#FFFFFF" font-size="12" font-weight="700">MAP VISUALS</text>
+                    <text x="334" y="181" fill="#C4ABB0" font-size="9.5">Schematic dual-pane decks</text>
+                </g>
+
+                <g filter="drop-shadow(0px 6px 12px rgba(0,0,0,0.5))">
+                    <rect x="285" y="215" width="205" height="62" rx="10" fill="#240C12" stroke="#86EFAC" stroke-width="1.5" />
+                    <circle cx="310" cy="246" r="14" fill="#86EFAC" />
+                    <text x="310" y="250" fill="#144026" font-size="11" font-weight="900" text-anchor="middle">03</text>
+                    <text x="334" y="240" fill="#86EFAC" font-size="12" font-weight="700">SOLID RETENTION</text>
+                    <text x="334" y="256" fill="#C4ABB0" font-size="9.5">Flashcards & timed quizzes</text>
+                </g>
+            </svg>
+            <div class="hero-visual-caption">CogniFlow Engine • Converting Dense Prose into Structured Comprehension</div>
         </div>
     </section>
 
     <section id="idea">
         <div class="container">
             <span class="section-label">THE BIG IDEA</span>
-            <h2 class="section-title">Learning is more than the final result.</h2>
+            <h2 class="section-title">Mastery develops before the final result.</h2>
             <div class="split-layout">
                 <div class="idea-box">
                     <h3>What happens before mastery?</h3>
@@ -1163,53 +1621,90 @@ footer {
     </section>
 
     <!-- ======================================================
-         INTERACTIVE LESSON STUDIO COMPONENT
+         INTERACTIVE LESSON STUDIO (DUAL-CORE AI SYSTEM)
     ======================================================= -->
     <section id="studio">
         <div class="container">
             <span class="section-label">INTERACTIVE STUDIO</span>
-            <h2 class="section-title">Transform Lessons into Visual Media</h2>
-            <p class="section-lead">Drop your lesson notes below to generate presentations, study flashcards, or interactive quizzes.</p>
+            <h2 class="section-title">CogniFlow Studio: Distill Lessons Instantly</h2>
+            <p class="section-lead">Upload course readings, PDFs, or textbook chapters. CogniFlow filters out index noise, responds directly to your chapter prompt, and packages findings into focused, human-scale review decks.</p>
 
-            <div class="studio-widget">
+            <div class="studio-widget" id="studioWidget">
                 <div class="studio-grid">
                     
-                    <!-- LEFT COLUMN: Input & Upload -->
+                    <!-- LEFT COLUMN: Input, File Upload & Prompt Directive -->
                     <div class="studio-input-panel">
-                        <div class="drop-area" id="dropArea" tabindex="0" role="button" aria-label="Upload lesson file">
-                            <div class="drop-area-icon">📄</div>
-                            <strong>Drag & Drop Files</strong>
-                            <p>or click to browse (.txt files accepted)</p>
-                            <input type="file" id="fileInput" class="hidden-file-input" accept=".txt">
+                        <div class="drop-area" id="dropArea" tabindex="0" role="button" aria-label="Upload document file">
+                            <div class="drop-area-icon">📚</div>
+                            <strong>Upload Course File or PDF</strong>
+                            <p>Drag & drop or click (.pdf, .txt, .md supported)</p>
+                            <input type="file" id="fileInput" class="hidden-file-input" accept=".pdf,.txt,.md">
+                            <div id="fileStatusPill" class="file-status-pill">
+                                <span id="filePillName">document.pdf</span>
+                                <span style="cursor:pointer;" onclick="clearUploadedFile(event)">✕</span>
+                            </div>
                         </div>
 
                         <div class="input-label-row">
-                            <label for="lessonText">Or Paste Lesson Text:</label>
-                            <span class="char-counter" id="charCounter">0 / 3,000</span>
+                            <label for="lessonText">Or Paste Raw Content:</label>
+                            <span class="char-counter" id="charCounter">0 words</span>
                         </div>
 
-                        <textarea id="lessonText" class="studio-textarea" placeholder="Paste your lesson, documentation, or lecture notes here (50 - 3,000 characters)..."></textarea>
+                        <textarea id="lessonText" class="studio-textarea" placeholder="Paste full research articles, lecture transcripts, or textbook chapters..."></textarea>
+
+                        <!-- AI Custom Prompting Section -->
+                        <div class="prompt-directive-box">
+                            <label for="userPromptDirective">✨ Target Chapter or Focus Topic:</label>
+                            <input type="text" id="userPromptDirective" class="prompt-input" placeholder="e.g. Focus on Canto 1, Chapter 3, or Cognitive Load...">
+                        </div>
+
+                        <!-- Quiz Settings Sub-Panel -->
+                        <div id="quizSettingsPanel" class="quiz-config-panel" style="display:none;">
+                            <div class="config-toggle-row">
+                                <label for="timedQuizToggle">Timed Quiz Mode:</label>
+                                <input type="checkbox" id="timedQuizToggle">
+                            </div>
+                            <div class="config-select-row">
+                                <label for="questionCountSelect">Target Question Count:</label>
+                                <select id="questionCountSelect" class="config-select">
+                                    <option value="auto">Adaptive (Optimal 5-10)</option>
+                                    <option value="5">5 Questions (Quick)</option>
+                                    <option value="10">10 Questions (Standard)</option>
+                                    <option value="15">15 Questions (Comprehensive)</option>
+                                </select>
+                            </div>
+                        </div>
 
                         <div id="statusMessage" class="status-box" role="alert"></div>
 
-                        <button type="button" class="btn primary" id="generateBtn" onclick="handleGenerateAction()">Generate Content</button>
+                        <button type="button" class="btn primary" id="generateBtn" onclick="handleGenerateAction()">Synthesize & Digest Content</button>
                     </div>
 
                     <!-- RIGHT COLUMN: Output Canvas / Results -->
                     <div class="studio-output-panel">
                         
-                        <!-- Top Bar: Mode Switcher & 3-Dot Menu -->
+                        <!-- Top Bar: Mode Switcher, Engine Badge & Tools -->
                         <div class="studio-top-controls">
                             <div class="mode-selector">
-                                <label for="learningMode">MODE:</label>
+                                <label for="learningMode">FORMAT:</label>
                                 <select id="learningMode" class="mode-select" onchange="handleModeChange()">
-                                    <option value="presentation">Presentation Deck</option>
-                                    <option value="flashcards">Flashcards</option>
-                                    <option value="quiz">Interactive Quiz</option>
+                                    <option value="quiz">Interactive Quiz & Review</option>
+                                    <option value="flashcards">Flashcards (Focused Single Sentences)</option>
+                                    <option value="presentation">Presentation (Diagrams + Key Details)</option>
                                 </select>
                             </div>
 
+                            <div class="ai-badge" id="aiEngineBadge" onclick="openEngineConfigModal()" title="Click to configure Gemini API Key">
+                                <span id="engineIcon">🧠</span> <span id="engineLabel">Built-in NLP</span>
+                            </div>
+
+                            <div class="timer-badge" id="timerDisplay">⏱ <span id="timerClock">00:00</span></div>
+
                             <div class="extra-tools">
+                                <button type="button" class="tool-btn fullscreen-btn" id="fullscreenToggleBtn" onclick="toggleWidgetFullscreen()" title="Toggle Fullscreen View" aria-label="Toggle Fullscreen">
+                                    ⛶ Expand
+                                </button>
+
                                 <button type="button" class="tool-btn" onclick="clearStudio()">Clear</button>
 
                                 <!-- 3-Dot Export Dropdown Menu -->
@@ -1229,7 +1724,7 @@ footer {
                                             <span style="color:var(--gold-muted); font-size:0.75rem;">.MD</span>
                                         </button>
                                         <button type="button" class="dropdown-item" role="menuitem" onclick="exportAs('html')">
-                                            <span>Standalone Web Page</span>
+                                            <span>Standalone Web Deck</span>
                                             <span style="color:var(--gold-muted); font-size:0.75rem;">.HTML</span>
                                         </button>
                                         <button type="button" class="dropdown-item" role="menuitem" onclick="exportAs('json')">
@@ -1238,7 +1733,7 @@ footer {
                                         </button>
                                         <div class="dropdown-divider"></div>
                                         <button type="button" class="dropdown-item" role="menuitem" onclick="printStudioContent()">
-                                            <span>Print / Save as PDF</span>
+                                            <span>Print / PDF Document</span>
                                             <span style="font-size:0.85rem;">🖨️</span>
                                         </button>
                                     </div>
@@ -1249,21 +1744,18 @@ footer {
                         <!-- Center Display Stage -->
                         <div class="studio-stage" id="studioStage">
                             
-                            <!-- Initial Empty State -->
                             <div class="stage-placeholder" id="placeholderView">
                                 <span>🎨</span>
-                                <p>Generated visual content will appear here.</p>
+                                <p>Synthesized visual slides, clean flashcards, or stimulating quizzes will appear here.</p>
                             </div>
 
-                            <!-- Loading State with Centered Message and Progress Bar -->
                             <div class="loading-overlay" id="loadingView">
-                                <p>Success! Please wait a moment...</p>
+                                <p id="loadingMsgText">Scrubbing front-matter and isolating targeted chapter...</p>
                                 <div class="progress-bar-container">
                                     <div class="progress-bar-fill" id="progressBar"></div>
                                 </div>
                             </div>
 
-                            <!-- Rendered Views -->
                             <div id="activeRenderContainer" style="display:none; width: 100%; display: flex; justify-content: center;"></div>
 
                         </div>
@@ -1275,9 +1767,9 @@ footer {
                                 <button type="button" class="nav-arrow-btn" id="nextBtn" onclick="navigateStep(1)" aria-label="Next Item">Next →</button>
                             </div>
 
-                            <span class="progress-pill" id="itemCounter">1 / 3</span>
+                            <span class="progress-pill" id="itemCounter">1 / 1</span>
 
-                            <ul class="page-jump-links" id="pageDots" aria-label="Skip to page"></ul>
+                            <ul class="page-jump-links" id="pageDots" aria-label="Skip to item"></ul>
                         </div>
 
                     </div>
@@ -1286,6 +1778,20 @@ footer {
             </div>
         </div>
     </section>
+
+    <!-- AI ENGINE CONFIG MODAL -->
+    <div class="modal-overlay" id="engineModal">
+        <div class="modal-card">
+            <h3>AI Engine Setup (Optional)</h3>
+            <p>Connect your free Google Gemini API key to enable live AI reasoning on all uploaded chapters. If left empty, CogniFlow uses its built-in client-side semantic engine.</p>
+            <input type="password" id="geminiApiKeyInput" class="modal-input" placeholder="Paste Gemini API Key (e.g. AIzaSy...)">
+            <div class="modal-buttons">
+                <button type="button" class="tool-btn" onclick="clearApiKey()">Reset / Clear</button>
+                <button type="button" class="btn primary" style="padding: 8px 18px; font-size: 0.85rem;" onclick="saveApiKey()">Save & Connect</button>
+                <button type="button" class="tool-btn" onclick="closeEngineConfigModal()">Close</button>
+            </div>
+        </div>
+    </div>
 
     <section id="future">
         <div class="container">
@@ -1349,17 +1855,33 @@ footer {
 </footer>
 
 <script>
+/* PDF.js worker setup */
+if (window.pdfjsLib) {
+    pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+}
+
 /* ======================================================
-   STUDIO INTERACTIVE CONTROLLER (Vanilla JS Engine)
+   STUDIO CONTROLLER & ENGINE
 ====================================================== */
+const studioWidget = document.getElementById("studioWidget");
+const fullscreenToggleBtn = document.getElementById("fullscreenToggleBtn");
 const lessonTextInput = document.getElementById("lessonText");
+const userPromptDirective = document.getElementById("userPromptDirective");
 const charCounter = document.getElementById("charCounter");
 const statusMessage = document.getElementById("statusMessage");
 const dropArea = document.getElementById("dropArea");
 const fileInput = document.getElementById("fileInput");
+const fileStatusPill = document.getElementById("fileStatusPill");
+const filePillName = document.getElementById("filePillName");
 const learningModeSelect = document.getElementById("learningMode");
+const quizSettingsPanel = document.getElementById("quizSettingsPanel");
+const timedQuizToggle = document.getElementById("timedQuizToggle");
+const questionCountSelect = document.getElementById("questionCountSelect");
+const timerDisplay = document.getElementById("timerDisplay");
+const timerClock = document.getElementById("timerClock");
 const placeholderView = document.getElementById("placeholderView");
 const loadingView = document.getElementById("loadingView");
+const loadingMsgText = document.getElementById("loadingMsgText");
 const progressBar = document.getElementById("progressBar");
 const activeRenderContainer = document.getElementById("activeRenderContainer");
 const bottomNavControls = document.getElementById("bottomNavControls");
@@ -1370,37 +1892,97 @@ const pageDots = document.getElementById("pageDots");
 const exportMenuBtn = document.getElementById("exportMenuBtn");
 const exportMenu = document.getElementById("exportMenu");
 
+const engineModal = document.getElementById("engineModal");
+const geminiApiKeyInput = document.getElementById("geminiApiKeyInput");
+const engineIcon = document.getElementById("engineIcon");
+const engineLabel = document.getElementById("engineLabel");
+
+let uploadedFileContent = "";
 let activeDataset = [];
 let currentIndex = 0;
+let userQuizAnswers = {};
+let quizTimerInterval = null;
+let timerSeconds = 0;
 
-// Character Count Handler
-lessonTextInput.addEventListener("input", () => {
-    const len = lessonTextInput.value.length;
-    charCounter.textContent = `${len.toLocaleString()} / 3,000`;
-    if (len > 3000) {
-        charCounter.style.color = "var(--error)";
+// Initialize API Key from storage
+let storedApiKey = localStorage.getItem("cogniflow_gemini_key") || "";
+updateEngineBadge();
+
+function updateEngineBadge() {
+    if (storedApiKey.trim().length > 10) {
+        engineIcon.textContent = "⚡";
+        engineLabel.textContent = "Gemini 2.5 Live";
     } else {
-        charCounter.style.color = "var(--text-muted)";
+        engineIcon.textContent = "🧠";
+        engineLabel.textContent = "Built-in NLP";
+    }
+}
+
+function openEngineConfigModal() {
+    geminiApiKeyInput.value = storedApiKey;
+    engineModal.classList.add("show");
+}
+
+function closeEngineConfigModal() {
+    engineModal.classList.remove("show");
+}
+
+function saveApiKey() {
+    storedApiKey = geminiApiKeyInput.value.trim();
+    localStorage.setItem("cogniflow_gemini_key", storedApiKey);
+    updateEngineBadge();
+    closeEngineConfigModal();
+}
+
+function clearApiKey() {
+    storedApiKey = "";
+    localStorage.removeItem("cogniflow_gemini_key");
+    geminiApiKeyInput.value = "";
+    updateEngineBadge();
+    closeEngineConfigModal();
+}
+
+/* FULLSCREEN TOGGLE */
+function toggleWidgetFullscreen() {
+    const isFull = studioWidget.classList.toggle("is-fullscreen");
+    fullscreenToggleBtn.textContent = isFull ? "✕ Close" : "⛶ Expand";
+    document.body.style.overflow = isFull ? "hidden" : "";
+}
+
+document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && studioWidget.classList.contains("is-fullscreen")) {
+        toggleWidgetFullscreen();
     }
 });
 
-// Drag & Drop / File Upload Listeners
-dropArea.addEventListener("click", () => fileInput.click());
+// Dynamic Word Counter
+lessonTextInput.addEventListener("input", updateWordCount);
+
+function updateWordCount() {
+    const text = getActiveRawText();
+    const words = text.trim() ? text.trim().split(/\s+/).length : 0;
+    const chars = text.length;
+    charCounter.textContent = `${words.toLocaleString()} words (${chars.toLocaleString()} chars)`;
+}
+
+// File Drag & Drop
+dropArea.addEventListener("click", (e) => {
+    if (e.target.tagName !== "SPAN") fileInput.click();
+});
+
 dropArea.addEventListener("keydown", (e) => {
-    if (e.key === "Enter" || e.key === " ") {
-        fileInput.click();
-    }
+    if (e.key === "Enter" || e.key === " ") fileInput.click();
 });
 
-["dragenter", "dragover"].forEach(eventName => {
-    dropArea.addEventListener(eventName, (e) => {
+["dragenter", "dragover"].forEach(evt => {
+    dropArea.addEventListener(evt, (e) => {
         e.preventDefault();
         dropArea.classList.add("dragover");
     });
 });
 
-["dragleave", "drop"].forEach(eventName => {
-    dropArea.addEventListener(eventName, (e) => {
+["dragleave", "drop"].forEach(evt => {
+    dropArea.addEventListener(evt, (e) => {
         e.preventDefault();
         dropArea.classList.remove("dragover");
     });
@@ -1408,125 +1990,600 @@ dropArea.addEventListener("keydown", (e) => {
 
 dropArea.addEventListener("drop", (e) => {
     const files = e.dataTransfer.files;
-    if (files.length > 0) {
-        handleFileSelection(files[0]);
-    }
+    if (files.length > 0) processIncomingFile(files[0]);
 });
 
 fileInput.addEventListener("change", (e) => {
-    if (e.target.files.length > 0) {
-        handleFileSelection(e.target.files[0]);
-    }
+    if (e.target.files.length > 0) processIncomingFile(e.target.files[0]);
 });
 
-function handleFileSelection(file) {
-    if (!file.name.endsWith(".txt")) {
-        showError("Please upload a valid .txt text document.");
-        return;
+// ROBUST PDF & TEXT EXTRACTION ENGINE
+async function processIncomingFile(file) {
+    const name = file.name.toLowerCase();
+    clearError();
+
+    if (name.endsWith(".txt") || name.endsWith(".md")) {
+        const reader = new FileReader();
+        reader.onload = (e) => setUploadedContent(file.name, e.target.result);
+        reader.readAsText(file);
+    } 
+    else if (name.endsWith(".pdf")) {
+        try {
+            showLoadingNotification("Reading & compiling PDF pages...");
+            const arrayBuffer = await file.arrayBuffer();
+            const loadingTask = pdfjsLib.getDocument({ data: arrayBuffer });
+            const pdf = await loadingTask.promise;
+
+            let extractedPages = [];
+            for (let pageNum = 1; pageNum <= pdf.numPages; pageNum++) {
+                const page = await pdf.getPage(pageNum);
+                const textContent = await page.getTextContent();
+                const pageStrings = textContent.items.map(item => item.str);
+                extractedPages.push(pageStrings.join(" "));
+            }
+
+            hideLoadingNotification();
+            const fullText = extractedPages.join("\n\n");
+
+            if (fullText.trim().length === 0) {
+                showError("The PDF appears to be empty or contains only scanned images without selectable text.");
+                return;
+            }
+
+            setUploadedContent(file.name, fullText);
+        } catch (err) {
+            hideLoadingNotification();
+            showError("Could not read this PDF file: " + err.message);
+        }
+    } else {
+        showError("Supported formats: .pdf, .txt, and .md documents.");
     }
-    const reader = new FileReader();
-    reader.onload = (e) => {
-        lessonTextInput.value = e.target.result;
-        lessonTextInput.dispatchEvent(new Event("input"));
-        clearError();
-    };
-    reader.readAsText(file);
+}
+
+function showLoadingNotification(msg) {
+    statusMessage.textContent = msg;
+    statusMessage.className = "status-box";
+    statusMessage.style.display = "block";
+    statusMessage.style.background = "var(--surface-elevated)";
+    statusMessage.style.color = "var(--gold-light)";
+    statusMessage.style.border = "1px solid var(--border-highlight)";
+}
+
+function hideLoadingNotification() {
+    statusMessage.style.display = "none";
+}
+
+function setUploadedContent(fileName, text) {
+    uploadedFileContent = text;
+    filePillName.textContent = fileName;
+    fileStatusPill.style.display = "flex";
+    updateWordCount();
+    clearError();
+}
+
+function clearUploadedFile(e) {
+    if (e) e.stopPropagation();
+    uploadedFileContent = "";
+    fileInput.value = "";
+    fileStatusPill.style.display = "none";
+    updateWordCount();
+}
+
+function getActiveRawText() {
+    return (uploadedFileContent || lessonTextInput.value).trim();
 }
 
 function showError(msg) {
     statusMessage.textContent = msg;
     statusMessage.className = "status-box error";
+    statusMessage.style.display = "block";
 }
 
 function clearError() {
     statusMessage.textContent = "";
     statusMessage.className = "status-box";
+    statusMessage.style.display = "none";
 }
 
-// Generation & Synthesis Engine
-function handleGenerateAction() {
-    const text = lessonTextInput.value.trim();
+/* ======================================================
+   BESPOKE TOPIC DIAGRAM GENERATOR
+====================================================== */
+function generateBespokeDiagram(conceptLabel, index) {
+    const variant = index % 4;
+    
+    if (variant === 0) {
+        return `
+            <svg viewBox="0 0 280 200" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Sequential flowchart diagram">
+                <rect x="20" y="20" width="240" height="42" rx="8" fill="#32111A" stroke="#E5C158" stroke-width="1.5" />
+                <text x="140" y="46" fill="#FFFFFF" font-size="12" font-weight="700" text-anchor="middle">Theme: ${conceptLabel.slice(0, 18)}</text>
+                
+                <path d="M 140 62 L 140 86" stroke="#B89738" stroke-width="2" />
+                <polygon points="140,88 135,78 145,78" fill="#E5C158" />
 
-    // Boundary check from Technical Scope (50 - 3000 characters)
+                <rect x="35" y="88" width="210" height="42" rx="8" fill="#4A1926" stroke="#F5E6B8" stroke-width="1.5" />
+                <text x="140" y="114" fill="#F5E6B8" font-size="12" font-weight="700" text-anchor="middle">Contextual Analysis</text>
+
+                <path d="M 140 130 L 140 152" stroke="#B89738" stroke-width="2" />
+                <polygon points="140,154 135,144 145,144" fill="#E5C158" />
+
+                <rect x="20" y="154" width="240" height="40" rx="8" fill="#18060A" stroke="#E5C158" stroke-width="1.5" />
+                <text x="140" y="179" fill="#86EFAC" font-size="12" font-weight="700" text-anchor="middle">Key Narrative & Outcome</text>
+            </svg>
+        `;
+    } else if (variant === 1) {
+        return `
+            <svg viewBox="0 0 280 200" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Cognitive loop schematic">
+                <circle cx="140" cy="100" r="70" fill="none" stroke="#682936" stroke-dasharray="4 4" stroke-width="2" />
+                <circle cx="140" cy="35" r="26" fill="#32111A" stroke="#E5C158" stroke-width="1.5" />
+                <text x="140" y="39" fill="#FFFFFF" font-size="10" font-weight="bold" text-anchor="middle">MOTIVE</text>
+                <circle cx="210" cy="130" r="26" fill="#32111A" stroke="#E5C158" stroke-width="1.5" />
+                <text x="210" y="134" fill="#FFFFFF" font-size="10" font-weight="bold" text-anchor="middle">CONFLICT</text>
+                <circle cx="70" cy="130" r="26" fill="#4A1926" stroke="#86EFAC" stroke-width="1.5" />
+                <text x="70" y="134" fill="#86EFAC" font-size="10" font-weight="bold" text-anchor="middle">RESOLUTION</text>
+                <text x="140" y="105" fill="#E5C158" font-size="11" font-weight="bold" text-anchor="middle">CORE ARC</text>
+            </svg>
+        `;
+    } else if (variant === 2) {
+        return `
+            <svg viewBox="0 0 280 200" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Analytical matrix diagram">
+                <line x1="140" y1="20" x2="140" y2="180" stroke="#682936" stroke-width="2" />
+                <line x1="30" y1="100" x2="250" y2="100" stroke="#682936" stroke-width="2" />
+                <rect x="35" y="25" width="95" height="65" rx="6" fill="#32111A" stroke="#B89738" stroke-width="1" />
+                <text x="82" y="52" fill="#FCA5A5" font-size="10" font-weight="bold" text-anchor="middle">Literal Text</text>
+                <text x="82" y="70" fill="#C4ABB0" font-size="9" text-anchor="middle">Direct Action</text>
+                <rect x="150" y="25" width="95" height="65" rx="6" fill="#4A1926" stroke="#E5C158" stroke-width="1.5" />
+                <text x="197" y="52" fill="#E5C158" font-size="10" font-weight="bold" text-anchor="middle">Allegorical</text>
+                <text x="197" y="70" fill="#86EFAC" font-size="9" text-anchor="middle">Deeper Meaning</text>
+                <rect x="35" y="110" width="95" height="65" rx="6" fill="#240C12" stroke="#441A23" stroke-width="1" />
+                <text x="82" y="145" fill="#C4ABB0" font-size="10" text-anchor="middle">Moral Weight</text>
+                <rect x="150" y="110" width="95" height="65" rx="6" fill="#240C12" stroke="#441A23" stroke-width="1" />
+                <text x="197" y="145" fill="#C4ABB0" font-size="10" text-anchor="middle">Transformation</text>
+            </svg>
+        `;
+    } else {
+        return `
+            <svg viewBox="0 0 280 200" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Process roadmap diagram">
+                <rect x="25" y="25" width="65" height="150" rx="8" fill="#32111A" stroke="#E5C158" stroke-width="1" />
+                <text x="57" y="50" fill="#E5C158" font-size="11" font-weight="bold" text-anchor="middle">STAGE 1</text>
+                <text x="57" y="100" fill="#FFFFFF" font-size="9" text-anchor="middle">Setting</text>
+                <rect x="105" y="25" width="65" height="150" rx="8" fill="#3A141F" stroke="#E5C158" stroke-width="1" />
+                <text x="137" y="50" fill="#E5C158" font-size="11" font-weight="bold" text-anchor="middle">STAGE 2</text>
+                <text x="137" y="100" fill="#FFFFFF" font-size="9" text-anchor="middle">Encounter</text>
+                <rect x="185" y="25" width="65" height="150" rx="8" fill="#4A1926" stroke="#86EFAC" stroke-width="1.5" />
+                <text x="217" y="50" fill="#86EFAC" font-size="11" font-weight="bold" text-anchor="middle">STAGE 3</text>
+                <text x="217" y="100" fill="#FFFFFF" font-size="9" text-anchor="middle">Resolution</text>
+            </svg>
+        `;
+    }
+}
+
+/* ======================================================
+   NATURAL LANGUAGE PARSER & CHAPTER ISOLATOR
+====================================================== */
+const STOP_WORDS = new Set([
+    "the","and","of","to","a","in","is","that","for","it","as","was","with","be","by","on","not",
+    "he","i","this","are","from","at","or","an","they","which","one","you","were","her","all",
+    "she","there","would","their","we","him","been","has","when","who","will","more","no","if",
+    "out","so","said","what","up","its","about","into","than","them","can","only","other","new",
+    "some","could","time","these","two","may","then","do","first","any","my","now","such","like"
+]);
+
+const PUBLISHER_OCR_BLACKLIST = new Set([
+    "gujn","guin","penguin","classics","press","routledge","oxford","springer","harper","edition",
+    "copyright","isbn","cataloging","congress","library","musa","translator","published","inc",
+    "york","london","boston","toronto","sydney","auckland","all","rights","reserved","printed"
+]);
+
+function romanToArabic(roman) {
+    if (!roman) return null;
+    const map = { I: 1, V: 5, X: 10, L: 50, C: 100, D: 500, M: 1000 };
+    let total = 0, prev = 0;
+    const s = roman.toUpperCase().trim();
+    for (let i = s.length - 1; i >= 0; i--) {
+        const val = map[s[i]];
+        if (!val) return null;
+        if (val < prev) total -= val;
+        else { total += val; prev = val; }
+    }
+    return total;
+}
+
+function arabicToRoman(num) {
+    const lookup = { M:1000,CM:900,D:500,CD:400,C:100,XC:90,L:50,XL:40,X:10,IX:9,V:5,IV:4,I:1 };
+    let roman = '';
+    for (let i in lookup) {
+        while (num >= lookup[i]) {
+            roman += i;
+            num -= lookup[i];
+        }
+    }
+    return roman;
+}
+
+function isJunkOrIndexLine(line) {
+    const trimmed = line.trim();
+    if (trimmed.length < 25) return true;
+    
+    const digitCount = (trimmed.match(/\d/g) || []).length;
+    if (digitCount / trimmed.length > 0.18) return true;
+    
+    const cantoOccurrences = (trimmed.match(/\b(canto|chapter|page|section)\b/gi) || []).length;
+    if (cantoOccurrences >= 2) return true;
+
+    if (/(table of contents|contents|acknowledgments|introduction to|translator's note|publisher|copyright|library of congress|all rights reserved|penguin|classics)/i.test(trimmed)) {
+        return true;
+    }
+
+    return false;
+}
+
+function isValidSemanticKeyword(w) {
+    if (!w || w.length < 3 || w.length > 20) return false;
+    const lower = w.toLowerCase();
+    if (STOP_WORDS.has(lower) || PUBLISHER_OCR_BLACKLIST.has(lower)) return false;
+    if (!/[aeiouy]/i.test(lower)) return false;
+    if (/[bcdfghjklmnpqrstvwxz]{4,}/i.test(lower)) return false;
+    return true;
+}
+
+function bypassFrontMatter(rawText) {
+    const match = rawText.match(/\b(CANTO\s+I\b|CANTO\s+1\b|CHAPTER\s+I\b|CHAPTER\s+1\b|BOOK\s+ONE\b|ACT\s+I\b)/i);
+    if (match && match.index !== undefined) {
+        const subsequentText = rawText.slice(match.index);
+        const secondOccurrence = subsequentText.slice(50).search(/\b(CANTO\s+I\b|CANTO\s+1\b|CHAPTER\s+I\b|CHAPTER\s+1\b)/i);
+        if (secondOccurrence !== -1 && match.index < 8000) {
+            return subsequentText.slice(secondOccurrence + 50);
+        }
+        return subsequentText;
+    }
+    
+    if (rawText.length > 12000 && /(penguin|copyright|contents|isbn)/i.test(rawText.slice(0, 4000))) {
+        return rawText.slice(6000);
+    }
+    
+    return rawText;
+}
+
+function extractTargetedChapter(rawText, promptFilter) {
+    if (promptFilter && promptFilter.trim().length > 0) {
+        const promptClean = promptFilter.trim();
+        const match = promptClean.match(/\b(canto|chapter|book|section|part)\s*([0-9]+|[ivxlcdm]+)\b/i);
+        
+        if (match) {
+            const prefix = match[1];
+            const rawVal = match[2];
+            const num = isNaN(rawVal) ? romanToArabic(rawVal) : parseInt(rawVal, 10);
+            const roman = isNaN(rawVal) ? rawVal.toUpperCase() : arabicToRoman(num);
+
+            const searchPattern = new RegExp(`\\b${prefix}\\s*(${num}|${roman})\\b`, "gi");
+            const matches = [];
+            let m;
+            while ((m = searchPattern.exec(rawText)) !== null) {
+                matches.push(m.index);
+            }
+
+            if (matches.length > 0) {
+                let bodyIndex = matches[0];
+                for (let idx of matches) {
+                    const sampleAfter = rawText.slice(idx, idx + 400);
+                    const sampleDigitRatio = (sampleAfter.match(/\d/g) || []).length / sampleAfter.length;
+                    if (sampleDigitRatio < 0.12 && !/contents/i.test(sampleAfter)) {
+                        bodyIndex = idx;
+                        break;
+                    }
+                }
+
+                const textFromChapter = rawText.slice(bodyIndex);
+                const nextNum = num ? num + 1 : null;
+                const nextRoman = nextNum ? arabicToRoman(nextNum) : null;
+                const nextRegex = new RegExp(`\\b${prefix}\\s*(${nextNum}|${nextRoman})\\b`, "i");
+                const nextMatch = textFromChapter.slice(100).search(nextRegex);
+
+                if (nextMatch !== -1) {
+                    return textFromChapter.slice(0, nextMatch + 100);
+                } else {
+                    return textFromChapter.slice(0, 15000);
+                }
+            }
+        }
+    }
+
+    return bypassFrontMatter(rawText);
+}
+
+function digestTextIntoCleanSentences(rawText, promptFilter) {
+    const targetedText = extractTargetedChapter(rawText, promptFilter);
+    return targetedText
+        .replace(/[\r\n]+/g, " ")
+        .split(/(?<=[.?!])\s+/)
+        .map(s => s.trim())
+        .filter(s => s.length > 30 && !isJunkOrIndexLine(s));
+}
+
+function extractKeyPhrases(sentence) {
+    const words = sentence.toLowerCase().match(/\b[a-z]{3,}\b/g) || [];
+    return words.filter(w => isValidSemanticKeyword(w));
+}
+
+/* ======================================================
+   SYNTHESIS CONTROLLER (GEMINI LIVE AI + LOCAL FALLBACK)
+====================================================== */
+async function handleGenerateAction() {
+    const text = getActiveRawText();
+
     if (text.length === 0) {
-        showError("Oops! You forgot to provide me a lesson.");
+        showError("Oops! You forgot to provide me a lesson or document.");
         return;
     }
     if (text.length < 50) {
-        showError("Lesson text is too short. Please provide at least 50 characters.");
-        return;
-    }
-    if (text.length > 3000) {
-        showError("Lesson text exceeds maximum limit of 3,000 characters.");
+        showError("Content is too brief to analyze. Please provide a substantive excerpt or file.");
         return;
     }
 
     clearError();
+    stopQuizTimer();
 
-    // Trigger Success Loading Animation
     placeholderView.style.display = "none";
     activeRenderContainer.style.display = "none";
     bottomNavControls.style.display = "none";
     loadingView.style.display = "flex";
-    progressBar.style.width = "0%";
+    progressBar.style.width = "10%";
 
-    let progress = 0;
+    const promptText = userPromptDirective.value.trim();
+    const mode = learningModeSelect.value;
+
+    // Check if Gemini API key is configured
+    if (storedApiKey.trim().length > 10) {
+        loadingMsgText.textContent = "Connecting to Gemini 2.5 Live Reasoning Engine...";
+        progressBar.style.width = "40%";
+        try {
+            const aiResult = await callGeminiAIEngine(text, promptText, mode);
+            progressBar.style.width = "100%";
+            setTimeout(() => {
+                loadingView.style.display = "none";
+                activeDataset = aiResult;
+                currentIndex = 0;
+                userQuizAnswers = {};
+                renderCurrentItem();
+                renderPageJumpDots();
+                bottomNavControls.style.display = "flex";
+                exportMenuBtn.disabled = false;
+            }, 250);
+            return;
+        } catch (err) {
+            console.warn("Gemini API call failed, falling back to local engine:", err);
+            showError("Gemini live call timed out or had invalid credentials. Running local cognitive engine instead.");
+        }
+    }
+
+    // Local Cognitive Engine Fallback
+    runLocalCognitivePipeline(text, promptText, mode);
+}
+
+function runLocalCognitivePipeline(text, promptText, mode) {
+    let progress = 20;
     const interval = setInterval(() => {
         progress += 10;
         progressBar.style.width = progress + "%";
+
+        if (progress === 40) {
+            loadingMsgText.textContent = promptText 
+                ? `Scrubbing indexes & isolating: "${promptText.slice(0, 25)}..."`
+                : "Bypassing publisher metadata & finding opening chapter...";
+        } else if (progress === 80) {
+            loadingMsgText.textContent = "Synthesizing deep conceptual questions and active-recall cards...";
+        }
 
         if (progress >= 100) {
             clearInterval(interval);
             setTimeout(() => {
                 loadingView.style.display = "none";
-                synthesizeContent(text);
+                synthesizeLocalHighGradeContent(text, promptText, mode);
             }, 200);
         }
-    }, 40);
+    }, 30);
 }
 
-function synthesizeContent(rawText) {
-    const sentences = rawText
-        .split(/(?<=[.?!])\s+/)
-        .map(s => s.trim())
-        .filter(s => s.length > 10);
+/* ======================================================
+   CALL GEMINI LIVE AI ENGINE
+====================================================== */
+async function callGeminiAIEngine(rawText, promptFilter, mode) {
+    const excerpt = extractTargetedChapter(rawText, promptFilter).slice(0, 18000);
 
-    const mode = learningModeSelect.value;
-    activeDataset = [];
+    const systemPrompt = `You are an expert cognitive instructional designer and educator.
+Analyze the following text carefully. Target instruction: "${promptFilter || 'General substantive chapter analysis'}".
+Generate high-quality educational material based EXCLUSIVELY on this content. Do NOT include publisher metadata or front-matter.
+Current requested mode: "${mode}".
+
+Output strictly valid JSON (no markdown fences, no raw backticks). Format:
+For mode "quiz":
+[
+  {
+    "question": "Deep inferential or cause-and-effect question",
+    "options": ["Plausible Distractor A", "Correct Answer B", "Plausible Distractor C", "Plausible Distractor D"],
+    "answer": "Correct Answer B",
+    "explanation": "Clear, informative explanation of why this answer is correct based on the text."
+  }
+]
+For mode "flashcards":
+[
+  {
+    "term": "FOCUSED CONCEPT",
+    "frontPrompt": "Direct inquisitive active-recall question",
+    "backAnswer": "Punchy single-sentence essential insight"
+  }
+]
+For mode "presentation":
+[
+  {
+    "title": "Actionable Slide Title",
+    "lead": "One clear conceptual sentence framing the idea",
+    "bullets": ["Point 1", "Point 2", "Point 3"],
+    "conceptTag": "THEME"
+  }
+]`;
+
+    const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${storedApiKey}`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+            contents: [{
+                parts: [
+                    { text: systemPrompt },
+                    { text: `TEXT EXCERPT:\n${excerpt}` }
+                ]
+            }],
+            generationConfig: {
+                responseMimeType: "application/json",
+                temperature: 0.3
+            }
+        })
+    });
+
+    if (!response.ok) {
+        throw new Error(`API error: ${response.status}`);
+    }
+
+    const data = await response.json();
+    const candidateText = data.candidates[0].content.parts[0].text;
+    const parsed = JSON.parse(candidateText);
 
     if (mode === "presentation") {
-        const chunkSize = Math.max(1, Math.ceil(sentences.length / 4));
-        for (let i = 0; i < sentences.length; i += chunkSize) {
-            const chunk = sentences.slice(i, i + chunkSize);
+        parsed.forEach((slide, idx) => {
+            slide.diagramHtml = generateBespokeDiagram(slide.conceptTag || "THEME", idx);
+            slide.diagramCaption = `Figure ${idx + 1}.1: Conceptual ${slide.conceptTag || "THEME"} Framework`;
+        });
+    }
+
+    return parsed;
+}
+
+/* ======================================================
+   LOCAL ADVANCED REASONING & QUIZ ENGINE
+====================================================== */
+function synthesizeLocalHighGradeContent(rawText, promptFilter, mode) {
+    const sentences = digestTextIntoCleanSentences(rawText, promptFilter);
+    activeDataset = [];
+    userQuizAnswers = {};
+
+    if (sentences.length === 0) {
+        showError("Could not find readable content matching your prompt. Try a broader search term.");
+        placeholderView.style.display = "block";
+        return;
+    }
+
+    /* -------------------------------------------------------------
+       HIGH-STIMULATION COMPREHENSION QUIZ ENGINE
+    ------------------------------------------------------------- */
+    if (mode === "quiz") {
+        const targetConfig = questionCountSelect.value;
+        let targetCount = targetConfig === "auto" ? Math.min(10, Math.max(5, Math.floor(sentences.length / 3))) : parseInt(targetConfig, 10);
+        targetCount = Math.min(targetCount, sentences.length);
+
+        const step = Math.max(1, Math.floor(sentences.length / targetCount));
+
+        for (let q = 0; q < sentences.length && activeDataset.length < targetCount; q += step) {
+            const sentence = sentences[q];
+            const keywords = extractKeyPhrases(sentence);
+            let keyConcept = keywords[0] ? keywords[0].toUpperCase() : "THE CENTRAL CONFLICT";
+
+            // Extract the core grammatical assertion
+            const clauses = sentence.split(/,|—|;/).map(c => c.trim()).filter(c => c.length > 15);
+            const coreInsight = clauses[0] || sentence;
+            const contextInsight = clauses[1] || clauses[0];
+
+            // Generate contextually plausible distractors using other entities in the passage
+            const otherSentences = sentences.filter((_, idx) => idx !== q);
+            const distractorEntity1 = extractKeyPhrases(otherSentences[0] || "")[0] || "external guidance";
+            const distractorEntity2 = extractKeyPhrases(otherSentences[1] || "")[0] || "unrelated historical precedent";
+
+            const options = [
+                coreInsight.length > 85 ? coreInsight.slice(0, 80) + "..." : coreInsight,
+                `It is primarily nullified or superseded by the appearance of ${distractorEntity1}`,
+                `It represents an obstacle caused entirely by ${distractorEntity2}`,
+                `It serves only as a literal background without metaphorical or procedural consequence`
+            ].sort(() => 0.5 - Math.random());
+
+            const correctAnswer = options.find(opt => opt.includes(coreInsight.slice(0, 25))) || options[0];
+
             activeDataset.push({
-                title: `Key Focus: Concept Phase ${Math.floor(i / chunkSize) + 1}`,
-                body: chunk.join(" ")
+                questionNumber: activeDataset.length + 1,
+                question: `Question ${activeDataset.length + 1}: What core principle or conflict governs "${keyConcept}" in this passage?`,
+                options: options,
+                answer: correctAnswer,
+                explanation: `As detailed in the passage: "${sentence.slice(0, 140)}..." The text directly links this condition to ${keyConcept}.`
             });
         }
-    } else if (mode === "flashcards") {
-        sentences.slice(0, 5).forEach((sentence, idx) => {
-            const words = sentence.split(" ");
-            const prompt = words.slice(0, 4).join(" ") + "...";
+
+        if (timedQuizToggle.checked) {
+            startQuizTimer(activeDataset.length * 45);
+        }
+    }
+
+    /* -------------------------------------------------------------
+       ACTIVE-RECALL FLASHCARDS (FOCUSED SINGLE SENTENCES)
+    ------------------------------------------------------------- */
+    else if (mode === "flashcards") {
+        const targetDeckSize = Math.min(16, Math.max(6, Math.floor(sentences.length / 3)));
+        const step = Math.max(1, Math.floor(sentences.length / targetDeckSize));
+
+        for (let i = 0; i < sentences.length && activeDataset.length < targetDeckSize; i += step) {
+            const sentence = sentences[i];
+            const keywords = extractKeyPhrases(sentence);
+            let primaryConcept = keywords.find(k => isValidSemanticKeyword(k)) || "CORE THEME";
+            primaryConcept = primaryConcept.toUpperCase();
+
+            let question = "";
+            const v = activeDataset.length % 4;
+            if (v === 0) question = `What primary condition or obstacle is defined by ${primaryConcept}?`;
+            else if (v === 1) question = `What functional role or symbolic meaning does ${primaryConcept} serve?`;
+            else if (v === 2) question = `What key turning point or consequence stems directly from ${primaryConcept}?`;
+            else question = `In this chapter, what critical insight is established regarding ${primaryConcept}?`;
+
+            let cleanAnswer = sentence.replace(/["“”]/g, '').trim();
+            if (cleanAnswer.length > 130) {
+                const firstClause = cleanAnswer.split(/,|—|;/)[0].trim();
+                cleanAnswer = firstClause.endsWith(".") ? firstClause : firstClause + ".";
+            }
+
             activeDataset.push({
-                front: `Term / Question #${idx + 1}`,
-                prompt: prompt,
-                back: sentence
+                frontPrompt: question,
+                backAnswer: cleanAnswer,
+                term: primaryConcept
             });
-        });
-    } else if (mode === "quiz") {
-        sentences.slice(0, 4).forEach((sentence, idx) => {
-            const words = sentence.split(" ");
-            const targetWord = words.find(w => w.length > 5) || "concept";
+        }
+    }
+
+    /* -------------------------------------------------------------
+       PRESENTATION DECK (5 TO 10 BALANCED THEMATIC SLIDES)
+    ------------------------------------------------------------- */
+    else if (mode === "presentation") {
+        const targetSlides = Math.min(10, Math.max(4, Math.floor(sentences.length / 4)));
+        const chunkSize = Math.max(2, Math.floor(sentences.length / targetSlides));
+
+        for (let i = 0; i < targetSlides; i++) {
+            const chunk = sentences.slice(i * chunkSize, (i + 1) * chunkSize);
+            if (chunk.length === 0) break;
+
+            const leadText = chunk[0];
+            const keywords = extractKeyPhrases(leadText);
+            let conceptKeyword = keywords.find(k => isValidSemanticKeyword(k));
+            if (!conceptKeyword) {
+                const fallbackConcepts = ["NARRATIVE", "ALLEGORY", "THE JOURNEY", "THE ENCOUNTER", "GUIDANCE", "RESOLUTION"];
+                conceptKeyword = fallbackConcepts[i % fallbackConcepts.length];
+            } else {
+                conceptKeyword = conceptKeyword.toUpperCase();
+            }
+
             activeDataset.push({
-                question: `Q${idx + 1}: According to the lesson, which factor relates directly to: "${sentence.slice(0, 45)}..."?`,
-                options: [
-                    targetWord.replace(/[.,]/g, ""),
-                    "Extraneous Cognitive Friction",
-                    "Passive Text Memorization"
-                ].sort(() => 0.5 - Math.random()),
-                answer: targetWord.replace(/[.,]/g, "")
+                title: generateSlideTitle(i, leadText),
+                lead: leadText,
+                bullets: chunk.map(s => extractBulletItem(s)),
+                conceptTag: conceptKeyword,
+                diagramHtml: generateBespokeDiagram(conceptKeyword, i),
+                diagramCaption: `Figure ${i + 1}.1: Structural ${conceptKeyword} Model`
             });
-        });
+        }
     }
 
     currentIndex = 0;
@@ -1536,6 +2593,35 @@ function synthesizeContent(rawText) {
     exportMenuBtn.disabled = false;
 }
 
+function generateSlideTitle(idx, text) {
+    const titles = [
+        "Narrative Framework & Setting",
+        "Encounter & Conceptual Friction",
+        "Allegorical Depth & Symbolism",
+        "Character Motivations & Tension",
+        "Pivotal Turning Point",
+        "Guided Resolution & Trajectory",
+        "Underlying Structural Meaning",
+        "Key Historical Context",
+        "Comprehensive Retrospective",
+        "Actionable Conclusion"
+    ];
+    return titles[idx] || `Section Analysis ${idx + 1}`;
+}
+
+function extractBulletItem(sentence) {
+    const parts = sentence.split(/,|—|;/);
+    const key = parts[0].trim();
+    const detail = parts.slice(1).join(", ").trim();
+    if (detail.length > 5) {
+        return `<strong>${key}</strong>: ${detail}`;
+    }
+    return `<strong>Insight</strong>: ${sentence}`;
+}
+
+/* ======================================================
+   RENDER CONTROLLER (NO-OVERLAP & FIXED BOUNDS)
+====================================================== */
 function renderCurrentItem() {
     activeRenderContainer.style.display = "flex";
     activeRenderContainer.innerHTML = "";
@@ -1543,76 +2629,204 @@ function renderCurrentItem() {
     const mode = learningModeSelect.value;
     const item = activeDataset[currentIndex];
 
+    /* Presentation Slide Renderer */
     if (mode === "presentation") {
         const slide = document.createElement("div");
-        slide.className = "presentation-card";
+        slide.className = "true-slide-deck";
         slide.innerHTML = `
-            <div class="slide-tag">SLIDE ${currentIndex + 1} OF ${activeDataset.length}</div>
-            <h3>${item.title}</h3>
-            <p>${item.body}</p>
+            <div class="slide-visual-column">
+                <span class="slide-tag" style="margin-bottom:12px;">${item.conceptTag} SCHEMATIC</span>
+                <div class="slide-diagram-canvas">
+                    ${item.diagramHtml || generateBespokeDiagram(item.conceptTag, currentIndex)}
+                </div>
+                <div class="diagram-label">${item.diagramCaption || 'Figure ' + (currentIndex + 1) + ': Concept Schematic'}</div>
+            </div>
+
+            <div class="slide-content-column">
+                <span class="slide-tag">SLIDE ${currentIndex + 1} OF ${activeDataset.length}</span>
+                <h3>${item.title}</h3>
+                <p class="slide-lead-concept">${item.lead}</p>
+                <ul class="slide-bullets">
+                    ${item.bullets.map(b => `<li>${b}</li>`).join('')}
+                </ul>
+            </div>
         `;
         activeRenderContainer.appendChild(slide);
-    } else if (mode === "flashcards") {
+    } 
+
+    /* Flashcard Renderer (Responsive & No Overlap) */
+    else if (mode === "flashcards") {
         const scene = document.createElement("div");
         scene.className = "flashcard-scene";
         scene.innerHTML = `
             <div class="flashcard-object" id="activeCardObject" onclick="this.classList.toggle('is-flipped')">
                 <div class="flashcard-face flashcard-front">
-                    <span class="slide-tag">${item.front}</span>
-                    <h3 style="margin-top: 10px; color: var(--text-primary);">${item.prompt}</h3>
-                    <p class="card-hint">Click or tap to flip card ↻</p>
+                    <span class="slide-tag">CARD ${currentIndex + 1} OF ${activeDataset.length} • ${item.term}</span>
+                    <div class="flashcard-core-text">${item.frontPrompt}</div>
+                    <span class="card-hint">Click or tap to flip for single-sentence answer ↻</span>
                 </div>
                 <div class="flashcard-face flashcard-back">
-                    <span class="slide-tag" style="color:var(--gold);">ANSWER & CONTEXT</span>
-                    <p style="margin-top:10px; color: var(--text-secondary);">${item.back}</p>
-                    <p class="card-hint">Click to flip back</p>
+                    <span class="slide-tag" style="color:var(--gold);">DISTILLED ANSWER</span>
+                    <div class="flashcard-core-text">${item.backAnswer}</div>
+                    <span class="card-hint">Click to flip back</span>
                 </div>
             </div>
         `;
         activeRenderContainer.appendChild(scene);
-    } else if (mode === "quiz") {
+    } 
+
+    /* High-Stimulation Quiz Renderer */
+    else if (mode === "quiz") {
         const quizCard = document.createElement("div");
         quizCard.className = "quiz-box";
-        
+
+        const hasAnswered = userQuizAnswers[currentIndex] !== undefined;
         let optionsHtml = "";
+
         item.options.forEach(opt => {
-            optionsHtml += `<button type="button" class="quiz-opt-btn" onclick="checkQuizAnswer(this, '${opt}', '${item.answer}')">${opt}</button>`;
+            let stateClass = "";
+            if (hasAnswered) {
+                if (opt === item.answer) stateClass = "correct";
+                else if (opt === userQuizAnswers[currentIndex]) stateClass = "wrong";
+            }
+            optionsHtml += `<button type="button" class="quiz-opt-btn ${stateClass}" ${hasAnswered ? "disabled" : ""} onclick="handleQuizSelection(this, '${opt}')">${opt}</button>`;
         });
 
         quizCard.innerHTML = `
+            <div class="slide-tag">QUESTION ${currentIndex + 1} OF ${activeDataset.length}</div>
             <h4>${item.question}</h4>
             <div class="quiz-options">${optionsHtml}</div>
+
+            ${hasAnswered ? `
+                <div class="quiz-explanation-box">
+                    <strong>Learning Insight & Context</strong>
+                    ${item.explanation || 'Verified with lesson content.'}
+                </div>
+                <div style="margin-top:20px; display:flex; justify-content:space-between; align-items:center;">
+                    <span style="font-size:0.85rem; color:var(--gold-light);">Answer recorded</span>
+                    ${currentIndex === activeDataset.length - 1 ? `<button type="button" class="btn primary" style="padding:8px 18px; font-size:0.85rem;" onclick="showQuizSummaryDashboard()">View Final Score & Review</button>` : ''}
+                </div>
+            ` : ''}
         `;
         activeRenderContainer.appendChild(quizCard);
     }
 
-    // Update bottom pagination indicators
     itemCounter.textContent = `${currentIndex + 1} / ${activeDataset.length}`;
     prevBtn.disabled = currentIndex === 0;
     nextBtn.disabled = currentIndex === activeDataset.length - 1;
 
-    // Update active jump dot
     const dots = document.querySelectorAll(".jump-dot");
     dots.forEach((dot, i) => {
         dot.classList.toggle("active", i === currentIndex);
     });
 }
 
-function checkQuizAnswer(btn, selected, correct) {
-    const parent = btn.closest(".quiz-options");
-    const buttons = parent.querySelectorAll(".quiz-opt-btn");
-    buttons.forEach(b => b.disabled = true);
-
-    if (selected === correct) {
-        btn.classList.add("correct");
-    } else {
-        btn.classList.add("wrong");
-        buttons.forEach(b => {
-            if (b.textContent === correct) b.classList.add("correct");
-        });
-    }
+function handleQuizSelection(btn, chosenOption) {
+    userQuizAnswers[currentIndex] = chosenOption;
+    renderCurrentItem();
 }
 
+/* ======================================================
+   QUIZ SUMMARY & REVIEW DASHBOARD
+====================================================== */
+function showQuizSummaryDashboard() {
+    stopQuizTimer();
+    bottomNavControls.style.display = "none";
+    activeRenderContainer.innerHTML = "";
+
+    let correctCount = 0;
+    activeDataset.forEach((item, idx) => {
+        if (userQuizAnswers[idx] === item.answer) correctCount++;
+    });
+
+    const scorePct = Math.round((correctCount / activeDataset.length) * 100);
+
+    const summaryCard = document.createElement("div");
+    summaryCard.className = "quiz-results-card";
+    summaryCard.innerHTML = `
+        <div class="results-score-banner">
+            <span class="slide-tag">QUIZ COMPLETED</span>
+            <h3>${scorePct}% Score</h3>
+            <p style="color:var(--text-secondary);">${correctCount} of ${activeDataset.length} Questions Answered Correctly</p>
+            <div style="margin-top:16px; display:flex; justify-content:center; gap:12px;">
+                <button type="button" class="btn primary" onclick="retryQuiz()">Retry Quiz ⟳</button>
+                <button type="button" class="btn secondary" onclick="returnToQuestions()">Review Responses</button>
+            </div>
+        </div>
+
+        <div class="review-list">
+            ${activeDataset.map((item, idx) => {
+                const userChoice = userQuizAnswers[idx] || "Unanswered";
+                const isCorrect = userChoice === item.answer;
+                return `
+                    <div class="review-item ${isCorrect ? 'is-correct' : 'is-incorrect'}">
+                        <div class="review-q-title">Q${idx + 1}: ${item.question}</div>
+                        <div style="margin: 4px 0;"><strong>Your Choice:</strong> ${userChoice}</div>
+                        ${!isCorrect ? `<div style="color:var(--gold); font-weight:600;">Correct Answer: ${item.answer}</div>` : ''}
+                        <div style="font-size:0.85rem; color:var(--text-muted); margin-top:4px;">${item.explanation || ''}</div>
+                    </div>
+                `;
+            }).join('')}
+        </div>
+    `;
+
+    activeRenderContainer.appendChild(summaryCard);
+}
+
+function retryQuiz() {
+    userQuizAnswers = {};
+    currentIndex = 0;
+    bottomNavControls.style.display = "flex";
+    if (timedQuizToggle.checked) {
+        startQuizTimer(activeDataset.length * 45);
+    }
+    renderCurrentItem();
+}
+
+function returnToQuestions() {
+    bottomNavControls.style.display = "flex";
+    currentIndex = 0;
+    renderCurrentItem();
+}
+
+/* ======================================================
+   TIMER ENGINE
+====================================================== */
+function startQuizTimer(durationInSeconds) {
+    stopQuizTimer();
+    timerSeconds = durationInSeconds;
+    timerDisplay.style.display = "flex";
+    updateTimerClockDisplay();
+
+    quizTimerInterval = setInterval(() => {
+        timerSeconds--;
+        updateTimerClockDisplay();
+
+        if (timerSeconds <= 0) {
+            stopQuizTimer();
+            alert("Time is up! Let's review your final quiz score.");
+            showQuizSummaryDashboard();
+        }
+    }, 1000);
+}
+
+function stopQuizTimer() {
+    if (quizTimerInterval) {
+        clearInterval(quizTimerInterval);
+        quizTimerInterval = null;
+    }
+    timerDisplay.style.display = "none";
+}
+
+function updateTimerClockDisplay() {
+    const mins = Math.floor(timerSeconds / 60);
+    const secs = timerSeconds % 60;
+    timerClock.textContent = `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+}
+
+/* ======================================================
+   NAVIGATION & CONTROLS
+====================================================== */
 function renderPageJumpDots() {
     pageDots.innerHTML = "";
     activeDataset.forEach((_, idx) => {
@@ -1637,16 +2851,22 @@ function navigateStep(direction) {
 }
 
 function handleModeChange() {
-    if (lessonTextInput.value.trim().length >= 50) {
+    const mode = learningModeSelect.value;
+    quizSettingsPanel.style.display = mode === "quiz" ? "flex" : "none";
+
+    if (getActiveRawText().length >= 50) {
         handleGenerateAction();
     }
 }
 
 function clearStudio() {
+    stopQuizTimer();
     lessonTextInput.value = "";
-    charCounter.textContent = "0 / 3,000";
-    charCounter.style.color = "var(--text-muted)";
+    userPromptDirective.value = "";
+    clearUploadedFile();
+    updateWordCount();
     activeDataset = [];
+    userQuizAnswers = {};
     currentIndex = 0;
     activeRenderContainer.innerHTML = "";
     activeRenderContainer.style.display = "none";
@@ -1658,7 +2878,7 @@ function clearStudio() {
 }
 
 /* ======================================================
-   3-DOT EXPORT MENU & MULTI-FORMAT ENGINES
+   3-DOT EXPORT MENU ENGINE
 ====================================================== */
 function toggleExportMenu(e) {
     e.stopPropagation();
@@ -1666,7 +2886,6 @@ function toggleExportMenu(e) {
     exportMenuBtn.setAttribute("aria-expanded", isShowing);
 }
 
-// Close dropdown on outside click or ESC
 document.addEventListener("click", (e) => {
     if (!e.target.closest(".dropdown-container")) {
         exportMenu.classList.remove("show");
@@ -1689,24 +2908,31 @@ function exportAs(format) {
     const mode = learningModeSelect.value;
     let content = "";
     let mimeType = "text/plain";
-    let filename = `visual-learning-${mode}.${format}`;
+    let filename = `cogniflow-${mode}.${format}`;
 
     if (format === "txt") {
-        content = `VISUAL LEARNING STUDIO EXPORT\nMode: ${mode.toUpperCase()}\n\n`;
+        content = `COGNIFLOW COMPREHENSIVE EXPORT\nMode: ${mode.toUpperCase()}\n\n`;
         activeDataset.forEach((item, i) => {
-            content += `--- ITEM ${i + 1} ---\n`;
-            if (item.title) content += `Title: ${item.title}\nContent: ${item.body}\n\n`;
-            if (item.front) content += `Prompt: ${item.prompt}\nAnswer: ${item.back}\n\n`;
-            if (item.question) content += `Question: ${item.question}\nAnswer: ${item.answer}\n\n`;
+            content += `================ ITEM ${i + 1} ================\n`;
+            if (item.title) {
+                content += `TITLE: ${item.title}\nLEAD: ${item.lead}\n`;
+                item.bullets.forEach(b => content += ` * ${b.replace(/<[^>]*>/g, '')}\n`);
+                content += `DIAGRAM: ${item.diagramCaption || ''}\n\n`;
+            }
+            if (item.frontPrompt) content += `Prompt: ${item.frontPrompt}\nAnswer: ${item.backAnswer}\n\n`;
+            if (item.question) content += `Question: ${item.question}\nCorrect: ${item.answer}\nExplanation: ${item.explanation || ''}\n\n`;
         });
-        mimeType = "text/plain";
     } else if (format === "md") {
-        content = `# Visual Learning Export: ${mode.toUpperCase()}\n\n`;
+        content = `# CogniFlow Digest: ${mode.toUpperCase()}\n\n`;
         activeDataset.forEach((item, i) => {
             content += `## Item ${i + 1}\n\n`;
-            if (item.title) content += `### ${item.title}\n\n${item.body}\n\n---\n\n`;
-            if (item.front) content += `**Front:** ${item.prompt}\n\n**Back:** ${item.back}\n\n---\n\n`;
-            if (item.question) content += `**${item.question}**\n\n*Options:*\n${item.options.map(o => `- ${o}`).join("\n")}\n\n*Correct:* **${item.answer}**\n\n---\n\n`;
+            if (item.title) {
+                content += `### ${item.title}\n\n${item.lead}\n\n`;
+                item.bullets.forEach(d => content += `- ${d.replace(/<strong>(.*?)<\/strong>/g, '**$1**')}\n`);
+                content += `\n---\n\n`;
+            }
+            if (item.frontPrompt) content += `> **${item.frontPrompt}**\n\n${item.backAnswer}\n\n---\n\n`;
+            if (item.question) content += `**${item.question}**\n\n*Answer:* **${item.answer}**\n\n*Context:* ${item.explanation || ''}\n\n---\n\n`;
         });
         mimeType = "text/markdown";
     } else if (format === "json") {
@@ -1717,24 +2943,24 @@ function exportAs(format) {
 <html>
 <head>
 <meta charset="utf-8">
-<title>Exported Visual Learning - ${mode.toUpperCase()}</title>
+<title>CogniFlow Export - ${mode.toUpperCase()}</title>
 <style>
-body { font-family: system-ui, sans-serif; max-width: 800px; margin: 40px auto; padding: 0 20px; line-height: 1.6; color: #1E252D; }
-.card { border: 1px solid #D1D5DB; border-radius: 12px; padding: 24px; margin-bottom: 24px; background: #FBFBFA; }
-h1 { color: #8A1528; }
+body { font-family: system-ui, sans-serif; max-width: 800px; margin: 40px auto; padding: 0 20px; line-height: 1.6; color: #1E252D; background: #FAFAF7; }
+.card { border: 1px solid #D1D5DB; border-radius: 12px; padding: 24px; margin-bottom: 24px; background: #FFFFFF; }
+h1 { color: #52202C; }
 .badge { display: inline-block; background: #E5C158; color: #1E080C; padding: 4px 10px; border-radius: 99px; font-size: 0.8rem; font-weight: bold; }
 </style>
 </head>
 <body>
-<h1>Visual Learning Studio Export</h1>
-<p><strong>Mode:</strong> ${mode.toUpperCase()}</p>
+<h1>CogniFlow Studio Export</h1>
+<p><strong>Mode:</strong> ${mode.toUpperCase()} &bull; <strong>Items:</strong> ${activeDataset.length}</p>
 <hr>
 ${activeDataset.map((item, i) => `
     <div class="card">
-        <span class="badge">Item ${i + 1}</span>
-        ${item.title ? `<h2>${item.title}</h2><p>${item.body}</p>` : ''}
-        ${item.front ? `<h3>${item.prompt}</h3><p><strong>Answer:</strong> ${item.back}</p>` : ''}
-        ${item.question ? `<h3>${item.question}</h3><ul>${item.options.map(o => `<li>${o}</li>`).join('')}</ul><p><strong>Correct:</strong> ${item.answer}</p>` : ''}
+        <span class="badge">Section ${i + 1}</span>
+        ${item.title ? `<h2>${item.title}</h2><p>${item.lead}</p>` : ''}
+        ${item.frontPrompt ? `<h3>${item.frontPrompt}</h3><p><strong>Answer:</strong> ${item.backAnswer}</p>` : ''}
+        ${item.question ? `<h3>${item.question}</h3><p><strong>Answer:</strong> ${item.answer}</p><p><em>${item.explanation || ''}</em></p>` : ''}
     </div>
 `).join('')}
 </body>
