@@ -6,16 +6,13 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>CogniFlow | Transform Dense Text into Intuitive Visuals</title>
 
-<!-- PDF.js library for genuine, robust client-side PDF reading -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
-
 <style>
 :root {
     /* Distinct Light Brown, Toasted Sand, and Muted Earthy Green Palette */
     --bg: #CBB195;                  /* Warm light brown / tan canvas */
-    --surface: #E8DCCB;             /* Toasted sand / almond card surface (no white) */
-    --surface-elevated: #DFD0BD;    /* Slightly deeper tan for inputs, dropzones, and panels */
-    --surface-light: #F2E9DC;       /* Soft parchment tint for subtle highlights and input fields */
+    --surface: #E8DCCB;             /* Toasted sand / almond card surface */
+    --surface-elevated: #DFD0BD;    /* Deeper tan for inputs, dropzones, and panels */
+    --surface-light: #F2E9DC;       /* Soft parchment tint for subtle highlights */
     --surface-dark: #1C2B20;        /* Deep pine moss for inverted focal elements */
     
     --green-primary: #1C3B27;       /* Deep rich forest moss green */
@@ -23,9 +20,9 @@
     --green-light: #CADECF;         /* Soft sage tint for badges and active pills */
     --clay-accent: #9E4D36;         /* Earthy terracotta clay accent */
     
-    --text-primary: #132417;        /* Deep forest slate for high-contrast, readable headings */
+    --text-primary: #132417;        /* Deep forest slate for readable headings */
     --text-secondary: #243528;      /* Deep evergreen charcoal for clear body text */
-    --text-muted: #4F5E52;          /* Muted earthy sage for captions and descriptions */
+    --text-muted: #4F5E52;          /* Muted earthy sage for captions */
     
     --border: #BBA48A;              /* Warm clay-sand contour border */
     --border-highlight: #A68E74;    /* Defined accent border */
@@ -215,7 +212,7 @@ section {
     gap: 16px;
 }
 
-/* BESPOKE SVG HERO VISUAL (LIGHT BROWN & SAGE STYLING) */
+/* HERO VECTOR PIPELINE VISUAL */
 .hero-visual-container {
     background: radial-gradient(circle at center, #D8C3AA 0%, #C4A788 100%);
     border-radius: 28px;
@@ -371,7 +368,7 @@ section {
 }
 
 /* ======================================================
-   INTERACTIVE STUDIO WIDGET (WARM TAN / EARTHY PALETTE)
+   WORKFLOW & HOTKEY SHEET BUILDER WIDGET
 ====================================================== */
 .studio-widget {
     background: var(--surface);
@@ -401,251 +398,133 @@ section {
     min-height: 600px;
 }
 
-/* Left Panel */
+/* Left Panel: Builder Controls */
 .studio-input-panel {
     display: flex;
     flex-direction: column;
-    gap: 14px;
+    gap: 16px;
 }
 
-.drop-area {
-    border: 2px dashed var(--border-highlight);
-    border-radius: 16px;
-    padding: 22px 16px;
-    text-align: center;
-    background: var(--surface-elevated);
-    transition: all 0.2s ease;
-    cursor: pointer;
-}
-
-.drop-area:hover,
-.drop-area.dragover {
-    border-color: var(--green-primary);
-    background: #D4C3AE;
-}
-
-.drop-area-icon {
-    font-size: 2rem;
-    margin-bottom: 6px;
-}
-
-.drop-area p {
-    font-size: 0.85rem;
-    color: var(--text-muted);
-}
-
-.drop-area strong {
-    color: var(--text-primary);
-}
-
-.file-status-pill {
-    display: none;
-    margin-top: 10px;
-    background: var(--green-light);
-    border: 1px solid var(--green-muted);
-    border-radius: 8px;
-    padding: 6px 12px;
-    font-size: 0.8rem;
-    color: var(--green-primary);
-    align-items: center;
-    justify-content: space-between;
-}
-
-.hidden-file-input {
-    display: none;
-}
-
-.input-label-row {
-    display: flex;
-    justify-content: space-between;
-    font-size: 0.85rem;
-    font-weight: 600;
-    color: var(--text-secondary);
-}
-
-.char-counter {
-    color: var(--clay-accent);
-    font-size: 0.8rem;
-}
-
-.studio-textarea {
-    width: 100%;
-    height: 140px;
-    padding: 14px;
-    border-radius: 12px;
-    border: 1px solid var(--border-highlight);
-    background: var(--surface-light);
-    color: var(--text-primary);
-    font-family: inherit;
-    font-size: 0.9rem;
-    resize: vertical;
-    line-height: 1.5;
-}
-
-.studio-textarea::placeholder {
-    color: #8C7B67;
-}
-
-/* Prompt Directive Box */
-.prompt-directive-box {
-    background: var(--surface-light);
-    border: 1px solid var(--green-muted);
-    border-radius: 12px;
-    padding: 12px 14px;
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
-}
-
-.prompt-directive-box label {
-    font-size: 0.85rem;
-    font-weight: 700;
-    color: var(--green-primary);
-    display: flex;
-    align-items: center;
-    gap: 6px;
-}
-
-.prompt-input {
-    width: 100%;
-    padding: 10px 12px;
-    border-radius: 8px;
-    border: 1px solid var(--border-highlight);
-    background: var(--surface);
-    color: var(--text-primary);
-    font-size: 0.85rem;
-    font-family: inherit;
-}
-
-.prompt-input::placeholder {
-    color: #8C7B67;
-}
-
-.quiz-config-panel {
+.config-box {
     background: var(--surface-light);
     border: 1px solid var(--border);
-    border-radius: 12px;
-    padding: 12px 14px;
+    border-radius: 14px;
+    padding: 16px;
     display: flex;
     flex-direction: column;
     gap: 10px;
 }
 
-.config-toggle-row {
+.config-row {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
-    font-size: 0.85rem;
-    font-weight: 600;
+    flex-direction: column;
+    gap: 6px;
 }
 
-.config-select-row {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+.config-row label {
     font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--green-primary);
 }
 
-.config-select {
-    padding: 6px 10px;
-    border-radius: 6px;
-    background: var(--surface);
-    color: var(--text-primary);
-    border: 1px solid var(--border-highlight);
-    font-size: 0.85rem;
-}
-
-.status-box {
-    font-size: 0.85rem;
+.studio-select,
+.studio-input {
+    width: 100%;
     padding: 10px 14px;
     border-radius: 8px;
-    display: none;
+    border: 1px solid var(--border-highlight);
+    background: var(--surface);
+    color: var(--text-primary);
+    font-size: 0.9rem;
+    font-family: inherit;
 }
 
-.status-box.error {
-    display: block;
-    background: var(--error-bg);
-    color: var(--error);
-    border: 1px solid #D69E9E;
+.studio-select:focus,
+.studio-input:focus {
+    border-color: var(--green-primary);
+    outline: none;
 }
 
-/* AI Engine Config Badge */
-.ai-badge {
+/* Preset Action Chips Bank */
+.action-bank {
+    background: var(--surface-light);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.action-bank-title {
+    font-size: 0.85rem;
+    font-weight: 800;
+    color: var(--clay-accent);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.action-chips-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.action-chip {
+    background: var(--surface-elevated);
+    border: 1px solid var(--border-highlight);
+    border-radius: 999px;
+    padding: 6px 12px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    cursor: pointer;
+    transition: all 0.2s ease;
     display: inline-flex;
     align-items: center;
     gap: 6px;
+}
+
+.action-chip:hover {
     background: var(--green-light);
-    border: 1px solid var(--green-primary);
+    border-color: var(--green-primary);
     color: var(--green-primary);
-    font-size: 0.75rem;
-    font-weight: 700;
-    padding: 4px 10px;
-    border-radius: 999px;
-    cursor: pointer;
-    transition: all 0.2s;
+    transform: translateY(-1px);
 }
 
-.ai-badge:hover {
-    background: #BAD2BF;
-}
-
-/* Modal for API Key Settings */
-.modal-overlay {
-    position: fixed;
-    inset: 0;
-    background: rgba(30, 20, 10, 0.65);
-    backdrop-filter: blur(4px);
-    display: none;
-    align-items: center;
-    justify-content: center;
-    z-index: 1100;
-}
-
-.modal-overlay.show {
-    display: flex;
-}
-
-.modal-card {
+.action-chip kbd {
     background: var(--surface);
-    border: 1px solid var(--green-primary);
-    border-radius: 18px;
-    padding: 28px;
-    width: 100%;
-    max-width: 500px;
-    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.2);
-}
-
-.modal-card h3 {
-    color: var(--green-primary);
-    margin-bottom: 8px;
-    font-size: 1.3rem;
-}
-
-.modal-card p {
-    color: var(--text-secondary);
-    font-size: 0.88rem;
-    margin-bottom: 16px;
-}
-
-.modal-input {
-    width: 100%;
-    padding: 12px;
-    border-radius: 8px;
     border: 1px solid var(--border-highlight);
-    background: var(--surface-light);
-    color: var(--text-primary);
-    font-family: monospace;
-    font-size: 0.9rem;
-    margin-bottom: 18px;
+    border-radius: 4px;
+    padding: 1px 5px;
+    font-size: 0.72rem;
+    font-family: ui-monospace, monospace;
+    font-weight: 700;
+    color: var(--clay-accent);
 }
 
-.modal-buttons {
+/* Manual Step Builder Card */
+.step-form-card {
+    background: var(--surface-light);
+    border: 1px solid var(--green-muted);
+    border-radius: 14px;
+    padding: 16px;
     display: flex;
-    justify-content: flex-end;
+    flex-direction: column;
     gap: 10px;
 }
 
-/* Right Panel: Output Stage */
+.step-form-title {
+    font-size: 0.88rem;
+    font-weight: 800;
+    color: var(--green-primary);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+/* Right Panel: Output Flowchart Canvas */
 .studio-output-panel {
     border: 1px solid var(--border);
     border-radius: 16px;
@@ -666,41 +545,28 @@ section {
     gap: 12px;
 }
 
-.mode-selector {
+.pipeline-meta {
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 12px;
 }
 
-.mode-selector label {
-    font-size: 0.85rem;
-    font-weight: 700;
-    letter-spacing: 0.5px;
-    color: var(--green-primary);
-}
-
-.mode-select {
-    padding: 8px 14px;
-    border-radius: 8px;
-    border: 1px solid var(--border-highlight);
-    background: var(--surface);
-    font-size: 0.9rem;
-    font-weight: 600;
-    color: var(--text-primary);
-    cursor: pointer;
-}
-
-.timer-badge {
+.pipeline-badge {
     background: var(--green-light);
     border: 1px solid var(--green-muted);
     color: var(--green-primary);
+    font-size: 0.78rem;
     font-weight: 800;
-    padding: 6px 14px;
+    padding: 5px 12px;
     border-radius: 999px;
-    font-size: 0.9rem;
-    display: none;
-    align-items: center;
-    gap: 6px;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+}
+
+.pipeline-counter {
+    font-size: 0.88rem;
+    font-weight: 700;
+    color: var(--text-muted);
 }
 
 .extra-tools {
@@ -732,6 +598,7 @@ section {
     font-size: 0.95rem;
 }
 
+/* Dropdown Menu */
 .dropdown-container {
     position: relative;
 }
@@ -766,12 +633,12 @@ section {
     position: absolute;
     top: calc(100% + 8px);
     right: 0;
-    width: 220px;
+    width: 230px;
     background: var(--surface);
     border: 1px solid var(--border-highlight);
     border-radius: 12px;
     padding: 8px;
-    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.12);
+    box-shadow: 0 12px 28px rgba(40, 25, 10, 0.15);
     display: none;
     flex-direction: column;
     z-index: 50;
@@ -783,7 +650,7 @@ section {
 
 .dropdown-header {
     font-size: 0.75rem;
-    font-weight: 700;
+    font-weight: 800;
     color: var(--green-primary);
     letter-spacing: 1px;
     padding: 6px 12px 4px;
@@ -817,18 +684,20 @@ section {
     margin: 6px 0;
 }
 
-/* Center Content Stage */
+/* Flowchart Visual Display Stage */
 .studio-stage {
     flex: 1;
+    padding: 24px 8px;
     display: flex;
+    flex-direction: column;
     align-items: center;
-    justify-content: center;
-    padding: 24px 0;
     position: relative;
-    min-height: 440px;
+    overflow-y: auto;
+    max-height: 600px;
 }
 
 .stage-placeholder {
+    margin: auto;
     text-align: center;
     color: var(--text-muted);
 }
@@ -839,518 +708,160 @@ section {
     margin-bottom: 8px;
 }
 
-/* Progress / Loading Screen */
-.loading-overlay {
-    display: none;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    gap: 14px;
-    width: 80%;
-}
-
-.loading-overlay p {
-    font-weight: 600;
-    color: var(--green-primary);
-}
-
-.progress-bar-container {
-    width: 100%;
-    height: 8px;
-    background: var(--surface-elevated);
-    border-radius: 999px;
-    overflow: hidden;
-}
-
-.progress-bar-fill {
-    width: 0%;
-    height: 100%;
-    background: var(--green-primary);
-    transition: width 0.05s linear;
-}
-
-/* ======================================================
-   MODE 1: PRESENTATION DUAL-PANE (DIAGRAM LEFT, DETAILS RIGHT)
-====================================================== */
-.true-slide-deck {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 16px;
-    width: 100%;
-    max-width: 880px;
-    display: grid;
-    grid-template-columns: 0.95fr 1.05fr;
-    overflow: hidden;
-    box-shadow: 0 12px 30px rgba(40, 25, 10, 0.08);
-    min-height: 400px;
-}
-
-.slide-visual-column {
-    background: var(--surface-elevated);
-    border-right: 1px solid var(--border);
-    padding: 28px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    position: relative;
-}
-
-.slide-diagram-canvas {
-    width: 100%;
-    height: 240px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.slide-diagram-canvas svg {
-    max-width: 100%;
-    max-height: 100%;
-}
-
-.diagram-label {
-    font-size: 0.75rem;
-    font-weight: 700;
-    color: var(--green-primary);
-    letter-spacing: 0.5px;
-    margin-top: 14px;
-    text-align: center;
-}
-
-.slide-content-column {
-    padding: 32px 28px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    overflow-y: auto;
-    max-height: 460px;
-    background: var(--surface);
-}
-
-.slide-tag {
-    font-size: 0.75rem;
-    font-weight: 800;
-    color: var(--clay-accent);
-    letter-spacing: 1px;
-    margin-bottom: 8px;
-    text-transform: uppercase;
-}
-
-.slide-content-column h3 {
-    font-size: 1.4rem;
-    margin-bottom: 12px;
-    color: var(--text-primary);
-    line-height: 1.3;
-}
-
-.slide-lead-concept {
-    font-size: 0.95rem;
-    color: var(--text-secondary);
-    margin-bottom: 16px;
-    line-height: 1.55;
-}
-
-.slide-bullets {
-    list-style: none;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-}
-
-.slide-bullets li {
-    position: relative;
-    padding-left: 20px;
-    font-size: 0.9rem;
-    color: var(--text-secondary);
-    line-height: 1.5;
-}
-
-.slide-bullets li::before {
-    content: "▸";
-    position: absolute;
-    left: 0;
-    color: var(--green-primary);
-    font-size: 1.1rem;
-    top: -2px;
-}
-
-.slide-bullets strong {
-    color: var(--green-primary);
-}
-
-/* ======================================================
-   MODE 2: FLASHCARDS (SINGLE SENTENCE DISTILLATION)
-====================================================== */
-.flashcard-scene {
-    perspective: 1200px;
-    width: 100%;
-    max-width: 660px;
-    min-height: 300px;
-    display: flex;
-    justify-content: center;
-    cursor: pointer;
-}
-
-.flashcard-object {
-    width: 100%;
-    min-height: 300px;
-    position: relative;
-    transform-style: preserve-3d;
-    transition: transform 0.6s cubic-bezier(0.4, 0.2, 0.2, 1);
-}
-
-.flashcard-object.is-flipped {
-    transform: rotateY(180deg);
-}
-
-.flashcard-face {
-    position: absolute;
-    inset: 0;
-    backface-visibility: hidden;
-    border-radius: 16px;
-    border: 1px solid var(--border);
-    padding: 36px 30px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: center;
-    text-align: center;
-    box-shadow: 0 8px 24px rgba(40, 25, 10, 0.08);
-    overflow-y: auto;
-}
-
-.flashcard-front {
-    background: var(--surface);
-    color: var(--text-primary);
-}
-
-.flashcard-back {
-    background: var(--surface-dark);
-    border-color: #2D3E32;
-    color: #E8DCCB;
-    transform: rotateY(180deg);
-}
-
-.flashcard-core-text {
-    font-size: 1.25rem;
-    font-weight: 600;
-    line-height: 1.6;
-    margin: auto 0;
-    color: var(--text-primary);
-    max-width: 90%;
-}
-
-.flashcard-back .flashcard-core-text {
-    color: #D8EAD9;
-    font-weight: 500;
-}
-
-.card-hint {
-    font-size: 0.8rem;
-    color: var(--green-primary);
-    font-weight: 600;
-    margin-top: 14px;
-}
-
-.flashcard-back .card-hint {
-    color: #B4D3BC;
-}
-
-/* ======================================================
-   MODE 3: HIGH-STIMULATION QUIZ WITH PEDAGOGICAL FEEDBACK
-====================================================== */
-.quiz-box {
+.workflow-pipeline {
     width: 100%;
     max-width: 680px;
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 16px;
-    padding: 32px;
-    box-shadow: 0 8px 24px rgba(40, 25, 10, 0.08);
-}
-
-.quiz-box h4 {
-    font-size: 1.2rem;
-    margin-bottom: 20px;
-    color: var(--text-primary);
-    line-height: 1.5;
-}
-
-.quiz-options {
     display: flex;
     flex-direction: column;
-    gap: 12px;
+    align-items: center;
+    gap: 0;
 }
 
-.quiz-opt-btn {
-    padding: 14px 18px;
-    border-radius: 10px;
+/* Individual Workflow Step Card */
+.workflow-node {
+    width: 100%;
+    background: var(--surface);
     border: 1px solid var(--border);
-    background: var(--surface-light);
-    color: var(--text-primary);
-    font-size: 0.95rem;
-    cursor: pointer;
-    text-align: left;
-    transition: all 0.2s;
-    line-height: 1.4;
+    border-radius: 14px;
+    padding: 18px 20px;
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    gap: 16px;
+    align-items: center;
+    box-shadow: 0 4px 12px rgba(40, 25, 10, 0.05);
+    transition: transform 0.2s ease, border-color 0.2s ease;
+    position: relative;
 }
 
-.quiz-opt-btn:hover:not(:disabled) {
-    background: var(--surface-elevated);
+.workflow-node:hover {
     border-color: var(--green-primary);
+    transform: translateY(-2px);
 }
 
-.quiz-opt-btn.correct {
-    background: var(--success-bg);
-    border-color: var(--success);
-    color: #144D28;
-    font-weight: bold;
+.node-idx-badge {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: var(--green-primary);
+    color: #F4ECE1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 800;
+    font-size: 0.95rem;
 }
 
-.quiz-opt-btn.wrong {
-    background: var(--error-bg);
-    border-color: var(--error);
-    color: #881C1C;
-}
-
-/* Learning Explanation Box */
-.quiz-explanation-box {
-    margin-top: 18px;
-    padding: 16px 18px;
-    border-radius: 10px;
-    background: var(--surface-light);
-    border: 1px solid var(--green-primary);
-    font-size: 0.88rem;
-    line-height: 1.5;
-    color: var(--text-secondary);
+.node-content {
     display: flex;
     flex-direction: column;
     gap: 4px;
 }
 
-.quiz-explanation-box strong {
-    color: var(--green-primary);
-    font-size: 0.85rem;
+.node-header-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.node-title {
+    font-size: 1.05rem;
+    font-weight: 800;
+    color: var(--text-primary);
+}
+
+.node-category-tag {
+    font-size: 0.72rem;
+    font-weight: 700;
+    padding: 2px 8px;
+    border-radius: 999px;
+    background: var(--surface-elevated);
+    color: var(--clay-accent);
     text-transform: uppercase;
     letter-spacing: 0.5px;
 }
 
-/* Quiz Review Dashboard */
-.quiz-results-card {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 16px;
-    padding: 32px;
-    width: 100%;
-    max-width: 700px;
-    max-height: 480px;
-    overflow-y: auto;
-}
-
-.results-score-banner {
-    text-align: center;
-    padding-bottom: 24px;
-    border-bottom: 1px solid var(--border);
-}
-
-.results-score-banner h3 {
-    font-size: 2.2rem;
-    color: var(--green-primary);
-    margin-bottom: 6px;
-}
-
-.review-list {
-    margin: 24px 0;
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-}
-
-.review-item {
-    background: var(--surface-light);
-    border-radius: 10px;
-    padding: 16px;
-    border-left: 4px solid var(--border-highlight);
-    font-size: 0.9rem;
-}
-
-.review-item.is-correct {
-    border-left-color: var(--success);
-}
-
-.review-item.is-incorrect {
-    border-left-color: var(--error);
-}
-
-.review-q-title {
-    font-weight: 700;
-    color: var(--text-primary);
-    margin-bottom: 6px;
-}
-
-/* Bottom Navigation Controls */
-.studio-bottom-controls {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding-top: 16px;
-    border-top: 1px solid var(--border);
-    gap: 16px;
-    margin-top: 12px;
-    position: relative;
-    z-index: 10;
-    background: var(--surface-light);
-}
-
-.nav-arrows-group {
-    display: flex;
-    gap: 8px;
-}
-
-.nav-arrow-btn {
-    padding: 8px 16px;
-    border-radius: 8px;
-    border: 1px solid var(--border-highlight);
-    background: var(--surface);
-    color: var(--text-primary);
-    font-weight: bold;
-    cursor: pointer;
-}
-
-.nav-arrow-btn:hover:not(:disabled) {
-    background: var(--surface-elevated);
-    color: var(--green-primary);
-}
-
-.nav-arrow-btn:disabled {
-    opacity: 0.4;
-    cursor: not-allowed;
-}
-
-.progress-pill {
-    font-size: 0.85rem;
-    font-weight: 700;
-    color: var(--green-primary);
-    background: var(--surface);
-    border: 1px solid var(--border);
-    padding: 4px 14px;
-    border-radius: 999px;
-    white-space: nowrap;
-}
-
-.page-jump-links {
-    display: flex;
-    gap: 6px;
-    list-style: none;
-    flex-wrap: wrap;
-    max-height: 60px;
-    overflow-y: auto;
-}
-
-.jump-dot {
-    width: 28px;
-    height: 28px;
-    border-radius: 6px;
-    border: 1px solid var(--border);
-    background: var(--surface);
+.node-description {
+    font-size: 0.88rem;
     color: var(--text-secondary);
+    line-height: 1.45;
+}
+
+.node-hotkey-wrap {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: 4px;
+}
+
+.node-hotkey-label {
     font-size: 0.75rem;
     font-weight: 700;
+    color: var(--text-muted);
+}
+
+.node-hotkey-chip {
+    background: var(--surface-light);
+    border: 1px solid var(--border-highlight);
+    border-bottom: 2px solid var(--border-highlight);
+    border-radius: 6px;
+    padding: 2px 8px;
+    font-family: ui-monospace, monospace;
+    font-size: 0.85rem;
+    font-weight: 800;
+    color: var(--green-primary);
+}
+
+.node-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.node-icon-btn {
+    background: transparent;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    width: 28px;
+    height: 28px;
     display: flex;
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    transition: all 0.2s;
+    color: var(--text-muted);
+    font-size: 0.85rem;
+    transition: all 0.15s ease;
 }
 
-.jump-dot:hover {
+.node-icon-btn:hover {
+    background: var(--surface-elevated);
+    color: var(--green-primary);
     border-color: var(--green-primary);
 }
 
-.jump-dot.active {
-    background: var(--green-primary);
-    color: #F4ECE1;
-    border-color: var(--green-primary);
+.node-icon-btn.delete-btn:hover {
+    background: var(--error-bg);
+    color: var(--error);
+    border-color: var(--error);
 }
 
-/* WHY IT MATTERS SECTION */
-.future-header {
-    max-width: 780px;
-    margin-bottom: 40px;
-}
-
-.section-lead {
-    font-size: 1.15rem;
-    color: var(--text-secondary);
-    line-height: 1.6;
-}
-
-.matters-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 24px;
-    margin-bottom: 36px;
-}
-
-.matter-card {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 18px;
-    padding: 32px;
-    transition: transform 0.2s ease, border-color 0.2s ease;
-    box-shadow: 0 4px 12px rgba(40, 25, 10, 0.05);
-}
-
-.matter-card:hover {
-    transform: translateY(-3px);
-    border-color: var(--green-primary);
-}
-
-.matter-icon {
-    font-size: 2rem;
-    margin-bottom: 16px;
-    display: inline-block;
-}
-
-.matter-card h3 {
-    font-size: 1.25rem;
-    margin-bottom: 12px;
-    color: var(--text-primary);
-}
-
-.matter-card p {
-    color: var(--text-secondary);
-    font-size: 0.95rem;
-    line-height: 1.6;
-}
-
-.research-banner {
-    background: var(--green-light);
-    border: 1px solid #A8C6B0;
-    border-radius: 16px;
-    padding: 24px 30px;
+/* Inter-Node Connector Arrow */
+.node-connector {
+    height: 26px;
     display: flex;
     align-items: center;
-    gap: 20px;
+    justify-content: center;
 }
 
-.banner-badge {
-    background: var(--green-primary);
-    color: #F4ECE1;
-    font-size: 0.75rem;
-    font-weight: 800;
-    letter-spacing: 1px;
-    padding: 6px 12px;
-    border-radius: 999px;
-    white-space: nowrap;
+.node-connector svg {
+    width: 20px;
+    height: 24px;
+    color: var(--green-muted);
 }
 
-.research-banner p {
-    color: var(--text-primary);
-    font-size: 1rem;
-    margin: 0;
+/* Hidden canvas element for PNG export */
+#exportCanvas {
+    display: none;
 }
 
 /* FOOTER */
@@ -1369,15 +880,6 @@ footer {
     
     .studio-grid {
         grid-template-columns: 1fr;
-    }
-
-    .true-slide-deck {
-        grid-template-columns: 1fr;
-    }
-
-    .slide-visual-column {
-        border-right: none;
-        border-bottom: 1px solid var(--border);
     }
 
     .hero {
@@ -1422,7 +924,7 @@ footer {
         align-items: stretch;
     }
 
-    .mode-selector {
+    .pipeline-meta {
         justify-content: space-between;
     }
 
@@ -1430,21 +932,14 @@ footer {
         justify-content: flex-end;
     }
 
-    .studio-bottom-controls {
-        flex-direction: column;
-        align-items: stretch;
+    .workflow-node {
+        grid-template-columns: 1fr;
         gap: 12px;
     }
 
-    .page-jump-links {
-        justify-content: center;
-    }
-
-    .research-banner {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 12px;
-        padding: 20px;
+    .node-actions {
+        flex-direction: row;
+        justify-content: flex-end;
     }
 }
 </style>
@@ -1482,7 +977,7 @@ footer {
                 <li><a href="#story">The Story</a></li>
                 <li><a href="#journey">The Journey</a></li>
                 <li><a href="#benefits">The Benefits</a></li>
-                <li><a href="#studio">Visual Studio</a></li>
+                <li><a href="#studio">Workflow Studio</a></li>
                 <li><a href="#future">Why It Matters</a></li>
             </ul>
         </nav>
@@ -1496,15 +991,15 @@ footer {
         <div>
             <span class="section-label">COGNITIVE CLARITY • VISUAL ARCHITECTURE</span>
             <h1 class="section-title">CogniFlow: Turn dense information into direct understanding.</h1>
-            <p>Mastering complex software, intricate literature, and technical manuals shouldn't feel like deciphering walls of text. CogniFlow extracts core principles and turns them into sequential, bite-sized visual workflows.</p>
+            <p>Mastering complex software, intricate workflows, and technical manuals shouldn't feel like deciphering walls of text. CogniFlow extracts core procedures and turns them into sequential, visual cheat sheets.</p>
             <div class="buttons">
                 <a href="#journey" class="btn primary">Explore the Journey</a>
-                <a href="#studio" class="btn secondary">Open Visual Studio</a>
+                <a href="#studio" class="btn secondary">Open Workflow Studio</a>
             </div>
         </div>
 
         <div class="hero-visual-container">
-            <svg viewBox="0 0 520 340" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Diagram showing dense technical prose transforming into structured visual modules">
+            <svg viewBox="0 0 520 340" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Diagram showing technical workflows translating into visual pipelines">
                 <defs>
                     <pattern id="heroGrid" width="24" height="24" patternUnits="userSpaceOnUse">
                         <path d="M 24 0 L 0 0 0 24" fill="none" stroke="#BBA48A" stroke-width="0.8" opacity="0.6" />
@@ -1518,7 +1013,7 @@ footer {
                 <rect width="520" height="340" rx="16" fill="url(#tanGlow)" />
                 <rect width="520" height="340" rx="16" fill="url(#heroGrid)" />
 
-                <!-- Left Panel: Raw Unstructured Text -->
+                <!-- Left Panel: Raw Unstructured Commands -->
                 <rect x="28" y="45" width="180" height="250" rx="12" fill="#E8DCCB" stroke="#A68E74" stroke-width="1.5" />
                 <rect x="42" y="60" width="90" height="10" rx="5" fill="#1C3B27" opacity="0.9" />
                 <rect x="42" y="82" width="150" height="6" rx="3" fill="#9E4D36" opacity="0.7" />
@@ -1533,7 +1028,7 @@ footer {
                 <rect x="42" y="208" width="115" height="6" rx="3" fill="#BBA48A" />
                 
                 <rect x="42" y="235" width="150" height="36" rx="8" fill="#F2E9DC" stroke="#1C3B27" stroke-dasharray="3 3" />
-                <text x="117" y="258" fill="#1C3B27" font-size="10" font-family="system-ui, sans-serif" font-weight="700" text-anchor="middle">Dense Raw Document</text>
+                <text x="117" y="258" fill="#1C3B27" font-size="10" font-family="system-ui, sans-serif" font-weight="700" text-anchor="middle">Dense Technical Manual</text>
 
                 <!-- Center: Dynamic Synthesis Pathways -->
                 <path d="M 218 170 C 248 170, 248 95, 278 95" stroke="#1C3B27" stroke-width="2.5" stroke-linecap="round" fill="none" />
@@ -1549,27 +1044,27 @@ footer {
                     <rect x="285" y="65" width="205" height="62" rx="10" fill="#E8DCCB" stroke="#1C3B27" stroke-width="1.5" />
                     <circle cx="310" cy="96" r="14" fill="#1C3B27" />
                     <text x="310" y="100" fill="#F2E9DC" font-size="11" font-weight="900" text-anchor="middle">01</text>
-                    <text x="334" y="90" fill="#132417" font-size="12" font-weight="700">EXTRACT CORE</text>
-                    <text x="334" y="106" fill="#4F5E52" font-size="9.5">Filters noise & front-matter</text>
+                    <text x="334" y="90" fill="#132417" font-size="12" font-weight="700">EXTRACT STEPS</text>
+                    <text x="334" y="106" fill="#4F5E52" font-size="9.5">Organize logical phases</text>
                 </g>
 
                 <g filter="drop-shadow(0px 4px 8px rgba(40,25,10,0.08))">
                     <rect x="285" y="140" width="205" height="62" rx="10" fill="#E8DCCB" stroke="#385942" stroke-width="1.5" />
                     <circle cx="310" cy="171" r="14" fill="#385942" />
                     <text x="310" y="175" fill="#F2E9DC" font-size="11" font-weight="900" text-anchor="middle">02</text>
-                    <text x="334" y="165" fill="#132417" font-size="12" font-weight="700">MAP VISUALS</text>
-                    <text x="334" y="181" fill="#4F5E52" font-size="9.5">Schematic dual-pane decks</text>
+                    <text x="334" y="165" fill="#132417" font-size="12" font-weight="700">MAP HOTKEYS</text>
+                    <text x="334" y="181" fill="#4F5E52" font-size="9.5">Intuitive visual keycaps</text>
                 </g>
 
                 <g filter="drop-shadow(0px 4px 8px rgba(40,25,10,0.08))">
                     <rect x="285" y="215" width="205" height="62" rx="10" fill="#E8DCCB" stroke="#9E4D36" stroke-width="1.5" />
                     <circle cx="310" cy="246" r="14" fill="#9E4D36" />
                     <text x="310" y="250" fill="#F2E9DC" font-size="11" font-weight="900" text-anchor="middle">03</text>
-                    <text x="334" y="240" fill="#132417" font-size="12" font-weight="700">SOLID RETENTION</text>
-                    <text x="334" y="256" fill="#4F5E52" font-size="9.5">Flashcards & timed quizzes</text>
+                    <text x="334" y="240" fill="#132417" font-size="12" font-weight="700">EXPORT PIPELINES</text>
+                    <text x="334" y="256" fill="#4F5E52" font-size="9.5">Printable cheat sheets</text>
                 </g>
             </svg>
-            <div class="hero-visual-caption">CogniFlow Engine • Converting Dense Prose into Structured Comprehension</div>
+            <div class="hero-visual-caption">CogniFlow Studio • Interactive Software Workflow & Hotkey Builder</div>
         </div>
     </section>
 
@@ -1650,119 +1145,131 @@ footer {
     </section>
 
     <!-- ======================================================
-         INTERACTIVE LESSON STUDIO (DUAL-CORE AI SYSTEM)
+         INTERACTIVE COMPONENT: WORKFLOW & HOTKEY SHEET BUILDER
     ======================================================= -->
     <section id="studio">
         <div class="container">
             <span class="section-label">INTERACTIVE STUDIO</span>
-            <h2 class="section-title">CogniFlow Studio: Distill Lessons Instantly</h2>
-            <p class="section-lead">Upload course readings, PDFs, or textbook chapters. CogniFlow filters out index noise, responds directly to your chapter prompt, and packages findings into focused, human-scale review decks.</p>
+            <h2 class="section-title">Visual Software Workflow & Hotkey Builder</h2>
+            <p class="section-lead">Select your design or simulation platform, load pre-built workflows, assemble custom action sequences with shortcut keycaps, and export high-resolution visual cheat sheets.</p>
 
             <div class="studio-widget" id="studioWidget">
                 <div class="studio-grid">
                     
-                    <!-- LEFT COLUMN: Input, File Upload & Prompt Directive -->
+                    <!-- LEFT COLUMN: BUILDER CONTROLS -->
                     <div class="studio-input-panel">
-                        <div class="drop-area" id="dropArea" tabindex="0" role="button" aria-label="Upload document file">
-                            <div class="drop-area-icon">📚</div>
-                            <strong>Upload Course File or PDF</strong>
-                            <p>Drag & drop or click (.pdf, .txt, .md supported)</p>
-                            <input type="file" id="fileInput" class="hidden-file-input" accept=".pdf,.txt,.md">
-                            <div id="fileStatusPill" class="file-status-pill">
-                                <span id="filePillName">document.pdf</span>
-                                <span style="cursor:pointer;" onclick="clearUploadedFile(event)">✕</span>
+                        
+                        <!-- Platform & Preset Selector -->
+                        <div class="config-box">
+                            <div class="config-row">
+                                <label for="softwarePlatformSelect">1. Target Software Platform:</label>
+                                <select id="softwarePlatformSelect" class="studio-select" onchange="handleSoftwareChange()">
+                                    <option value="autocad">AutoCAD (Architecture & 2D/3D CAD)</option>
+                                    <option value="fusion360">Fusion 360 (Parametric Mechanical CAD)</option>
+                                    <option value="matlab">MATLAB (Numerical Analysis & Scripting)</option>
+                                    <option value="blender">Blender (3D Modeling & Rendering)</option>
+                                </select>
                             </div>
-                        </div>
 
-                        <div class="input-label-row">
-                            <label for="lessonText">Or Paste Raw Content:</label>
-                            <span class="char-counter" id="charCounter">0 words</span>
-                        </div>
-
-                        <textarea id="lessonText" class="studio-textarea" placeholder="Paste full research articles, lecture transcripts, or textbook chapters..."></textarea>
-
-                        <!-- AI Custom Prompting Section -->
-                        <div class="prompt-directive-box">
-                            <label for="userPromptDirective">✨ Target Chapter or Focus Topic:</label>
-                            <input type="text" id="userPromptDirective" class="prompt-input" placeholder="e.g. Focus on Canto 1, Chapter 3, or Cognitive Load...">
-                        </div>
-
-                        <!-- Quiz Settings Sub-Panel -->
-                        <div id="quizSettingsPanel" class="quiz-config-panel">
-                            <div class="config-toggle-row">
-                                <label for="timedQuizToggle">Timed Quiz Mode:</label>
-                                <input type="checkbox" id="timedQuizToggle">
-                            </div>
-                            <div class="config-select-row">
-                                <label for="questionCountSelect">Target Question Count:</label>
-                                <select id="questionCountSelect" class="config-select">
-                                    <option value="auto">Adaptive (Optimal 5-10)</option>
-                                    <option value="5">5 Questions (Quick)</option>
-                                    <option value="10">10 Questions (Standard)</option>
-                                    <option value="15">15 Questions (Comprehensive)</option>
+                            <div class="config-row">
+                                <label for="workflowPresetSelect">2. Load Pre-Built Workflow Template:</label>
+                                <select id="workflowPresetSelect" class="studio-select" onchange="handlePresetChange()">
+                                    <!-- Populated dynamically via JS -->
                                 </select>
                             </div>
                         </div>
 
-                        <div id="statusMessage" class="status-box" role="alert"></div>
+                        <!-- Action Bank: Quick Add Chips -->
+                        <div class="action-bank">
+                            <div class="action-bank-title">
+                                <span>Quick-Add Action Bank</span>
+                                <span style="font-size:0.75rem; color:var(--text-muted);">Click to Append</span>
+                            </div>
+                            <div class="action-chips-container" id="actionChipsContainer">
+                                <!-- Populated dynamically based on selected software -->
+                            </div>
+                        </div>
 
-                        <button type="button" class="btn primary" id="generateBtn" onclick="handleGenerateAction()">Synthesize & Digest Content</button>
+                        <!-- Manual Step Creator -->
+                        <div class="step-form-card">
+                            <div class="step-form-title">
+                                <span>➕ Custom Step / Command</span>
+                            </div>
+
+                            <div class="config-row">
+                                <label for="stepNameInput">Action / Step Title:</label>
+                                <input type="text" id="stepNameInput" class="studio-input" placeholder="e.g., Extrude Profile, Define Array...">
+                            </div>
+
+                            <div style="display:grid; grid-template-columns: 1fr 1fr; gap:10px;">
+                                <div class="config-row">
+                                    <label for="stepHotkeyInput">Hotkey / Command:</label>
+                                    <input type="text" id="stepHotkeyInput" class="studio-input" placeholder="e.g., EXT, Ctrl+B, F...">
+                                </div>
+                                <div class="config-row">
+                                    <label for="stepCategorySelect">Phase Category:</label>
+                                    <select id="stepCategorySelect" class="studio-select">
+                                        <option value="Setup">Setup / Units</option>
+                                        <option value="Geometry">Geometry / Shape</option>
+                                        <option value="Modify">Modify / Transform</option>
+                                        <option value="Detail">Detail / Constraint</option>
+                                        <option value="Export">Output / Export</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="config-row">
+                                <label for="stepDescInput">Instructional Tip / Note:</label>
+                                <input type="text" id="stepDescInput" class="studio-input" placeholder="e.g., Select closed polygon and enter height...">
+                            </div>
+
+                            <button type="button" class="btn primary" id="addStepBtn" style="padding:10px 18px; margin-top:6px;" onclick="addCustomStep()">
+                                Append to Pipeline
+                            </button>
+                        </div>
+
                     </div>
 
-                    <!-- RIGHT COLUMN: Output Canvas / Results -->
+                    <!-- RIGHT COLUMN: VISUAL FLOWCHART CANVAS -->
                     <div class="studio-output-panel">
                         
-                        <!-- Top Bar: Mode Switcher, Engine Badge & Tools -->
+                        <!-- Top Toolbar -->
                         <div class="studio-top-controls">
-                            <div class="mode-selector">
-                                <label for="learningMode">FORMAT:</label>
-                                <select id="learningMode" class="mode-select" onchange="handleModeChange()">
-                                    <option value="presentation">Presentation (Diagrams + Key Details)</option>
-                                    <option value="flashcards">Flashcards (Focused Single Sentences)</option>
-                                    <option value="quiz">Interactive Quiz & Review</option>
-                                </select>
+                            <div class="pipeline-meta">
+                                <span class="pipeline-badge" id="platformBadge">AutoCAD Pipeline</span>
+                                <span class="pipeline-counter" id="stepCounter">4 Steps Configured</span>
                             </div>
-
-                            <div class="ai-badge" id="aiEngineBadge" onclick="openEngineConfigModal()" title="Click to configure Gemini API Key">
-                                <span id="engineIcon">🧠</span> <span id="engineLabel">Built-in NLP</span>
-                            </div>
-
-                            <div class="timer-badge" id="timerDisplay">⏱ <span id="timerClock">00:00</span></div>
 
                             <div class="extra-tools">
                                 <button type="button" class="tool-btn fullscreen-btn" id="fullscreenToggleBtn" onclick="toggleWidgetFullscreen()" title="Toggle Fullscreen View" aria-label="Toggle Fullscreen">
                                     ⛶ Expand
                                 </button>
 
-                                <button type="button" class="tool-btn" onclick="clearStudio()">Clear</button>
+                                <button type="button" class="tool-btn" onclick="clearWorkflow()" title="Reset Pipeline">Clear</button>
 
                                 <!-- 3-Dot Export Dropdown Menu -->
                                 <div class="dropdown-container">
-                                    <button type="button" class="more-btn" id="exportMenuBtn" onclick="toggleExportMenu(event)" aria-haspopup="true" aria-expanded="false" aria-label="Export settings and options" disabled>
+                                    <button type="button" class="more-btn" id="exportMenuBtn" onclick="toggleExportMenu(event)" aria-haspopup="true" aria-expanded="false" aria-label="Export settings and options">
                                         &#8942;
                                     </button>
 
                                     <div class="dropdown-menu" id="exportMenu" role="menu">
-                                        <div class="dropdown-header">Export Format</div>
-                                        <button type="button" class="dropdown-item" role="menuitem" onclick="exportAs('txt')">
-                                            <span>Text Document</span>
-                                            <span style="color:var(--clay-accent); font-size:0.75rem;">.TXT</span>
+                                        <div class="dropdown-header">Export Cheat Sheet</div>
+                                        <button type="button" class="dropdown-item" role="menuitem" onclick="exportWorkflowAs('png')">
+                                            <span>Graphic Diagram</span>
+                                            <span style="color:var(--clay-accent); font-size:0.75rem;">.PNG</span>
                                         </button>
-                                        <button type="button" class="dropdown-item" role="menuitem" onclick="exportAs('md')">
-                                            <span>Markdown</span>
+                                        <button type="button" class="dropdown-item" role="menuitem" onclick="exportWorkflowAs('md')">
+                                            <span>Markdown Sheet</span>
                                             <span style="color:var(--clay-accent); font-size:0.75rem;">.MD</span>
                                         </button>
-                                        <button type="button" class="dropdown-item" role="menuitem" onclick="exportAs('html')">
-                                            <span>Standalone Web Deck</span>
-                                            <span style="color:var(--clay-accent); font-size:0.75rem;">.HTML</span>
-                                        </button>
-                                        <button type="button" class="dropdown-item" role="menuitem" onclick="exportAs('json')">
-                                            <span>Structured Data</span>
-                                            <span style="color:var(--clay-accent); font-size:0.75rem;">.JSON</span>
+                                        <button type="button" class="dropdown-item" role="menuitem" onclick="exportWorkflowAs('txt')">
+                                            <span>Formatted Text</span>
+                                            <span style="color:var(--clay-accent); font-size:0.75rem;">.TXT</span>
                                         </button>
                                         <div class="dropdown-divider"></div>
-                                        <button type="button" class="dropdown-item" role="menuitem" onclick="printStudioContent()">
-                                            <span>Print / PDF Document</span>
+                                        <button type="button" class="dropdown-item" role="menuitem" onclick="printWorkflow()">
+                                            <span>Print / Save as PDF</span>
                                             <span style="font-size:0.85rem;">🖨️</span>
                                         </button>
                                     </div>
@@ -1770,35 +1277,16 @@ footer {
                             </div>
                         </div>
 
-                        <!-- Center Display Stage -->
+                        <!-- Center Flowchart Stage -->
                         <div class="studio-stage" id="studioStage">
-                            
-                            <div class="stage-placeholder" id="placeholderView">
-                                <span>🎨</span>
-                                <p>Synthesized visual slides, clean flashcards, or stimulating quizzes will appear here.</p>
+                            <div class="workflow-pipeline" id="workflowPipeline">
+                                <!-- Steps rendered dynamically -->
                             </div>
 
-                            <div class="loading-overlay" id="loadingView">
-                                <p id="loadingMsgText">Filtering publisher front-matter and analyzing chapter...</p>
-                                <div class="progress-bar-container">
-                                    <div class="progress-bar-fill" id="progressBar"></div>
-                                </div>
+                            <div class="stage-placeholder" id="emptyPlaceholder" style="display:none;">
+                                <span>🗺️</span>
+                                <p><strong>Pipeline is empty.</strong><br>Pick an action chip on the left or add a custom step to begin building your visual guide.</p>
                             </div>
-
-                            <div id="activeRenderContainer" style="display:none; width: 100%; display: flex; justify-content: center;"></div>
-
-                        </div>
-
-                        <!-- Bottom Navigation Controls -->
-                        <div class="studio-bottom-controls" id="bottomNavControls" style="display:none;">
-                            <div class="nav-arrows-group">
-                                <button type="button" class="nav-arrow-btn" id="prevBtn" onclick="navigateStep(-1)" aria-label="Previous Item">← Previous</button>
-                                <button type="button" class="nav-arrow-btn" id="nextBtn" onclick="navigateStep(1)" aria-label="Next Item">Next →</button>
-                            </div>
-
-                            <span class="progress-pill" id="itemCounter">1 / 1</span>
-
-                            <ul class="page-jump-links" id="pageDots" aria-label="Skip to item"></ul>
                         </div>
 
                     </div>
@@ -1808,19 +1296,8 @@ footer {
         </div>
     </section>
 
-    <!-- AI ENGINE CONFIG MODAL -->
-    <div class="modal-overlay" id="engineModal">
-        <div class="modal-card">
-            <h3>AI Engine Setup (Optional)</h3>
-            <p>Connect your free Google Gemini API key to enable live AI reasoning on all uploaded chapters. If left empty, CogniFlow uses its built-in client-side semantic engine.</p>
-            <input type="password" id="geminiApiKeyInput" class="modal-input" placeholder="Paste Gemini API Key (e.g. AIzaSy...)">
-            <div class="modal-buttons">
-                <button type="button" class="tool-btn" onclick="clearApiKey()">Reset / Clear</button>
-                <button type="button" class="btn primary" style="padding: 8px 18px; font-size: 0.85rem;" onclick="saveApiKey()">Save & Connect</button>
-                <button type="button" class="tool-btn" onclick="closeEngineConfigModal()">Close</button>
-            </div>
-        </div>
-    </div>
+    <!-- Hidden Canvas for PNG Graphic Generation -->
+    <canvas id="exportCanvas"></canvas>
 
     <section id="future">
         <div class="container">
@@ -1884,1223 +1361,157 @@ footer {
 </footer>
 
 <script>
-/* PDF.js worker setup */
-if (window.pdfjsLib) {
-    pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
-}
-
 /* ======================================================
-   STUDIO CONTROLLER & ENGINE
+   WORKFLOW & HOTKEY BUILDER ENGINE (VANILLA JS + GA4)
 ====================================================== */
+
+// DOM Elements
 const studioWidget = document.getElementById("studioWidget");
 const fullscreenToggleBtn = document.getElementById("fullscreenToggleBtn");
-const lessonTextInput = document.getElementById("lessonText");
-const userPromptDirective = document.getElementById("userPromptDirective");
-const charCounter = document.getElementById("charCounter");
-const statusMessage = document.getElementById("statusMessage");
-const dropArea = document.getElementById("dropArea");
-const fileInput = document.getElementById("fileInput");
-const fileStatusPill = document.getElementById("fileStatusPill");
-const filePillName = document.getElementById("filePillName");
-const learningModeSelect = document.getElementById("learningMode");
-const quizSettingsPanel = document.getElementById("quizSettingsPanel");
-const timedQuizToggle = document.getElementById("timedQuizToggle");
-const questionCountSelect = document.getElementById("questionCountSelect");
-const timerDisplay = document.getElementById("timerDisplay");
-const timerClock = document.getElementById("timerClock");
-const placeholderView = document.getElementById("placeholderView");
-const loadingView = document.getElementById("loadingView");
-const loadingMsgText = document.getElementById("loadingMsgText");
-const progressBar = document.getElementById("progressBar");
-const activeRenderContainer = document.getElementById("activeRenderContainer");
-const bottomNavControls = document.getElementById("bottomNavControls");
-const prevBtn = document.getElementById("prevBtn");
-const nextBtn = document.getElementById("nextBtn");
-const itemCounter = document.getElementById("itemCounter");
-const pageDots = document.getElementById("pageDots");
+const softwarePlatformSelect = document.getElementById("softwarePlatformSelect");
+const workflowPresetSelect = document.getElementById("workflowPresetSelect");
+const actionChipsContainer = document.getElementById("actionChipsContainer");
+const stepNameInput = document.getElementById("stepNameInput");
+const stepHotkeyInput = document.getElementById("stepHotkeyInput");
+const stepCategorySelect = document.getElementById("stepCategorySelect");
+const stepDescInput = document.getElementById("stepDescInput");
+const workflowPipeline = document.getElementById("workflowPipeline");
+const emptyPlaceholder = document.getElementById("emptyPlaceholder");
+const platformBadge = document.getElementById("platformBadge");
+const stepCounter = document.getElementById("stepCounter");
 const exportMenuBtn = document.getElementById("exportMenuBtn");
 const exportMenu = document.getElementById("exportMenu");
 
-const engineModal = document.getElementById("engineModal");
-const geminiApiKeyInput = document.getElementById("geminiApiKeyInput");
-const engineIcon = document.getElementById("engineIcon");
-const engineLabel = document.getElementById("engineLabel");
-
-let uploadedFileContent = "";
-let activeDataset = [];
-let currentIndex = 0;
-let userQuizAnswers = {};
-let quizTimerInterval = null;
-let timerSeconds = 0;
-
-// Initialize API Key from storage
-let storedApiKey = localStorage.getItem("cogniflow_gemini_key") || "";
-updateEngineBadge();
-
-function updateEngineBadge() {
-    if (storedApiKey.trim().length > 10) {
-        engineIcon.textContent = "⚡";
-        engineLabel.textContent = "Gemini 2.5 Live";
-    } else {
-        engineIcon.textContent = "🧠";
-        engineLabel.textContent = "Built-in NLP";
-    }
-}
-
-function openEngineConfigModal() {
-    geminiApiKeyInput.value = storedApiKey;
-    engineModal.classList.add("show");
-    trackEvent('open_ai_config_modal');
-}
-
-function closeEngineConfigModal() {
-    engineModal.classList.remove("show");
-    trackEvent('close_ai_config_modal');
-}
-
-function saveApiKey() {
-    storedApiKey = geminiApiKeyInput.value.trim();
-    localStorage.setItem("cogniflow_gemini_key", storedApiKey);
-    updateEngineBadge();
-    closeEngineConfigModal();
-    trackEvent('save_gemini_api_key', { success: true });
-}
-
-function clearApiKey() {
-    storedApiKey = "";
-    localStorage.removeItem("cogniflow_gemini_key");
-    geminiApiKeyInput.value = "";
-    updateEngineBadge();
-    closeEngineConfigModal();
-    trackEvent('clear_gemini_api_key');
-}
-
-/* FULLSCREEN TOGGLE */
-function toggleWidgetFullscreen() {
-    const isFull = studioWidget.classList.toggle("is-fullscreen");
-    fullscreenToggleBtn.textContent = isFull ? "✕ Close" : "⛶ Expand";
-    document.body.style.overflow = isFull ? "hidden" : "";
-    trackEvent('toggle_fullscreen', { is_fullscreen: isFull });
-}
-
-document.addEventListener("keydown", (e) => {
-    if (e.key === "Escape" && studioWidget.classList.contains("is-fullscreen")) {
-        toggleWidgetFullscreen();
-    }
-});
-
-// Dynamic Word Counter
-lessonTextInput.addEventListener("input", updateWordCount);
-
-function updateWordCount() {
-    const text = getActiveRawText();
-    const words = text.trim() ? text.trim().split(/\s+/).length : 0;
-    const chars = text.length;
-    charCounter.textContent = `${words.toLocaleString()} words (${chars.toLocaleString()} chars)`;
-}
-
-// File Drag & Drop
-dropArea.addEventListener("click", (e) => {
-    if (e.target.tagName !== "SPAN") fileInput.click();
-});
-
-dropArea.addEventListener("keydown", (e) => {
-    if (e.key === "Enter" || e.key === " ") fileInput.click();
-});
-
-["dragenter", "dragover"].forEach(evt => {
-    dropArea.addEventListener(evt, (e) => {
-        e.preventDefault();
-        dropArea.classList.add("dragover");
-    });
-});
-
-["dragleave", "drop"].forEach(evt => {
-    dropArea.addEventListener(evt, (e) => {
-        e.preventDefault();
-        dropArea.classList.remove("dragover");
-    });
-});
-
-dropArea.addEventListener("drop", (e) => {
-    const files = e.dataTransfer.files;
-    if (files.length > 0) processIncomingFile(files[0]);
-});
-
-fileInput.addEventListener("change", (e) => {
-    if (e.target.files.length > 0) processIncomingFile(e.target.files[0]);
-});
-
-// ROBUST PDF & TEXT EXTRACTION ENGINE
-async function processIncomingFile(file) {
-    const name = file.name.toLowerCase();
-    clearError();
-
-    const extension = name.split('.').pop();
-    trackEvent('upload_document', { file_extension: extension, file_name: file.name });
-
-    if (name.endsWith(".txt") || name.endsWith(".md")) {
-        const reader = new FileReader();
-        reader.onload = (e) => setUploadedContent(file.name, e.target.result);
-        reader.readAsText(file);
-    } 
-    else if (name.endsWith(".pdf")) {
-        try {
-            showLoadingNotification("Reading & compiling PDF pages...");
-            const arrayBuffer = await file.arrayBuffer();
-            const loadingTask = pdfjsLib.getDocument({ data: arrayBuffer });
-            const pdf = await loadingTask.promise;
-
-            let extractedPages = [];
-            for (let pageNum = 1; pageNum <= pdf.numPages; pageNum++) {
-                const page = await pdf.getPage(pageNum);
-                const textContent = await page.getTextContent();
-                const pageStrings = textContent.items.map(item => item.str);
-                extractedPages.push(pageStrings.join(" "));
-            }
-
-            hideLoadingNotification();
-            const fullText = extractedPages.join("\n\n");
-
-            if (fullText.trim().length === 0) {
-                showError("The PDF appears to be empty or contains only scanned images without selectable text.");
-                trackEvent('pdf_read_error', { reason: 'empty_or_scanned' });
-                return;
-            }
-
-            setUploadedContent(file.name, fullText);
-        } catch (err) {
-            hideLoadingNotification();
-            showError("Could not read this PDF file: " + err.message);
-            trackEvent('pdf_read_error', { error_message: err.message });
-        }
-    } else {
-        showError("Supported formats: .pdf, .txt, and .md documents.");
-    }
-}
-
-function showLoadingNotification(msg) {
-    statusMessage.textContent = msg;
-    statusMessage.className = "status-box";
-    statusMessage.style.display = "block";
-    statusMessage.style.background = "var(--surface-elevated)";
-    statusMessage.style.color = "var(--text-primary)";
-    statusMessage.style.border = "1px solid var(--border-highlight)";
-}
-
-function hideLoadingNotification() {
-    statusMessage.style.display = "none";
-}
-
-function setUploadedContent(fileName, text) {
-    uploadedFileContent = text;
-    filePillName.textContent = fileName;
-    fileStatusPill.style.display = "flex";
-    updateWordCount();
-    clearError();
-}
-
-function clearUploadedFile(e) {
-    if (e) e.stopPropagation();
-    uploadedFileContent = "";
-    fileInput.value = "";
-    fileStatusPill.style.display = "none";
-    updateWordCount();
-    trackEvent('remove_uploaded_file');
-}
-
-function getActiveRawText() {
-    return (uploadedFileContent || lessonTextInput.value).trim();
-}
-
-function showError(msg) {
-    statusMessage.textContent = msg;
-    statusMessage.className = "status-box error";
-    statusMessage.style.display = "block";
-}
-
-function clearError() {
-    statusMessage.textContent = "";
-    statusMessage.className = "status-box";
-    statusMessage.style.display = "none";
-}
-
-/* ======================================================
-   BESPOKE TOPIC DIAGRAM GENERATOR (EARTHY RE-COLORING)
-====================================================== */
-function generateBespokeDiagram(conceptLabel, index) {
-    const variant = index % 4;
-    
-    if (variant === 0) {
-        return `
-            <svg viewBox="0 0 280 200" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Sequential flowchart diagram">
-                <rect x="20" y="20" width="240" height="42" rx="8" fill="#F2E9DC" stroke="#1C3B27" stroke-width="1.5" />
-                <text x="140" y="46" fill="#132417" font-size="12" font-weight="700" text-anchor="middle">Theme: ${conceptLabel.slice(0, 18)}</text>
-                
-                <path d="M 140 62 L 140 86" stroke="#1C3B27" stroke-width="2" />
-                <polygon points="140,88 135,78 145,78" fill="#1C3B27" />
-
-                <rect x="35" y="88" width="210" height="42" rx="8" fill="#CADECF" stroke="#385942" stroke-width="1.5" />
-                <text x="140" y="114" fill="#1C3B27" font-size="12" font-weight="700" text-anchor="middle">Contextual Analysis</text>
-
-                <path d="M 140 130 L 140 152" stroke="#1C3B27" stroke-width="2" />
-                <polygon points="140,154 135,144 145,144" fill="#1C3B27" />
-
-                <rect x="20" y="154" width="240" height="40" rx="8" fill="#E8DCCB" stroke="#9E4D36" stroke-width="1.5" />
-                <text x="140" y="179" fill="#9E4D36" font-size="12" font-weight="700" text-anchor="middle">Key Narrative & Outcome</text>
-            </svg>
-        `;
-    } else if (variant === 1) {
-        return `
-            <svg viewBox="0 0 280 200" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Cognitive loop schematic">
-                <circle cx="140" cy="100" r="70" fill="none" stroke="#A68E74" stroke-dasharray="4 4" stroke-width="2" />
-                
-                <circle cx="140" cy="35" r="26" fill="#F2E9DC" stroke="#1C3B27" stroke-width="1.5" />
-                <text x="140" y="39" fill="#132417" font-size="10" font-weight="bold" text-anchor="middle">MOTIVE</text>
-
-                <circle cx="210" cy="130" r="26" fill="#F2E9DC" stroke="#1C3B27" stroke-width="1.5" />
-                <text x="210" y="134" fill="#132417" font-size="10" font-weight="bold" text-anchor="middle">CONFLICT</text>
-
-                <circle cx="70" cy="130" r="26" fill="#CADECF" stroke="#144D28" stroke-width="1.5" />
-                <text x="70" y="134" fill="#144D28" font-size="10" font-weight="bold" text-anchor="middle">RESOLUTION</text>
-
-                <text x="140" y="105" fill="#1C3B27" font-size="11" font-weight="bold" text-anchor="middle">CORE ARC</text>
-            </svg>
-        `;
-    } else if (variant === 2) {
-        return `
-            <svg viewBox="0 0 280 200" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Analytical matrix diagram">
-                <line x1="140" y1="20" x2="140" y2="180" stroke="#A68E74" stroke-width="2" />
-                <line x1="30" y1="100" x2="250" y2="100" stroke="#A68E74" stroke-width="2" />
-
-                <rect x="35" y="25" width="95" height="65" rx="6" fill="#F2E9DC" stroke="#BBA48A" stroke-width="1" />
-                <text x="82" y="52" fill="#9E4D36" font-size="10" font-weight="bold" text-anchor="middle">Literal Text</text>
-                <text x="82" y="70" fill="#4F5E52" font-size="9" text-anchor="middle">Direct Action</text>
-
-                <rect x="150" y="25" width="95" height="65" rx="6" fill="#CADECF" stroke="#1C3B27" stroke-width="1.5" />
-                <text x="197" y="52" fill="#1C3B27" font-size="10" font-weight="bold" text-anchor="middle">Allegorical</text>
-                <text x="197" y="70" fill="#144D28" font-size="9" text-anchor="middle">Deeper Meaning</text>
-
-                <rect x="35" y="110" width="95" height="65" rx="6" fill="#F2E9DC" stroke="#BBA48A" stroke-width="1" />
-                <text x="82" y="145" fill="#4F5E52" font-size="10" text-anchor="middle">Moral Weight</text>
-
-                <rect x="150" y="110" width="95" height="65" rx="6" fill="#F2E9DC" stroke="#BBA48A" stroke-width="1" />
-                <text x="197" y="145" fill="#4F5E52" font-size="10" text-anchor="middle">Transformation</text>
-            </svg>
-        `;
-    } else {
-        return `
-            <svg viewBox="0 0 280 200" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Process roadmap diagram">
-                <rect x="25" y="25" width="65" height="150" rx="8" fill="#F2E9DC" stroke="#A68E74" stroke-width="1" />
-                <text x="57" y="50" fill="#1C3B27" font-size="11" font-weight="bold" text-anchor="middle">STAGE 1</text>
-                <text x="57" y="100" fill="#132417" font-size="9" text-anchor="middle">Setting</text>
-
-                <rect x="105" y="25" width="65" height="150" rx="8" fill="#F2E9DC" stroke="#A68E74" stroke-width="1" />
-                <text x="137" y="50" fill="#1C3B27" font-size="11" font-weight="bold" text-anchor="middle">STAGE 2</text>
-                <text x="137" y="100" fill="#132417" font-size="9" text-anchor="middle">Encounter</text>
-
-                <rect x="185" y="25" width="65" height="150" rx="8" fill="#CADECF" stroke="#144D28" stroke-width="1.5" />
-                <text x="217" y="50" fill="#144D28" font-size="11" font-weight="bold" text-anchor="middle">STAGE 3</text>
-                <text x="217" y="100" fill="#144D28" font-size="9" text-anchor="middle">Resolution</text>
-            </svg>
-        `;
-    }
-}
-
-/* ======================================================
-   NATURAL LANGUAGE PARSER & CHAPTER ISOLATOR
-====================================================== */
-const STOP_WORDS = new Set([
-    "the","and","of","to","a","in","is","that","for","it","as","was","with","be","by","on","not",
-    "he","i","this","are","from","at","or","an","they","which","one","you","were","her","all",
-    "she","there","would","their","we","him","been","has","when","who","will","more","no","if",
-    "out","so","said","what","up","its","about","into","than","them","can","only","other","new",
-    "some","could","time","these","two","may","then","do","first","any","my","now","such","like"
-]);
-
-const PUBLISHER_OCR_BLACKLIST = new Set([
-    "gujn","guin","penguin","classics","press","routledge","oxford","springer","harper","edition",
-    "copyright","isbn","cataloging","congress","library","musa","translator","published","inc",
-    "york","london","boston","toronto","sydney","auckland","all","rights","reserved","printed"
-]);
-
-function romanToArabic(roman) {
-    if (!roman) return null;
-    const map = { I: 1, V: 5, X: 10, L: 50, C: 100, D: 500, M: 1000 };
-    let total = 0, prev = 0;
-    const s = roman.toUpperCase().trim();
-    for (let i = s.length - 1; i >= 0; i--) {
-        const val = map[s[i]];
-        if (!val) return null;
-        if (val < prev) total -= val;
-        else { total += val; prev = val; }
-    }
-    return total;
-}
-
-function arabicToRoman(num) {
-    const lookup = { M:1000,CM:900,D:500,CD:400,C:100,XC:90,L:50,XL:40,X:10,IX:9,V:5,IV:4,I:1 };
-    let roman = '';
-    for (let i in lookup) {
-        while (num >= lookup[i]) {
-            roman += i;
-            num -= lookup[i];
-        }
-    }
-    return roman;
-}
-
-function isJunkOrIndexLine(line) {
-    const trimmed = line.trim();
-    if (trimmed.length < 25) return true;
-    
-    const digitCount = (trimmed.match(/\d/g) || []).length;
-    if (digitCount / trimmed.length > 0.18) return true;
-    
-    const cantoOccurrences = (trimmed.match(/\b(canto|chapter|page|section)\b/gi) || []).length;
-    if (cantoOccurrences >= 2) return true;
-
-    if (/(table of contents|contents|acknowledgments|introduction to|translator's note|publisher|copyright|library of congress|all rights reserved|penguin|classics)/i.test(trimmed)) {
-        return true;
-    }
-
-    return false;
-}
-
-function isValidSemanticKeyword(w) {
-    if (!w || w.length < 3 || w.length > 20) return false;
-    const lower = w.toLowerCase();
-    if (STOP_WORDS.has(lower) || PUBLISHER_OCR_BLACKLIST.has(lower)) return false;
-    if (!/[aeiouy]/i.test(lower)) return false;
-    if (/[bcdfghjklmnpqrstvwxz]{4,}/i.test(lower)) return false;
-    return true;
-}
-
-function bypassFrontMatter(rawText) {
-    const match = rawText.match(/\b(CANTO\s+I\b|CANTO\s+1\b|CHAPTER\s+I\b|CHAPTER\s+1\b|BOOK\s+ONE\b|ACT\s+I\b)/i);
-    if (match && match.index !== undefined) {
-        const subsequentText = rawText.slice(match.index);
-        const secondOccurrence = subsequentText.slice(50).search(/\b(CANTO\s+I\b|CANTO\s+1\b|CHAPTER\s+I\b|CHAPTER\s+1\b)/i);
-        if (secondOccurrence !== -1 && match.index < 8000) {
-            return subsequentText.slice(secondOccurrence + 50);
-        }
-        return subsequentText;
-    }
-    
-    if (rawText.length > 12000 && /(penguin|copyright|contents|isbn)/i.test(rawText.slice(0, 4000))) {
-        return rawText.slice(6000);
-    }
-    
-    return rawText;
-}
-
-function extractTargetedChapter(rawText, promptFilter) {
-    if (promptFilter && promptFilter.trim().length > 0) {
-        const promptClean = promptFilter.trim();
-        const match = promptClean.match(/\b(canto|chapter|book|section|part)\s*([0-9]+|[ivxlcdm]+)\b/i);
-        
-        if (match) {
-            const prefix = match[1];
-            const rawVal = match[2];
-            const num = isNaN(rawVal) ? romanToArabic(rawVal) : parseInt(rawVal, 10);
-            const roman = isNaN(rawVal) ? rawVal.toUpperCase() : arabicToRoman(num);
-
-            const searchPattern = new RegExp(`\\b${prefix}\\s*(${num}|${roman})\\b`, "gi");
-            const matches = [];
-            let m;
-            while ((m = searchPattern.exec(rawText)) !== null) {
-                matches.push(m.index);
-            }
-
-            if (matches.length > 0) {
-                let bodyIndex = matches[0];
-                for (let idx of matches) {
-                    const sampleAfter = rawText.slice(idx, idx + 400);
-                    const sampleDigitRatio = (sampleAfter.match(/\d/g) || []).length / sampleAfter.length;
-                    if (sampleDigitRatio < 0.12 && !/contents/i.test(sampleAfter)) {
-                        bodyIndex = idx;
-                        break;
-                    }
-                }
-
-                const textFromChapter = rawText.slice(bodyIndex);
-                const nextNum = num ? num + 1 : null;
-                const nextRoman = nextNum ? arabicToRoman(nextNum) : null;
-                const nextRegex = new RegExp(`\\b${prefix}\\s*(${nextNum}|${nextRoman})\\b`, "i");
-                const nextMatch = textFromChapter.slice(100).search(nextRegex);
-
-                if (nextMatch !== -1) {
-                    return textFromChapter.slice(0, nextMatch + 100);
-                } else {
-                    return textFromChapter.slice(0, 15000);
-                }
-            }
-        }
-    }
-
-    return bypassFrontMatter(rawText);
-}
-
-function digestTextIntoCleanSentences(rawText, promptFilter) {
-    const targetedText = extractTargetedChapter(rawText, promptFilter);
-    return targetedText
-        .replace(/[\r\n]+/g, " ")
-        .split(/(?<=[.?!])\s+/)
-        .map(s => s.trim())
-        .filter(s => s.length > 30 && !isJunkOrIndexLine(s));
-}
-
-function extractKeyPhrases(sentence) {
-    const words = sentence.toLowerCase().match(/\b[a-z]{3,}\b/g) || [];
-    return words.filter(w => isValidSemanticKeyword(w));
-}
-
-/* ======================================================
-   SYNTHESIS CONTROLLER (GEMINI LIVE AI + LOCAL FALLBACK)
-====================================================== */
-async function handleGenerateAction() {
-    const text = getActiveRawText();
-
-    if (text.length === 0) {
-        showError("Oops! You forgot to provide me a lesson or document.");
-        return;
-    }
-    if (text.length < 50) {
-        showError("Content is too brief to analyze. Please provide a substantive excerpt or file.");
-        return;
-    }
-
-    clearError();
-    stopQuizTimer();
-
-    placeholderView.style.display = "none";
-    activeRenderContainer.style.display = "none";
-    bottomNavControls.style.display = "none";
-    loadingView.style.display = "flex";
-    progressBar.style.width = "10%";
-
-    const promptText = userPromptDirective.value.trim();
-    const mode = learningModeSelect.value;
-    const wordCount = text.split(/\s+/).length;
-
-    // Google Analytics 4 Event: Track Synthesis
-    trackEvent('generate_content', {
-        mode: mode,
-        has_file: !!uploadedFileContent,
-        word_count: wordCount,
-        has_custom_prompt: promptText.length > 0,
-        ai_engine: storedApiKey.trim().length > 10 ? 'gemini_live' : 'builtin_nlp'
-    });
-
-    // Check if Gemini API key is configured
-    if (storedApiKey.trim().length > 10) {
-        loadingMsgText.textContent = "Connecting to Gemini 2.5 Live Reasoning Engine...";
-        progressBar.style.width = "40%";
-        try {
-            const aiResult = await callGeminiAIEngine(text, promptText, mode);
-            progressBar.style.width = "100%";
-            setTimeout(() => {
-                loadingView.style.display = "none";
-                activeDataset = aiResult;
-                currentIndex = 0;
-                userQuizAnswers = {};
-                renderCurrentItem();
-                renderPageJumpDots();
-                bottomNavControls.style.display = "flex";
-                exportMenuBtn.disabled = false;
-            }, 250);
-            return;
-        } catch (err) {
-            console.warn("Gemini API call failed, falling back to local engine:", err);
-            showError("Gemini live call timed out or had invalid credentials. Running local cognitive engine instead.");
-            trackEvent('gemini_api_error', { error_message: err.message });
-        }
-    }
-
-    // Local Cognitive Engine Fallback
-    runLocalCognitivePipeline(text, promptText, mode);
-}
-
-function runLocalCognitivePipeline(text, promptText, mode) {
-    let progress = 20;
-    const interval = setInterval(() => {
-        progress += 10;
-        progressBar.style.width = progress + "%";
-
-        if (progress === 40) {
-            loadingMsgText.textContent = promptText 
-                ? `Scrubbing indexes & isolating: "${promptText.slice(0, 25)}..."`
-                : "Bypassing publisher metadata & finding opening chapter...";
-        } else if (progress === 80) {
-            loadingMsgText.textContent = "Synthesizing deep conceptual questions and active-recall cards...";
-        }
-
-        if (progress >= 100) {
-            clearInterval(interval);
-            setTimeout(() => {
-                loadingView.style.display = "none";
-                synthesizeLocalHighGradeContent(text, promptText, mode);
-            }, 200);
-        }
-    }, 30);
-}
-
-/* ======================================================
-   CALL GEMINI LIVE AI ENGINE
-====================================================== */
-async function callGeminiAIEngine(rawText, promptFilter, mode) {
-    const excerpt = extractTargetedChapter(rawText, promptFilter).slice(0, 18000);
-
-    const systemPrompt = `You are an expert cognitive instructional designer and educator.
-Analyze the following text carefully. Target instruction: "${promptFilter || 'General substantive chapter analysis'}".
-Generate high-quality educational material based EXCLUSIVELY on this content. Do NOT include publisher metadata or front-matter.
-Current requested mode: "${mode}".
-
-Output strictly valid JSON (no markdown fences, no raw backticks). Format:
-For mode "quiz":
-[
-  {
-    "question": "Deep inferential or cause-and-effect question",
-    "options": ["Plausible Distractor A", "Correct Answer B", "Plausible Distractor C", "Plausible Distractor D"],
-    "answer": "Correct Answer B",
-    "explanation": "Clear, informative explanation of why this answer is correct based on the text."
-  }
-]
-For mode "flashcards":
-[
-  {
-    "term": "FOCUSED CONCEPT",
-    "frontPrompt": "Direct inquisitive active-recall question",
-    "backAnswer": "Punchy single-sentence essential insight"
-  }
-]
-For mode "presentation":
-[
-  {
-    "title": "Actionable Slide Title",
-    "lead": "One clear conceptual sentence framing the idea",
-    "bullets": ["Point 1", "Point 2", "Point 3"],
-    "conceptTag": "THEME"
-  }
-]`;
-
-    const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${storedApiKey}`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-            contents: [{
-                parts: [
-                    { text: systemPrompt },
-                    { text: `TEXT EXCERPT:\n${excerpt}` }
+// Preset Action Libraries & Pre-configured Workflows
+const SOFTWARE_DATA = {
+    autocad: {
+        name: "AutoCAD",
+        chips: [
+            { name: "Units Setup", key: "UN", cat: "Setup", desc: "Configure drawing measurement units and precision" },
+            { name: "Polyline", key: "PL", cat: "Geometry", desc: "Construct a connected 2D outline boundary" },
+            { name: "Offset", key: "O", cat: "Modify", desc: "Create parallel concentric walls or lines" },
+            { name: "Trim Edges", key: "TR", cat: "Modify", desc: "Clean up intersecting vector boundary lines" },
+            { name: "Fillet Corner", key: "F", cat: "Modify", desc: "Round or connect corners with specific radius" },
+            { name: "Hatch Region", key: "H", cat: "Detail", desc: "Fill bounded areas with architectural pattern" },
+            { name: "Dimension Line", key: "DLI", cat: "Detail", desc: "Add precise linear measurement annotations" },
+            { name: "Export Plot", key: "PLOT", cat: "Export", desc: "Generate vector PDF sheet with drawing scale" }
+        ],
+        presets: [
+            {
+                id: "acad_floorplan",
+                title: "2D Architectural Floorplan Drafting",
+                steps: [
+                    { name: "Establish Drawing Units", key: "UN", cat: "Setup", desc: "Set architectural units (feet/inches or mm) and precision limit" },
+                    { name: "Draw Exterior Perimeter", key: "PL", cat: "Geometry", desc: "Trace continuous building boundary using ortho snap" },
+                    { name: "Offset Wall Thickness", key: "O", cat: "Modify", desc: "Offset 150mm/200mm for structural wall depth" },
+                    { name: "Trim Doorway Openings", key: "TR", cat: "Modify", desc: "Cut wall intersections to create passage frames" },
+                    { name: "Annotate Room Dimensions", key: "DLI", cat: "Detail", desc: "Place dimension strings across all interior spans" }
                 ]
-            }],
-            generationConfig: {
-                responseMimeType: "application/json",
-                temperature: 0.3
+            },
+            {
+                id: "acad_mechanical",
+                title: "Precision Machine Part 2D Orthographic",
+                steps: [
+                    { name: "Draw Centerlines", key: "L", cat: "Setup", desc: "Lay out datum references and symmetry lines" },
+                    { name: "Construct Outer Profile", key: "REC", cat: "Geometry", desc: "Draw base mounting plate contour" },
+                    { name: "Drill Hole Positions", key: "C", cat: "Geometry", desc: "Place concentric bore circles at specified offsets" },
+                    { name: "Apply Corner Fillets", key: "F", cat: "Modify", desc: "Apply 5mm radius stress-relief curves to edges" }
+                ]
             }
-        })
-    });
-
-    if (!response.ok) {
-        throw new Error(`API error: ${response.status}`);
-    }
-
-    const data = await response.json();
-    const candidateText = data.candidates[0].content.parts[0].text;
-    const parsed = JSON.parse(candidateText);
-
-    if (mode === "presentation") {
-        parsed.forEach((slide, idx) => {
-            slide.diagramHtml = generateBespokeDiagram(slide.conceptTag || "THEME", idx);
-            slide.diagramCaption = `Figure ${idx + 1}.1: Conceptual ${slide.conceptTag || "THEME"} Framework`;
-        });
-    }
-
-    return parsed;
-}
-
-/* ======================================================
-   LOCAL ADVANCED REASONING & QUIZ ENGINE
-====================================================== */
-function synthesizeLocalHighGradeContent(rawText, promptFilter, mode) {
-    const sentences = digestTextIntoCleanSentences(rawText, promptFilter);
-    activeDataset = [];
-    userQuizAnswers = {};
-
-    if (sentences.length === 0) {
-        showError("Could not find readable content matching your prompt. Try a broader search term.");
-        placeholderView.style.display = "block";
-        return;
-    }
-
-    /* -------------------------------------------------------------
-       HIGH-STIMULATION COMPREHENSION QUIZ ENGINE
-    ------------------------------------------------------------- */
-    if (mode === "quiz") {
-        const targetConfig = questionCountSelect.value;
-        let targetCount = targetConfig === "auto" ? Math.min(10, Math.max(5, Math.floor(sentences.length / 3))) : parseInt(targetConfig, 10);
-        targetCount = Math.min(targetCount, sentences.length);
-
-        const step = Math.max(1, Math.floor(sentences.length / targetCount));
-
-        for (let q = 0; q < sentences.length && activeDataset.length < targetCount; q += step) {
-            const sentence = sentences[q];
-            const keywords = extractKeyPhrases(sentence);
-            let keyConcept = keywords[0] ? keywords[0].toUpperCase() : "THE CENTRAL CONFLICT";
-
-            const clauses = sentence.split(/,|—|;/).map(c => c.trim()).filter(c => c.length > 15);
-            const coreInsight = clauses[0] || sentence;
-
-            const otherSentences = sentences.filter((_, idx) => idx !== q);
-            const distractorEntity1 = extractKeyPhrases(otherSentences[0] || "")[0] || "external guidance";
-            const distractorEntity2 = extractKeyPhrases(otherSentences[1] || "")[0] || "unrelated historical precedent";
-
-            const options = [
-                coreInsight.length > 85 ? coreInsight.slice(0, 80) + "..." : coreInsight,
-                `It is primarily nullified or superseded by the appearance of ${distractorEntity1}`,
-                `It represents an obstacle caused entirely by ${distractorEntity2}`,
-                `It serves only as a literal background without metaphorical or procedural consequence`
-            ].sort(() => 0.5 - Math.random());
-
-            const correctAnswer = options.find(opt => opt.includes(coreInsight.slice(0, 25))) || options[0];
-
-            activeDataset.push({
-                questionNumber: activeDataset.length + 1,
-                question: `Question ${activeDataset.length + 1}: What core principle or conflict governs "${keyConcept}" in this passage?`,
-                options: options,
-                answer: correctAnswer,
-                explanation: `As detailed in the passage: "${sentence.slice(0, 140)}..." The text directly links this condition to ${keyConcept}.`
-            });
-        }
-
-        if (timedQuizToggle.checked) {
-            startQuizTimer(activeDataset.length * 45);
-        }
-    }
-
-    /* -------------------------------------------------------------
-       ACTIVE-RECALL FLASHCARDS (FOCUSED SINGLE SENTENCES)
-    ------------------------------------------------------------- */
-    else if (mode === "flashcards") {
-        const targetDeckSize = Math.min(16, Math.max(6, Math.floor(sentences.length / 3)));
-        const step = Math.max(1, Math.floor(sentences.length / targetDeckSize));
-
-        for (let i = 0; i < sentences.length && activeDataset.length < targetDeckSize; i += step) {
-            const sentence = sentences[i];
-            const keywords = extractKeyPhrases(sentence);
-            let primaryConcept = keywords.find(k => isValidSemanticKeyword(k)) || "CORE THEME";
-            primaryConcept = primaryConcept.toUpperCase();
-
-            let question = "";
-            const v = activeDataset.length % 4;
-            if (v === 0) question = `What primary condition or obstacle is defined by ${primaryConcept}?`;
-            else if (v === 1) question = `What functional role or symbolic meaning does ${primaryConcept} serve?`;
-            else if (v === 2) question = `What key turning point or consequence stems directly from ${primaryConcept}?`;
-            else question = `In this chapter, what critical insight is established regarding ${primaryConcept}?`;
-
-            let cleanAnswer = sentence.replace(/["“”]/g, '').trim();
-            if (cleanAnswer.length > 130) {
-                const firstClause = cleanAnswer.split(/,|—|;/)[0].trim();
-                cleanAnswer = firstClause.endsWith(".") ? firstClause : firstClause + ".";
+        ]
+    },
+    fusion360: {
+        name: "Fusion 360",
+        chips: [
+            { name: "Create Sketch", key: "C", cat: "Setup", desc: "Select origin plane to start 2D sketch profile" },
+            { name: "Center Diameter Circle", key: "C", cat: "Geometry", desc: "Draw constrained circular profile" },
+            { name: "Two-Point Rectangle", key: "R", cat: "Geometry", desc: "Construct dimensioned bounding box" },
+            { name: "Extrude Solid", key: "E", cat: "Geometry", desc: "Pull 2D profile into 3D volume or cut material" },
+            { name: "Fillet Edge", key: "F", cat: "Modify", desc: "Smooth hard solid body edges" },
+            { name: "Chamfer Angle", key: "CHAMFER", cat: "Modify", desc: "Create angled beveled edge transition" },
+            { name: "Circular Pattern", key: "PATTERN", cat: "Modify", desc: "Duplicate features radially around axis" },
+            { name: "Joint Assembly", key: "J", cat: "Detail", desc: "Constrain multi-component mechanical motion" }
+        ],
+        presets: [
+            {
+                id: "f360_parametric",
+                title: "Parametric Mounting Bracket Solid",
+                steps: [
+                    { name: "Initialize Origin Sketch", key: "C", cat: "Setup", desc: "Select XZ datum plane for bracket cross-section" },
+                    { name: "Sketch Constrained Base", key: "R", cat: "Geometry", desc: "Draw 100x60mm rectangle with dimensional constraints" },
+                    { name: "Extrude Solid Base", key: "E", cat: "Geometry", desc: "Extrude 15mm upward to create mounting flange" },
+                    { name: "Punch Bolt Holes", key: "C", cat: "Modify", desc: "Sketch 4 corner circles and extrude cut through base" },
+                    { name: "Apply Stress-Relief Fillets", key: "F", cat: "Detail", desc: "Select inner joints and apply 4mm rounding" }
+                ]
             }
-
-            activeDataset.push({
-                frontPrompt: question,
-                backAnswer: cleanAnswer,
-                term: primaryConcept
-            });
-        }
-    }
-
-    /* -------------------------------------------------------------
-       PRESENTATION DECK (5 TO 10 BALANCED THEMATIC SLIDES)
-    ------------------------------------------------------------- */
-    else if (mode === "presentation") {
-        const targetSlides = Math.min(10, Math.max(4, Math.floor(sentences.length / 4)));
-        const chunkSize = Math.max(2, Math.floor(sentences.length / targetSlides));
-
-        for (let i = 0; i < targetSlides; i++) {
-            const chunk = sentences.slice(i * chunkSize, (i + 1) * chunkSize);
-            if (chunk.length === 0) break;
-
-            const leadText = chunk[0];
-            const keywords = extractKeyPhrases(leadText);
-            let conceptKeyword = keywords.find(k => isValidSemanticKeyword(k));
-            if (!conceptKeyword) {
-                const fallbackConcepts = ["NARRATIVE", "ALLEGORY", "THE JOURNEY", "THE ENCOUNTER", "GUIDANCE", "RESOLUTION"];
-                conceptKeyword = fallbackConcepts[i % fallbackConcepts.length];
-            } else {
-                conceptKeyword = conceptKeyword.toUpperCase();
+        ]
+    },
+    matlab: {
+        name: "MATLAB",
+        chips: [
+            { name: "Clear Workspace", key: "clear; clc", cat: "Setup", desc: "Reset active variables and clean command screen" },
+            { name: "Define Time Vector", key: "t = 0:0.01:10", cat: "Setup", desc: "Create sampled linear numeric range" },
+            { name: "Matrix Multiplicaton", key: "A * B", cat: "Geometry", desc: "Perform linear algebraic array computation" },
+            { name: "Element-wise Math", key: "x .* y", cat: "Geometry", desc: "Execute dot-product across vector elements" },
+            { name: "Filter Outliers", key: "data(data > 0)", cat: "Modify", desc: "Apply logical indexing to clean data array" },
+            { name: "Generate Plot", key: "plot(x, y)", cat: "Detail", desc: "Render 2D continuous line visualization" },
+            { name: "Label Coordinates", key: "xlabel(); ylabel()", cat: "Detail", desc: "Add physical unit labels to coordinate axes" },
+            { name: "Save Figure", key: "saveas(gcf, 'res')", cat: "Export", desc: "Export publication-quality graphic file" }
+        ],
+        presets: [
+            {
+                id: "matlab_signal",
+                title: "Signal Processing & Spectrum Analysis",
+                steps: [
+                    { name: "Workspace Initialization", key: "clear; clc; close all", cat: "Setup", desc: "Wipe memory buffers and close open figure windows" },
+                    { name: "Import Sensor Data", key: "readmatrix('log.csv')", cat: "Setup", desc: "Load raw numerical time-series array" },
+                    { name: "Fast Fourier Transform", key: "fft(signal)", cat: "Modify", desc: "Transform temporal signals into frequency domain" },
+                    { name: "Plot Frequency Spectrum", key: "plot(freqs, magnitude)", cat: "Detail", desc: "Visualize harmonic amplitude peaks on logarithmic scale" },
+                    { name: "Export Vector Figure", key: "exportgraphics(gcf, 'spec.pdf')", cat: "Export", desc: "Save high-resolution vector schematic for report" }
+                ]
             }
-
-            activeDataset.push({
-                title: generateSlideTitle(i, leadText),
-                lead: leadText,
-                bullets: chunk.map(s => extractBulletItem(s)),
-                conceptTag: conceptKeyword,
-                diagramHtml: generateBespokeDiagram(conceptKeyword, i),
-                diagramCaption: `Figure ${i + 1}.1: Structural ${conceptKeyword} Model`
-            });
-        }
-    }
-
-    currentIndex = 0;
-    renderCurrentItem();
-    renderPageJumpDots();
-    bottomNavControls.style.display = "flex";
-    exportMenuBtn.disabled = false;
-}
-
-function generateSlideTitle(idx, text) {
-    const titles = [
-        "Narrative Framework & Setting",
-        "Encounter & Conceptual Friction",
-        "Allegorical Depth & Symbolism",
-        "Character Motivations & Tension",
-        "Pivotal Turning Point",
-        "Guided Resolution & Trajectory",
-        "Underlying Structural Meaning",
-        "Key Historical Context",
-        "Comprehensive Retrospective",
-        "Actionable Conclusion"
-    ];
-    return titles[idx] || `Section Analysis ${idx + 1}`;
-}
-
-function extractBulletItem(sentence) {
-    const parts = sentence.split(/,|—|;/);
-    const key = parts[0].trim();
-    const detail = parts.slice(1).join(", ").trim();
-    if (detail.length > 5) {
-        return `<strong>${key}</strong>: ${detail}`;
-    }
-    return `<strong>Insight</strong>: ${sentence}`;
-}
-
-/* ======================================================
-   CARD FLIP ANALYTICS HANDLER
-====================================================== */
-function handleCardFlip(el) {
-    el.classList.toggle('is-flipped');
-    const isFlipped = el.classList.contains('is-flipped');
-    trackEvent('flashcard_flip', {
-        card_index: currentIndex + 1,
-        side_revealed: isFlipped ? 'answer_back' : 'question_front'
-    });
-}
-
-/* ======================================================
-   RENDER CONTROLLER (NO-OVERLAP & FIXED BOUNDS)
-====================================================== */
-function renderCurrentItem() {
-    activeRenderContainer.style.display = "flex";
-    activeRenderContainer.innerHTML = "";
-
-    const mode = learningModeSelect.value;
-    const item = activeDataset[currentIndex];
-
-    /* Presentation Slide Renderer */
-    if (mode === "presentation") {
-        const slide = document.createElement("div");
-        slide.className = "true-slide-deck";
-        slide.innerHTML = `
-            <div class="slide-visual-column">
-                <span class="slide-tag" style="margin-bottom:12px;">${item.conceptTag} SCHEMATIC</span>
-                <div class="slide-diagram-canvas">
-                    ${item.diagramHtml || generateBespokeDiagram(item.conceptTag, currentIndex)}
-                </div>
-                <div class="diagram-label">${item.diagramCaption || 'Figure ' + (currentIndex + 1) + ': Concept Schematic'}</div>
-            </div>
-
-            <div class="slide-content-column">
-                <span class="slide-tag">SLIDE ${currentIndex + 1} OF ${activeDataset.length}</span>
-                <h3>${item.title}</h3>
-                <p class="slide-lead-concept">${item.lead}</p>
-                <ul class="slide-bullets">
-                    ${item.bullets.map(b => `<li>${b}</li>`).join('')}
-                </ul>
-            </div>
-        `;
-        activeRenderContainer.appendChild(slide);
-    } 
-
-    /* Flashcard Renderer (Responsive & No Overlap) */
-    else if (mode === "flashcards") {
-        const scene = document.createElement("div");
-        scene.className = "flashcard-scene";
-        scene.innerHTML = `
-            <div class="flashcard-object" id="activeCardObject" onclick="handleCardFlip(this)">
-                <div class="flashcard-face flashcard-front">
-                    <span class="slide-tag">CARD ${currentIndex + 1} OF ${activeDataset.length} • ${item.term}</span>
-                    <div class="flashcard-core-text">${item.frontPrompt}</div>
-                    <span class="card-hint">Click or tap to flip for single-sentence answer ↻</span>
-                </div>
-                <div class="flashcard-face flashcard-back">
-                    <span class="slide-tag" style="color:#B4D3BC;">DISTILLED ANSWER</span>
-                    <div class="flashcard-core-text">${item.backAnswer}</div>
-                    <span class="card-hint">Click to flip back</span>
-                </div>
-            </div>
-        `;
-        activeRenderContainer.appendChild(scene);
-    } 
-
-    /* High-Stimulation Quiz Renderer */
-    else if (mode === "quiz") {
-        const quizCard = document.createElement("div");
-        quizCard.className = "quiz-box";
-
-        const hasAnswered = userQuizAnswers[currentIndex] !== undefined;
-        let optionsHtml = "";
-
-        item.options.forEach(opt => {
-            let stateClass = "";
-            if (hasAnswered) {
-                if (opt === item.answer) stateClass = "correct";
-                else if (opt === userQuizAnswers[currentIndex]) stateClass = "wrong";
+        ]
+    },
+    blender: {
+        name: "Blender",
+        chips: [
+            { name: "Toggle Edit Mode", key: "Tab", cat: "Setup", desc: "Switch between Object and Mesh edit view" },
+            { name: "Extrude Region", key: "E", cat: "Geometry", desc: "Pull faces or edges along surface normal" },
+            { name: "Loop Cut & Slide", key: "Ctrl + R", cat: "Geometry", desc: "Bisect mesh geometry with edge rings" },
+            { name: "Inset Face", key: "I", cat: "Modify", desc: "Create concentric inner face boundary" },
+            { name: "Bevel Edge", key: "Ctrl + B", cat: "Modify", desc: "Smooth hard polygon edges into chamfer/fillet" },
+            { name: "Subdivision Surface", key: "Ctrl + 2", cat: "Detail", desc: "Apply smooth Catmull-Clark mesh modifier" },
+            { name: "Smart UV Project", key: "U", cat: "Detail", desc: "Unwrap 3D coordinates onto 2D texture canvas" },
+            { name: "Render Camera View", key: "F12", cat: "Export", desc: "Compute final illuminated raytraced scene" }
+        ],
+        presets: [
+            {
+                id: "blender_lowpoly",
+                title: "Low-Poly Asset Modeling Pipeline",
+                steps: [
+                    { name: "Enter Mesh Edit Mode", key: "Tab", cat: "Setup", desc: "Select default cube and access vertex/face controls" },
+                    { name: "Add Supporting Loops", key: "Ctrl + R", cat: "Geometry", desc: "Slice mesh horizontally to create joint pivot geometry" },
+                    { name: "Inset Face Inward", key: "I", cat: "Modify", desc: "Generate recessed polygon border on top face" },
+                    { name: "Extrude Secondary Shape", key: "E", cat: "Geometry", desc: "Pull inset face outward to form component feature" },
+                    { name: "Bevel Accent Edges", key: "Ctrl + B", cat: "Detail", desc: "Soften perimeter highlights for clean lighting reflection" }
+                ]
             }
-            optionsHtml += `<button type="button" class="quiz-opt-btn ${stateClass}" ${hasAnswered ? "disabled" : ""} onclick="handleQuizSelection(this, '${opt.replace(/'/g, "\\'")}')">${opt}</button>`;
-        });
-
-        quizCard.innerHTML = `
-            <div class="slide-tag">QUESTION ${currentIndex + 1} OF ${activeDataset.length}</div>
-            <h4>${item.question}</h4>
-            <div class="quiz-options">${optionsHtml}</div>
-
-            ${hasAnswered ? `
-                <div class="quiz-explanation-box">
-                    <strong>Learning Insight & Context</strong>
-                    ${item.explanation || 'Verified with lesson content.'}
-                </div>
-                <div style="margin-top:20px; display:flex; justify-content:space-between; align-items:center;">
-                    <span style="font-size:0.85rem; color:var(--green-primary); font-weight:600;">Answer recorded</span>
-                    ${currentIndex === activeDataset.length - 1 ? `<button type="button" class="btn primary" style="padding:8px 18px; font-size:0.85rem;" onclick="showQuizSummaryDashboard()">View Final Score & Review</button>` : ''}
-                </div>
-            ` : ''}
-        `;
-        activeRenderContainer.appendChild(quizCard);
+        ]
     }
+};
 
-    itemCounter.textContent = `${currentIndex + 1} / ${activeDataset.length}`;
-    prevBtn.disabled = currentIndex === 0;
-    nextBtn.disabled = currentIndex === activeDataset.length - 1;
+// Active Pipeline State
+let activeSoftwareKey = "autocad";
+let currentSteps = [];
 
-    const dots = document.querySelectorAll(".jump-dot");
-    dots.forEach((dot, i) => {
-        dot.classList.toggle("active", i === currentIndex);
-    });
-}
-
-function handleQuizSelection(btn, chosenOption) {
-    userQuizAnswers[currentIndex] = chosenOption;
-    const item = activeDataset[currentIndex];
-    const isCorrect = chosenOption === item.answer;
-
-    trackEvent('quiz_answer_select', {
-        question_number: currentIndex + 1,
-        is_correct: isCorrect
-    });
-
-    renderCurrentItem();
-}
-
-/* ======================================================
-   QUIZ SUMMARY & REVIEW DASHBOARD
-====================================================== */
-function showQuizSummaryDashboard() {
-    stopQuizTimer();
-    bottomNavControls.style.display = "none";
-    activeRenderContainer.innerHTML = "";
-
-    let correctCount = 0;
-    activeDataset.forEach((item, idx) => {
-        if (userQuizAnswers[idx] === item.answer) correctCount++;
-    });
-
-    const scorePct = Math.round((correctCount / activeDataset.length) * 100);
-
-    trackEvent('quiz_completed', {
-        score_percentage: scorePct,
-        correct_count: correctCount,
-        total_questions: activeDataset.length
-    });
-
-    const summaryCard = document.createElement("div");
-    summaryCard.className = "quiz-results-card";
-    summaryCard.innerHTML = `
-        <div class="results-score-banner">
-            <span class="slide-tag">QUIZ COMPLETED</span>
-            <h3>${scorePct}% Score</h3>
-            <p style="color:var(--text-secondary);">${correctCount} of ${activeDataset.length} Questions Answered Correctly</p>
-            <div style="margin-top:16px; display:flex; justify-content:center; gap:12px;">
-                <button type="button" class="btn primary" onclick="retryQuiz()">Retry Quiz ⟳</button>
-                <button type="button" class="btn secondary" onclick="returnToQuestions()">Review Responses</button>
-            </div>
-        </div>
-
-        <div class="review-list">
-            ${activeDataset.map((item, idx) => {
-                const userChoice = userQuizAnswers[idx] || "Unanswered";
-                const isCorrect = userChoice === item.answer;
-                return `
-                    <div class="review-item ${isCorrect ? 'is-correct' : 'is-incorrect'}">
-                        <div class="review-q-title">Q${idx + 1}:${item.question}</div>
-                        <div style="margin: 4px 0;"><strong>Your Choice:</strong> ${userChoice}</div>${!isCorrect ? `<div style="color:var(--clay-accent); font-weight:700;">Correct Answer: ${item.answer}</div>` : ''}
-                        <div style="font-size:0.85rem; color:var(--text-muted); margin-top:4px;">${item.explanation || ''}</div>
-                    </div>
-                `;
-            }).join('')}
-        </div>
-    `;
-
-    activeRenderContainer.appendChild(summaryCard);
-}
-
-function retryQuiz() {
-    trackEvent('quiz_retry', { total_questions: activeDataset.length });
-    userQuizAnswers = {};
-    currentIndex = 0;
-    bottomNavControls.style.display = "flex";
-    if (timedQuizToggle.checked) {
-        startQuizTimer(activeDataset.length * 45);
-    }
-    renderCurrentItem();
-}
-
-function returnToQuestions() {
-    bottomNavControls.style.display = "flex";
-    currentIndex = 0;
-    renderCurrentItem();
-    trackEvent('quiz_review_questions');
-}
-
-/* ======================================================
-   TIMER ENGINE
-====================================================== */
-function startQuizTimer(durationInSeconds) {
-    stopQuizTimer();
-    timerSeconds = durationInSeconds;
-    timerDisplay.style.display = "flex";
-    updateTimerClockDisplay();
-    trackEvent('quiz_timer_start', { duration_seconds: durationInSeconds });
-
-    quizTimerInterval = setInterval(() => {
-        timerSeconds--;
-        updateTimerClockDisplay();
-
-        if (timerSeconds <= 0) {
-            stopQuizTimer();
-            trackEvent('quiz_timer_expired');
-            alert("Time is up! Let's review your final quiz score.");
-            showQuizSummaryDashboard();
-        }
-    }, 1000);
-}
-
-function stopQuizTimer() {
-    if (quizTimerInterval) {
-        clearInterval(quizTimerInterval);
-        quizTimerInterval = null;
-    }
-    timerDisplay.style.display = "none";
-}
-
-function updateTimerClockDisplay() {
-    const mins = Math.floor(timerSeconds / 60);
-    const secs = timerSeconds % 60;
-    timerClock.textContent = `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
-}
-
-/* ======================================================
-   NAVIGATION & CONTROLS
-====================================================== */
-function renderPageJumpDots() {
-    pageDots.innerHTML = "";
-    activeDataset.forEach((_, idx) => {
-        const li = document.createElement("li");
-        li.className = `jump-dot ${idx === currentIndex ? "active" : ""}`;
-        li.textContent = idx + 1;
-        li.setAttribute("aria-label", `Jump to item ${idx + 1}`);
-        li.addEventListener("click", () => {
-            trackEvent('jump_to_step', { target_index: idx + 1, mode: learningModeSelect.value });
-            currentIndex = idx;
-            renderCurrentItem();
-        });
-        pageDots.appendChild(li);
-    });
-}
-
-function navigateStep(direction) {
-    const newIdx = currentIndex + direction;
-    if (newIdx >= 0 && newIdx < activeDataset.length) {
-        trackEvent('navigate_step', {
-            direction: direction > 0 ? 'next' : 'previous',
-            new_index: newIdx + 1,
-            mode: learningModeSelect.value
-        });
-        currentIndex = newIdx;
-        renderCurrentItem();
-    }
-}
-
-function handleModeChange() {
-    const mode = learningModeSelect.value;
-    quizSettingsPanel.style.display = mode === "quiz" ? "flex" : "none";
-
-    trackEvent('change_learning_mode', { selected_mode: mode });
-
-    if (getActiveRawText().length >= 50) {
-        handleGenerateAction();
-    }
-}
-
-function clearStudio() {
-    stopQuizTimer();
-    lessonTextInput.value = "";
-    userPromptDirective.value = "";
-    clearUploadedFile();
-    updateWordCount();
-    activeDataset = [];
-    userQuizAnswers = {};
-    currentIndex = 0;
-    activeRenderContainer.innerHTML = "";
-    activeRenderContainer.style.display = "none";
-    bottomNavControls.style.display = "none";
-    placeholderView.style.display = "block";
-    exportMenuBtn.disabled = true;
-    exportMenu.classList.remove("show");
-    clearError();
-    trackEvent('clear_studio');
-}
-
-/* ======================================================
-   3-DOT EXPORT MENU ENGINE
-====================================================== */
-function toggleExportMenu(e) {
-    e.stopPropagation();
-    const isShowing = exportMenu.classList.toggle("show");
-    exportMenuBtn.setAttribute("aria-expanded", isShowing);
-    if (isShowing) {
-        trackEvent('open_export_menu', { mode: learningModeSelect.value });
-    }
-}
-
-document.addEventListener("click", (e) => {
-    if (!e.target.closest(".dropdown-container")) {
-        exportMenu.classList.remove("show");
-        exportMenuBtn.setAttribute("aria-expanded", "false");
-    }
-});
-
-document.addEventListener("keydown", (e) => {
-    if (e.key === "Escape" && exportMenu.classList.contains("show")) {
-        exportMenu.classList.remove("show");
-        exportMenuBtn.setAttribute("aria-expanded", "false");
-        exportMenuBtn.focus();
-    }
-});
-
-function exportAs(format) {
-    if (activeDataset.length === 0) return;
-    exportMenu.classList.remove("show");
-
-    const mode = learningModeSelect.value;
-    let content = "";
-    let mimeType = "text/plain";
-    let filename = `cogniflow-${mode}.${format}`;
-
-    trackEvent('export_file', {
-        format: format,
-        mode: mode,
-        item_count: activeDataset.length
-    });
-
-    if (format === "txt") {
-        content = `COGNIFLOW COMPREHENSIVE EXPORT\nMode: ${mode.toUpperCase()}\n\n`;
-        activeDataset.forEach((item, i) => {
-            content += `================ ITEM ${i + 1} ================\n`;
-            if (item.title) {
-                content += `TITLE: ${item.title}\nLEAD: ${item.lead}\n`;
-                item.bullets.forEach(b => content += ` * ${b.replace(/<[^>]*>/g, '')}\n`);
-                content += `DIAGRAM: ${item.diagramCaption || ''}\n\n`;
-            }
-            if (item.frontPrompt) content += `Prompt: ${item.frontPrompt}\nAnswer: ${item.backAnswer}\n\n`;
-            if (item.question) content += `Question: ${item.question}\nCorrect: ${item.answer}\nExplanation: ${item.explanation || ''}\n\n`;
-        });
-    } else if (format === "md") {
-        content = `# CogniFlow Digest: ${mode.toUpperCase()}\n\n`;
-        activeDataset.forEach((item, i) => {
-            content += `## Item ${i + 1}\n\n`;
-            if (item.title) {
-                content += `### ${item.title}\n\n${item.lead}\n\n`;
-                item.bullets.forEach(d => content += `- ${d.replace(/<strong>(.*?)<\/strong>/g, '**$1**')}\n`);
-                content += `\n*${item.diagramCaption}*\n\n---\n\n`;
-            }
-            if (item.frontPrompt) content += `> **${item.frontPrompt}**\n\n${item.backAnswer}\n\n---\n\n`;
-            if (item.question) content += `**${item.question}**\n\n*Answer:* **${item.answer}**\n\n*Context:* ${item.explanation || ''}\n\n---\n\n`;
-        });
-        mimeType = "text/markdown";
-    } else if (format === "json") {
-        content = JSON.stringify({ mode: mode, items: activeDataset }, null, 2);
-        mimeType = "application/json";
-    } else if (format === "html") {
-        content = `<!DOCTYPE html>
-<html>
-<head>
-<meta charset="utf-8">
-<title>CogniFlow Export - ${mode.toUpperCase()}</title>
-<style>
-body { font-family: system-ui, sans-serif; max-width: 800px; margin: 40px auto; padding: 0 20px; line-height: 1.6; color: #132417; background: #CBB195; }
-.card { border: 1px solid #BBA48A; border-radius: 12px; padding: 24px; margin-bottom: 24px; background: #E8DCCB; }
-h1 { color: #1C3B27; }
-.badge { display: inline-block; background: #1C3B27; color: #F4ECE1; padding: 4px 10px; border-radius: 99px; font-size: 0.8rem; font-weight: bold; }
-</style>
-</head>
-<body>
-<h1>CogniFlow Studio Export</h1>
-<p><strong>Mode:</strong> ${mode.toUpperCase()} &bull; <strong>Items:</strong> ${activeDataset.length}</p>
-<hr>
-${activeDataset.map((item, i) => `
-    <div class="card">
-        <span class="badge">Section ${i + 1}</span>${item.title ? `<h2>${item.title}</h2><p>${item.lead}</p>` : ''}
-        ${item.frontPrompt ? `<h3>${item.frontPrompt}</h3><p><strong>Answer:</strong> ${item.backAnswer}</p>` : ''}
-        ${item.question ? `<h3>${item.question}</h3><p><strong>Answer:</strong> ${item.answer}</p><p><em>${item.explanation || ''}</em></p>` : ''}
-    </div>
-`).join('')}
-</body>
-</html>`;
-        mimeType = "text/html";
-    }
-
-    const blob = new Blob([content], { type: mimeType });
-    const link = document.createElement("a");
-    link.href = URL.createObjectURL(blob);
-    link.download = filename;
-    link.click();
-}
-
-function printStudioContent() {
-    exportMenu.classList.remove("show");
-    trackEvent('export_file', { format: 'print_pdf', mode: learningModeSelect.value });
-    window.print();
-}
-
-/* ======================================================
-   ADDITIONAL DOM TRACKING (INITIALIZATION)
-====================================================== */
+// Initialize Studio on DOM load
 window.addEventListener("DOMContentLoaded", () => {
-    if (timedQuizToggle) {
-        timedQuizToggle.addEventListener("change", (e) => {
-            trackEvent('toggle_timed_quiz', { enabled: e.target.checked });
-        });
-    }
+    populatePresetsDropdown(activeSoftwareKey);
+    renderActionBank(activeSoftwareKey);
+    // Load default preset
+    loadPresetById("acad_floorplan");
 
-    if (questionCountSelect) {
-        questionCountSelect.addEventListener("change", (e) => {
-            trackEvent('select_question_count', { count: e.target.value });
-        });
-    }
-
+    // Track Navigation and CTA Link Clicks across the page
     document.querySelectorAll(".nav-links a, .hero .buttons a").forEach(link => {
         link.addEventListener("click", () => {
             trackEvent('cta_click', {
@@ -3115,6 +1526,465 @@ window.addEventListener("DOMContentLoaded", () => {
         skipLink.addEventListener("click", () => {
             trackEvent('skip_link_click');
         });
+    }
+});
+
+/* ======================================================
+   CORE WORKFLOW BUILDER FUNCTIONS
+====================================================== */
+
+function handleSoftwareChange() {
+    activeSoftwareKey = softwarePlatformSelect.value;
+    const softwareInfo = SOFTWARE_DATA[activeSoftwareKey];
+    platformBadge.textContent = `${softwareInfo.name} Pipeline`;
+
+    trackEvent('select_software', { software: activeSoftwareKey });
+
+    populatePresetsDropdown(activeSoftwareKey);
+    renderActionBank(activeSoftwareKey);
+
+    // Load first available preset for this software
+    if (softwareInfo.presets.length > 0) {
+        loadPresetById(softwareInfo.presets[0].id);
+    } else {
+        currentSteps = [];
+        renderPipeline();
+    }
+}
+
+function populatePresetsDropdown(softwareKey) {
+    const presets = SOFTWARE_DATA[softwareKey].presets;
+    workflowPresetSelect.innerHTML = "";
+
+    presets.forEach(p => {
+        const opt = document.createElement("option");
+        opt.value = p.id;
+        opt.textContent = p.title;
+        workflowPresetSelect.appendChild(opt);
+    });
+
+    const customOpt = document.createElement("option");
+    customOpt.value = "custom";
+    customOpt.textContent = "— Custom User Workflow —";
+    workflowPresetSelect.appendChild(customOpt);
+}
+
+function handlePresetChange() {
+    const presetId = workflowPresetSelect.value;
+    if (presetId === "custom") {
+        trackEvent('select_custom_workflow', { software: activeSoftwareKey });
+        return;
+    }
+    loadPresetById(presetId);
+}
+
+function loadPresetById(presetId) {
+    const presets = SOFTWARE_DATA[activeSoftwareKey].presets;
+    const found = presets.find(p => p.id === presetId);
+    if (found) {
+        // Deep clone preset steps so edits don't mutate template
+        currentSteps = JSON.parse(JSON.stringify(found.steps));
+        renderPipeline();
+        trackEvent('load_workflow_preset', {
+            preset_id: presetId,
+            preset_title: found.title,
+            software: activeSoftwareKey,
+            steps_count: currentSteps.length
+        });
+    }
+}
+
+function renderActionBank(softwareKey) {
+    const chips = SOFTWARE_DATA[softwareKey].chips;
+    actionChipsContainer.innerHTML = "";
+
+    chips.forEach(chip => {
+        const btn = document.createElement("button");
+        btn.type = "button";
+        btn.className = "action-chip";
+        btn.innerHTML = `<span>${chip.name}</span><kbd>${chip.key}</kbd>`;
+        btn.onclick = () => {
+            quickAddStep(chip);
+        };
+        actionChipsContainer.appendChild(btn);
+    });
+}
+
+function quickAddStep(chip) {
+    currentSteps.push({
+        name: chip.name,
+        key: chip.key,
+        cat: chip.cat,
+        desc: chip.desc
+    });
+    renderPipeline();
+
+    trackEvent('quick_add_chip', {
+        action_name: chip.name,
+        hotkey: chip.key,
+        software: activeSoftwareKey,
+        new_total_steps: currentSteps.length
+    });
+}
+
+function addCustomStep() {
+    const title = stepNameInput.value.trim();
+    const hotkey = stepHotkeyInput.value.trim();
+    const category = stepCategorySelect.value;
+    const desc = stepDescInput.value.trim();
+
+    if (!title) {
+        alert("Please provide an action or step title.");
+        stepNameInput.focus();
+        return;
+    }
+
+    currentSteps.push({
+        name: title,
+        key: hotkey || "None",
+        cat: category,
+        desc: desc || "Procedural workflow instruction"
+    });
+
+    stepNameInput.value = "";
+    stepHotkeyInput.value = "";
+    stepDescInput.value = "";
+
+    renderPipeline();
+
+    trackEvent('add_workflow_step', {
+        step_name: title,
+        hotkey: hotkey || 'None',
+        category: category,
+        software: activeSoftwareKey,
+        new_total_steps: currentSteps.length
+    });
+}
+
+function removeStep(index) {
+    const removed = currentSteps.splice(index, 1)[0];
+    renderPipeline();
+
+    trackEvent('delete_workflow_step', {
+        deleted_step_name: removed ? removed.name : 'Unknown',
+        remaining_steps: currentSteps.length,
+        software: activeSoftwareKey
+    });
+}
+
+function moveStep(index, direction) {
+    const targetIdx = index + direction;
+    if (targetIdx < 0 || targetIdx >= currentSteps.length) return;
+
+    const temp = currentSteps[index];
+    currentSteps[index] = currentSteps[targetIdx];
+    currentSteps[targetIdx] = temp;
+
+    renderPipeline();
+
+    trackEvent('reorder_workflow_step', {
+        step_name: temp.name,
+        direction: direction > 0 ? 'down' : 'up',
+        new_index: targetIdx + 1,
+        software: activeSoftwareKey
+    });
+}
+
+function clearWorkflow() {
+    currentSteps = [];
+    renderPipeline();
+    trackEvent('clear_workflow', { software: activeSoftwareKey });
+}
+
+/* ======================================================
+   FLOWCHART PIPELINE RENDERER
+====================================================== */
+function renderPipeline() {
+    workflowPipeline.innerHTML = "";
+
+    if (currentSteps.length === 0) {
+        emptyPlaceholder.style.display = "block";
+        stepCounter.textContent = "0 Steps Configured";
+        return;
+    }
+
+    emptyPlaceholder.style.display = "none";
+    stepCounter.textContent = `${currentSteps.length} Step${currentSteps.length === 1 ? '' : 's'} Configured`;
+
+    currentSteps.forEach((step, idx) => {
+        // Node Card
+        const node = document.createElement("div");
+        node.className = "workflow-node";
+        node.innerHTML = `
+            <div class="node-idx-badge">${idx + 1}</div>
+            <div class="node-content">
+                <div class="node-header-row">
+                    <span class="node-title">${escapeHTML(step.name)}</span>
+                    <span class="node-category-tag">${escapeHTML(step.cat)}</span>
+                </div>
+                <p class="node-description">${escapeHTML(step.desc)}</p>
+                <div class="node-hotkey-wrap">
+                    <span class="node-hotkey-label">Command / Shortcut:</span>
+                    <span class="node-hotkey-chip">${escapeHTML(step.key)}</span>
+                </div>
+            </div>
+            <div class="node-actions">
+                <button type="button" class="node-icon-btn" title="Move Up" onclick="moveStep(${idx}, -1)" ${idx === 0 ? 'disabled style="opacity:0.3;cursor:not-allowed;"' : ''}>▲</button>
+                <button type="button" class="node-icon-btn" title="Move Down" onclick="moveStep(${idx}, 1)" ${idx === currentSteps.length - 1 ? 'disabled style="opacity:0.3;cursor:not-allowed;"' : ''}>▼</button>
+                <button type="button" class="node-icon-btn delete-btn" title="Remove Step" onclick="removeStep(${idx})">✕</button>
+            </div>
+        `;
+        workflowPipeline.appendChild(node);
+
+        // Arrow between steps
+        if (idx < currentSteps.length - 1) {
+            const connector = document.createElement("div");
+            connector.className = "node-connector";
+            connector.innerHTML = `
+                <svg viewBox="0 0 20 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M10 2V18M10 18L4 12M10 18L16 12" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            `;
+            workflowPipeline.appendChild(connector);
+        }
+    });
+}
+
+function escapeHTML(str) {
+    return String(str)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+}
+
+/* ======================================================
+   EXPORT AND DIAGRAM GENERATION ENGINE
+====================================================== */
+function toggleExportMenu(e) {
+    e.stopPropagation();
+    const isShowing = exportMenu.classList.toggle("show");
+    exportMenuBtn.setAttribute("aria-expanded", isShowing);
+    if (isShowing) {
+        trackEvent('open_export_menu', { software: activeSoftwareKey, steps_count: currentSteps.length });
+    }
+}
+
+document.addEventListener("click", (e) => {
+    if (!e.target.closest(".dropdown-container")) {
+        exportMenu.classList.remove("show");
+        exportMenuBtn.setAttribute("aria-expanded", "false");
+    }
+});
+
+function exportWorkflowAs(format) {
+    if (currentSteps.length === 0) {
+        alert("Add at least one step to export your visual cheat sheet.");
+        return;
+    }
+    exportMenu.classList.remove("show");
+
+    const softwareName = SOFTWARE_DATA[activeSoftwareKey].name;
+    const filename = `cogniflow-${activeSoftwareKey}-cheat-sheet.${format}`;
+
+    trackEvent('export_workflow', {
+        format: format,
+        software: activeSoftwareKey,
+        steps_count: currentSteps.length
+    });
+
+    if (format === "txt") {
+        let content = `========================================================\n`;
+        content += `COGNIFLOW VISUAL WORKFLOW CHEAT SHEET\n`;
+        content += `Software: ${softwareName}\n`;
+        content += `Total Steps: ${currentSteps.length}\n`;
+        content += `Generated: ${new Date().toLocaleDateString()}\n`;
+        content += `========================================================\n\n`;
+
+        currentSteps.forEach((s, idx) => {
+            content += `STEP [${idx + 1}] : ${s.name.toUpperCase()}\n`;
+            content += `  • Category: ${s.cat}\n`;
+            content += `  • Shortcut: ${s.key}\n`;
+            content += `  • Details : ${s.desc}\n`;
+            if (idx < currentSteps.length - 1) content += `     ↓\n`;
+        });
+
+        downloadFile(content, "text/plain", filename);
+    } 
+    else if (format === "md") {
+        let content = `# CogniFlow Visual Workflow: ${softwareName}\n\n`;
+        content += `> **Platform:** ${softwareName} | **Total Steps:** ${currentSteps.length}\n\n`;
+        content += `| Step | Action | Category | Shortcut | Instruction |\n`;
+        content += `|:---:|:---|:---|:---:|:---|\n`;
+
+        currentSteps.forEach((s, idx) => {
+            content += `| **${idx + 1}** | **${s.name}** | \`${s.cat}\` | \`${s.key}\` | ${s.desc} |\n`;
+        });
+
+        content += `\n---\n*Created with CogniFlow • Visual Software Learning Architecture*\n`;
+        downloadFile(content, "text/markdown", filename);
+    } 
+    else if (format === "png") {
+        renderCanvasAndDownload(softwareName, filename);
+    }
+}
+
+// Generate graphic image via client-side Canvas
+function renderCanvasAndDownload(softwareName, filename) {
+    const canvas = document.getElementById("exportCanvas");
+    const ctx = canvas.getContext("2d");
+
+    const cardWidth = 640;
+    const cardHeight = 84;
+    const gap = 36;
+    const topMargin = 110;
+    const bottomMargin = 60;
+    const totalHeight = topMargin + (currentSteps.length * (cardHeight + gap)) + bottomMargin;
+
+    canvas.width = 760;
+    canvas.height = Math.max(480, totalHeight);
+
+    // Canvas Background (Light Brown)
+    ctx.fillStyle = "#CBB195";
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+    // Decorative Header Banner
+    ctx.fillStyle = "#1C3B27";
+    ctx.beginPath();
+    ctx.roundRect(40, 28, canvas.width - 80, 60, 10);
+    ctx.fill();
+
+    ctx.fillStyle = "#F4ECE1";
+    ctx.font = "bold 20px system-ui, sans-serif";
+    ctx.textAlign = "left";
+    ctx.fillText(`CogniFlow • ${softwareName} Visual Workflow`, 60, 64);
+
+    ctx.fillStyle = "#CADECF";
+    ctx.font = "bold 12px system-ui, sans-serif";
+    ctx.textAlign = "right";
+    ctx.fillText(`${currentSteps.length} SEQUENTIAL STEPS`, canvas.width - 60, 64);
+
+    let curY = topMargin;
+    const startX = 60;
+
+    currentSteps.forEach((s, idx) => {
+        // Step Card Container (Toasted Sand)
+        ctx.fillStyle = "#E8DCCB";
+        ctx.strokeStyle = "#A68E74";
+        ctx.lineWidth = 1.5;
+        ctx.beginPath();
+        ctx.roundRect(startX, curY, cardWidth, cardHeight, 12);
+        ctx.fill();
+        ctx.stroke();
+
+        // Number Circle (Forest Green)
+        ctx.fillStyle = "#1C3B27";
+        ctx.beginPath();
+        ctx.arc(startX + 38, curY + cardHeight / 2, 18, 0, Math.PI * 2);
+        ctx.fill();
+
+        ctx.fillStyle = "#F4ECE1";
+        ctx.font = "bold 14px system-ui, sans-serif";
+        ctx.textAlign = "center";
+        ctx.textBaseline = "middle";
+        ctx.fillText(idx + 1, startX + 38, curY + cardHeight / 2);
+
+        // Action Title
+        ctx.fillStyle = "#132417";
+        ctx.font = "bold 15px system-ui, sans-serif";
+        ctx.textAlign = "left";
+        ctx.fillText(s.name, startX + 72, curY + 28);
+
+        // Category Tag
+        ctx.fillStyle = "#9E4D36";
+        ctx.font = "bold 11px system-ui, sans-serif";
+        ctx.fillText(`[${s.cat.toUpperCase()}]`, startX + 72 + ctx.measureText(s.name).width + 12, curY + 28);
+
+        // Instruction Description
+        ctx.fillStyle = "#243528";
+        ctx.font = "normal 12px system-ui, sans-serif";
+        let displayDesc = s.desc;
+        if (displayDesc.length > 58) displayDesc = displayDesc.slice(0, 55) + "...";
+        ctx.fillText(displayDesc, startX + 72, curY + 54);
+
+        // Hotkey Chip (Parchment with Forest Green Text)
+        const keyText = `Key: ${s.key}`;
+        ctx.font = "bold 12px monospace";
+        const keyWidth = ctx.measureText(keyText).width + 16;
+        const keyX = startX + cardWidth - keyWidth - 20;
+
+        ctx.fillStyle = "#F2E9DC";
+        ctx.strokeStyle = "#BBA48A";
+        ctx.lineWidth = 1;
+        ctx.beginPath();
+        ctx.roundRect(keyX, curY + 28, keyWidth, 26, 6);
+        ctx.fill();
+        ctx.stroke();
+
+        ctx.fillStyle = "#1C3B27";
+        ctx.textAlign = "center";
+        ctx.fillText(keyText, keyX + keyWidth / 2, curY + 41);
+
+        // Connecting Down Arrow
+        if (idx < currentSteps.length - 1) {
+            const arrowStartY = curY + cardHeight + 4;
+            const arrowEndY = curY + cardHeight + gap - 6;
+            const centerX = canvas.width / 2;
+
+            ctx.strokeStyle = "#1C3B27";
+            ctx.lineWidth = 2.5;
+            ctx.beginPath();
+            ctx.moveTo(centerX, arrowStartY);
+            ctx.lineTo(centerX, arrowEndY);
+            ctx.stroke();
+
+            // Arrow head
+            ctx.fillStyle = "#1C3B27";
+            ctx.beginPath();
+            ctx.moveTo(centerX - 6, arrowEndY - 4);
+            ctx.lineTo(centerX + 6, arrowEndY - 4);
+            ctx.lineTo(centerX, arrowEndY + 4);
+            ctx.fill();
+        }
+
+        curY += cardHeight + gap;
+    });
+
+    // Trigger image download
+    const link = document.createElement("a");
+    link.download = filename;
+    link.href = canvas.toDataURL("image/png");
+    link.click();
+}
+
+function downloadFile(content, mimeType, filename) {
+    const blob = new Blob([content], { type: mimeType });
+    const link = document.createElement("a");
+    link.href = URL.createObjectURL(blob);
+    link.download = filename;
+    link.click();
+}
+
+function printWorkflow() {
+    exportMenu.classList.remove("show");
+    trackEvent('export_workflow', { format: 'print_pdf', software: activeSoftwareKey });
+    window.print();
+}
+
+/* ======================================================
+   THEATRE / FULLSCREEN TOGGLE
+====================================================== */
+function toggleWidgetFullscreen() {
+    const isFull = studioWidget.classList.toggle("is-fullscreen");
+    fullscreenToggleBtn.textContent = isFull ? "✕ Close" : "⛶ Expand";
+    document.body.style.overflow = isFull ? "hidden" : "";
+    trackEvent('toggle_fullscreen', { is_fullscreen: isFull, software: activeSoftwareKey });
+}
+
+document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && studioWidget.classList.contains("is-fullscreen")) {
+        toggleWidgetFullscreen();
     }
 });
 </script>
