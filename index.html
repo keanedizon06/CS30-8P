@@ -8,30 +8,31 @@
 
 <style>
 :root {
-    /* Distinct Light Brown, Toasted Sand, and Muted Earthy Green Palette */
+    /* Natural Light Brown & Forest Sage Palette (High-Contrast & WCAG AA Compliant) */
     --bg: #CBB195;                  /* Warm light brown / tan canvas */
-    --surface: #E8DCCB;             /* Toasted sand / almond card surface */
-    --surface-elevated: #DFD0BD;    /* Deeper tan for inputs, dropzones, and panels */
-    --surface-light: #F2E9DC;       /* Soft parchment tint for subtle highlights */
-    --surface-dark: #1C2B20;        /* Deep pine moss for inverted focal elements */
+    --surface: #F8F3EC;             /* Clean warm ivory / toasted almond surface */
+    --surface-white: #FFFFFF;       /* Crisp white for cards and focus blocks */
+    --surface-elevated: #EBDDCB;    /* Medium tan for panels and containers */
+    --surface-dark: #162419;        /* Deep cedar slate for inverted focal blocks */
     
-    --green-primary: #1C3B27;       /* Deep rich forest moss green */
-    --green-muted: #385942;         /* Muted foliage sage green */
-    --green-light: #CADECF;         /* Soft sage tint for badges and active pills */
-    --clay-accent: #9E4D36;         /* Earthy terracotta clay accent */
+    --green-primary: #14381F;       /* Deep high-contrast forest moss green */
+    --green-muted: #2E5238;         /* Mid-tone foliage green */
+    --green-light: #E1ECE3;         /* Crisp pale sage for badges & active states */
+    --green-border: #99BEA4;        /* Soft sage outline for badges */
+    --clay-accent: #7A2912;         /* Rich burnt terracotta for strong accent contrast */
     
-    --text-primary: #132417;        /* Deep forest slate for readable headings */
-    --text-secondary: #243528;      /* Deep evergreen charcoal for clear body text */
-    --text-muted: #4F5E52;          /* Muted earthy sage for captions */
+    --text-primary: #0D1C11;        /* Ultra-dark forest slate for maximum title contrast */
+    --text-secondary: #1F3124;      /* Deep evergreen charcoal for readable body text */
+    --text-muted: #425446;          /* Muted dark pine for secondary captions */
     
-    --border: #BBA48A;              /* Warm clay-sand contour border */
-    --border-highlight: #A68E74;    /* Defined accent border */
-    --focus-ring: #1C3B27;          /* Forest green focus indicator */
+    --border: #B29B82;              /* Warm clay-sand contour border */
+    --border-highlight: #967E66;    /* Defined accent border */
+    --focus-ring: #14381F;          /* Focus ring indicator */
     
-    --error: #881C1C;
-    --error-bg: #EAC9C9;
-    --success: #144D28;
-    --success-bg: #C9E5D0;
+    --error: #7F1D1D;
+    --error-bg: #FEE2E2;
+    --success: #14532D;
+    --success-bg: #DCFCE7;
 }
 
 * {
@@ -57,7 +58,7 @@ body {
     top: -40px;
     left: 20px;
     background: var(--green-primary);
-    color: #F4ECE1;
+    color: #FFFFFF;
     padding: 10px 16px;
     z-index: 999;
     text-decoration: none;
@@ -83,8 +84,8 @@ body {
 
 /* NAVIGATION */
 header {
-    border-bottom: 1px solid var(--border);
-    background: rgba(203, 177, 149, 0.95);
+    border-bottom: 1.5px solid var(--border);
+    background: rgba(203, 177, 149, 0.96);
     backdrop-filter: blur(8px);
     position: sticky;
     top: 0;
@@ -117,14 +118,14 @@ nav {
 
 .nav-links a {
     text-decoration: none;
-    color: var(--text-secondary);
-    font-weight: 600;
+    color: var(--text-primary);
+    font-weight: 700;
     font-size: 0.95rem;
     transition: color 0.2s;
 }
 
 .nav-links a:hover {
-    color: var(--green-primary);
+    color: var(--clay-accent);
 }
 
 /* BUTTONS & LINKS */
@@ -132,7 +133,7 @@ nav {
     display: inline-block;
     padding: 12px 26px;
     border-radius: 999px;
-    font-weight: 600;
+    font-weight: 700;
     text-decoration: none;
     cursor: pointer;
     border: none;
@@ -152,8 +153,8 @@ nav {
 
 .primary {
     background: var(--green-primary);
-    color: #F4ECE1;
-    box-shadow: 0 4px 14px rgba(28, 59, 39, 0.25);
+    color: #FFFFFF;
+    box-shadow: 0 4px 14px rgba(20, 56, 31, 0.28);
 }
 
 .primary:hover:not(:disabled) {
@@ -163,7 +164,7 @@ nav {
 .secondary {
     border: 2px solid var(--green-primary);
     color: var(--green-primary);
-    background: transparent;
+    background: #F8F3EC;
 }
 
 .secondary:hover:not(:disabled) {
@@ -180,7 +181,7 @@ section {
     color: var(--clay-accent);
     font-weight: 800;
     letter-spacing: 1.5px;
-    font-size: 0.85rem;
+    font-size: 0.88rem;
     display: inline-block;
 }
 
@@ -204,6 +205,7 @@ section {
     color: var(--text-secondary);
     font-size: 1.15rem;
     max-width: 520px;
+    font-weight: 500;
 }
 
 .hero .buttons {
@@ -214,9 +216,9 @@ section {
 
 /* HERO VECTOR PIPELINE VISUAL */
 .hero-visual-container {
-    background: radial-gradient(circle at center, #D8C3AA 0%, #C4A788 100%);
+    background: radial-gradient(circle at center, #E6D8C6 0%, #D4C1AA 100%);
     border-radius: 28px;
-    border: 1px solid var(--border-highlight);
+    border: 1.5px solid var(--border-highlight);
     padding: 24px;
     box-shadow: 0 16px 36px rgba(40, 25, 10, 0.12);
     display: flex;
@@ -238,7 +240,7 @@ section {
     margin-top: 14px;
     color: var(--green-primary);
     font-size: 0.85rem;
-    font-weight: 700;
+    font-weight: 800;
     letter-spacing: 0.5px;
     text-align: center;
 }
@@ -253,27 +255,30 @@ section {
 
 .idea-box {
     background: var(--surface-dark);
-    border: 1px solid #2B3D30;
-    color: #E8DCCB;
+    border: 1.5px solid #283C2D;
+    color: #F8F3EC;
     padding: 40px;
     border-radius: 20px;
-    box-shadow: 0 8px 24px rgba(28, 43, 32, 0.2);
+    box-shadow: 0 10px 26px rgba(22, 36, 25, 0.25);
 }
 
 .idea-box h3 {
     font-size: 2rem;
     line-height: 1.2;
     margin-bottom: 16px;
-    color: #D6EAD9;
+    color: #E7F3E9;
 }
 
 .idea-box p {
-    color: #C0D3C4;
+    color: #D3E2D6;
+    font-size: 1rem;
 }
 
 .split-layout p {
     color: var(--text-secondary);
     margin-bottom: 16px;
+    font-size: 1.05rem;
+    font-weight: 500;
 }
 
 /* THE JOURNEY */
@@ -288,9 +293,9 @@ section {
     background: var(--surface);
     padding: 24px;
     border-radius: 16px;
-    border: 1px solid var(--border);
+    border: 1.5px solid var(--border);
     transition: transform 0.2s, border-color 0.2s;
-    box-shadow: 0 4px 12px rgba(40, 25, 10, 0.05);
+    box-shadow: 0 4px 14px rgba(40, 25, 10, 0.06);
 }
 
 .step-card:hover {
@@ -303,7 +308,7 @@ section {
     height: 38px;
     border-radius: 50%;
     background: var(--green-primary);
-    color: #E8DCCB;
+    color: #FFFFFF;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -318,8 +323,8 @@ section {
 }
 
 .step-card p {
-    color: var(--text-muted);
-    font-size: 0.9rem;
+    color: var(--text-secondary);
+    font-size: 0.92rem;
 }
 
 /* STATEMENTS & BENEFITS */
@@ -346,11 +351,11 @@ section {
 
 .card {
     background: var(--surface);
-    border: 1px solid var(--border);
+    border: 1.5px solid var(--border);
     padding: 32px;
     border-radius: 16px;
     transition: transform 0.2s ease, border-color 0.2s ease;
-    box-shadow: 0 4px 12px rgba(40, 25, 10, 0.05);
+    box-shadow: 0 4px 14px rgba(40, 25, 10, 0.06);
 }
 
 .card:hover {
@@ -361,26 +366,28 @@ section {
 .card h3 {
     margin-bottom: 12px;
     color: var(--green-primary);
+    font-size: 1.3rem;
 }
 
 .card p {
     color: var(--text-secondary);
+    font-size: 0.98rem;
 }
 
 /* ======================================================
-   WORKFLOW & HOTKEY SHEET BUILDER WIDGET
+   THE 10-SECOND COGNITIVE CHALLENGE WIDGET
 ====================================================== */
-.studio-widget {
+.challenge-widget {
     background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 20px;
-    padding: 32px;
+    border: 1.5px solid var(--border);
+    border-radius: 22px;
+    padding: 34px;
     margin-top: 24px;
-    box-shadow: 0 10px 30px rgba(40, 25, 10, 0.08);
+    box-shadow: 0 12px 32px rgba(40, 25, 10, 0.1);
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.studio-widget.is-fullscreen {
+.challenge-widget.is-fullscreen {
     position: fixed;
     inset: 0;
     z-index: 1000;
@@ -391,485 +398,431 @@ section {
     background: var(--bg);
 }
 
-.studio-grid {
-    display: grid;
-    grid-template-columns: 380px 1fr;
-    gap: 28px;
-    min-height: 600px;
+.challenge-top-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 18px;
+    border-bottom: 1.5px solid var(--border);
+    flex-wrap: wrap;
+    gap: 14px;
 }
 
-/* Left Panel: Builder Controls */
-.studio-input-panel {
+.scenario-select-wrap {
     display: flex;
-    flex-direction: column;
-    gap: 16px;
-}
-
-.config-box {
-    background: var(--surface-light);
-    border: 1px solid var(--border);
-    border-radius: 14px;
-    padding: 16px;
-    display: flex;
-    flex-direction: column;
+    align-items: center;
     gap: 10px;
 }
 
-.config-row {
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
-}
-
-.config-row label {
-    font-size: 0.85rem;
-    font-weight: 700;
+.scenario-select-wrap label {
+    font-size: 0.88rem;
+    font-weight: 800;
     color: var(--green-primary);
 }
 
-.studio-select,
-.studio-input {
-    width: 100%;
-    padding: 10px 14px;
+.studio-select {
+    padding: 8px 14px;
     border-radius: 8px;
-    border: 1px solid var(--border-highlight);
-    background: var(--surface);
+    border: 1.5px solid var(--border-highlight);
+    background: var(--surface-white);
     color: var(--text-primary);
     font-size: 0.9rem;
+    font-weight: 700;
     font-family: inherit;
-}
-
-.studio-select:focus,
-.studio-input:focus {
-    border-color: var(--green-primary);
-    outline: none;
-}
-
-/* Preset Action Chips Bank */
-.action-bank {
-    background: var(--surface-light);
-    border: 1px solid var(--border);
-    border-radius: 14px;
-    padding: 16px;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-}
-
-.action-bank-title {
-    font-size: 0.85rem;
-    font-weight: 800;
-    color: var(--clay-accent);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.action-chips-container {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-}
-
-.action-chip {
-    background: var(--surface-elevated);
-    border: 1px solid var(--border-highlight);
-    border-radius: 999px;
-    padding: 6px 12px;
-    font-size: 0.8rem;
-    font-weight: 600;
-    color: var(--text-primary);
     cursor: pointer;
-    transition: all 0.2s ease;
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
 }
 
-.action-chip:hover {
-    background: var(--green-light);
+.studio-select:focus {
+    outline: none;
     border-color: var(--green-primary);
-    color: var(--green-primary);
-    transform: translateY(-1px);
 }
 
-.action-chip kbd {
-    background: var(--surface);
-    border: 1px solid var(--border-highlight);
-    border-radius: 4px;
-    padding: 1px 5px;
-    font-size: 0.72rem;
-    font-family: ui-monospace, monospace;
-    font-weight: 700;
-    color: var(--clay-accent);
-}
-
-/* Manual Step Builder Card */
-.step-form-card {
-    background: var(--surface-light);
-    border: 1px solid var(--green-muted);
-    border-radius: 14px;
-    padding: 16px;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-}
-
-.step-form-title {
-    font-size: 0.88rem;
-    font-weight: 800;
-    color: var(--green-primary);
-    display: flex;
-    align-items: center;
-    gap: 6px;
-}
-
-/* Right Panel: Output Flowchart Canvas */
-.studio-output-panel {
-    border: 1px solid var(--border);
-    border-radius: 16px;
-    padding: 24px;
-    display: flex;
-    flex-direction: column;
-    background: var(--surface-light);
-    position: relative;
-}
-
-.studio-top-controls {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding-bottom: 16px;
-    border-bottom: 1px solid var(--border);
-    flex-wrap: wrap;
-    gap: 12px;
-}
-
-.pipeline-meta {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-}
-
-.pipeline-badge {
-    background: var(--green-light);
-    border: 1px solid var(--green-muted);
-    color: var(--green-primary);
-    font-size: 0.78rem;
-    font-weight: 800;
-    padding: 5px 12px;
-    border-radius: 999px;
-    letter-spacing: 0.5px;
-    text-transform: uppercase;
-}
-
-.pipeline-counter {
-    font-size: 0.88rem;
-    font-weight: 700;
-    color: var(--text-muted);
-}
-
-.extra-tools {
+.timer-pill {
     display: flex;
     align-items: center;
     gap: 8px;
-    position: relative;
+    background: var(--green-primary);
+    color: #FFFFFF;
+    font-family: ui-monospace, monospace;
+    font-size: 1.1rem;
+    font-weight: 900;
+    padding: 6px 18px;
+    border-radius: 999px;
+    box-shadow: 0 2px 8px rgba(20, 56, 31, 0.2);
+}
+
+.timer-pill .timer-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: #86EFAC;
+    display: inline-block;
+    animation: pulseDot 1s infinite;
+}
+
+@keyframes pulseDot {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.4; transform: scale(0.85); }
+}
+
+.challenge-controls-right {
+    display: flex;
+    align-items: center;
+    gap: 10px;
 }
 
 .tool-btn {
     padding: 8px 16px;
-    font-size: 0.85rem;
-    font-weight: 600;
+    font-size: 0.88rem;
+    font-weight: 700;
     border-radius: 8px;
-    border: 1px solid var(--border-highlight);
-    background: var(--surface);
-    color: var(--text-secondary);
+    border: 1.5px solid var(--border);
+    background: var(--surface-white);
+    color: var(--text-primary);
     cursor: pointer;
-    transition: background 0.2s, color 0.2s;
+    transition: all 0.2s ease;
 }
 
-.tool-btn:hover:not(:disabled) {
-    background: var(--surface-elevated);
+.tool-btn:hover {
+    background: var(--green-light);
     color: var(--green-primary);
-}
-
-.fullscreen-btn {
-    padding: 8px 14px;
-    font-size: 0.95rem;
-}
-
-/* Dropdown Menu */
-.dropdown-container {
-    position: relative;
-}
-
-.more-btn {
-    width: 38px;
-    height: 38px;
-    border-radius: 8px;
-    border: 1px solid var(--border-highlight);
-    background: var(--surface);
-    color: var(--text-secondary);
-    font-size: 1.25rem;
-    line-height: 1;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    transition: background 0.2s, border-color 0.2s;
-}
-
-.more-btn:hover:not(:disabled) {
-    background: var(--surface-elevated);
     border-color: var(--green-primary);
 }
 
-.more-btn:disabled {
-    opacity: 0.4;
-    cursor: not-allowed;
-}
-
-.dropdown-menu {
-    position: absolute;
-    top: calc(100% + 8px);
-    right: 0;
-    width: 230px;
-    background: var(--surface);
-    border: 1px solid var(--border-highlight);
-    border-radius: 12px;
-    padding: 8px;
-    box-shadow: 0 12px 28px rgba(40, 25, 10, 0.15);
-    display: none;
-    flex-direction: column;
-    z-index: 50;
-}
-
-.dropdown-menu.show {
-    display: flex;
-}
-
-.dropdown-header {
-    font-size: 0.75rem;
-    font-weight: 800;
-    color: var(--green-primary);
-    letter-spacing: 1px;
-    padding: 6px 12px 4px;
-    text-transform: uppercase;
-}
-
-.dropdown-item {
-    padding: 10px 12px;
-    font-size: 0.85rem;
-    font-weight: 500;
-    color: var(--text-secondary);
-    background: transparent;
-    border: none;
-    border-radius: 6px;
-    text-align: left;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    transition: background 0.15s, color 0.15s;
-}
-
-.dropdown-item:hover {
-    background: var(--surface-elevated);
-    color: var(--green-primary);
-}
-
-.dropdown-divider {
-    height: 1px;
-    background: var(--border);
-    margin: 6px 0;
-}
-
-/* Flowchart Visual Display Stage */
-.studio-stage {
-    flex: 1;
-    padding: 24px 8px;
+/* Challenge Workspace Stages */
+.challenge-stage {
+    min-height: 420px;
     display: flex;
     flex-direction: column;
     align-items: center;
-    position: relative;
-    overflow-y: auto;
-    max-height: 600px;
-}
-
-.stage-placeholder {
-    margin: auto;
+    justify-content: center;
+    padding: 32px 12px;
     text-align: center;
-    color: var(--text-muted);
 }
 
-.stage-placeholder span {
-    font-size: 3.5rem;
-    display: block;
-    margin-bottom: 8px;
-}
-
-.workflow-pipeline {
-    width: 100%;
+/* Intro Stage */
+.stage-intro {
     max-width: 680px;
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 0;
-}
-
-/* Individual Workflow Step Card */
-.workflow-node {
-    width: 100%;
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 14px;
-    padding: 18px 20px;
-    display: grid;
-    grid-template-columns: auto 1fr auto;
     gap: 16px;
-    align-items: center;
-    box-shadow: 0 4px 12px rgba(40, 25, 10, 0.05);
-    transition: transform 0.2s ease, border-color 0.2s ease;
-    position: relative;
 }
 
-.workflow-node:hover {
-    border-color: var(--green-primary);
-    transform: translateY(-2px);
-}
-
-.node-idx-badge {
-    width: 36px;
-    height: 36px;
-    border-radius: 50%;
-    background: var(--green-primary);
-    color: #F4ECE1;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+.intro-badge {
+    background: var(--green-light);
+    border: 1px solid var(--green-border);
+    color: var(--green-primary);
+    font-size: 0.8rem;
     font-weight: 800;
+    letter-spacing: 1px;
+    padding: 4px 14px;
+    border-radius: 999px;
+    text-transform: uppercase;
+}
+
+.stage-intro h3 {
+    font-size: 1.7rem;
+    color: var(--text-primary);
+    line-height: 1.25;
+}
+
+.stage-intro p {
+    color: var(--text-secondary);
+    font-size: 1.05rem;
+    line-height: 1.6;
+}
+
+.instruction-steps {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+    width: 100%;
+    margin-top: 10px;
+    text-align: left;
+}
+
+.instruction-card {
+    background: var(--surface-white);
+    border: 1.5px solid var(--border);
+    border-radius: 12px;
+    padding: 16px;
+}
+
+.instruction-card strong {
+    color: var(--green-primary);
+    display: block;
+    margin-bottom: 4px;
     font-size: 0.95rem;
 }
 
-.node-content {
+/* Round 1: Wall of Text Stage */
+.stage-round1 {
+    width: 100%;
+    max-width: 760px;
     display: flex;
     flex-direction: column;
-    gap: 4px;
+    gap: 20px;
+    text-align: left;
 }
 
-.node-header-row {
+.task-banner {
+    background: var(--green-primary);
+    color: #FFFFFF;
+    padding: 16px 22px;
+    border-radius: 14px;
     display: flex;
     align-items: center;
-    gap: 8px;
+    justify-content: space-between;
     flex-wrap: wrap;
+    gap: 10px;
+    box-shadow: 0 4px 12px rgba(20, 56, 31, 0.2);
 }
 
-.node-title {
+.task-banner .task-label {
+    font-size: 0.82rem;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    opacity: 0.9;
+    display: block;
+}
+
+.task-banner .task-prompt {
+    font-size: 1.15rem;
+    font-weight: 900;
+}
+
+.wall-of-text-box {
+    background: var(--surface-white);
+    border: 1.5px solid var(--border);
+    border-radius: 14px;
+    padding: 28px;
     font-size: 1.05rem;
+    line-height: 1.85;
+    color: var(--text-secondary);
+    user-select: none;
+    box-shadow: 0 4px 14px rgba(40, 25, 10, 0.05);
+}
+
+.interactive-word {
+    cursor: pointer;
+    border-radius: 4px;
+    padding: 1px 4px;
+    transition: background 0.15s ease, color 0.15s ease;
+}
+
+.interactive-word:hover {
+    background: rgba(203, 177, 149, 0.35);
+}
+
+.interactive-word.clicked-wrong {
+    background: var(--error-bg);
+    color: var(--error);
+    animation: shakeWrong 0.4s ease;
+}
+
+@keyframes shakeWrong {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-4px); }
+    75% { transform: translateX(4px); }
+}
+
+/* Intermission Transition Stage */
+.stage-intermission {
+    max-width: 640px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+}
+
+.round1-time-callout {
+    font-size: 2.8rem;
+    font-weight: 900;
+    color: var(--clay-accent);
+    font-family: ui-monospace, monospace;
+}
+
+/* Round 2: Visual Card Stage */
+.stage-round2 {
+    width: 100%;
+    max-width: 760px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    text-align: left;
+}
+
+.visual-target-deck {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    margin-top: 10px;
+}
+
+.visual-fact-card {
+    background: var(--surface-white);
+    border: 2px solid var(--border);
+    border-radius: 16px;
+    padding: 22px 18px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    gap: 8px;
+    cursor: pointer;
+    transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+    box-shadow: 0 4px 12px rgba(40, 25, 10, 0.05);
+}
+
+.visual-fact-card:hover {
+    transform: translateY(-4px);
+    border-color: var(--green-primary);
+    box-shadow: 0 8px 22px rgba(20, 56, 31, 0.15);
+}
+
+.visual-fact-card .card-icon {
+    font-size: 2.2rem;
+}
+
+.visual-fact-card .card-label {
+    font-size: 0.8rem;
+    font-weight: 800;
+    color: var(--text-muted);
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+}
+
+.visual-fact-card .card-val {
+    font-size: 1.45rem;
+    font-weight: 900;
+    color: var(--text-primary);
+}
+
+.visual-fact-card.is-target {
+    border-color: var(--green-border);
+}
+
+.visual-fact-card.is-target:hover {
+    border-color: var(--green-primary);
+    background: #FAFDFB;
+}
+
+/* Results Stage */
+.stage-results {
+    width: 100%;
+    max-width: 720px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 24px;
+}
+
+.results-speedup-banner {
+    background: var(--green-primary);
+    color: #FFFFFF;
+    border-radius: 20px;
+    padding: 28px;
+    width: 100%;
+    box-shadow: 0 8px 24px rgba(20, 56, 31, 0.25);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+}
+
+.results-speedup-banner h2 {
+    font-size: clamp(2rem, 5vw, 3.2rem);
+    font-weight: 900;
+    color: #86EFAC;
+    line-height: 1;
+}
+
+.results-speedup-banner p {
+    font-size: 1.1rem;
+    font-weight: 600;
+    opacity: 0.95;
+}
+
+.comparison-bars-box {
+    background: var(--surface-white);
+    border: 1.5px solid var(--border);
+    border-radius: 16px;
+    padding: 24px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    text-align: left;
+}
+
+.bar-row {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.bar-header {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.92rem;
     font-weight: 800;
     color: var(--text-primary);
 }
 
-.node-category-tag {
-    font-size: 0.72rem;
-    font-weight: 700;
-    padding: 2px 8px;
+.bar-track {
+    background: var(--surface-elevated);
     border-radius: 999px;
-    background: var(--surface-elevated);
-    color: var(--clay-accent);
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
+    height: 16px;
+    overflow: hidden;
+    position: relative;
 }
 
-.node-description {
-    font-size: 0.88rem;
+.bar-fill {
+    height: 100%;
+    border-radius: 999px;
+    transition: width 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.bar-fill.text-bar {
+    background: var(--clay-accent);
+}
+
+.bar-fill.visual-bar {
+    background: var(--green-primary);
+}
+
+.takeaway-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+    width: 100%;
+    text-align: left;
+}
+
+.takeaway-card {
+    background: var(--surface-white);
+    border: 1.5px solid var(--border);
+    border-radius: 12px;
+    padding: 16px;
+    font-size: 0.92rem;
     color: var(--text-secondary);
-    line-height: 1.45;
 }
 
-.node-hotkey-wrap {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    margin-top: 4px;
-}
-
-.node-hotkey-label {
-    font-size: 0.75rem;
-    font-weight: 700;
-    color: var(--text-muted);
-}
-
-.node-hotkey-chip {
-    background: var(--surface-light);
-    border: 1px solid var(--border-highlight);
-    border-bottom: 2px solid var(--border-highlight);
-    border-radius: 6px;
-    padding: 2px 8px;
-    font-family: ui-monospace, monospace;
-    font-size: 0.85rem;
-    font-weight: 800;
+.takeaway-card strong {
     color: var(--green-primary);
-}
-
-.node-actions {
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-}
-
-.node-icon-btn {
-    background: transparent;
-    border: 1px solid var(--border);
-    border-radius: 6px;
-    width: 28px;
-    height: 28px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    color: var(--text-muted);
-    font-size: 0.85rem;
-    transition: all 0.15s ease;
-}
-
-.node-icon-btn:hover {
-    background: var(--surface-elevated);
-    color: var(--green-primary);
-    border-color: var(--green-primary);
-}
-
-.node-icon-btn.delete-btn:hover {
-    background: var(--error-bg);
-    color: var(--error);
-    border-color: var(--error);
-}
-
-/* Inter-Node Connector Arrow */
-.node-connector {
-    height: 26px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.node-connector svg {
-    width: 20px;
-    height: 24px;
-    color: var(--green-muted);
-}
-
-/* Hidden canvas element for PNG export */
-#exportCanvas {
-    display: none;
+    display: block;
+    margin-bottom: 4px;
 }
 
 /* FOOTER */
 footer {
     text-align: center;
     padding: 40px 20px;
-    border-top: 1px solid var(--border);
-    color: var(--text-muted);
+    border-top: 1.5px solid var(--border);
+    color: var(--text-primary);
+    font-weight: 600;
 }
 
 /* RESPONSIVE LAYOUT BREAKPOINTS */
@@ -878,10 +831,6 @@ footer {
         grid-template-columns: repeat(3, 1fr);
     }
     
-    .studio-grid {
-        grid-template-columns: 1fr;
-    }
-
     .hero {
         grid-template-columns: 1fr;
         gap: 36px;
@@ -892,7 +841,10 @@ footer {
     .split-layout,
     .benefits-grid,
     .journey-grid,
-    .matters-grid {
+    .matters-grid,
+    .instruction-steps,
+    .visual-target-deck,
+    .takeaway-grid {
         grid-template-columns: 1fr;
     }
 
@@ -915,31 +867,24 @@ footer {
         flex-direction: column;
     }
 
-    .studio-widget {
+    .challenge-widget {
         padding: 20px 16px;
     }
 
-    .studio-top-controls {
+    .challenge-top-bar {
         flex-direction: column;
         align-items: stretch;
     }
 
-    .pipeline-meta {
+    .challenge-controls-right {
         justify-content: space-between;
     }
 
-    .extra-tools {
-        justify-content: flex-end;
-    }
-
-    .workflow-node {
-        grid-template-columns: 1fr;
+    .research-banner {
+        flex-direction: column;
+        align-items: flex-start;
         gap: 12px;
-    }
-
-    .node-actions {
-        flex-direction: row;
-        justify-content: flex-end;
+        padding: 20px;
     }
 }
 </style>
@@ -977,7 +922,7 @@ footer {
                 <li><a href="#story">The Story</a></li>
                 <li><a href="#journey">The Journey</a></li>
                 <li><a href="#benefits">The Benefits</a></li>
-                <li><a href="#studio">Workflow Studio</a></li>
+                <li><a href="#challenge">Cognitive Test</a></li>
                 <li><a href="#future">Why It Matters</a></li>
             </ul>
         </nav>
@@ -991,21 +936,21 @@ footer {
         <div>
             <span class="section-label">COGNITIVE CLARITY • VISUAL ARCHITECTURE</span>
             <h1 class="section-title">CogniFlow: Turn dense information into direct understanding.</h1>
-            <p>Mastering complex software, intricate workflows, and technical manuals shouldn't feel like deciphering walls of text. CogniFlow extracts core procedures and turns them into sequential, visual cheat sheets.</p>
+            <p>Mastering complex instructions, technical documents, and everyday guides shouldn't feel like deciphering walls of text. CogniFlow proves why visual clarity outperforms dense prose in human comprehension speed.</p>
             <div class="buttons">
-                <a href="#journey" class="btn primary">Explore the Journey</a>
-                <a href="#studio" class="btn secondary">Open Workflow Studio</a>
+                <a href="#challenge" class="btn primary">Take the 10s Speed Test</a>
+                <a href="#journey" class="btn secondary">Explore the Journey</a>
             </div>
         </div>
 
         <div class="hero-visual-container">
-            <svg viewBox="0 0 520 340" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Diagram showing technical workflows translating into visual pipelines">
+            <svg viewBox="0 0 520 340" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Diagram showing dense technical prose transforming into structured visual modules">
                 <defs>
                     <pattern id="heroGrid" width="24" height="24" patternUnits="userSpaceOnUse">
-                        <path d="M 24 0 L 0 0 0 24" fill="none" stroke="#BBA48A" stroke-width="0.8" opacity="0.6" />
+                        <path d="M 24 0 L 0 0 0 24" fill="none" stroke="#B29B82" stroke-width="0.8" opacity="0.6" />
                     </pattern>
                     <linearGradient id="tanGlow" x1="0%" y1="0%" x2="100%" y2="100%">
-                        <stop offset="0%" stop-color="#DFD0BD" />
+                        <stop offset="0%" stop-color="#EBDDCB" />
                         <stop offset="100%" stop-color="#CBB195" />
                     </linearGradient>
                 </defs>
@@ -1013,58 +958,58 @@ footer {
                 <rect width="520" height="340" rx="16" fill="url(#tanGlow)" />
                 <rect width="520" height="340" rx="16" fill="url(#heroGrid)" />
 
-                <!-- Left Panel: Raw Unstructured Commands -->
-                <rect x="28" y="45" width="180" height="250" rx="12" fill="#E8DCCB" stroke="#A68E74" stroke-width="1.5" />
-                <rect x="42" y="60" width="90" height="10" rx="5" fill="#1C3B27" opacity="0.9" />
-                <rect x="42" y="82" width="150" height="6" rx="3" fill="#9E4D36" opacity="0.7" />
-                <rect x="42" y="96" width="138" height="6" rx="3" fill="#BBA48A" />
-                <rect x="42" y="110" width="144" height="6" rx="3" fill="#BBA48A" />
-                <rect x="42" y="124" width="120" height="6" rx="3" fill="#BBA48A" />
+                <!-- Left Panel: Raw Text Representation -->
+                <rect x="28" y="45" width="180" height="250" rx="12" fill="#F8F3EC" stroke="#967E66" stroke-width="1.5" />
+                <rect x="42" y="60" width="90" height="10" rx="5" fill="#14381F" opacity="0.9" />
+                <rect x="42" y="82" width="150" height="6" rx="3" fill="#7A2912" opacity="0.8" />
+                <rect x="42" y="96" width="138" height="6" rx="3" fill="#B29B82" />
+                <rect x="42" y="110" width="144" height="6" rx="3" fill="#B29B82" />
+                <rect x="42" y="124" width="120" height="6" rx="3" fill="#B29B82" />
                 
-                <rect x="42" y="148" width="110" height="8" rx="4" fill="#385942" opacity="0.7" />
-                <rect x="42" y="166" width="148" height="6" rx="3" fill="#BBA48A" />
-                <rect x="42" y="180" width="135" height="6" rx="3" fill="#9E4D36" opacity="0.5" />
-                <rect x="42" y="194" width="140" height="6" rx="3" fill="#BBA48A" />
-                <rect x="42" y="208" width="115" height="6" rx="3" fill="#BBA48A" />
+                <rect x="42" y="148" width="110" height="8" rx="4" fill="#2E5238" opacity="0.8" />
+                <rect x="42" y="166" width="148" height="6" rx="3" fill="#B29B82" />
+                <rect x="42" y="180" width="135" height="6" rx="3" fill="#7A2912" opacity="0.6" />
+                <rect x="42" y="194" width="140" height="6" rx="3" fill="#B29B82" />
+                <rect x="42" y="208" width="115" height="6" rx="3" fill="#B29B82" />
                 
-                <rect x="42" y="235" width="150" height="36" rx="8" fill="#F2E9DC" stroke="#1C3B27" stroke-dasharray="3 3" />
-                <text x="117" y="258" fill="#1C3B27" font-size="10" font-family="system-ui, sans-serif" font-weight="700" text-anchor="middle">Dense Technical Manual</text>
+                <rect x="42" y="235" width="150" height="36" rx="8" fill="#FFFFFF" stroke="#14381F" stroke-dasharray="3 3" />
+                <text x="117" y="258" fill="#14381F" font-size="11" font-family="system-ui, sans-serif" font-weight="800" text-anchor="middle">Dense Technical Manual</text>
 
-                <!-- Center: Dynamic Synthesis Pathways -->
-                <path d="M 218 170 C 248 170, 248 95, 278 95" stroke="#1C3B27" stroke-width="2.5" stroke-linecap="round" fill="none" />
-                <circle cx="248" cy="132" r="6" fill="#1C3B27" />
+                <!-- Center: Transformation Pathways -->
+                <path d="M 218 170 C 248 170, 248 95, 278 95" stroke="#14381F" stroke-width="2.5" stroke-linecap="round" fill="none" />
+                <circle cx="248" cy="132" r="6" fill="#14381F" />
                 
-                <path d="M 218 170 C 248 170, 248 170, 278 170" stroke="#1C3B27" stroke-width="2.5" stroke-linecap="round" fill="none" />
+                <path d="M 218 170 C 248 170, 248 170, 278 170" stroke="#14381F" stroke-width="2.5" stroke-linecap="round" fill="none" />
                 
-                <path d="M 218 170 C 248 170, 248 245, 278 245" stroke="#1C3B27" stroke-width="2.5" stroke-linecap="round" fill="none" />
-                <circle cx="248" cy="208" r="6" fill="#1C3B27" />
+                <path d="M 218 170 C 248 170, 248 245, 278 245" stroke="#14381F" stroke-width="2.5" stroke-linecap="round" fill="none" />
+                <circle cx="248" cy="208" r="6" fill="#14381F" />
 
                 <!-- Right Visual Modules -->
                 <g filter="drop-shadow(0px 4px 8px rgba(40,25,10,0.08))">
-                    <rect x="285" y="65" width="205" height="62" rx="10" fill="#E8DCCB" stroke="#1C3B27" stroke-width="1.5" />
-                    <circle cx="310" cy="96" r="14" fill="#1C3B27" />
-                    <text x="310" y="100" fill="#F2E9DC" font-size="11" font-weight="900" text-anchor="middle">01</text>
-                    <text x="334" y="90" fill="#132417" font-size="12" font-weight="700">EXTRACT STEPS</text>
-                    <text x="334" y="106" fill="#4F5E52" font-size="9.5">Organize logical phases</text>
+                    <rect x="285" y="65" width="205" height="62" rx="10" fill="#F8F3EC" stroke="#14381F" stroke-width="1.5" />
+                    <circle cx="310" cy="96" r="14" fill="#14381F" />
+                    <text x="310" y="101" fill="#FFFFFF" font-size="11" font-weight="900" text-anchor="middle">01</text>
+                    <text x="334" y="90" fill="#0D1C11" font-size="12" font-weight="800">EXTRACT STEPS</text>
+                    <text x="334" y="106" fill="#425446" font-size="10" font-weight="600">Organize logical phases</text>
                 </g>
 
                 <g filter="drop-shadow(0px 4px 8px rgba(40,25,10,0.08))">
-                    <rect x="285" y="140" width="205" height="62" rx="10" fill="#E8DCCB" stroke="#385942" stroke-width="1.5" />
-                    <circle cx="310" cy="171" r="14" fill="#385942" />
-                    <text x="310" y="175" fill="#F2E9DC" font-size="11" font-weight="900" text-anchor="middle">02</text>
-                    <text x="334" y="165" fill="#132417" font-size="12" font-weight="700">MAP HOTKEYS</text>
-                    <text x="334" y="181" fill="#4F5E52" font-size="9.5">Intuitive visual keycaps</text>
+                    <rect x="285" y="140" width="205" height="62" rx="10" fill="#F8F3EC" stroke="#2E5238" stroke-width="1.5" />
+                    <circle cx="310" cy="171" r="14" fill="#2E5238" />
+                    <text x="310" y="176" fill="#FFFFFF" font-size="11" font-weight="900" text-anchor="middle">02</text>
+                    <text x="334" y="165" fill="#0D1C11" font-size="12" font-weight="800">MAP HOTKEYS</text>
+                    <text x="334" y="181" fill="#425446" font-size="10" font-weight="600">Intuitive visual keycaps</text>
                 </g>
 
                 <g filter="drop-shadow(0px 4px 8px rgba(40,25,10,0.08))">
-                    <rect x="285" y="215" width="205" height="62" rx="10" fill="#E8DCCB" stroke="#9E4D36" stroke-width="1.5" />
-                    <circle cx="310" cy="246" r="14" fill="#9E4D36" />
-                    <text x="310" y="250" fill="#F2E9DC" font-size="11" font-weight="900" text-anchor="middle">03</text>
-                    <text x="334" y="240" fill="#132417" font-size="12" font-weight="700">EXPORT PIPELINES</text>
-                    <text x="334" y="256" fill="#4F5E52" font-size="9.5">Printable cheat sheets</text>
+                    <rect x="285" y="215" width="205" height="62" rx="10" fill="#F8F3EC" stroke="#7A2912" stroke-width="1.5" />
+                    <circle cx="310" cy="246" r="14" fill="#7A2912" />
+                    <text x="310" y="251" fill="#FFFFFF" font-size="11" font-weight="900" text-anchor="middle">03</text>
+                    <text x="334" y="240" fill="#0D1C11" font-size="12" font-weight="800">EXPORT PIPELINES</text>
+                    <text x="334" y="256" fill="#425446" font-size="10" font-weight="600">Printable cheat sheets</text>
                 </g>
             </svg>
-            <div class="hero-visual-caption">CogniFlow Studio • Interactive Software Workflow & Hotkey Builder</div>
+            <div class="hero-visual-caption">CogniFlow Studio • Interactive Cognitive Friction & Vision Lab</div>
         </div>
     </section>
 
@@ -1145,159 +1090,161 @@ footer {
     </section>
 
     <!-- ======================================================
-         INTERACTIVE COMPONENT: WORKFLOW & HOTKEY SHEET BUILDER
+         INTERACTIVE COMPONENT: 10-SECOND COGNITIVE SPEED TEST
     ======================================================= -->
-    <section id="studio">
+    <section id="challenge">
         <div class="container">
-            <span class="section-label">INTERACTIVE STUDIO</span>
-            <h2 class="section-title">Visual Software Workflow & Hotkey Builder</h2>
-            <p class="section-lead">Select your design or simulation platform, load pre-built workflows, assemble custom action sequences with shortcut keycaps, and export high-resolution visual cheat sheets.</p>
+            <span class="section-label">INTERACTIVE EXPERIMENT</span>
+            <h2 class="section-title">The 10-Second Cognitive Speed Test</h2>
+            <p class="section-lead">Test your own brain in real time. Experience how much faster your visual cortex processes information compared to hunting through unformatted walls of text.</p>
 
-            <div class="studio-widget" id="studioWidget">
-                <div class="studio-grid">
-                    
-                    <!-- LEFT COLUMN: BUILDER CONTROLS -->
-                    <div class="studio-input-panel">
-                        
-                        <!-- Platform & Preset Selector -->
-                        <div class="config-box">
-                            <div class="config-row">
-                                <label for="softwarePlatformSelect">1. Target Software Platform:</label>
-                                <select id="softwarePlatformSelect" class="studio-select" onchange="handleSoftwareChange()">
-                                    <option value="autocad">AutoCAD (Architecture & 2D/3D CAD)</option>
-                                    <option value="fusion360">Fusion 360 (Parametric Mechanical CAD)</option>
-                                    <option value="matlab">MATLAB (Numerical Analysis & Scripting)</option>
-                                    <option value="blender">Blender (3D Modeling & Rendering)</option>
-                                </select>
-                            </div>
-
-                            <div class="config-row">
-                                <label for="workflowPresetSelect">2. Load Pre-Built Workflow Template:</label>
-                                <select id="workflowPresetSelect" class="studio-select" onchange="handlePresetChange()">
-                                    <!-- Populated dynamically via JS -->
-                                </select>
-                            </div>
-                        </div>
-
-                        <!-- Action Bank: Quick Add Chips -->
-                        <div class="action-bank">
-                            <div class="action-bank-title">
-                                <span>Quick-Add Action Bank</span>
-                                <span style="font-size:0.75rem; color:var(--text-muted);">Click to Append</span>
-                            </div>
-                            <div class="action-chips-container" id="actionChipsContainer">
-                                <!-- Populated dynamically based on selected software -->
-                            </div>
-                        </div>
-
-                        <!-- Manual Step Creator -->
-                        <div class="step-form-card">
-                            <div class="step-form-title">
-                                <span>➕ Custom Step / Command</span>
-                            </div>
-
-                            <div class="config-row">
-                                <label for="stepNameInput">Action / Step Title:</label>
-                                <input type="text" id="stepNameInput" class="studio-input" placeholder="e.g., Extrude Profile, Define Array...">
-                            </div>
-
-                            <div style="display:grid; grid-template-columns: 1fr 1fr; gap:10px;">
-                                <div class="config-row">
-                                    <label for="stepHotkeyInput">Hotkey / Command:</label>
-                                    <input type="text" id="stepHotkeyInput" class="studio-input" placeholder="e.g., EXT, Ctrl+B, F...">
-                                </div>
-                                <div class="config-row">
-                                    <label for="stepCategorySelect">Phase Category:</label>
-                                    <select id="stepCategorySelect" class="studio-select">
-                                        <option value="Setup">Setup / Units</option>
-                                        <option value="Geometry">Geometry / Shape</option>
-                                        <option value="Modify">Modify / Transform</option>
-                                        <option value="Detail">Detail / Constraint</option>
-                                        <option value="Export">Output / Export</option>
-                                    </select>
-                                </div>
-                            </div>
-
-                            <div class="config-row">
-                                <label for="stepDescInput">Instructional Tip / Note:</label>
-                                <input type="text" id="stepDescInput" class="studio-input" placeholder="e.g., Select closed polygon and enter height...">
-                            </div>
-
-                            <button type="button" class="btn primary" id="addStepBtn" style="padding:10px 18px; margin-top:6px;" onclick="addCustomStep()">
-                                Append to Pipeline
-                            </button>
-                        </div>
-
+            <div class="challenge-widget" id="challengeWidget">
+                
+                <!-- Widget Header Toolbar -->
+                <div class="challenge-top-bar">
+                    <div class="scenario-select-wrap">
+                        <label for="scenarioSelect">Test Scenario:</label>
+                        <select id="scenarioSelect" class="studio-select" onchange="handleScenarioChange()">
+                            <option value="flight">Flight Itinerary (Find Departure Gate)</option>
+                            <option value="recipe">Artisanal Sourdough (Find Oven Temp)</option>
+                            <option value="exam">Campus Exam Hall (Find Room Number)</option>
+                        </select>
                     </div>
 
-                    <!-- RIGHT COLUMN: VISUAL FLOWCHART CANVAS -->
-                    <div class="studio-output-panel">
+                    <div class="timer-pill" id="liveTimerWrap" style="display:none;">
+                        <span class="timer-dot"></span>
+                        <span id="liveTimerDisplay">0.00s</span>
+                    </div>
+
+                    <div class="challenge-controls-right">
+                        <button type="button" class="tool-btn" id="fullscreenToggleBtn" onclick="toggleWidgetFullscreen()" title="Toggle Fullscreen Mode">
+                            ⛶ Expand
+                        </button>
+                        <button type="button" class="tool-btn" onclick="resetChallenge()" title="Reset to Start">
+                            ↺ Reset
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Active Challenge Stage Viewport -->
+                <div class="challenge-stage" id="challengeStage">
+                    
+                    <!-- STAGE 1: INTRO STATE -->
+                    <div class="stage-intro" id="stageIntro">
+                        <span class="intro-badge">Human Processing Benchmark</span>
+                        <h3>How Fast Can You Spot Critical Information?</h3>
+                        <p>You'll perform the exact same retrieval task twice: first through a dense wall of text, then through a clean visual dashboard. A live stopwatch will measure your cognitive retrieval speed.</p>
                         
-                        <!-- Top Toolbar -->
-                        <div class="studio-top-controls">
-                            <div class="pipeline-meta">
-                                <span class="pipeline-badge" id="platformBadge">AutoCAD Pipeline</span>
-                                <span class="pipeline-counter" id="stepCounter">4 Steps Configured</span>
+                        <div class="instruction-steps">
+                            <div class="instruction-card">
+                                <strong>Phase 1: Dense Paragraph</strong>
+                                <span>Hunt through an unformatted email or article to click the target detail.</span>
+                            </div>
+                            <div class="instruction-card">
+                                <strong>Phase 2: Visual Card</strong>
+                                <span>Spot the exact same piece of data on an organized, icon-backed card.</span>
+                            </div>
+                        </div>
+
+                        <button type="button" class="btn primary" style="margin-top:10px; font-size:1.1rem; padding:14px 34px;" onclick="startRoundOne()">
+                            Start Speed Test ⚡
+                        </button>
+                    </div>
+
+                    <!-- STAGE 2: ROUND 1 (WALL OF TEXT) -->
+                    <div class="stage-round1" id="stageRound1" style="display:none;">
+                        <div class="task-banner">
+                            <div>
+                                <span class="task-label">Round 1 of 2: Wall of Text</span>
+                                <span class="task-prompt" id="round1PromptText">Find and click: Gate B14</span>
+                            </div>
+                            <span style="font-size:0.85rem; font-weight:700;">⏱ Live Timer Active</span>
+                        </div>
+
+                        <div class="wall-of-text-box" id="wallOfTextBox">
+                            <!-- Populated with interactive paragraphs -->
+                        </div>
+                    </div>
+
+                    <!-- STAGE 3: INTERMISSION TRANSITION -->
+                    <div class="stage-intermission" id="stageIntermission" style="display:none;">
+                        <span class="intro-badge">Round 1 Completed</span>
+                        <h3>Text Retrieval Logged!</h3>
+                        <div class="round1-time-callout" id="intermissionTimeCallout">5.82s</div>
+                        <p>It took your brain this long to read, parse, and extract that single fact from the paragraph. Now, see what happens when the exact same information is presented visually.</p>
+
+                        <button type="button" class="btn primary" style="font-size:1.1rem; padding:14px 34px;" onclick="startRoundTwo()">
+                            Start Round 2: Visual Card ➔
+                        </button>
+                    </div>
+
+                    <!-- STAGE 4: ROUND 2 (VISUAL CARD) -->
+                    <div class="stage-round2" id="stageRound2" style="display:none;">
+                        <div class="task-banner">
+                            <div>
+                                <span class="task-label">Round 2 of 2: Structured Visual</span>
+                                <span class="task-prompt" id="round2PromptText">Find and click: Gate B14</span>
+                            </div>
+                            <span style="font-size:0.85rem; font-weight:700;">⏱ Live Timer Active</span>
+                        </div>
+
+                        <div class="visual-target-deck" id="visualTargetDeck">
+                            <!-- Populated with visual cards -->
+                        </div>
+                    </div>
+
+                    <!-- STAGE 5: COMPREHENSIVE RESULTS DASHBOARD -->
+                    <div class="stage-results" id="stageResults" style="display:none;">
+                        <div class="results-speedup-banner">
+                            <span style="font-size:0.82rem; letter-spacing:1px; text-transform:uppercase; font-weight:800;">Cognitive Retrieval Multiplier</span>
+                            <h2 id="speedupMetricDisplay">+340% Faster</h2>
+                            <p id="speedupSummarySentence">You processed the visual card in a fraction of the time.</p>
+                        </div>
+
+                        <div class="comparison-bars-box">
+                            <div class="bar-row">
+                                <div class="bar-header">
+                                    <span>Wall of Text Retrieval</span>
+                                    <span id="resTimeRound1">5.82 seconds</span>
+                                </div>
+                                <div class="bar-track">
+                                    <div class="bar-fill text-bar" id="barFillRound1" style="width: 100%;"></div>
+                                </div>
                             </div>
 
-                            <div class="extra-tools">
-                                <button type="button" class="tool-btn fullscreen-btn" id="fullscreenToggleBtn" onclick="toggleWidgetFullscreen()" title="Toggle Fullscreen View" aria-label="Toggle Fullscreen">
-                                    ⛶ Expand
-                                </button>
-
-                                <button type="button" class="tool-btn" onclick="clearWorkflow()" title="Reset Pipeline">Clear</button>
-
-                                <!-- 3-Dot Export Dropdown Menu -->
-                                <div class="dropdown-container">
-                                    <button type="button" class="more-btn" id="exportMenuBtn" onclick="toggleExportMenu(event)" aria-haspopup="true" aria-expanded="false" aria-label="Export settings and options">
-                                        &#8942;
-                                    </button>
-
-                                    <div class="dropdown-menu" id="exportMenu" role="menu">
-                                        <div class="dropdown-header">Export Cheat Sheet</div>
-                                        <button type="button" class="dropdown-item" role="menuitem" onclick="exportWorkflowAs('png')">
-                                            <span>Graphic Diagram</span>
-                                            <span style="color:var(--clay-accent); font-size:0.75rem;">.PNG</span>
-                                        </button>
-                                        <button type="button" class="dropdown-item" role="menuitem" onclick="exportWorkflowAs('md')">
-                                            <span>Markdown Sheet</span>
-                                            <span style="color:var(--clay-accent); font-size:0.75rem;">.MD</span>
-                                        </button>
-                                        <button type="button" class="dropdown-item" role="menuitem" onclick="exportWorkflowAs('txt')">
-                                            <span>Formatted Text</span>
-                                            <span style="color:var(--clay-accent); font-size:0.75rem;">.TXT</span>
-                                        </button>
-                                        <div class="dropdown-divider"></div>
-                                        <button type="button" class="dropdown-item" role="menuitem" onclick="printWorkflow()">
-                                            <span>Print / Save as PDF</span>
-                                            <span style="font-size:0.85rem;">🖨️</span>
-                                        </button>
-                                    </div>
+                            <div class="bar-row">
+                                <div class="bar-header">
+                                    <span>Visual Card Retrieval</span>
+                                    <span id="resTimeRound2" style="color:var(--green-primary); font-weight:900;">1.24 seconds</span>
+                                </div>
+                                <div class="bar-track">
+                                    <div class="bar-fill visual-bar" id="barFillRound2" style="width: 21%;"></div>
                                 </div>
                             </div>
                         </div>
 
-                        <!-- Center Flowchart Stage -->
-                        <div class="studio-stage" id="studioStage">
-                            <div class="workflow-pipeline" id="workflowPipeline">
-                                <!-- Steps rendered dynamically -->
+                        <div class="takeaway-grid">
+                            <div class="takeaway-card">
+                                <strong>The Extraneous Load Effect</strong>
+                                <span>Dense text forces the brain to translate syntax before reaching the fact. Visual hierarchy provides instant spatial targeting.</span>
                             </div>
-
-                            <div class="stage-placeholder" id="emptyPlaceholder" style="display:none;">
-                                <span>🗺️</span>
-                                <p><strong>Pipeline is empty.</strong><br>Pick an action chip on the left or add a custom step to begin building your visual guide.</p>
+                            <div class="takeaway-card">
+                                <strong>Real-World Productivity</strong>
+                                <span>At this rate, switching daily reference guides or manuals to visual formats saves the average student or worker 40+ hours per year.</span>
                             </div>
                         </div>
 
+                        <div style="display:flex; gap:12px; flex-wrap:wrap; justify-content:center; margin-top:8px;">
+                            <button type="button" class="btn primary" onclick="resetChallenge()">Try Another Scenario ↺</button>
+                            <button type="button" class="btn secondary" onclick="retryCurrentScenario()">Retry This Scenario</button>
+                        </div>
                     </div>
 
                 </div>
+
             </div>
         </div>
     </section>
-
-    <!-- Hidden Canvas for PNG Graphic Generation -->
-    <canvas id="exportCanvas"></canvas>
 
     <section id="future">
         <div class="container">
@@ -1362,156 +1309,338 @@ footer {
 
 <script>
 /* ======================================================
-   WORKFLOW & HOTKEY BUILDER ENGINE (VANILLA JS + GA4)
+   10-SECOND COGNITIVE CHALLENGE ENGINE (VANILLA JS + GA4)
 ====================================================== */
 
-// DOM Elements
-const studioWidget = document.getElementById("studioWidget");
-const fullscreenToggleBtn = document.getElementById("fullscreenToggleBtn");
-const softwarePlatformSelect = document.getElementById("softwarePlatformSelect");
-const workflowPresetSelect = document.getElementById("workflowPresetSelect");
-const actionChipsContainer = document.getElementById("actionChipsContainer");
-const stepNameInput = document.getElementById("stepNameInput");
-const stepHotkeyInput = document.getElementById("stepHotkeyInput");
-const stepCategorySelect = document.getElementById("stepCategorySelect");
-const stepDescInput = document.getElementById("stepDescInput");
-const workflowPipeline = document.getElementById("workflowPipeline");
-const emptyPlaceholder = document.getElementById("emptyPlaceholder");
-const platformBadge = document.getElementById("platformBadge");
-const stepCounter = document.getElementById("stepCounter");
-const exportMenuBtn = document.getElementById("exportMenuBtn");
-const exportMenu = document.getElementById("exportMenu");
-
-// Preset Action Libraries & Pre-configured Workflows
-const SOFTWARE_DATA = {
-    autocad: {
-        name: "AutoCAD",
-        chips: [
-            { name: "Units Setup", key: "UN", cat: "Setup", desc: "Configure drawing measurement units and precision" },
-            { name: "Polyline", key: "PL", cat: "Geometry", desc: "Construct a connected 2D outline boundary" },
-            { name: "Offset", key: "O", cat: "Modify", desc: "Create parallel concentric walls or lines" },
-            { name: "Trim Edges", key: "TR", cat: "Modify", desc: "Clean up intersecting vector boundary lines" },
-            { name: "Fillet Corner", key: "F", cat: "Modify", desc: "Round or connect corners with specific radius" },
-            { name: "Hatch Region", key: "H", cat: "Detail", desc: "Fill bounded areas with architectural pattern" },
-            { name: "Dimension Line", key: "DLI", cat: "Detail", desc: "Add precise linear measurement annotations" },
-            { name: "Export Plot", key: "PLOT", cat: "Export", desc: "Generate vector PDF sheet with drawing scale" }
+// Scenarios dataset
+const SCENARIOS = {
+    flight: {
+        id: "flight",
+        name: "Flight Itinerary",
+        targetText: "Gate B14",
+        prompt: "Find and click the Departure Gate: Gate B14",
+        // Dense unformatted customer service email
+        prose: [
+            "Dear traveler, thank you for booking your journey with Horizon Airways for flight HA-842 with nonstop scheduled service to Chicago O'Hare. ",
+            "Please review all checked baggage guidelines prior to your terminal arrival, as oversized luggage incurs additional transit fees at the ticket kiosk. ",
+            "Passengers enrolled in Priority Access may board during Group 2, provided they hold a digital confirmation barcode on their mobile device. ",
+            "Your aircraft departure will take place from ",
+            { word: "Gate B14", isTarget: true },
+            " with boarding beginning promptly thirty minutes prior to wheels-up at 10:45 AM. ",
+            "For meal vouchers, terminal maps, connecting train connections, or seat upgrade requests, please speak to a customer service agent located at customer desk 4."
         ],
-        presets: [
-            {
-                id: "acad_floorplan",
-                title: "2D Architectural Floorplan Drafting",
-                steps: [
-                    { name: "Establish Drawing Units", key: "UN", cat: "Setup", desc: "Set architectural units (feet/inches or mm) and precision limit" },
-                    { name: "Draw Exterior Perimeter", key: "PL", cat: "Geometry", desc: "Trace continuous building boundary using ortho snap" },
-                    { name: "Offset Wall Thickness", key: "O", cat: "Modify", desc: "Offset 150mm/200mm for structural wall depth" },
-                    { name: "Trim Doorway Openings", key: "TR", cat: "Modify", desc: "Cut wall intersections to create passage frames" },
-                    { name: "Annotate Room Dimensions", key: "DLI", cat: "Detail", desc: "Place dimension strings across all interior spans" }
-                ]
-            },
-            {
-                id: "acad_mechanical",
-                title: "Precision Machine Part 2D Orthographic",
-                steps: [
-                    { name: "Draw Centerlines", key: "L", cat: "Setup", desc: "Lay out datum references and symmetry lines" },
-                    { name: "Construct Outer Profile", key: "REC", cat: "Geometry", desc: "Draw base mounting plate contour" },
-                    { name: "Drill Hole Positions", key: "C", cat: "Geometry", desc: "Place concentric bore circles at specified offsets" },
-                    { name: "Apply Corner Fillets", key: "F", cat: "Modify", desc: "Apply 5mm radius stress-relief curves to edges" }
-                ]
-            }
+        // Visual presentation cards
+        visualCards: [
+            { icon: "✈️", label: "Flight Number", val: "HA-842", isTarget: false },
+            { icon: "🚪", label: "Departure Gate", val: "Gate B14", isTarget: true },
+            { icon: "⏰", label: "Boarding Time", val: "10:15 AM", isTarget: false },
+            { icon: "💺", label: "Assigned Seat", val: "14C (Aisle)", isTarget: false },
+            { icon: "🧳", label: "Luggage Allowance", val: "2 Checked Bags", isTarget: false },
+            { icon: "📍", label: "Destination", val: "Chicago ORD", isTarget: false }
         ]
     },
-    fusion360: {
-        name: "Fusion 360",
-        chips: [
-            { name: "Create Sketch", key: "C", cat: "Setup", desc: "Select origin plane to start 2D sketch profile" },
-            { name: "Center Diameter Circle", key: "C", cat: "Geometry", desc: "Draw constrained circular profile" },
-            { name: "Two-Point Rectangle", key: "R", cat: "Geometry", desc: "Construct dimensioned bounding box" },
-            { name: "Extrude Solid", key: "E", cat: "Geometry", desc: "Pull 2D profile into 3D volume or cut material" },
-            { name: "Fillet Edge", key: "F", cat: "Modify", desc: "Smooth hard solid body edges" },
-            { name: "Chamfer Angle", key: "CHAMFER", cat: "Modify", desc: "Create angled beveled edge transition" },
-            { name: "Circular Pattern", key: "PATTERN", cat: "Modify", desc: "Duplicate features radially around axis" },
-            { name: "Joint Assembly", key: "J", cat: "Detail", desc: "Constrain multi-component mechanical motion" }
+    recipe: {
+        id: "recipe",
+        name: "Artisanal Sourdough Recipe",
+        targetText: "450°F",
+        prompt: "Find and click the Oven Baking Temperature: 450°F",
+        prose: [
+            "Every autumn morning reminds me of my grandmother's rustic kitchen and the rhythmic crackle of fresh wood-fired ovens filling the valley air with sourdough aromas. ",
+            "Before beginning your bake, ensure that your wild yeast levain has doubled in volume and floats effortlessly in lukewarm filtered water. ",
+            "Bulk fermentation should proceed undisturbed for four hours with gentle envelope stretch-and-folds administered every thirty minutes to strengthen the gluten matrix. ",
+            "Preheat your heavy cast-iron Dutch oven at ",
+            { word: "450°F", isTarget: true },
+            " for a minimum of forty-five minutes so the retained thermal energy creates maximum oven spring when the boule is loaded into the steam chamber. ",
+            "Carefully score the scored loaf with a sharp razor blade along the longitudinal axis to release carbon dioxide blisters evenly across the crust."
         ],
-        presets: [
-            {
-                id: "f360_parametric",
-                title: "Parametric Mounting Bracket Solid",
-                steps: [
-                    { name: "Initialize Origin Sketch", key: "C", cat: "Setup", desc: "Select XZ datum plane for bracket cross-section" },
-                    { name: "Sketch Constrained Base", key: "R", cat: "Geometry", desc: "Draw 100x60mm rectangle with dimensional constraints" },
-                    { name: "Extrude Solid Base", key: "E", cat: "Geometry", desc: "Extrude 15mm upward to create mounting flange" },
-                    { name: "Punch Bolt Holes", key: "C", cat: "Modify", desc: "Sketch 4 corner circles and extrude cut through base" },
-                    { name: "Apply Stress-Relief Fillets", key: "F", cat: "Detail", desc: "Select inner joints and apply 4mm rounding" }
-                ]
-            }
+        visualCards: [
+            { icon: "🌾", label: "Flour Blend", val: "Organic Bread Flour", isTarget: false },
+            { icon: "💧", label: "Hydration Ratio", val: "78% Hydration", isTarget: false },
+            { icon: "🔥", label: "Oven Temperature", val: "450°F", isTarget: true },
+            { icon: "⏱️", label: "Preheat Duration", val: "45 Minutes", isTarget: false },
+            { icon: "🍞", label: "Bake Vessel", val: "Cast Iron Pot", isTarget: false },
+            { icon: "🔪", label: "Scoring Style", val: "Longitudinal Slash", isTarget: false }
         ]
     },
-    matlab: {
-        name: "MATLAB",
-        chips: [
-            { name: "Clear Workspace", key: "clear; clc", cat: "Setup", desc: "Reset active variables and clean command screen" },
-            { name: "Define Time Vector", key: "t = 0:0.01:10", cat: "Setup", desc: "Create sampled linear numeric range" },
-            { name: "Matrix Multiplicaton", key: "A * B", cat: "Geometry", desc: "Perform linear algebraic array computation" },
-            { name: "Element-wise Math", key: "x .* y", cat: "Geometry", desc: "Execute dot-product across vector elements" },
-            { name: "Filter Outliers", key: "data(data > 0)", cat: "Modify", desc: "Apply logical indexing to clean data array" },
-            { name: "Generate Plot", key: "plot(x, y)", cat: "Detail", desc: "Render 2D continuous line visualization" },
-            { name: "Label Coordinates", key: "xlabel(); ylabel()", cat: "Detail", desc: "Add physical unit labels to coordinate axes" },
-            { name: "Save Figure", key: "saveas(gcf, 'res')", cat: "Export", desc: "Export publication-quality graphic file" }
+    exam: {
+        id: "exam",
+        name: "Campus Exam Hall Schedule",
+        targetText: "Room 402",
+        prompt: "Find and click the Assigned Exam Hall: Room 402",
+        prose: [
+            "Notice to all undergraduate candidates registered for the upcoming midterm assessment in Analytical Statics and Dynamics for the third term. ",
+            "All examinees must display their physical university identification cards and official registration receipts atop their assigned writing stations at all times during the examination period. ",
+            "Programmable scientific calculators, smart watches, and cellular devices must be powered down and stored inside personal bags placed near the front whiteboard perimeter. ",
+            "Students assigned to Cohort B must present themselves directly at ",
+            { word: "Room 402", isTarget: true },
+            " inside the engineering annex building no later than 8:15 AM for proctor roll call. ",
+            "Late arrivals exceeding fifteen minutes will forfeit testing privileges and must petition the department chair for a formal hardship review."
         ],
-        presets: [
-            {
-                id: "matlab_signal",
-                title: "Signal Processing & Spectrum Analysis",
-                steps: [
-                    { name: "Workspace Initialization", key: "clear; clc; close all", cat: "Setup", desc: "Wipe memory buffers and close open figure windows" },
-                    { name: "Import Sensor Data", key: "readmatrix('log.csv')", cat: "Setup", desc: "Load raw numerical time-series array" },
-                    { name: "Fast Fourier Transform", key: "fft(signal)", cat: "Modify", desc: "Transform temporal signals into frequency domain" },
-                    { name: "Plot Frequency Spectrum", key: "plot(freqs, magnitude)", cat: "Detail", desc: "Visualize harmonic amplitude peaks on logarithmic scale" },
-                    { name: "Export Vector Figure", key: "exportgraphics(gcf, 'spec.pdf')", cat: "Export", desc: "Save high-resolution vector schematic for report" }
-                ]
-            }
-        ]
-    },
-    blender: {
-        name: "Blender",
-        chips: [
-            { name: "Toggle Edit Mode", key: "Tab", cat: "Setup", desc: "Switch between Object and Mesh edit view" },
-            { name: "Extrude Region", key: "E", cat: "Geometry", desc: "Pull faces or edges along surface normal" },
-            { name: "Loop Cut & Slide", key: "Ctrl + R", cat: "Geometry", desc: "Bisect mesh geometry with edge rings" },
-            { name: "Inset Face", key: "I", cat: "Modify", desc: "Create concentric inner face boundary" },
-            { name: "Bevel Edge", key: "Ctrl + B", cat: "Modify", desc: "Smooth hard polygon edges into chamfer/fillet" },
-            { name: "Subdivision Surface", key: "Ctrl + 2", cat: "Detail", desc: "Apply smooth Catmull-Clark mesh modifier" },
-            { name: "Smart UV Project", key: "U", cat: "Detail", desc: "Unwrap 3D coordinates onto 2D texture canvas" },
-            { name: "Render Camera View", key: "F12", cat: "Export", desc: "Compute final illuminated raytraced scene" }
-        ],
-        presets: [
-            {
-                id: "blender_lowpoly",
-                title: "Low-Poly Asset Modeling Pipeline",
-                steps: [
-                    { name: "Enter Mesh Edit Mode", key: "Tab", cat: "Setup", desc: "Select default cube and access vertex/face controls" },
-                    { name: "Add Supporting Loops", key: "Ctrl + R", cat: "Geometry", desc: "Slice mesh horizontally to create joint pivot geometry" },
-                    { name: "Inset Face Inward", key: "I", cat: "Modify", desc: "Generate recessed polygon border on top face" },
-                    { name: "Extrude Secondary Shape", key: "E", cat: "Geometry", desc: "Pull inset face outward to form component feature" },
-                    { name: "Bevel Accent Edges", key: "Ctrl + B", cat: "Detail", desc: "Soften perimeter highlights for clean lighting reflection" }
-                ]
-            }
+        visualCards: [
+            { icon: "📐", label: "Course Module", val: "Statics & Dynamics", isTarget: false },
+            { icon: "📅", label: "Session Date", val: "Thursday, Midterms", isTarget: false },
+            { icon: "🏫", label: "Assigned Hall", val: "Room 402", isTarget: true },
+            { icon: "🕒", label: "Check-in Time", val: "8:15 AM Sharp", isTarget: false },
+            { icon: "🆔", label: "Required Item", val: "University ID", isTarget: false },
+            { icon: "🧮", label: "Permitted Tool", val: "Non-Prog Calculator", isTarget: false }
         ]
     }
 };
 
-// Active Pipeline State
-let activeSoftwareKey = "autocad";
-let currentSteps = [];
+// Application State
+let currentScenario = SCENARIOS.flight;
+let timerStartTime = 0;
+let timerInterval = null;
+let round1Duration = 0;
+let round2Duration = 0;
 
-// Initialize Studio on DOM load
+// DOM Selectors
+const challengeWidget = document.getElementById("challengeWidget");
+const fullscreenToggleBtn = document.getElementById("fullscreenToggleBtn");
+const scenarioSelect = document.getElementById("scenarioSelect");
+const liveTimerWrap = document.getElementById("liveTimerWrap");
+const liveTimerDisplay = document.getElementById("liveTimerDisplay");
+
+const stageIntro = document.getElementById("stageIntro");
+const stageRound1 = document.getElementById("stageRound1");
+const stageIntermission = document.getElementById("stageIntermission");
+const stageRound2 = document.getElementById("stageRound2");
+const stageResults = document.getElementById("stageResults");
+
+const round1PromptText = document.getElementById("round1PromptText");
+const round2PromptText = document.getElementById("round2PromptText");
+const wallOfTextBox = document.getElementById("wallOfTextBox");
+const visualTargetDeck = document.getElementById("visualTargetDeck");
+const intermissionTimeCallout = document.getElementById("intermissionTimeCallout");
+
+const speedupMetricDisplay = document.getElementById("speedupMetricDisplay");
+const speedupSummarySentence = document.getElementById("speedupSummarySentence");
+const resTimeRound1 = document.getElementById("resTimeRound1");
+const resTimeRound2 = document.getElementById("resTimeRound2");
+const barFillRound1 = document.getElementById("barFillRound1");
+const barFillRound2 = document.getElementById("barFillRound2");
+
+/* ======================================================
+   TIMER ENGINE
+====================================================== */
+function startLiveTimer() {
+    stopLiveTimer();
+    timerStartTime = performance.now();
+    liveTimerWrap.style.display = "flex";
+    liveTimerDisplay.textContent = "0.00s";
+
+    timerInterval = setInterval(() => {
+        const elapsed = (performance.now() - timerStartTime) / 1000;
+        liveTimerDisplay.textContent = elapsed.toFixed(2) + "s";
+    }, 40);
+}
+
+function stopLiveTimer() {
+    if (timerInterval) {
+        clearInterval(timerInterval);
+        timerInterval = null;
+    }
+    liveTimerWrap.style.display = "none";
+    return (performance.now() - timerStartTime) / 1000;
+}
+
+/* ======================================================
+   CHALLENGE STAGE CONTROLLER
+====================================================== */
+function handleScenarioChange() {
+    const chosenKey = scenarioSelect.value;
+    currentScenario = SCENARIOS[chosenKey];
+    trackEvent('challenge_scenario_select', { scenario_id: chosenKey, scenario_name: currentScenario.name });
+    resetChallenge();
+}
+
+function resetChallenge() {
+    stopLiveTimer();
+    stageIntro.style.display = "flex";
+    stageRound1.style.display = "none";
+    stageIntermission.style.display = "none";
+    stageRound2.style.display = "none";
+    stageResults.style.display = "none";
+}
+
+function retryCurrentScenario() {
+    startRoundOne();
+    trackEvent('challenge_retry', { scenario_id: currentScenario.id });
+}
+
+/* --- ROUND 1 (WALL OF TEXT) --- */
+function startRoundOne() {
+    resetChallenge();
+    stageIntro.style.display = "none";
+    stageRound1.style.display = "flex";
+
+    round1PromptText.textContent = currentScenario.prompt;
+    renderWallOfText();
+
+    startLiveTimer();
+
+    trackEvent('challenge_round1_start', {
+        scenario_id: currentScenario.id,
+        target_text: currentScenario.targetText
+    });
+}
+
+function renderWallOfText() {
+    wallOfTextBox.innerHTML = "";
+
+    currentScenario.prose.forEach(segment => {
+        if (typeof segment === "string") {
+            // Split string into words to make them all individually clickable decoys
+            const words = segment.split(/(\s+)/);
+            words.forEach(chunk => {
+                if (chunk.trim().length > 0) {
+                    const span = document.createElement("span");
+                    span.className = "interactive-word";
+                    span.textContent = chunk;
+                    span.onclick = () => handleWrongWordClick(span);
+                    wallOfTextBox.appendChild(span);
+                } else {
+                    wallOfTextBox.appendChild(document.createTextNode(chunk));
+                }
+            });
+        } else if (segment.isTarget) {
+            // Correct Target Word
+            const targetSpan = document.createElement("span");
+            targetSpan.className = "interactive-word";
+            targetSpan.textContent = segment.word;
+            targetSpan.style.fontWeight = "inherit"; // Doesn't give itself away visually
+            targetSpan.onclick = () => handleCorrectRound1Click();
+            wallOfTextBox.appendChild(targetSpan);
+        }
+    });
+}
+
+function handleWrongWordClick(el) {
+    el.classList.add("clicked-wrong");
+    setTimeout(() => el.classList.remove("clicked-wrong"), 450);
+
+    trackEvent('challenge_round1_click_incorrect', {
+        clicked_text: el.textContent.trim(),
+        scenario_id: currentScenario.id
+    });
+}
+
+function handleCorrectRound1Click() {
+    round1Duration = stopLiveTimer();
+    stageRound1.style.display = "none";
+    stageIntermission.style.display = "flex";
+
+    intermissionTimeCallout.textContent = round1Duration.toFixed(2) + "s";
+
+    trackEvent('challenge_round1_complete', {
+        time_seconds: parseFloat(round1Duration.toFixed(2)),
+        scenario_id: currentScenario.id
+    });
+}
+
+/* --- ROUND 2 (VISUAL CARD) --- */
+function startRoundTwo() {
+    stageIntermission.style.display = "none";
+    stageRound2.style.display = "flex";
+
+    round2PromptText.textContent = currentScenario.prompt;
+    renderVisualCards();
+
+    startLiveTimer();
+
+    trackEvent('challenge_round2_start', {
+        scenario_id: currentScenario.id
+    });
+}
+
+function renderVisualCards() {
+    visualTargetDeck.innerHTML = "";
+
+    // Shuffle visual cards slightly so position varies
+    const cards = [...currentScenario.visualCards].sort(() => 0.5 - Math.random());
+
+    cards.forEach(c => {
+        const cardEl = document.createElement("div");
+        cardEl.className = `visual-fact-card ${c.isTarget ? 'is-target' : ''}`;
+        cardEl.innerHTML = `
+            <span class="card-icon">${c.icon}</span>
+            <span class="card-label">${c.label}</span>
+            <span class="card-val">${c.val}</span>
+        `;
+
+        if (c.isTarget) {
+            cardEl.onclick = () => handleCorrectRound2Click();
+        } else {
+            cardEl.onclick = () => {
+                cardEl.style.borderColor = "var(--error)";
+                setTimeout(() => cardEl.style.borderColor = "var(--border)", 400);
+            };
+        }
+
+        visualTargetDeck.appendChild(cardEl);
+    });
+}
+
+function handleCorrectRound2Click() {
+    round2Duration = stopLiveTimer();
+    stageRound2.style.display = "none";
+    showResults();
+
+    const speedupPct = Math.round(((round1Duration - round2Duration) / round2Duration) * 100);
+
+    trackEvent('challenge_round2_complete', {
+        round1_seconds: parseFloat(round1Duration.toFixed(2)),
+        round2_seconds: parseFloat(round2Duration.toFixed(2)),
+        speedup_percentage: speedupPct,
+        scenario_id: currentScenario.id
+    });
+}
+
+/* --- RESULTS DISPLAY --- */
+function showResults() {
+    stageResults.style.display = "flex";
+
+    const r1 = Math.max(0.1, round1Duration);
+    const r2 = Math.max(0.1, round2Duration);
+    const speedupPct = Math.round(((r1 - r2) / r2) * 100);
+
+    if (speedupPct > 0) {
+        speedupMetricDisplay.textContent = `+${speedupPct}% Faster`;
+        speedupSummarySentence.textContent = `Your visual cortex extracted the exact same information ${speedupPct}% faster than reading text.`;
+    } else {
+        speedupMetricDisplay.textContent = "High Visual Clarity";
+        speedupSummarySentence.textContent = "You located both quickly! Visual organization eliminates mental translation fatigue.";
+    }
+
+    resTimeRound1.textContent = `${r1.toFixed(2)} seconds`;
+    resTimeRound2.textContent = `${r2.toFixed(2)} seconds`;
+
+    // Animate visual bars proportionally
+    barFillRound1.style.width = "100%";
+    const r2BarPct = Math.max(12, Math.min(100, Math.round((r2 / r1) * 100)));
+    barFillRound2.style.width = r2BarPct + "%";
+}
+
+/* ======================================================
+   FULLSCREEN THEATRE TOGGLE
+====================================================== */
+function toggleWidgetFullscreen() {
+    const isFull = challengeWidget.classList.toggle("is-fullscreen");
+    fullscreenToggleBtn.textContent = isFull ? "✕ Close" : "⛶ Expand";
+    document.body.style.overflow = isFull ? "hidden" : "";
+    trackEvent('toggle_fullscreen', { is_fullscreen: isFull });
+}
+
+document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && challengeWidget.classList.contains("is-fullscreen")) {
+        toggleWidgetFullscreen();
+    }
+});
+
+/* ======================================================
+   DOM NAVIGATION & ANCHOR TRACKING
+====================================================== */
 window.addEventListener("DOMContentLoaded", () => {
-    populatePresetsDropdown(activeSoftwareKey);
-    renderActionBank(activeSoftwareKey);
-    // Load default preset
-    loadPresetById("acad_floorplan");
-
-    // Track Navigation and CTA Link Clicks across the page
     document.querySelectorAll(".nav-links a, .hero .buttons a").forEach(link => {
         link.addEventListener("click", () => {
             trackEvent('cta_click', {
@@ -1526,465 +1655,6 @@ window.addEventListener("DOMContentLoaded", () => {
         skipLink.addEventListener("click", () => {
             trackEvent('skip_link_click');
         });
-    }
-});
-
-/* ======================================================
-   CORE WORKFLOW BUILDER FUNCTIONS
-====================================================== */
-
-function handleSoftwareChange() {
-    activeSoftwareKey = softwarePlatformSelect.value;
-    const softwareInfo = SOFTWARE_DATA[activeSoftwareKey];
-    platformBadge.textContent = `${softwareInfo.name} Pipeline`;
-
-    trackEvent('select_software', { software: activeSoftwareKey });
-
-    populatePresetsDropdown(activeSoftwareKey);
-    renderActionBank(activeSoftwareKey);
-
-    // Load first available preset for this software
-    if (softwareInfo.presets.length > 0) {
-        loadPresetById(softwareInfo.presets[0].id);
-    } else {
-        currentSteps = [];
-        renderPipeline();
-    }
-}
-
-function populatePresetsDropdown(softwareKey) {
-    const presets = SOFTWARE_DATA[softwareKey].presets;
-    workflowPresetSelect.innerHTML = "";
-
-    presets.forEach(p => {
-        const opt = document.createElement("option");
-        opt.value = p.id;
-        opt.textContent = p.title;
-        workflowPresetSelect.appendChild(opt);
-    });
-
-    const customOpt = document.createElement("option");
-    customOpt.value = "custom";
-    customOpt.textContent = "— Custom User Workflow —";
-    workflowPresetSelect.appendChild(customOpt);
-}
-
-function handlePresetChange() {
-    const presetId = workflowPresetSelect.value;
-    if (presetId === "custom") {
-        trackEvent('select_custom_workflow', { software: activeSoftwareKey });
-        return;
-    }
-    loadPresetById(presetId);
-}
-
-function loadPresetById(presetId) {
-    const presets = SOFTWARE_DATA[activeSoftwareKey].presets;
-    const found = presets.find(p => p.id === presetId);
-    if (found) {
-        // Deep clone preset steps so edits don't mutate template
-        currentSteps = JSON.parse(JSON.stringify(found.steps));
-        renderPipeline();
-        trackEvent('load_workflow_preset', {
-            preset_id: presetId,
-            preset_title: found.title,
-            software: activeSoftwareKey,
-            steps_count: currentSteps.length
-        });
-    }
-}
-
-function renderActionBank(softwareKey) {
-    const chips = SOFTWARE_DATA[softwareKey].chips;
-    actionChipsContainer.innerHTML = "";
-
-    chips.forEach(chip => {
-        const btn = document.createElement("button");
-        btn.type = "button";
-        btn.className = "action-chip";
-        btn.innerHTML = `<span>${chip.name}</span><kbd>${chip.key}</kbd>`;
-        btn.onclick = () => {
-            quickAddStep(chip);
-        };
-        actionChipsContainer.appendChild(btn);
-    });
-}
-
-function quickAddStep(chip) {
-    currentSteps.push({
-        name: chip.name,
-        key: chip.key,
-        cat: chip.cat,
-        desc: chip.desc
-    });
-    renderPipeline();
-
-    trackEvent('quick_add_chip', {
-        action_name: chip.name,
-        hotkey: chip.key,
-        software: activeSoftwareKey,
-        new_total_steps: currentSteps.length
-    });
-}
-
-function addCustomStep() {
-    const title = stepNameInput.value.trim();
-    const hotkey = stepHotkeyInput.value.trim();
-    const category = stepCategorySelect.value;
-    const desc = stepDescInput.value.trim();
-
-    if (!title) {
-        alert("Please provide an action or step title.");
-        stepNameInput.focus();
-        return;
-    }
-
-    currentSteps.push({
-        name: title,
-        key: hotkey || "None",
-        cat: category,
-        desc: desc || "Procedural workflow instruction"
-    });
-
-    stepNameInput.value = "";
-    stepHotkeyInput.value = "";
-    stepDescInput.value = "";
-
-    renderPipeline();
-
-    trackEvent('add_workflow_step', {
-        step_name: title,
-        hotkey: hotkey || 'None',
-        category: category,
-        software: activeSoftwareKey,
-        new_total_steps: currentSteps.length
-    });
-}
-
-function removeStep(index) {
-    const removed = currentSteps.splice(index, 1)[0];
-    renderPipeline();
-
-    trackEvent('delete_workflow_step', {
-        deleted_step_name: removed ? removed.name : 'Unknown',
-        remaining_steps: currentSteps.length,
-        software: activeSoftwareKey
-    });
-}
-
-function moveStep(index, direction) {
-    const targetIdx = index + direction;
-    if (targetIdx < 0 || targetIdx >= currentSteps.length) return;
-
-    const temp = currentSteps[index];
-    currentSteps[index] = currentSteps[targetIdx];
-    currentSteps[targetIdx] = temp;
-
-    renderPipeline();
-
-    trackEvent('reorder_workflow_step', {
-        step_name: temp.name,
-        direction: direction > 0 ? 'down' : 'up',
-        new_index: targetIdx + 1,
-        software: activeSoftwareKey
-    });
-}
-
-function clearWorkflow() {
-    currentSteps = [];
-    renderPipeline();
-    trackEvent('clear_workflow', { software: activeSoftwareKey });
-}
-
-/* ======================================================
-   FLOWCHART PIPELINE RENDERER
-====================================================== */
-function renderPipeline() {
-    workflowPipeline.innerHTML = "";
-
-    if (currentSteps.length === 0) {
-        emptyPlaceholder.style.display = "block";
-        stepCounter.textContent = "0 Steps Configured";
-        return;
-    }
-
-    emptyPlaceholder.style.display = "none";
-    stepCounter.textContent = `${currentSteps.length} Step${currentSteps.length === 1 ? '' : 's'} Configured`;
-
-    currentSteps.forEach((step, idx) => {
-        // Node Card
-        const node = document.createElement("div");
-        node.className = "workflow-node";
-        node.innerHTML = `
-            <div class="node-idx-badge">${idx + 1}</div>
-            <div class="node-content">
-                <div class="node-header-row">
-                    <span class="node-title">${escapeHTML(step.name)}</span>
-                    <span class="node-category-tag">${escapeHTML(step.cat)}</span>
-                </div>
-                <p class="node-description">${escapeHTML(step.desc)}</p>
-                <div class="node-hotkey-wrap">
-                    <span class="node-hotkey-label">Command / Shortcut:</span>
-                    <span class="node-hotkey-chip">${escapeHTML(step.key)}</span>
-                </div>
-            </div>
-            <div class="node-actions">
-                <button type="button" class="node-icon-btn" title="Move Up" onclick="moveStep(${idx}, -1)" ${idx === 0 ? 'disabled style="opacity:0.3;cursor:not-allowed;"' : ''}>▲</button>
-                <button type="button" class="node-icon-btn" title="Move Down" onclick="moveStep(${idx}, 1)" ${idx === currentSteps.length - 1 ? 'disabled style="opacity:0.3;cursor:not-allowed;"' : ''}>▼</button>
-                <button type="button" class="node-icon-btn delete-btn" title="Remove Step" onclick="removeStep(${idx})">✕</button>
-            </div>
-        `;
-        workflowPipeline.appendChild(node);
-
-        // Arrow between steps
-        if (idx < currentSteps.length - 1) {
-            const connector = document.createElement("div");
-            connector.className = "node-connector";
-            connector.innerHTML = `
-                <svg viewBox="0 0 20 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M10 2V18M10 18L4 12M10 18L16 12" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
-            `;
-            workflowPipeline.appendChild(connector);
-        }
-    });
-}
-
-function escapeHTML(str) {
-    return String(str)
-        .replace(/&/g, "&amp;")
-        .replace(/</g, "&lt;")
-        .replace(/>/g, "&gt;")
-        .replace(/"/g, "&quot;")
-        .replace(/'/g, "&#039;");
-}
-
-/* ======================================================
-   EXPORT AND DIAGRAM GENERATION ENGINE
-====================================================== */
-function toggleExportMenu(e) {
-    e.stopPropagation();
-    const isShowing = exportMenu.classList.toggle("show");
-    exportMenuBtn.setAttribute("aria-expanded", isShowing);
-    if (isShowing) {
-        trackEvent('open_export_menu', { software: activeSoftwareKey, steps_count: currentSteps.length });
-    }
-}
-
-document.addEventListener("click", (e) => {
-    if (!e.target.closest(".dropdown-container")) {
-        exportMenu.classList.remove("show");
-        exportMenuBtn.setAttribute("aria-expanded", "false");
-    }
-});
-
-function exportWorkflowAs(format) {
-    if (currentSteps.length === 0) {
-        alert("Add at least one step to export your visual cheat sheet.");
-        return;
-    }
-    exportMenu.classList.remove("show");
-
-    const softwareName = SOFTWARE_DATA[activeSoftwareKey].name;
-    const filename = `cogniflow-${activeSoftwareKey}-cheat-sheet.${format}`;
-
-    trackEvent('export_workflow', {
-        format: format,
-        software: activeSoftwareKey,
-        steps_count: currentSteps.length
-    });
-
-    if (format === "txt") {
-        let content = `========================================================\n`;
-        content += `COGNIFLOW VISUAL WORKFLOW CHEAT SHEET\n`;
-        content += `Software: ${softwareName}\n`;
-        content += `Total Steps: ${currentSteps.length}\n`;
-        content += `Generated: ${new Date().toLocaleDateString()}\n`;
-        content += `========================================================\n\n`;
-
-        currentSteps.forEach((s, idx) => {
-            content += `STEP [${idx + 1}] : ${s.name.toUpperCase()}\n`;
-            content += `  • Category: ${s.cat}\n`;
-            content += `  • Shortcut: ${s.key}\n`;
-            content += `  • Details : ${s.desc}\n`;
-            if (idx < currentSteps.length - 1) content += `     ↓\n`;
-        });
-
-        downloadFile(content, "text/plain", filename);
-    } 
-    else if (format === "md") {
-        let content = `# CogniFlow Visual Workflow: ${softwareName}\n\n`;
-        content += `> **Platform:** ${softwareName} | **Total Steps:** ${currentSteps.length}\n\n`;
-        content += `| Step | Action | Category | Shortcut | Instruction |\n`;
-        content += `|:---:|:---|:---|:---:|:---|\n`;
-
-        currentSteps.forEach((s, idx) => {
-            content += `| **${idx + 1}** | **${s.name}** | \`${s.cat}\` | \`${s.key}\` | ${s.desc} |\n`;
-        });
-
-        content += `\n---\n*Created with CogniFlow • Visual Software Learning Architecture*\n`;
-        downloadFile(content, "text/markdown", filename);
-    } 
-    else if (format === "png") {
-        renderCanvasAndDownload(softwareName, filename);
-    }
-}
-
-// Generate graphic image via client-side Canvas
-function renderCanvasAndDownload(softwareName, filename) {
-    const canvas = document.getElementById("exportCanvas");
-    const ctx = canvas.getContext("2d");
-
-    const cardWidth = 640;
-    const cardHeight = 84;
-    const gap = 36;
-    const topMargin = 110;
-    const bottomMargin = 60;
-    const totalHeight = topMargin + (currentSteps.length * (cardHeight + gap)) + bottomMargin;
-
-    canvas.width = 760;
-    canvas.height = Math.max(480, totalHeight);
-
-    // Canvas Background (Light Brown)
-    ctx.fillStyle = "#CBB195";
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-    // Decorative Header Banner
-    ctx.fillStyle = "#1C3B27";
-    ctx.beginPath();
-    ctx.roundRect(40, 28, canvas.width - 80, 60, 10);
-    ctx.fill();
-
-    ctx.fillStyle = "#F4ECE1";
-    ctx.font = "bold 20px system-ui, sans-serif";
-    ctx.textAlign = "left";
-    ctx.fillText(`CogniFlow • ${softwareName} Visual Workflow`, 60, 64);
-
-    ctx.fillStyle = "#CADECF";
-    ctx.font = "bold 12px system-ui, sans-serif";
-    ctx.textAlign = "right";
-    ctx.fillText(`${currentSteps.length} SEQUENTIAL STEPS`, canvas.width - 60, 64);
-
-    let curY = topMargin;
-    const startX = 60;
-
-    currentSteps.forEach((s, idx) => {
-        // Step Card Container (Toasted Sand)
-        ctx.fillStyle = "#E8DCCB";
-        ctx.strokeStyle = "#A68E74";
-        ctx.lineWidth = 1.5;
-        ctx.beginPath();
-        ctx.roundRect(startX, curY, cardWidth, cardHeight, 12);
-        ctx.fill();
-        ctx.stroke();
-
-        // Number Circle (Forest Green)
-        ctx.fillStyle = "#1C3B27";
-        ctx.beginPath();
-        ctx.arc(startX + 38, curY + cardHeight / 2, 18, 0, Math.PI * 2);
-        ctx.fill();
-
-        ctx.fillStyle = "#F4ECE1";
-        ctx.font = "bold 14px system-ui, sans-serif";
-        ctx.textAlign = "center";
-        ctx.textBaseline = "middle";
-        ctx.fillText(idx + 1, startX + 38, curY + cardHeight / 2);
-
-        // Action Title
-        ctx.fillStyle = "#132417";
-        ctx.font = "bold 15px system-ui, sans-serif";
-        ctx.textAlign = "left";
-        ctx.fillText(s.name, startX + 72, curY + 28);
-
-        // Category Tag
-        ctx.fillStyle = "#9E4D36";
-        ctx.font = "bold 11px system-ui, sans-serif";
-        ctx.fillText(`[${s.cat.toUpperCase()}]`, startX + 72 + ctx.measureText(s.name).width + 12, curY + 28);
-
-        // Instruction Description
-        ctx.fillStyle = "#243528";
-        ctx.font = "normal 12px system-ui, sans-serif";
-        let displayDesc = s.desc;
-        if (displayDesc.length > 58) displayDesc = displayDesc.slice(0, 55) + "...";
-        ctx.fillText(displayDesc, startX + 72, curY + 54);
-
-        // Hotkey Chip (Parchment with Forest Green Text)
-        const keyText = `Key: ${s.key}`;
-        ctx.font = "bold 12px monospace";
-        const keyWidth = ctx.measureText(keyText).width + 16;
-        const keyX = startX + cardWidth - keyWidth - 20;
-
-        ctx.fillStyle = "#F2E9DC";
-        ctx.strokeStyle = "#BBA48A";
-        ctx.lineWidth = 1;
-        ctx.beginPath();
-        ctx.roundRect(keyX, curY + 28, keyWidth, 26, 6);
-        ctx.fill();
-        ctx.stroke();
-
-        ctx.fillStyle = "#1C3B27";
-        ctx.textAlign = "center";
-        ctx.fillText(keyText, keyX + keyWidth / 2, curY + 41);
-
-        // Connecting Down Arrow
-        if (idx < currentSteps.length - 1) {
-            const arrowStartY = curY + cardHeight + 4;
-            const arrowEndY = curY + cardHeight + gap - 6;
-            const centerX = canvas.width / 2;
-
-            ctx.strokeStyle = "#1C3B27";
-            ctx.lineWidth = 2.5;
-            ctx.beginPath();
-            ctx.moveTo(centerX, arrowStartY);
-            ctx.lineTo(centerX, arrowEndY);
-            ctx.stroke();
-
-            // Arrow head
-            ctx.fillStyle = "#1C3B27";
-            ctx.beginPath();
-            ctx.moveTo(centerX - 6, arrowEndY - 4);
-            ctx.lineTo(centerX + 6, arrowEndY - 4);
-            ctx.lineTo(centerX, arrowEndY + 4);
-            ctx.fill();
-        }
-
-        curY += cardHeight + gap;
-    });
-
-    // Trigger image download
-    const link = document.createElement("a");
-    link.download = filename;
-    link.href = canvas.toDataURL("image/png");
-    link.click();
-}
-
-function downloadFile(content, mimeType, filename) {
-    const blob = new Blob([content], { type: mimeType });
-    const link = document.createElement("a");
-    link.href = URL.createObjectURL(blob);
-    link.download = filename;
-    link.click();
-}
-
-function printWorkflow() {
-    exportMenu.classList.remove("show");
-    trackEvent('export_workflow', { format: 'print_pdf', software: activeSoftwareKey });
-    window.print();
-}
-
-/* ======================================================
-   THEATRE / FULLSCREEN TOGGLE
-====================================================== */
-function toggleWidgetFullscreen() {
-    const isFull = studioWidget.classList.toggle("is-fullscreen");
-    fullscreenToggleBtn.textContent = isFull ? "✕ Close" : "⛶ Expand";
-    document.body.style.overflow = isFull ? "hidden" : "";
-    trackEvent('toggle_fullscreen', { is_fullscreen: isFull, software: activeSoftwareKey });
-}
-
-document.addEventListener("keydown", (e) => {
-    if (e.key === "Escape" && studioWidget.classList.contains("is-fullscreen")) {
-        toggleWidgetFullscreen();
     }
 });
 </script>
