@@ -11,28 +11,30 @@
 
 <style>
 :root {
-    /* Refined Dark Wine, Gold & White Palette */
-    --bg: #18060A;
-    --surface: #240C12;
-    --surface-elevated: #32111A;
-    --surface-light: #4A1926;
+    /* Natural Earthy Palette: Sandstone, Forest Moss, Sage, and Warm Clay */
+    --bg: #F4EFEB;                  /* Warm light oat / sandstone canvas */
+    --surface: #FFFFFF;             /* Clean alabaster card background */
+    --surface-elevated: #EAE3DA;    /* Warm beige / sand for inputs and dropzones */
+    --surface-light: #DFD5C8;       /* Subtle interactive hover states */
+    --surface-dark: #232D25;        /* Deep pine / cedar slate for inverted focal cards */
     
-    --gold: #E5C158;
-    --gold-muted: #B89738;
-    --gold-light: #F5E6B8;
+    --green-primary: #2E4C38;       /* Deep hunter / forest moss green */
+    --green-muted: #456B52;         /* Muted foliage green */
+    --green-light: #E5EFE7;         /* Soft sage tint for badges and success states */
+    --clay-accent: #B86B53;         /* Warm terracotta clay accent */
     
-    --text-primary: #FFFFFF;
-    --text-secondary: #EBE0E2;
-    --text-muted: #C4ABB0;
+    --text-primary: #1F241F;        /* Deep organic charcoal-slate for headings */
+    --text-secondary: #3D443E;      /* Readable warm charcoal for body paragraphs */
+    --text-muted: #646E65;          /* Lichen slate for secondary captions */
     
-    --border: #441A23;
-    --border-highlight: #682936;
-    --focus-ring: #F59E0B;
+    --border: #DDD4C8;              /* Soft sand / warm clay border */
+    --border-highlight: #C2B4A3;    /* Distinct contour border */
+    --focus-ring: #2E4C38;          /* Forest green focus ring */
     
-    --error: #FCA5A5;
-    --error-bg: #491319;
-    --success: #86EFAC;
-    --success-bg: #144026;
+    --error: #991B1B;
+    --error-bg: #FEE2E2;
+    --success: #166534;
+    --success-bg: #DCFCE7;
 }
 
 * {
@@ -57,8 +59,8 @@ body {
     position: absolute;
     top: -40px;
     left: 20px;
-    background: var(--gold);
-    color: #1A070B;
+    background: var(--green-primary);
+    color: #FFFFFF;
     padding: 10px 16px;
     z-index: 999;
     text-decoration: none;
@@ -85,7 +87,7 @@ body {
 /* NAVIGATION */
 header {
     border-bottom: 1px solid var(--border);
-    background: rgba(24, 6, 10, 0.95);
+    background: rgba(244, 239, 235, 0.95);
     backdrop-filter: blur(8px);
     position: sticky;
     top: 0;
@@ -107,7 +109,7 @@ nav {
 }
 
 .logo span {
-    color: var(--gold);
+    color: var(--green-primary);
 }
 
 .nav-links {
@@ -125,7 +127,7 @@ nav {
 }
 
 .nav-links a:hover {
-    color: var(--gold);
+    color: var(--green-primary);
 }
 
 /* BUTTONS & LINKS */
@@ -152,23 +154,23 @@ nav {
 }
 
 .primary {
-    background: var(--gold);
-    color: #1E080C;
-    box-shadow: 0 4px 14px rgba(229, 193, 88, 0.25);
+    background: var(--green-primary);
+    color: #FFFFFF;
+    box-shadow: 0 4px 14px rgba(46, 76, 56, 0.2);
 }
 
 .primary:hover:not(:disabled) {
-    background: #F0D078;
+    background: var(--green-muted);
 }
 
 .secondary {
-    border: 2px solid var(--gold-muted);
-    color: var(--gold-light);
+    border: 2px solid var(--green-primary);
+    color: var(--green-primary);
     background: transparent;
 }
 
 .secondary:hover:not(:disabled) {
-    background: rgba(229, 193, 88, 0.1);
+    background: var(--green-light);
 }
 
 /* SECTIONS COMMON */
@@ -178,8 +180,8 @@ section {
 }
 
 .section-label {
-    color: var(--gold);
-    font-weight: 700;
+    color: var(--clay-accent);
+    font-weight: 800;
     letter-spacing: 1.5px;
     font-size: 0.85rem;
     display: inline-block;
@@ -213,13 +215,13 @@ section {
     gap: 16px;
 }
 
-/* BESPOKE SVG HERO VISUAL */
+/* BESPOKE SVG HERO VISUAL (EARTHY STYLING) */
 .hero-visual-container {
-    background: radial-gradient(circle at center, #35131B 0%, #19080C 100%);
+    background: radial-gradient(circle at center, #ECE5DC 0%, #DFD6C9 100%);
     border-radius: 28px;
     border: 1px solid var(--border-highlight);
     padding: 24px;
-    box-shadow: 0 16px 36px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 16px 36px rgba(46, 76, 56, 0.08);
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -237,9 +239,9 @@ section {
 
 .hero-visual-caption {
     margin-top: 14px;
-    color: var(--gold-light);
+    color: var(--green-primary);
     font-size: 0.85rem;
-    font-weight: 600;
+    font-weight: 700;
     letter-spacing: 0.5px;
     text-align: center;
 }
@@ -253,23 +255,23 @@ section {
 }
 
 .idea-box {
-    background: #19080C;
-    border: 1px solid var(--border-highlight);
-    color: var(--text-primary);
+    background: var(--surface-dark);
+    border: 1px solid #334236;
+    color: #F4EFEB;
     padding: 40px;
     border-radius: 20px;
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 8px 24px rgba(35, 45, 37, 0.15);
 }
 
 .idea-box h3 {
     font-size: 2rem;
     line-height: 1.2;
     margin-bottom: 16px;
-    color: var(--gold);
+    color: #E2EFE4;
 }
 
 .idea-box p {
-    color: var(--text-secondary);
+    color: #D2DCD4;
 }
 
 .split-layout p {
@@ -291,10 +293,11 @@ section {
     border-radius: 16px;
     border: 1px solid var(--border);
     transition: transform 0.2s, border-color 0.2s;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
 }
 
 .step-card:hover {
-    border-color: var(--gold-muted);
+    border-color: var(--green-primary);
     transform: translateY(-3px);
 }
 
@@ -302,8 +305,8 @@ section {
     width: 38px;
     height: 38px;
     border-radius: 50%;
-    background: var(--gold);
-    color: #19080C;
+    background: var(--green-primary);
+    color: #FFFFFF;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -334,7 +337,7 @@ section {
 }
 
 .statement span {
-    color: var(--gold);
+    color: var(--green-primary);
 }
 
 .benefits-grid {
@@ -350,16 +353,17 @@ section {
     padding: 32px;
     border-radius: 16px;
     transition: transform 0.2s ease, border-color 0.2s ease;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
 }
 
 .card:hover {
     transform: translateY(-4px);
-    border-color: var(--gold-muted);
+    border-color: var(--green-primary);
 }
 
 .card h3 {
     margin-bottom: 12px;
-    color: var(--gold-light);
+    color: var(--green-primary);
 }
 
 .card p {
@@ -367,7 +371,7 @@ section {
 }
 
 /* ======================================================
-   INTERACTIVE STUDIO WIDGET (AI POWERED & FULLSCREEN)
+   INTERACTIVE STUDIO WIDGET (EARTHY PALETTE & FULLSCREEN)
 ====================================================== */
 .studio-widget {
     background: var(--surface);
@@ -375,7 +379,7 @@ section {
     border-radius: 20px;
     padding: 32px;
     margin-top: 24px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+    box-shadow: 0 10px 30px rgba(46, 76, 56, 0.06);
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
@@ -387,7 +391,7 @@ section {
     padding: 24px 32px;
     margin: 0;
     overflow-y: auto;
-    background: #140508;
+    background: var(--bg);
 }
 
 .studio-grid {
@@ -416,8 +420,8 @@ section {
 
 .drop-area:hover,
 .drop-area.dragover {
-    border-color: var(--gold);
-    background: #3F151F;
+    border-color: var(--green-primary);
+    background: #E4DDD2;
 }
 
 .drop-area-icon {
@@ -437,12 +441,12 @@ section {
 .file-status-pill {
     display: none;
     margin-top: 10px;
-    background: #19080C;
-    border: 1px solid var(--gold-muted);
+    background: var(--green-light);
+    border: 1px solid var(--green-muted);
     border-radius: 8px;
     padding: 6px 12px;
     font-size: 0.8rem;
-    color: var(--gold-light);
+    color: var(--green-primary);
     align-items: center;
     justify-content: space-between;
 }
@@ -460,7 +464,7 @@ section {
 }
 
 .char-counter {
-    color: var(--gold-muted);
+    color: var(--clay-accent);
     font-size: 0.8rem;
 }
 
@@ -470,7 +474,7 @@ section {
     padding: 14px;
     border-radius: 12px;
     border: 1px solid var(--border-highlight);
-    background: var(--surface-elevated);
+    background: #FAF7F2;
     color: var(--text-primary);
     font-family: inherit;
     font-size: 0.9rem;
@@ -479,13 +483,13 @@ section {
 }
 
 .studio-textarea::placeholder {
-    color: #9C7D84;
+    color: #928C84;
 }
 
 /* Prompt Directive Box */
 .prompt-directive-box {
-    background: var(--surface-elevated);
-    border: 1px solid var(--gold-muted);
+    background: #FAF7F2;
+    border: 1px solid var(--green-muted);
     border-radius: 12px;
     padding: 12px 14px;
     display: flex;
@@ -496,7 +500,7 @@ section {
 .prompt-directive-box label {
     font-size: 0.85rem;
     font-weight: 700;
-    color: var(--gold);
+    color: var(--green-primary);
     display: flex;
     align-items: center;
     gap: 6px;
@@ -507,19 +511,19 @@ section {
     padding: 10px 12px;
     border-radius: 8px;
     border: 1px solid var(--border-highlight);
-    background: var(--surface);
+    background: #FFFFFF;
     color: var(--text-primary);
     font-size: 0.85rem;
     font-family: inherit;
 }
 
 .prompt-input::placeholder {
-    color: #9C7D84;
+    color: #928C84;
 }
 
 .quiz-config-panel {
-    background: var(--surface-elevated);
-    border: 1px solid var(--border-highlight);
+    background: #FAF7F2;
+    border: 1px solid var(--border);
     border-radius: 12px;
     padding: 12px 14px;
     display: flex;
@@ -545,7 +549,7 @@ section {
 .config-select {
     padding: 6px 10px;
     border-radius: 6px;
-    background: var(--surface);
+    background: #FFFFFF;
     color: var(--text-primary);
     border: 1px solid var(--border-highlight);
     font-size: 0.85rem;
@@ -562,7 +566,7 @@ section {
     display: block;
     background: var(--error-bg);
     color: var(--error);
-    border: 1px solid #781F28;
+    border: 1px solid #FCA5A5;
 }
 
 /* AI Engine Config Flyout / Bar */
@@ -570,9 +574,9 @@ section {
     display: inline-flex;
     align-items: center;
     gap: 6px;
-    background: #3B121B;
-    border: 1px solid var(--gold);
-    color: var(--gold-light);
+    background: var(--green-light);
+    border: 1px solid var(--green-primary);
+    color: var(--green-primary);
     font-size: 0.75rem;
     font-weight: 700;
     padding: 4px 10px;
@@ -582,14 +586,14 @@ section {
 }
 
 .ai-badge:hover {
-    background: #4E1824;
+    background: #D5E5D8;
 }
 
 /* Modal for API Key Settings */
 .modal-overlay {
     position: fixed;
     inset: 0;
-    background: rgba(10, 2, 4, 0.85);
+    background: rgba(31, 36, 31, 0.6);
     backdrop-filter: blur(4px);
     display: none;
     align-items: center;
@@ -602,17 +606,17 @@ section {
 }
 
 .modal-card {
-    background: var(--surface);
-    border: 1px solid var(--gold-muted);
+    background: #FFFFFF;
+    border: 1px solid var(--green-primary);
     border-radius: 18px;
     padding: 28px;
     width: 100%;
     max-width: 500px;
-    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.7);
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.2);
 }
 
 .modal-card h3 {
-    color: var(--gold);
+    color: var(--green-primary);
     margin-bottom: 8px;
     font-size: 1.3rem;
 }
@@ -628,7 +632,7 @@ section {
     padding: 12px;
     border-radius: 8px;
     border: 1px solid var(--border-highlight);
-    background: var(--surface-elevated);
+    background: #FAF7F2;
     color: var(--text-primary);
     font-family: monospace;
     font-size: 0.9rem;
@@ -643,12 +647,12 @@ section {
 
 /* Right Panel: Output Stage */
 .studio-output-panel {
-    border: 1px solid var(--border-highlight);
+    border: 1px solid var(--border);
     border-radius: 16px;
     padding: 24px;
     display: flex;
     flex-direction: column;
-    background: var(--bg);
+    background: #FAF7F2;
     position: relative;
 }
 
@@ -672,14 +676,14 @@ section {
     font-size: 0.85rem;
     font-weight: 700;
     letter-spacing: 0.5px;
-    color: var(--gold);
+    color: var(--green-primary);
 }
 
 .mode-select {
     padding: 8px 14px;
     border-radius: 8px;
     border: 1px solid var(--border-highlight);
-    background: var(--surface-elevated);
+    background: #FFFFFF;
     font-size: 0.9rem;
     font-weight: 600;
     color: var(--text-primary);
@@ -687,9 +691,9 @@ section {
 }
 
 .timer-badge {
-    background: #38121A;
-    border: 1px solid var(--gold-muted);
-    color: var(--gold);
+    background: var(--green-light);
+    border: 1px solid var(--green-muted);
+    color: var(--green-primary);
     font-weight: 800;
     padding: 6px 14px;
     border-radius: 999px;
@@ -712,15 +716,15 @@ section {
     font-weight: 600;
     border-radius: 8px;
     border: 1px solid var(--border-highlight);
-    background: var(--surface-elevated);
+    background: #FFFFFF;
     color: var(--text-secondary);
     cursor: pointer;
     transition: background 0.2s, color 0.2s;
 }
 
 .tool-btn:hover:not(:disabled) {
-    background: var(--surface-light);
-    color: var(--gold-light);
+    background: var(--surface-elevated);
+    color: var(--green-primary);
 }
 
 .fullscreen-btn {
@@ -737,8 +741,8 @@ section {
     height: 38px;
     border-radius: 8px;
     border: 1px solid var(--border-highlight);
-    background: var(--surface-elevated);
-    color: var(--gold-light);
+    background: #FFFFFF;
+    color: var(--text-secondary);
     font-size: 1.25rem;
     line-height: 1;
     display: flex;
@@ -749,8 +753,8 @@ section {
 }
 
 .more-btn:hover:not(:disabled) {
-    background: var(--surface-light);
-    border-color: var(--gold);
+    background: var(--surface-elevated);
+    border-color: var(--green-primary);
 }
 
 .more-btn:disabled {
@@ -763,11 +767,11 @@ section {
     top: calc(100% + 8px);
     right: 0;
     width: 220px;
-    background: #1D090D;
+    background: #FFFFFF;
     border: 1px solid var(--border-highlight);
     border-radius: 12px;
     padding: 8px;
-    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.6);
+    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.1);
     display: none;
     flex-direction: column;
     z-index: 50;
@@ -780,7 +784,7 @@ section {
 .dropdown-header {
     font-size: 0.75rem;
     font-weight: 700;
-    color: var(--gold);
+    color: var(--green-primary);
     letter-spacing: 1px;
     padding: 6px 12px 4px;
     text-transform: uppercase;
@@ -803,8 +807,8 @@ section {
 }
 
 .dropdown-item:hover {
-    background: var(--surface-light);
-    color: var(--gold-light);
+    background: var(--surface-elevated);
+    color: var(--green-primary);
 }
 
 .dropdown-divider {
@@ -848,7 +852,7 @@ section {
 
 .loading-overlay p {
     font-weight: 600;
-    color: var(--gold-light);
+    color: var(--green-primary);
 }
 
 .progress-bar-container {
@@ -862,7 +866,7 @@ section {
 .progress-bar-fill {
     width: 0%;
     height: 100%;
-    background: var(--gold);
+    background: var(--green-primary);
     transition: width 0.05s linear;
 }
 
@@ -870,21 +874,21 @@ section {
    MODE 1: PRESENTATION DUAL-PANE (DIAGRAM LEFT, DETAILS RIGHT)
 ====================================================== */
 .true-slide-deck {
-    background: var(--surface);
-    border: 1px solid var(--border-highlight);
+    background: #FFFFFF;
+    border: 1px solid var(--border);
     border-radius: 16px;
     width: 100%;
     max-width: 880px;
     display: grid;
     grid-template-columns: 0.95fr 1.05fr;
     overflow: hidden;
-    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.45);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.06);
     min-height: 400px;
 }
 
 .slide-visual-column {
-    background: #140508;
-    border-right: 1px solid var(--border-highlight);
+    background: #FAF7F2;
+    border-right: 1px solid var(--border);
     padding: 28px;
     display: flex;
     flex-direction: column;
@@ -909,7 +913,7 @@ section {
 .diagram-label {
     font-size: 0.75rem;
     font-weight: 700;
-    color: var(--gold-light);
+    color: var(--green-primary);
     letter-spacing: 0.5px;
     margin-top: 14px;
     text-align: center;
@@ -922,12 +926,13 @@ section {
     justify-content: center;
     overflow-y: auto;
     max-height: 460px;
+    background: #FFFFFF;
 }
 
 .slide-tag {
     font-size: 0.75rem;
-    font-weight: 700;
-    color: var(--gold);
+    font-weight: 800;
+    color: var(--clay-accent);
     letter-spacing: 1px;
     margin-bottom: 8px;
     text-transform: uppercase;
@@ -958,7 +963,7 @@ section {
     position: relative;
     padding-left: 20px;
     font-size: 0.9rem;
-    color: var(--text-muted);
+    color: var(--text-secondary);
     line-height: 1.5;
 }
 
@@ -966,13 +971,13 @@ section {
     content: "▸";
     position: absolute;
     left: 0;
-    color: var(--gold);
+    color: var(--green-primary);
     font-size: 1.1rem;
     top: -2px;
 }
 
 .slide-bullets strong {
-    color: var(--gold-light);
+    color: var(--green-primary);
 }
 
 /* ======================================================
@@ -1005,26 +1010,26 @@ section {
     inset: 0;
     backface-visibility: hidden;
     border-radius: 16px;
-    border: 1px solid var(--border-highlight);
+    border: 1px solid var(--border);
     padding: 36px 30px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
     text-align: center;
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.05);
     overflow-y: auto;
 }
 
 .flashcard-front {
-    background: var(--surface);
+    background: #FFFFFF;
     color: var(--text-primary);
 }
 
 .flashcard-back {
-    background: #150508;
-    border-color: var(--gold-muted);
-    color: var(--text-primary);
+    background: var(--surface-dark);
+    border-color: #334236;
+    color: #F4EFEB;
     transform: rotateY(180deg);
 }
 
@@ -1038,15 +1043,19 @@ section {
 }
 
 .flashcard-back .flashcard-core-text {
-    color: var(--gold-light);
+    color: #E2EFE4;
     font-weight: 500;
 }
 
 .card-hint {
     font-size: 0.8rem;
-    color: var(--gold-muted);
+    color: var(--green-primary);
     font-weight: 600;
     margin-top: 14px;
+}
+
+.flashcard-back .card-hint {
+    color: #B4D3BC;
 }
 
 /* ======================================================
@@ -1055,11 +1064,11 @@ section {
 .quiz-box {
     width: 100%;
     max-width: 680px;
-    background: var(--surface);
-    border: 1px solid var(--border-highlight);
+    background: #FFFFFF;
+    border: 1px solid var(--border);
     border-radius: 16px;
     padding: 32px;
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.05);
 }
 
 .quiz-box h4 {
@@ -1078,9 +1087,9 @@ section {
 .quiz-opt-btn {
     padding: 14px 18px;
     border-radius: 10px;
-    border: 1px solid var(--border-highlight);
-    background: var(--surface-elevated);
-    color: var(--text-secondary);
+    border: 1px solid var(--border);
+    background: #FAF7F2;
+    color: var(--text-primary);
     font-size: 0.95rem;
     cursor: pointer;
     text-align: left;
@@ -1089,22 +1098,21 @@ section {
 }
 
 .quiz-opt-btn:hover:not(:disabled) {
-    background: var(--surface-light);
-    border-color: var(--gold-muted);
-    color: var(--text-primary);
+    background: var(--surface-elevated);
+    border-color: var(--green-primary);
 }
 
 .quiz-opt-btn.correct {
     background: var(--success-bg);
     border-color: var(--success);
-    color: #DCFCE7;
+    color: #166534;
     font-weight: bold;
 }
 
 .quiz-opt-btn.wrong {
-    background: #501319;
-    border-color: #F87171;
-    color: #FEE2E2;
+    background: var(--error-bg);
+    border-color: var(--error);
+    color: #991B1B;
 }
 
 /* Learning Explanation Box */
@@ -1112,18 +1120,18 @@ section {
     margin-top: 18px;
     padding: 16px 18px;
     border-radius: 10px;
-    background: #140508;
-    border: 1px solid var(--gold-muted);
+    background: #FAF7F2;
+    border: 1px solid var(--green-primary);
     font-size: 0.88rem;
     line-height: 1.5;
-    color: var(--gold-light);
+    color: var(--text-secondary);
     display: flex;
     flex-direction: column;
     gap: 4px;
 }
 
 .quiz-explanation-box strong {
-    color: var(--gold);
+    color: var(--green-primary);
     font-size: 0.85rem;
     text-transform: uppercase;
     letter-spacing: 0.5px;
@@ -1131,8 +1139,8 @@ section {
 
 /* Quiz Review Dashboard */
 .quiz-results-card {
-    background: var(--surface);
-    border: 1px solid var(--border-highlight);
+    background: #FFFFFF;
+    border: 1px solid var(--border);
     border-radius: 16px;
     padding: 32px;
     width: 100%;
@@ -1144,12 +1152,12 @@ section {
 .results-score-banner {
     text-align: center;
     padding-bottom: 24px;
-    border-bottom: 1px solid var(--border-highlight);
+    border-bottom: 1px solid var(--border);
 }
 
 .results-score-banner h3 {
     font-size: 2.2rem;
-    color: var(--gold);
+    color: var(--green-primary);
     margin-bottom: 6px;
 }
 
@@ -1161,7 +1169,7 @@ section {
 }
 
 .review-item {
-    background: var(--surface-elevated);
+    background: #FAF7F2;
     border-radius: 10px;
     padding: 16px;
     border-left: 4px solid var(--border-highlight);
@@ -1193,7 +1201,7 @@ section {
     margin-top: 12px;
     position: relative;
     z-index: 10;
-    background: var(--bg);
+    background: #FAF7F2;
 }
 
 .nav-arrows-group {
@@ -1205,15 +1213,15 @@ section {
     padding: 8px 16px;
     border-radius: 8px;
     border: 1px solid var(--border-highlight);
-    background: var(--surface-elevated);
-    color: var(--text-secondary);
+    background: #FFFFFF;
+    color: var(--text-primary);
     font-weight: bold;
     cursor: pointer;
 }
 
 .nav-arrow-btn:hover:not(:disabled) {
-    background: var(--surface-light);
-    color: var(--gold-light);
+    background: var(--surface-elevated);
+    color: var(--green-primary);
 }
 
 .nav-arrow-btn:disabled {
@@ -1224,9 +1232,9 @@ section {
 .progress-pill {
     font-size: 0.85rem;
     font-weight: 700;
-    color: var(--gold-light);
-    background: var(--surface-elevated);
-    border: 1px solid var(--border-highlight);
+    color: var(--green-primary);
+    background: #FFFFFF;
+    border: 1px solid var(--border);
     padding: 4px 14px;
     border-radius: 999px;
     white-space: nowrap;
@@ -1245,8 +1253,8 @@ section {
     width: 28px;
     height: 28px;
     border-radius: 6px;
-    border: 1px solid var(--border-highlight);
-    background: var(--surface-elevated);
+    border: 1px solid var(--border);
+    background: #FFFFFF;
     color: var(--text-secondary);
     font-size: 0.75rem;
     font-weight: 700;
@@ -1258,13 +1266,13 @@ section {
 }
 
 .jump-dot:hover {
-    border-color: var(--gold);
+    border-color: var(--green-primary);
 }
 
 .jump-dot.active {
-    background: var(--gold);
-    color: #19080C;
-    border-color: var(--gold);
+    background: var(--green-primary);
+    color: #FFFFFF;
+    border-color: var(--green-primary);
 }
 
 /* WHY IT MATTERS SECTION */
@@ -1292,11 +1300,12 @@ section {
     border-radius: 18px;
     padding: 32px;
     transition: transform 0.2s ease, border-color 0.2s ease;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
 }
 
 .matter-card:hover {
     transform: translateY(-3px);
-    border-color: var(--gold-muted);
+    border-color: var(--green-primary);
 }
 
 .matter-icon {
@@ -1318,8 +1327,8 @@ section {
 }
 
 .research-banner {
-    background: #1A070B;
-    border: 1px solid var(--gold-muted);
+    background: var(--green-light);
+    border: 1px solid #B4D3BC;
     border-radius: 16px;
     padding: 24px 30px;
     display: flex;
@@ -1328,8 +1337,8 @@ section {
 }
 
 .banner-badge {
-    background: var(--gold);
-    color: #1A070B;
+    background: var(--green-primary);
+    color: #FFFFFF;
     font-size: 0.75rem;
     font-weight: 800;
     letter-spacing: 1px;
@@ -1368,7 +1377,7 @@ footer {
 
     .slide-visual-column {
         border-right: none;
-        border-bottom: 1px solid var(--border-highlight);
+        border-bottom: 1px solid var(--border);
     }
 
     .hero {
@@ -1498,66 +1507,66 @@ footer {
             <svg viewBox="0 0 520 340" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Diagram showing dense technical prose transforming into structured visual modules">
                 <defs>
                     <pattern id="heroGrid" width="24" height="24" patternUnits="userSpaceOnUse">
-                        <path d="M 24 0 L 0 0 0 24" fill="none" stroke="#441A23" stroke-width="0.75" opacity="0.6" />
+                        <path d="M 24 0 L 0 0 0 24" fill="none" stroke="#DDD4C8" stroke-width="0.8" opacity="0.7" />
                     </pattern>
-                    <linearGradient id="wineGlow" x1="0%" y1="0%" x2="100%" y2="100%">
-                        <stop offset="0%" stop-color="#4A1926" />
-                        <stop offset="100%" stop-color="#240C12" />
+                    <linearGradient id="earthGlow" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" stop-color="#EBE3DA" />
+                        <stop offset="100%" stop-color="#DDD3C5" />
                     </linearGradient>
                 </defs>
 
-                <rect width="520" height="340" rx="16" fill="url(#wineGlow)" />
+                <rect width="520" height="340" rx="16" fill="url(#earthGlow)" />
                 <rect width="520" height="340" rx="16" fill="url(#heroGrid)" />
 
                 <!-- Left Panel: Raw Unstructured Text -->
-                <rect x="28" y="45" width="180" height="250" rx="12" fill="#18060A" stroke="#682936" stroke-width="1.5" />
-                <rect x="42" y="60" width="90" height="10" rx="5" fill="#E5C158" opacity="0.9" />
-                <rect x="42" y="82" width="150" height="6" rx="3" fill="#682936" />
-                <rect x="42" y="96" width="138" height="6" rx="3" fill="#441A23" />
-                <rect x="42" y="110" width="144" height="6" rx="3" fill="#682936" />
-                <rect x="42" y="124" width="120" height="6" rx="3" fill="#441A23" />
+                <rect x="28" y="45" width="180" height="250" rx="12" fill="#FFFFFF" stroke="#C2B4A3" stroke-width="1.5" />
+                <rect x="42" y="60" width="90" height="10" rx="5" fill="#2E4C38" opacity="0.9" />
+                <rect x="42" y="82" width="150" height="6" rx="3" fill="#B86B53" opacity="0.7" />
+                <rect x="42" y="96" width="138" height="6" rx="3" fill="#C2B4A3" />
+                <rect x="42" y="110" width="144" height="6" rx="3" fill="#C2B4A3" />
+                <rect x="42" y="124" width="120" height="6" rx="3" fill="#C2B4A3" />
                 
-                <rect x="42" y="148" width="110" height="8" rx="4" fill="#B89738" opacity="0.7" />
-                <rect x="42" y="166" width="148" height="6" rx="3" fill="#441A23" />
-                <rect x="42" y="180" width="135" height="6" rx="3" fill="#682936" />
-                <rect x="42" y="194" width="140" height="6" rx="3" fill="#441A23" />
-                <rect x="42" y="208" width="115" height="6" rx="3" fill="#682936" />
+                <rect x="42" y="148" width="110" height="8" rx="4" fill="#456B52" opacity="0.7" />
+                <rect x="42" y="166" width="148" height="6" rx="3" fill="#C2B4A3" />
+                <rect x="42" y="180" width="135" height="6" rx="3" fill="#B86B53" opacity="0.5" />
+                <rect x="42" y="194" width="140" height="6" rx="3" fill="#C2B4A3" />
+                <rect x="42" y="208" width="115" height="6" rx="3" fill="#C2B4A3" />
                 
-                <rect x="42" y="235" width="150" height="36" rx="8" fill="#32111A" stroke="#B89738" stroke-dasharray="3 3" />
-                <text x="117" y="258" fill="#F5E6B8" font-size="10" font-family="system-ui, sans-serif" font-weight="700" text-anchor="middle">Dense Raw Document</text>
+                <rect x="42" y="235" width="150" height="36" rx="8" fill="#FAF7F2" stroke="#2E4C38" stroke-dasharray="3 3" />
+                <text x="117" y="258" fill="#2E4C38" font-size="10" font-family="system-ui, sans-serif" font-weight="700" text-anchor="middle">Dense Raw Document</text>
 
                 <!-- Center: Dynamic Synthesis Pathways -->
-                <path d="M 218 170 C 248 170, 248 95, 278 95" stroke="#E5C158" stroke-width="2.5" stroke-linecap="round" fill="none" />
-                <circle cx="248" cy="132" r="6" fill="#E5C158" />
+                <path d="M 218 170 C 248 170, 248 95, 278 95" stroke="#2E4C38" stroke-width="2.5" stroke-linecap="round" fill="none" />
+                <circle cx="248" cy="132" r="6" fill="#2E4C38" />
                 
-                <path d="M 218 170 C 248 170, 248 170, 278 170" stroke="#E5C158" stroke-width="2.5" stroke-linecap="round" fill="none" />
+                <path d="M 218 170 C 248 170, 248 170, 278 170" stroke="#2E4C38" stroke-width="2.5" stroke-linecap="round" fill="none" />
                 
-                <path d="M 218 170 C 248 170, 248 245, 278 245" stroke="#E5C158" stroke-width="2.5" stroke-linecap="round" fill="none" />
-                <circle cx="248" cy="208" r="6" fill="#E5C158" />
+                <path d="M 218 170 C 248 170, 248 245, 278 245" stroke="#2E4C38" stroke-width="2.5" stroke-linecap="round" fill="none" />
+                <circle cx="248" cy="208" r="6" fill="#2E4C38" />
 
                 <!-- Right Visual Modules -->
-                <g filter="drop-shadow(0px 6px 12px rgba(0,0,0,0.5))">
-                    <rect x="285" y="65" width="205" height="62" rx="10" fill="#240C12" stroke="#E5C158" stroke-width="1.5" />
-                    <circle cx="310" cy="96" r="14" fill="#E5C158" />
-                    <text x="310" y="100" fill="#18060A" font-size="11" font-weight="900" text-anchor="middle">01</text>
-                    <text x="334" y="90" fill="#FFFFFF" font-size="12" font-weight="700">EXTRACT CORE</text>
-                    <text x="334" y="106" fill="#C4ABB0" font-size="9.5">Filters noise & front-matter</text>
+                <g filter="drop-shadow(0px 4px 8px rgba(0,0,0,0.06))">
+                    <rect x="285" y="65" width="205" height="62" rx="10" fill="#FFFFFF" stroke="#2E4C38" stroke-width="1.5" />
+                    <circle cx="310" cy="96" r="14" fill="#2E4C38" />
+                    <text x="310" y="100" fill="#FFFFFF" font-size="11" font-weight="900" text-anchor="middle">01</text>
+                    <text x="334" y="90" fill="#1F241F" font-size="12" font-weight="700">EXTRACT CORE</text>
+                    <text x="334" y="106" fill="#646E65" font-size="9.5">Filters noise & front-matter</text>
                 </g>
 
-                <g filter="drop-shadow(0px 6px 12px rgba(0,0,0,0.5))">
-                    <rect x="285" y="140" width="205" height="62" rx="10" fill="#32111A" stroke="#E5C158" stroke-width="1.5" />
-                    <circle cx="310" cy="171" r="14" fill="#E5C158" />
-                    <text x="310" y="175" fill="#18060A" font-size="11" font-weight="900" text-anchor="middle">02</text>
-                    <text x="334" y="165" fill="#FFFFFF" font-size="12" font-weight="700">MAP VISUALS</text>
-                    <text x="334" y="181" fill="#C4ABB0" font-size="9.5">Schematic dual-pane decks</text>
+                <g filter="drop-shadow(0px 4px 8px rgba(0,0,0,0.06))">
+                    <rect x="285" y="140" width="205" height="62" rx="10" fill="#FFFFFF" stroke="#456B52" stroke-width="1.5" />
+                    <circle cx="310" cy="171" r="14" fill="#456B52" />
+                    <text x="310" y="175" fill="#FFFFFF" font-size="11" font-weight="900" text-anchor="middle">02</text>
+                    <text x="334" y="165" fill="#1F241F" font-size="12" font-weight="700">MAP VISUALS</text>
+                    <text x="334" y="181" fill="#646E65" font-size="9.5">Schematic dual-pane decks</text>
                 </g>
 
-                <g filter="drop-shadow(0px 6px 12px rgba(0,0,0,0.5))">
-                    <rect x="285" y="215" width="205" height="62" rx="10" fill="#240C12" stroke="#86EFAC" stroke-width="1.5" />
-                    <circle cx="310" cy="246" r="14" fill="#86EFAC" />
-                    <text x="310" y="250" fill="#144026" font-size="11" font-weight="900" text-anchor="middle">03</text>
-                    <text x="334" y="240" fill="#86EFAC" font-size="12" font-weight="700">SOLID RETENTION</text>
-                    <text x="334" y="256" fill="#C4ABB0" font-size="9.5">Flashcards & timed quizzes</text>
+                <g filter="drop-shadow(0px 4px 8px rgba(0,0,0,0.06))">
+                    <rect x="285" y="215" width="205" height="62" rx="10" fill="#FFFFFF" stroke="#B86B53" stroke-width="1.5" />
+                    <circle cx="310" cy="246" r="14" fill="#B86B53" />
+                    <text x="310" y="250" fill="#FFFFFF" font-size="11" font-weight="900" text-anchor="middle">03</text>
+                    <text x="334" y="240" fill="#1F241F" font-size="12" font-weight="700">SOLID RETENTION</text>
+                    <text x="334" y="256" fill="#646E65" font-size="9.5">Flashcards & timed quizzes</text>
                 </g>
             </svg>
             <div class="hero-visual-caption">CogniFlow Engine • Converting Dense Prose into Structured Comprehension</div>
@@ -1708,9 +1717,9 @@ footer {
                             <div class="mode-selector">
                                 <label for="learningMode">FORMAT:</label>
                                 <select id="learningMode" class="mode-select" onchange="handleModeChange()">
-                                    <option value="quiz">Interactive Quiz & Review</option>
-                                    <option value="flashcards">Flashcards (Focused Single Sentences)</option>
                                     <option value="presentation">Presentation (Diagrams + Key Details)</option>
+                                    <option value="flashcards">Flashcards (Focused Single Sentences)</option>
+                                    <option value="quiz">Interactive Quiz & Review</option>
                                 </select>
                             </div>
 
@@ -1737,19 +1746,19 @@ footer {
                                         <div class="dropdown-header">Export Format</div>
                                         <button type="button" class="dropdown-item" role="menuitem" onclick="exportAs('txt')">
                                             <span>Text Document</span>
-                                            <span style="color:var(--gold-muted); font-size:0.75rem;">.TXT</span>
+                                            <span style="color:var(--clay-accent); font-size:0.75rem;">.TXT</span>
                                         </button>
                                         <button type="button" class="dropdown-item" role="menuitem" onclick="exportAs('md')">
                                             <span>Markdown</span>
-                                            <span style="color:var(--gold-muted); font-size:0.75rem;">.MD</span>
+                                            <span style="color:var(--clay-accent); font-size:0.75rem;">.MD</span>
                                         </button>
                                         <button type="button" class="dropdown-item" role="menuitem" onclick="exportAs('html')">
                                             <span>Standalone Web Deck</span>
-                                            <span style="color:var(--gold-muted); font-size:0.75rem;">.HTML</span>
+                                            <span style="color:var(--clay-accent); font-size:0.75rem;">.HTML</span>
                                         </button>
                                         <button type="button" class="dropdown-item" role="menuitem" onclick="exportAs('json')">
                                             <span>Structured Data</span>
-                                            <span style="color:var(--gold-muted); font-size:0.75rem;">.JSON</span>
+                                            <span style="color:var(--clay-accent); font-size:0.75rem;">.JSON</span>
                                         </button>
                                         <div class="dropdown-divider"></div>
                                         <button type="button" class="dropdown-item" role="menuitem" onclick="printStudioContent()">
@@ -1770,7 +1779,7 @@ footer {
                             </div>
 
                             <div class="loading-overlay" id="loadingView">
-                                <p id="loadingMsgText">Scrubbing front-matter and isolating targeted chapter...</p>
+                                <p id="loadingMsgText">Filtering publisher front-matter and analyzing chapter...</p>
                                 <div class="progress-bar-container">
                                     <div class="progress-bar-fill" id="progressBar"></div>
                                 </div>
@@ -2075,7 +2084,7 @@ function showLoadingNotification(msg) {
     statusMessage.className = "status-box";
     statusMessage.style.display = "block";
     statusMessage.style.background = "var(--surface-elevated)";
-    statusMessage.style.color = "var(--gold-light)";
+    statusMessage.style.color = "var(--text-primary)";
     statusMessage.style.border = "1px solid var(--border-highlight)";
 }
 
@@ -2117,7 +2126,7 @@ function clearError() {
 }
 
 /* ======================================================
-   BESPOKE TOPIC DIAGRAM GENERATOR
+   BESPOKE TOPIC DIAGRAM GENERATOR (EARTHY RE-COLORING)
 ====================================================== */
 function generateBespokeDiagram(conceptLabel, index) {
     const variant = index % 4;
@@ -2125,64 +2134,74 @@ function generateBespokeDiagram(conceptLabel, index) {
     if (variant === 0) {
         return `
             <svg viewBox="0 0 280 200" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Sequential flowchart diagram">
-                <rect x="20" y="20" width="240" height="42" rx="8" fill="#32111A" stroke="#E5C158" stroke-width="1.5" />
-                <text x="140" y="46" fill="#FFFFFF" font-size="12" font-weight="700" text-anchor="middle">Theme: ${conceptLabel.slice(0, 18)}</text>
+                <rect x="20" y="20" width="240" height="42" rx="8" fill="#FAF7F2" stroke="#2E4C38" stroke-width="1.5" />
+                <text x="140" y="46" fill="#1F241F" font-size="12" font-weight="700" text-anchor="middle">Theme: ${conceptLabel.slice(0, 18)}</text>
                 
-                <path d="M 140 62 L 140 86" stroke="#B89738" stroke-width="2" />
-                <polygon points="140,88 135,78 145,78" fill="#E5C158" />
+                <path d="M 140 62 L 140 86" stroke="#2E4C38" stroke-width="2" />
+                <polygon points="140,88 135,78 145,78" fill="#2E4C38" />
 
-                <rect x="35" y="88" width="210" height="42" rx="8" fill="#4A1926" stroke="#F5E6B8" stroke-width="1.5" />
-                <text x="140" y="114" fill="#F5E6B8" font-size="12" font-weight="700" text-anchor="middle">Contextual Analysis</text>
+                <rect x="35" y="88" width="210" height="42" rx="8" fill="#E5EFE7" stroke="#456B52" stroke-width="1.5" />
+                <text x="140" y="114" fill="#2E4C38" font-size="12" font-weight="700" text-anchor="middle">Contextual Analysis</text>
 
-                <path d="M 140 130 L 140 152" stroke="#B89738" stroke-width="2" />
-                <polygon points="140,154 135,144 145,144" fill="#E5C158" />
+                <path d="M 140 130 L 140 152" stroke="#2E4C38" stroke-width="2" />
+                <polygon points="140,154 135,144 145,144" fill="#2E4C38" />
 
-                <rect x="20" y="154" width="240" height="40" rx="8" fill="#18060A" stroke="#E5C158" stroke-width="1.5" />
-                <text x="140" y="179" fill="#86EFAC" font-size="12" font-weight="700" text-anchor="middle">Key Narrative & Outcome</text>
+                <rect x="20" y="154" width="240" height="40" rx="8" fill="#FFFFFF" stroke="#B86B53" stroke-width="1.5" />
+                <text x="140" y="179" fill="#B86B53" font-size="12" font-weight="700" text-anchor="middle">Key Narrative & Outcome</text>
             </svg>
         `;
     } else if (variant === 1) {
         return `
             <svg viewBox="0 0 280 200" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Cognitive loop schematic">
-                <circle cx="140" cy="100" r="70" fill="none" stroke="#682936" stroke-dasharray="4 4" stroke-width="2" />
-                <circle cx="140" cy="35" r="26" fill="#32111A" stroke="#E5C158" stroke-width="1.5" />
-                <text x="140" y="39" fill="#FFFFFF" font-size="10" font-weight="bold" text-anchor="middle">MOTIVE</text>
-                <circle cx="210" cy="130" r="26" fill="#32111A" stroke="#E5C158" stroke-width="1.5" />
-                <text x="210" y="134" fill="#FFFFFF" font-size="10" font-weight="bold" text-anchor="middle">CONFLICT</text>
-                <circle cx="70" cy="130" r="26" fill="#4A1926" stroke="#86EFAC" stroke-width="1.5" />
-                <text x="70" y="134" fill="#86EFAC" font-size="10" font-weight="bold" text-anchor="middle">RESOLUTION</text>
-                <text x="140" y="105" fill="#E5C158" font-size="11" font-weight="bold" text-anchor="middle">CORE ARC</text>
+                <circle cx="140" cy="100" r="70" fill="none" stroke="#C2B4A3" stroke-dasharray="4 4" stroke-width="2" />
+                
+                <circle cx="140" cy="35" r="26" fill="#FAF7F2" stroke="#2E4C38" stroke-width="1.5" />
+                <text x="140" y="39" fill="#1F241F" font-size="10" font-weight="bold" text-anchor="middle">MOTIVE</text>
+
+                <circle cx="210" cy="130" r="26" fill="#FAF7F2" stroke="#2E4C38" stroke-width="1.5" />
+                <text x="210" y="134" fill="#1F241F" font-size="10" font-weight="bold" text-anchor="middle">CONFLICT</text>
+
+                <circle cx="70" cy="130" r="26" fill="#E5EFE7" stroke="#166534" stroke-width="1.5" />
+                <text x="70" y="134" fill="#166534" font-size="10" font-weight="bold" text-anchor="middle">RESOLUTION</text>
+
+                <text x="140" y="105" fill="#2E4C38" font-size="11" font-weight="bold" text-anchor="middle">CORE ARC</text>
             </svg>
         `;
     } else if (variant === 2) {
         return `
             <svg viewBox="0 0 280 200" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Analytical matrix diagram">
-                <line x1="140" y1="20" x2="140" y2="180" stroke="#682936" stroke-width="2" />
-                <line x1="30" y1="100" x2="250" y2="100" stroke="#682936" stroke-width="2" />
-                <rect x="35" y="25" width="95" height="65" rx="6" fill="#32111A" stroke="#B89738" stroke-width="1" />
-                <text x="82" y="52" fill="#FCA5A5" font-size="10" font-weight="bold" text-anchor="middle">Literal Text</text>
-                <text x="82" y="70" fill="#C4ABB0" font-size="9" text-anchor="middle">Direct Action</text>
-                <rect x="150" y="25" width="95" height="65" rx="6" fill="#4A1926" stroke="#E5C158" stroke-width="1.5" />
-                <text x="197" y="52" fill="#E5C158" font-size="10" font-weight="bold" text-anchor="middle">Allegorical</text>
-                <text x="197" y="70" fill="#86EFAC" font-size="9" text-anchor="middle">Deeper Meaning</text>
-                <rect x="35" y="110" width="95" height="65" rx="6" fill="#240C12" stroke="#441A23" stroke-width="1" />
-                <text x="82" y="145" fill="#C4ABB0" font-size="10" text-anchor="middle">Moral Weight</text>
-                <rect x="150" y="110" width="95" height="65" rx="6" fill="#240C12" stroke="#441A23" stroke-width="1" />
-                <text x="197" y="145" fill="#C4ABB0" font-size="10" text-anchor="middle">Transformation</text>
+                <line x1="140" y1="20" x2="140" y2="180" stroke="#C2B4A3" stroke-width="2" />
+                <line x1="30" y1="100" x2="250" y2="100" stroke="#C2B4A3" stroke-width="2" />
+
+                <rect x="35" y="25" width="95" height="65" rx="6" fill="#FAF7F2" stroke="#DDD4C8" stroke-width="1" />
+                <text x="82" y="52" fill="#B86B53" font-size="10" font-weight="bold" text-anchor="middle">Literal Text</text>
+                <text x="82" y="70" fill="#646E65" font-size="9" text-anchor="middle">Direct Action</text>
+
+                <rect x="150" y="25" width="95" height="65" rx="6" fill="#E5EFE7" stroke="#2E4C38" stroke-width="1.5" />
+                <text x="197" y="52" fill="#2E4C38" font-size="10" font-weight="bold" text-anchor="middle">Allegorical</text>
+                <text x="197" y="70" fill="#166534" font-size="9" text-anchor="middle">Deeper Meaning</text>
+
+                <rect x="35" y="110" width="95" height="65" rx="6" fill="#FAF7F2" stroke="#DDD4C8" stroke-width="1" />
+                <text x="82" y="145" fill="#646E65" font-size="10" text-anchor="middle">Moral Weight</text>
+
+                <rect x="150" y="110" width="95" height="65" rx="6" fill="#FAF7F2" stroke="#DDD4C8" stroke-width="1" />
+                <text x="197" y="145" fill="#646E65" font-size="10" text-anchor="middle">Transformation</text>
             </svg>
         `;
     } else {
         return `
             <svg viewBox="0 0 280 200" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Process roadmap diagram">
-                <rect x="25" y="25" width="65" height="150" rx="8" fill="#32111A" stroke="#E5C158" stroke-width="1" />
-                <text x="57" y="50" fill="#E5C158" font-size="11" font-weight="bold" text-anchor="middle">STAGE 1</text>
-                <text x="57" y="100" fill="#FFFFFF" font-size="9" text-anchor="middle">Setting</text>
-                <rect x="105" y="25" width="65" height="150" rx="8" fill="#3A141F" stroke="#E5C158" stroke-width="1" />
-                <text x="137" y="50" fill="#E5C158" font-size="11" font-weight="bold" text-anchor="middle">STAGE 2</text>
-                <text x="137" y="100" fill="#FFFFFF" font-size="9" text-anchor="middle">Encounter</text>
-                <rect x="185" y="25" width="65" height="150" rx="8" fill="#4A1926" stroke="#86EFAC" stroke-width="1.5" />
-                <text x="217" y="50" fill="#86EFAC" font-size="11" font-weight="bold" text-anchor="middle">STAGE 3</text>
-                <text x="217" y="100" fill="#FFFFFF" font-size="9" text-anchor="middle">Resolution</text>
+                <rect x="25" y="25" width="65" height="150" rx="8" fill="#FAF7F2" stroke="#C2B4A3" stroke-width="1" />
+                <text x="57" y="50" fill="#2E4C38" font-size="11" font-weight="bold" text-anchor="middle">STAGE 1</text>
+                <text x="57" y="100" fill="#1F241F" font-size="9" text-anchor="middle">Setting</text>
+
+                <rect x="105" y="25" width="65" height="150" rx="8" fill="#FAF7F2" stroke="#C2B4A3" stroke-width="1" />
+                <text x="137" y="50" fill="#2E4C38" font-size="11" font-weight="bold" text-anchor="middle">STAGE 2</text>
+                <text x="137" y="100" fill="#1F241F" font-size="9" text-anchor="middle">Encounter</text>
+
+                <rect x="185" y="25" width="65" height="150" rx="8" fill="#E5EFE7" stroke="#166534" stroke-width="1.5" />
+                <text x="217" y="50" fill="#166534" font-size="11" font-weight="bold" text-anchor="middle">STAGE 3</text>
+                <text x="217" y="100" fill="#166534" font-size="9" text-anchor="middle">Resolution</text>
             </svg>
         `;
     }
@@ -2717,7 +2736,7 @@ function renderCurrentItem() {
                     <span class="card-hint">Click or tap to flip for single-sentence answer ↻</span>
                 </div>
                 <div class="flashcard-face flashcard-back">
-                    <span class="slide-tag" style="color:var(--gold);">DISTILLED ANSWER</span>
+                    <span class="slide-tag" style="color:#B4D3BC;">DISTILLED ANSWER</span>
                     <div class="flashcard-core-text">${item.backAnswer}</div>
                     <span class="card-hint">Click to flip back</span>
                 </div>
@@ -2754,7 +2773,7 @@ function renderCurrentItem() {
                     ${item.explanation || 'Verified with lesson content.'}
                 </div>
                 <div style="margin-top:20px; display:flex; justify-content:space-between; align-items:center;">
-                    <span style="font-size:0.85rem; color:var(--gold-light);">Answer recorded</span>
+                    <span style="font-size:0.85rem; color:var(--green-primary); font-weight:600;">Answer recorded</span>
                     ${currentIndex === activeDataset.length - 1 ? `<button type="button" class="btn primary" style="padding:8px 18px; font-size:0.85rem;" onclick="showQuizSummaryDashboard()">View Final Score & Review</button>` : ''}
                 </div>
             ` : ''}
@@ -2777,7 +2796,6 @@ function handleQuizSelection(btn, chosenOption) {
     const item = activeDataset[currentIndex];
     const isCorrect = chosenOption === item.answer;
 
-    // GA4 Tracking for individual answer
     trackEvent('quiz_answer_select', {
         question_number: currentIndex + 1,
         is_correct: isCorrect
@@ -2801,7 +2819,6 @@ function showQuizSummaryDashboard() {
 
     const scorePct = Math.round((correctCount / activeDataset.length) * 100);
 
-    // GA4 Tracking for quiz completion
     trackEvent('quiz_completed', {
         score_percentage: scorePct,
         correct_count: correctCount,
@@ -2828,7 +2845,7 @@ function showQuizSummaryDashboard() {
                 return `
                     <div class="review-item ${isCorrect ? 'is-correct' : 'is-incorrect'}">
                         <div class="review-q-title">Q${idx + 1}:${item.question}</div>
-                        <div style="margin: 4px 0;"><strong>Your Choice:</strong> ${userChoice}</div>${!isCorrect ? `<div style="color:var(--gold); font-weight:600;">Correct Answer: ${item.answer}</div>` : ''}
+                        <div style="margin: 4px 0;"><strong>Your Choice:</strong> ${userChoice}</div>${!isCorrect ? `<div style="color:var(--clay-accent); font-weight:700;">Correct Answer: ${item.answer}</div>` : ''}
                         <div style="font-size:0.85rem; color:var(--text-muted); margin-top:4px;">${item.explanation || ''}</div>
                     </div>
                 `;
@@ -3033,10 +3050,10 @@ function exportAs(format) {
 <meta charset="utf-8">
 <title>CogniFlow Export - ${mode.toUpperCase()}</title>
 <style>
-body { font-family: system-ui, sans-serif; max-width: 800px; margin: 40px auto; padding: 0 20px; line-height: 1.6; color: #1E252D; background: #FAFAF7; }
-.card { border: 1px solid #D1D5DB; border-radius: 12px; padding: 24px; margin-bottom: 24px; background: #FFFFFF; }
-h1 { color: #52202C; }
-.badge { display: inline-block; background: #E5C158; color: #1E080C; padding: 4px 10px; border-radius: 99px; font-size: 0.8rem; font-weight: bold; }
+body { font-family: system-ui, sans-serif; max-width: 800px; margin: 40px auto; padding: 0 20px; line-height: 1.6; color: #1F241F; background: #F4EFEB; }
+.card { border: 1px solid #DDD4C8; border-radius: 12px; padding: 24px; margin-bottom: 24px; background: #FFFFFF; }
+h1 { color: #2E4C38; }
+.badge { display: inline-block; background: #2E4C38; color: #FFFFFF; padding: 4px 10px; border-radius: 99px; font-size: 0.8rem; font-weight: bold; }
 </style>
 </head>
 <body>
