@@ -11,30 +11,30 @@
 
 <style>
 :root {
-    /* Natural Earthy Palette: Sandstone, Forest Moss, Sage, and Warm Clay */
-    --bg: #F4EFEB;                  /* Warm light oat / sandstone canvas */
-    --surface: #FFFFFF;             /* Clean alabaster card background */
-    --surface-elevated: #EAE3DA;    /* Warm beige / sand for inputs and dropzones */
-    --surface-light: #DFD5C8;       /* Subtle interactive hover states */
-    --surface-dark: #232D25;        /* Deep pine / cedar slate for inverted focal cards */
+    /* Distinct Light Brown, Toasted Sand, and Muted Earthy Green Palette */
+    --bg: #CBB195;                  /* Warm light brown / tan canvas */
+    --surface: #E8DCCB;             /* Toasted sand / almond card surface (no white) */
+    --surface-elevated: #DFD0BD;    /* Slightly deeper tan for inputs, dropzones, and panels */
+    --surface-light: #F2E9DC;       /* Soft parchment tint for subtle highlights and input fields */
+    --surface-dark: #1C2B20;        /* Deep pine moss for inverted focal elements */
     
-    --green-primary: #2E4C38;       /* Deep hunter / forest moss green */
-    --green-muted: #456B52;         /* Muted foliage green */
-    --green-light: #E5EFE7;         /* Soft sage tint for badges and success states */
-    --clay-accent: #B86B53;         /* Warm terracotta clay accent */
+    --green-primary: #1C3B27;       /* Deep rich forest moss green */
+    --green-muted: #385942;         /* Muted foliage sage green */
+    --green-light: #CADECF;         /* Soft sage tint for badges and active pills */
+    --clay-accent: #9E4D36;         /* Earthy terracotta clay accent */
     
-    --text-primary: #1F241F;        /* Deep organic charcoal-slate for headings */
-    --text-secondary: #3D443E;      /* Readable warm charcoal for body paragraphs */
-    --text-muted: #646E65;          /* Lichen slate for secondary captions */
+    --text-primary: #132417;        /* Deep forest slate for high-contrast, readable headings */
+    --text-secondary: #243528;      /* Deep evergreen charcoal for clear body text */
+    --text-muted: #4F5E52;          /* Muted earthy sage for captions and descriptions */
     
-    --border: #DDD4C8;              /* Soft sand / warm clay border */
-    --border-highlight: #C2B4A3;    /* Distinct contour border */
-    --focus-ring: #2E4C38;          /* Forest green focus ring */
+    --border: #BBA48A;              /* Warm clay-sand contour border */
+    --border-highlight: #A68E74;    /* Defined accent border */
+    --focus-ring: #1C3B27;          /* Forest green focus indicator */
     
-    --error: #991B1B;
-    --error-bg: #FEE2E2;
-    --success: #166534;
-    --success-bg: #DCFCE7;
+    --error: #881C1C;
+    --error-bg: #EAC9C9;
+    --success: #144D28;
+    --success-bg: #C9E5D0;
 }
 
 * {
@@ -60,7 +60,7 @@ body {
     top: -40px;
     left: 20px;
     background: var(--green-primary);
-    color: #FFFFFF;
+    color: #F4ECE1;
     padding: 10px 16px;
     z-index: 999;
     text-decoration: none;
@@ -87,7 +87,7 @@ body {
 /* NAVIGATION */
 header {
     border-bottom: 1px solid var(--border);
-    background: rgba(244, 239, 235, 0.95);
+    background: rgba(203, 177, 149, 0.95);
     backdrop-filter: blur(8px);
     position: sticky;
     top: 0;
@@ -155,8 +155,8 @@ nav {
 
 .primary {
     background: var(--green-primary);
-    color: #FFFFFF;
-    box-shadow: 0 4px 14px rgba(46, 76, 56, 0.2);
+    color: #F4ECE1;
+    box-shadow: 0 4px 14px rgba(28, 59, 39, 0.25);
 }
 
 .primary:hover:not(:disabled) {
@@ -215,13 +215,13 @@ section {
     gap: 16px;
 }
 
-/* BESPOKE SVG HERO VISUAL (EARTHY STYLING) */
+/* BESPOKE SVG HERO VISUAL (LIGHT BROWN & SAGE STYLING) */
 .hero-visual-container {
-    background: radial-gradient(circle at center, #ECE5DC 0%, #DFD6C9 100%);
+    background: radial-gradient(circle at center, #D8C3AA 0%, #C4A788 100%);
     border-radius: 28px;
     border: 1px solid var(--border-highlight);
     padding: 24px;
-    box-shadow: 0 16px 36px rgba(46, 76, 56, 0.08);
+    box-shadow: 0 16px 36px rgba(40, 25, 10, 0.12);
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -256,22 +256,22 @@ section {
 
 .idea-box {
     background: var(--surface-dark);
-    border: 1px solid #334236;
-    color: #F4EFEB;
+    border: 1px solid #2B3D30;
+    color: #E8DCCB;
     padding: 40px;
     border-radius: 20px;
-    box-shadow: 0 8px 24px rgba(35, 45, 37, 0.15);
+    box-shadow: 0 8px 24px rgba(28, 43, 32, 0.2);
 }
 
 .idea-box h3 {
     font-size: 2rem;
     line-height: 1.2;
     margin-bottom: 16px;
-    color: #E2EFE4;
+    color: #D6EAD9;
 }
 
 .idea-box p {
-    color: #D2DCD4;
+    color: #C0D3C4;
 }
 
 .split-layout p {
@@ -293,7 +293,7 @@ section {
     border-radius: 16px;
     border: 1px solid var(--border);
     transition: transform 0.2s, border-color 0.2s;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
+    box-shadow: 0 4px 12px rgba(40, 25, 10, 0.05);
 }
 
 .step-card:hover {
@@ -306,7 +306,7 @@ section {
     height: 38px;
     border-radius: 50%;
     background: var(--green-primary);
-    color: #FFFFFF;
+    color: #E8DCCB;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -353,7 +353,7 @@ section {
     padding: 32px;
     border-radius: 16px;
     transition: transform 0.2s ease, border-color 0.2s ease;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
+    box-shadow: 0 4px 12px rgba(40, 25, 10, 0.05);
 }
 
 .card:hover {
@@ -371,7 +371,7 @@ section {
 }
 
 /* ======================================================
-   INTERACTIVE STUDIO WIDGET (EARTHY PALETTE & FULLSCREEN)
+   INTERACTIVE STUDIO WIDGET (WARM TAN / EARTHY PALETTE)
 ====================================================== */
 .studio-widget {
     background: var(--surface);
@@ -379,7 +379,7 @@ section {
     border-radius: 20px;
     padding: 32px;
     margin-top: 24px;
-    box-shadow: 0 10px 30px rgba(46, 76, 56, 0.06);
+    box-shadow: 0 10px 30px rgba(40, 25, 10, 0.08);
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
@@ -421,7 +421,7 @@ section {
 .drop-area:hover,
 .drop-area.dragover {
     border-color: var(--green-primary);
-    background: #E4DDD2;
+    background: #D4C3AE;
 }
 
 .drop-area-icon {
@@ -474,7 +474,7 @@ section {
     padding: 14px;
     border-radius: 12px;
     border: 1px solid var(--border-highlight);
-    background: #FAF7F2;
+    background: var(--surface-light);
     color: var(--text-primary);
     font-family: inherit;
     font-size: 0.9rem;
@@ -483,12 +483,12 @@ section {
 }
 
 .studio-textarea::placeholder {
-    color: #928C84;
+    color: #8C7B67;
 }
 
 /* Prompt Directive Box */
 .prompt-directive-box {
-    background: #FAF7F2;
+    background: var(--surface-light);
     border: 1px solid var(--green-muted);
     border-radius: 12px;
     padding: 12px 14px;
@@ -511,18 +511,18 @@ section {
     padding: 10px 12px;
     border-radius: 8px;
     border: 1px solid var(--border-highlight);
-    background: #FFFFFF;
+    background: var(--surface);
     color: var(--text-primary);
     font-size: 0.85rem;
     font-family: inherit;
 }
 
 .prompt-input::placeholder {
-    color: #928C84;
+    color: #8C7B67;
 }
 
 .quiz-config-panel {
-    background: #FAF7F2;
+    background: var(--surface-light);
     border: 1px solid var(--border);
     border-radius: 12px;
     padding: 12px 14px;
@@ -549,7 +549,7 @@ section {
 .config-select {
     padding: 6px 10px;
     border-radius: 6px;
-    background: #FFFFFF;
+    background: var(--surface);
     color: var(--text-primary);
     border: 1px solid var(--border-highlight);
     font-size: 0.85rem;
@@ -566,10 +566,10 @@ section {
     display: block;
     background: var(--error-bg);
     color: var(--error);
-    border: 1px solid #FCA5A5;
+    border: 1px solid #D69E9E;
 }
 
-/* AI Engine Config Flyout / Bar */
+/* AI Engine Config Badge */
 .ai-badge {
     display: inline-flex;
     align-items: center;
@@ -586,14 +586,14 @@ section {
 }
 
 .ai-badge:hover {
-    background: #D5E5D8;
+    background: #BAD2BF;
 }
 
 /* Modal for API Key Settings */
 .modal-overlay {
     position: fixed;
     inset: 0;
-    background: rgba(31, 36, 31, 0.6);
+    background: rgba(30, 20, 10, 0.65);
     backdrop-filter: blur(4px);
     display: none;
     align-items: center;
@@ -606,7 +606,7 @@ section {
 }
 
 .modal-card {
-    background: #FFFFFF;
+    background: var(--surface);
     border: 1px solid var(--green-primary);
     border-radius: 18px;
     padding: 28px;
@@ -632,7 +632,7 @@ section {
     padding: 12px;
     border-radius: 8px;
     border: 1px solid var(--border-highlight);
-    background: #FAF7F2;
+    background: var(--surface-light);
     color: var(--text-primary);
     font-family: monospace;
     font-size: 0.9rem;
@@ -652,7 +652,7 @@ section {
     padding: 24px;
     display: flex;
     flex-direction: column;
-    background: #FAF7F2;
+    background: var(--surface-light);
     position: relative;
 }
 
@@ -683,7 +683,7 @@ section {
     padding: 8px 14px;
     border-radius: 8px;
     border: 1px solid var(--border-highlight);
-    background: #FFFFFF;
+    background: var(--surface);
     font-size: 0.9rem;
     font-weight: 600;
     color: var(--text-primary);
@@ -716,7 +716,7 @@ section {
     font-weight: 600;
     border-radius: 8px;
     border: 1px solid var(--border-highlight);
-    background: #FFFFFF;
+    background: var(--surface);
     color: var(--text-secondary);
     cursor: pointer;
     transition: background 0.2s, color 0.2s;
@@ -741,7 +741,7 @@ section {
     height: 38px;
     border-radius: 8px;
     border: 1px solid var(--border-highlight);
-    background: #FFFFFF;
+    background: var(--surface);
     color: var(--text-secondary);
     font-size: 1.25rem;
     line-height: 1;
@@ -767,11 +767,11 @@ section {
     top: calc(100% + 8px);
     right: 0;
     width: 220px;
-    background: #FFFFFF;
+    background: var(--surface);
     border: 1px solid var(--border-highlight);
     border-radius: 12px;
     padding: 8px;
-    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.12);
     display: none;
     flex-direction: column;
     z-index: 50;
@@ -874,7 +874,7 @@ section {
    MODE 1: PRESENTATION DUAL-PANE (DIAGRAM LEFT, DETAILS RIGHT)
 ====================================================== */
 .true-slide-deck {
-    background: #FFFFFF;
+    background: var(--surface);
     border: 1px solid var(--border);
     border-radius: 16px;
     width: 100%;
@@ -882,12 +882,12 @@ section {
     display: grid;
     grid-template-columns: 0.95fr 1.05fr;
     overflow: hidden;
-    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.06);
+    box-shadow: 0 12px 30px rgba(40, 25, 10, 0.08);
     min-height: 400px;
 }
 
 .slide-visual-column {
-    background: #FAF7F2;
+    background: var(--surface-elevated);
     border-right: 1px solid var(--border);
     padding: 28px;
     display: flex;
@@ -926,7 +926,7 @@ section {
     justify-content: center;
     overflow-y: auto;
     max-height: 460px;
-    background: #FFFFFF;
+    background: var(--surface);
 }
 
 .slide-tag {
@@ -1017,19 +1017,19 @@ section {
     justify-content: space-between;
     align-items: center;
     text-align: center;
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.05);
+    box-shadow: 0 8px 24px rgba(40, 25, 10, 0.08);
     overflow-y: auto;
 }
 
 .flashcard-front {
-    background: #FFFFFF;
+    background: var(--surface);
     color: var(--text-primary);
 }
 
 .flashcard-back {
     background: var(--surface-dark);
-    border-color: #334236;
-    color: #F4EFEB;
+    border-color: #2D3E32;
+    color: #E8DCCB;
     transform: rotateY(180deg);
 }
 
@@ -1043,7 +1043,7 @@ section {
 }
 
 .flashcard-back .flashcard-core-text {
-    color: #E2EFE4;
+    color: #D8EAD9;
     font-weight: 500;
 }
 
@@ -1064,11 +1064,11 @@ section {
 .quiz-box {
     width: 100%;
     max-width: 680px;
-    background: #FFFFFF;
+    background: var(--surface);
     border: 1px solid var(--border);
     border-radius: 16px;
     padding: 32px;
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.05);
+    box-shadow: 0 8px 24px rgba(40, 25, 10, 0.08);
 }
 
 .quiz-box h4 {
@@ -1088,7 +1088,7 @@ section {
     padding: 14px 18px;
     border-radius: 10px;
     border: 1px solid var(--border);
-    background: #FAF7F2;
+    background: var(--surface-light);
     color: var(--text-primary);
     font-size: 0.95rem;
     cursor: pointer;
@@ -1105,14 +1105,14 @@ section {
 .quiz-opt-btn.correct {
     background: var(--success-bg);
     border-color: var(--success);
-    color: #166534;
+    color: #144D28;
     font-weight: bold;
 }
 
 .quiz-opt-btn.wrong {
     background: var(--error-bg);
     border-color: var(--error);
-    color: #991B1B;
+    color: #881C1C;
 }
 
 /* Learning Explanation Box */
@@ -1120,7 +1120,7 @@ section {
     margin-top: 18px;
     padding: 16px 18px;
     border-radius: 10px;
-    background: #FAF7F2;
+    background: var(--surface-light);
     border: 1px solid var(--green-primary);
     font-size: 0.88rem;
     line-height: 1.5;
@@ -1139,7 +1139,7 @@ section {
 
 /* Quiz Review Dashboard */
 .quiz-results-card {
-    background: #FFFFFF;
+    background: var(--surface);
     border: 1px solid var(--border);
     border-radius: 16px;
     padding: 32px;
@@ -1169,7 +1169,7 @@ section {
 }
 
 .review-item {
-    background: #FAF7F2;
+    background: var(--surface-light);
     border-radius: 10px;
     padding: 16px;
     border-left: 4px solid var(--border-highlight);
@@ -1201,7 +1201,7 @@ section {
     margin-top: 12px;
     position: relative;
     z-index: 10;
-    background: #FAF7F2;
+    background: var(--surface-light);
 }
 
 .nav-arrows-group {
@@ -1213,7 +1213,7 @@ section {
     padding: 8px 16px;
     border-radius: 8px;
     border: 1px solid var(--border-highlight);
-    background: #FFFFFF;
+    background: var(--surface);
     color: var(--text-primary);
     font-weight: bold;
     cursor: pointer;
@@ -1233,7 +1233,7 @@ section {
     font-size: 0.85rem;
     font-weight: 700;
     color: var(--green-primary);
-    background: #FFFFFF;
+    background: var(--surface);
     border: 1px solid var(--border);
     padding: 4px 14px;
     border-radius: 999px;
@@ -1254,7 +1254,7 @@ section {
     height: 28px;
     border-radius: 6px;
     border: 1px solid var(--border);
-    background: #FFFFFF;
+    background: var(--surface);
     color: var(--text-secondary);
     font-size: 0.75rem;
     font-weight: 700;
@@ -1271,7 +1271,7 @@ section {
 
 .jump-dot.active {
     background: var(--green-primary);
-    color: #FFFFFF;
+    color: #F4ECE1;
     border-color: var(--green-primary);
 }
 
@@ -1300,7 +1300,7 @@ section {
     border-radius: 18px;
     padding: 32px;
     transition: transform 0.2s ease, border-color 0.2s ease;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
+    box-shadow: 0 4px 12px rgba(40, 25, 10, 0.05);
 }
 
 .matter-card:hover {
@@ -1328,7 +1328,7 @@ section {
 
 .research-banner {
     background: var(--green-light);
-    border: 1px solid #B4D3BC;
+    border: 1px solid #A8C6B0;
     border-radius: 16px;
     padding: 24px 30px;
     display: flex;
@@ -1338,7 +1338,7 @@ section {
 
 .banner-badge {
     background: var(--green-primary);
-    color: #FFFFFF;
+    color: #F4ECE1;
     font-size: 0.75rem;
     font-weight: 800;
     letter-spacing: 1px;
@@ -1507,66 +1507,66 @@ footer {
             <svg viewBox="0 0 520 340" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Diagram showing dense technical prose transforming into structured visual modules">
                 <defs>
                     <pattern id="heroGrid" width="24" height="24" patternUnits="userSpaceOnUse">
-                        <path d="M 24 0 L 0 0 0 24" fill="none" stroke="#DDD4C8" stroke-width="0.8" opacity="0.7" />
+                        <path d="M 24 0 L 0 0 0 24" fill="none" stroke="#BBA48A" stroke-width="0.8" opacity="0.6" />
                     </pattern>
-                    <linearGradient id="earthGlow" x1="0%" y1="0%" x2="100%" y2="100%">
-                        <stop offset="0%" stop-color="#EBE3DA" />
-                        <stop offset="100%" stop-color="#DDD3C5" />
+                    <linearGradient id="tanGlow" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" stop-color="#DFD0BD" />
+                        <stop offset="100%" stop-color="#CBB195" />
                     </linearGradient>
                 </defs>
 
-                <rect width="520" height="340" rx="16" fill="url(#earthGlow)" />
+                <rect width="520" height="340" rx="16" fill="url(#tanGlow)" />
                 <rect width="520" height="340" rx="16" fill="url(#heroGrid)" />
 
                 <!-- Left Panel: Raw Unstructured Text -->
-                <rect x="28" y="45" width="180" height="250" rx="12" fill="#FFFFFF" stroke="#C2B4A3" stroke-width="1.5" />
-                <rect x="42" y="60" width="90" height="10" rx="5" fill="#2E4C38" opacity="0.9" />
-                <rect x="42" y="82" width="150" height="6" rx="3" fill="#B86B53" opacity="0.7" />
-                <rect x="42" y="96" width="138" height="6" rx="3" fill="#C2B4A3" />
-                <rect x="42" y="110" width="144" height="6" rx="3" fill="#C2B4A3" />
-                <rect x="42" y="124" width="120" height="6" rx="3" fill="#C2B4A3" />
+                <rect x="28" y="45" width="180" height="250" rx="12" fill="#E8DCCB" stroke="#A68E74" stroke-width="1.5" />
+                <rect x="42" y="60" width="90" height="10" rx="5" fill="#1C3B27" opacity="0.9" />
+                <rect x="42" y="82" width="150" height="6" rx="3" fill="#9E4D36" opacity="0.7" />
+                <rect x="42" y="96" width="138" height="6" rx="3" fill="#BBA48A" />
+                <rect x="42" y="110" width="144" height="6" rx="3" fill="#BBA48A" />
+                <rect x="42" y="124" width="120" height="6" rx="3" fill="#BBA48A" />
                 
-                <rect x="42" y="148" width="110" height="8" rx="4" fill="#456B52" opacity="0.7" />
-                <rect x="42" y="166" width="148" height="6" rx="3" fill="#C2B4A3" />
-                <rect x="42" y="180" width="135" height="6" rx="3" fill="#B86B53" opacity="0.5" />
-                <rect x="42" y="194" width="140" height="6" rx="3" fill="#C2B4A3" />
-                <rect x="42" y="208" width="115" height="6" rx="3" fill="#C2B4A3" />
+                <rect x="42" y="148" width="110" height="8" rx="4" fill="#385942" opacity="0.7" />
+                <rect x="42" y="166" width="148" height="6" rx="3" fill="#BBA48A" />
+                <rect x="42" y="180" width="135" height="6" rx="3" fill="#9E4D36" opacity="0.5" />
+                <rect x="42" y="194" width="140" height="6" rx="3" fill="#BBA48A" />
+                <rect x="42" y="208" width="115" height="6" rx="3" fill="#BBA48A" />
                 
-                <rect x="42" y="235" width="150" height="36" rx="8" fill="#FAF7F2" stroke="#2E4C38" stroke-dasharray="3 3" />
-                <text x="117" y="258" fill="#2E4C38" font-size="10" font-family="system-ui, sans-serif" font-weight="700" text-anchor="middle">Dense Raw Document</text>
+                <rect x="42" y="235" width="150" height="36" rx="8" fill="#F2E9DC" stroke="#1C3B27" stroke-dasharray="3 3" />
+                <text x="117" y="258" fill="#1C3B27" font-size="10" font-family="system-ui, sans-serif" font-weight="700" text-anchor="middle">Dense Raw Document</text>
 
                 <!-- Center: Dynamic Synthesis Pathways -->
-                <path d="M 218 170 C 248 170, 248 95, 278 95" stroke="#2E4C38" stroke-width="2.5" stroke-linecap="round" fill="none" />
-                <circle cx="248" cy="132" r="6" fill="#2E4C38" />
+                <path d="M 218 170 C 248 170, 248 95, 278 95" stroke="#1C3B27" stroke-width="2.5" stroke-linecap="round" fill="none" />
+                <circle cx="248" cy="132" r="6" fill="#1C3B27" />
                 
-                <path d="M 218 170 C 248 170, 248 170, 278 170" stroke="#2E4C38" stroke-width="2.5" stroke-linecap="round" fill="none" />
+                <path d="M 218 170 C 248 170, 248 170, 278 170" stroke="#1C3B27" stroke-width="2.5" stroke-linecap="round" fill="none" />
                 
-                <path d="M 218 170 C 248 170, 248 245, 278 245" stroke="#2E4C38" stroke-width="2.5" stroke-linecap="round" fill="none" />
-                <circle cx="248" cy="208" r="6" fill="#2E4C38" />
+                <path d="M 218 170 C 248 170, 248 245, 278 245" stroke="#1C3B27" stroke-width="2.5" stroke-linecap="round" fill="none" />
+                <circle cx="248" cy="208" r="6" fill="#1C3B27" />
 
                 <!-- Right Visual Modules -->
-                <g filter="drop-shadow(0px 4px 8px rgba(0,0,0,0.06))">
-                    <rect x="285" y="65" width="205" height="62" rx="10" fill="#FFFFFF" stroke="#2E4C38" stroke-width="1.5" />
-                    <circle cx="310" cy="96" r="14" fill="#2E4C38" />
-                    <text x="310" y="100" fill="#FFFFFF" font-size="11" font-weight="900" text-anchor="middle">01</text>
-                    <text x="334" y="90" fill="#1F241F" font-size="12" font-weight="700">EXTRACT CORE</text>
-                    <text x="334" y="106" fill="#646E65" font-size="9.5">Filters noise & front-matter</text>
+                <g filter="drop-shadow(0px 4px 8px rgba(40,25,10,0.08))">
+                    <rect x="285" y="65" width="205" height="62" rx="10" fill="#E8DCCB" stroke="#1C3B27" stroke-width="1.5" />
+                    <circle cx="310" cy="96" r="14" fill="#1C3B27" />
+                    <text x="310" y="100" fill="#F2E9DC" font-size="11" font-weight="900" text-anchor="middle">01</text>
+                    <text x="334" y="90" fill="#132417" font-size="12" font-weight="700">EXTRACT CORE</text>
+                    <text x="334" y="106" fill="#4F5E52" font-size="9.5">Filters noise & front-matter</text>
                 </g>
 
-                <g filter="drop-shadow(0px 4px 8px rgba(0,0,0,0.06))">
-                    <rect x="285" y="140" width="205" height="62" rx="10" fill="#FFFFFF" stroke="#456B52" stroke-width="1.5" />
-                    <circle cx="310" cy="171" r="14" fill="#456B52" />
-                    <text x="310" y="175" fill="#FFFFFF" font-size="11" font-weight="900" text-anchor="middle">02</text>
-                    <text x="334" y="165" fill="#1F241F" font-size="12" font-weight="700">MAP VISUALS</text>
-                    <text x="334" y="181" fill="#646E65" font-size="9.5">Schematic dual-pane decks</text>
+                <g filter="drop-shadow(0px 4px 8px rgba(40,25,10,0.08))">
+                    <rect x="285" y="140" width="205" height="62" rx="10" fill="#E8DCCB" stroke="#385942" stroke-width="1.5" />
+                    <circle cx="310" cy="171" r="14" fill="#385942" />
+                    <text x="310" y="175" fill="#F2E9DC" font-size="11" font-weight="900" text-anchor="middle">02</text>
+                    <text x="334" y="165" fill="#132417" font-size="12" font-weight="700">MAP VISUALS</text>
+                    <text x="334" y="181" fill="#4F5E52" font-size="9.5">Schematic dual-pane decks</text>
                 </g>
 
-                <g filter="drop-shadow(0px 4px 8px rgba(0,0,0,0.06))">
-                    <rect x="285" y="215" width="205" height="62" rx="10" fill="#FFFFFF" stroke="#B86B53" stroke-width="1.5" />
-                    <circle cx="310" cy="246" r="14" fill="#B86B53" />
-                    <text x="310" y="250" fill="#FFFFFF" font-size="11" font-weight="900" text-anchor="middle">03</text>
-                    <text x="334" y="240" fill="#1F241F" font-size="12" font-weight="700">SOLID RETENTION</text>
-                    <text x="334" y="256" fill="#646E65" font-size="9.5">Flashcards & timed quizzes</text>
+                <g filter="drop-shadow(0px 4px 8px rgba(40,25,10,0.08))">
+                    <rect x="285" y="215" width="205" height="62" rx="10" fill="#E8DCCB" stroke="#9E4D36" stroke-width="1.5" />
+                    <circle cx="310" cy="246" r="14" fill="#9E4D36" />
+                    <text x="310" y="250" fill="#F2E9DC" font-size="11" font-weight="900" text-anchor="middle">03</text>
+                    <text x="334" y="240" fill="#132417" font-size="12" font-weight="700">SOLID RETENTION</text>
+                    <text x="334" y="256" fill="#4F5E52" font-size="9.5">Flashcards & timed quizzes</text>
                 </g>
             </svg>
             <div class="hero-visual-caption">CogniFlow Engine • Converting Dense Prose into Structured Comprehension</div>
@@ -2134,74 +2134,74 @@ function generateBespokeDiagram(conceptLabel, index) {
     if (variant === 0) {
         return `
             <svg viewBox="0 0 280 200" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Sequential flowchart diagram">
-                <rect x="20" y="20" width="240" height="42" rx="8" fill="#FAF7F2" stroke="#2E4C38" stroke-width="1.5" />
-                <text x="140" y="46" fill="#1F241F" font-size="12" font-weight="700" text-anchor="middle">Theme: ${conceptLabel.slice(0, 18)}</text>
+                <rect x="20" y="20" width="240" height="42" rx="8" fill="#F2E9DC" stroke="#1C3B27" stroke-width="1.5" />
+                <text x="140" y="46" fill="#132417" font-size="12" font-weight="700" text-anchor="middle">Theme: ${conceptLabel.slice(0, 18)}</text>
                 
-                <path d="M 140 62 L 140 86" stroke="#2E4C38" stroke-width="2" />
-                <polygon points="140,88 135,78 145,78" fill="#2E4C38" />
+                <path d="M 140 62 L 140 86" stroke="#1C3B27" stroke-width="2" />
+                <polygon points="140,88 135,78 145,78" fill="#1C3B27" />
 
-                <rect x="35" y="88" width="210" height="42" rx="8" fill="#E5EFE7" stroke="#456B52" stroke-width="1.5" />
-                <text x="140" y="114" fill="#2E4C38" font-size="12" font-weight="700" text-anchor="middle">Contextual Analysis</text>
+                <rect x="35" y="88" width="210" height="42" rx="8" fill="#CADECF" stroke="#385942" stroke-width="1.5" />
+                <text x="140" y="114" fill="#1C3B27" font-size="12" font-weight="700" text-anchor="middle">Contextual Analysis</text>
 
-                <path d="M 140 130 L 140 152" stroke="#2E4C38" stroke-width="2" />
-                <polygon points="140,154 135,144 145,144" fill="#2E4C38" />
+                <path d="M 140 130 L 140 152" stroke="#1C3B27" stroke-width="2" />
+                <polygon points="140,154 135,144 145,144" fill="#1C3B27" />
 
-                <rect x="20" y="154" width="240" height="40" rx="8" fill="#FFFFFF" stroke="#B86B53" stroke-width="1.5" />
-                <text x="140" y="179" fill="#B86B53" font-size="12" font-weight="700" text-anchor="middle">Key Narrative & Outcome</text>
+                <rect x="20" y="154" width="240" height="40" rx="8" fill="#E8DCCB" stroke="#9E4D36" stroke-width="1.5" />
+                <text x="140" y="179" fill="#9E4D36" font-size="12" font-weight="700" text-anchor="middle">Key Narrative & Outcome</text>
             </svg>
         `;
     } else if (variant === 1) {
         return `
             <svg viewBox="0 0 280 200" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Cognitive loop schematic">
-                <circle cx="140" cy="100" r="70" fill="none" stroke="#C2B4A3" stroke-dasharray="4 4" stroke-width="2" />
+                <circle cx="140" cy="100" r="70" fill="none" stroke="#A68E74" stroke-dasharray="4 4" stroke-width="2" />
                 
-                <circle cx="140" cy="35" r="26" fill="#FAF7F2" stroke="#2E4C38" stroke-width="1.5" />
-                <text x="140" y="39" fill="#1F241F" font-size="10" font-weight="bold" text-anchor="middle">MOTIVE</text>
+                <circle cx="140" cy="35" r="26" fill="#F2E9DC" stroke="#1C3B27" stroke-width="1.5" />
+                <text x="140" y="39" fill="#132417" font-size="10" font-weight="bold" text-anchor="middle">MOTIVE</text>
 
-                <circle cx="210" cy="130" r="26" fill="#FAF7F2" stroke="#2E4C38" stroke-width="1.5" />
-                <text x="210" y="134" fill="#1F241F" font-size="10" font-weight="bold" text-anchor="middle">CONFLICT</text>
+                <circle cx="210" cy="130" r="26" fill="#F2E9DC" stroke="#1C3B27" stroke-width="1.5" />
+                <text x="210" y="134" fill="#132417" font-size="10" font-weight="bold" text-anchor="middle">CONFLICT</text>
 
-                <circle cx="70" cy="130" r="26" fill="#E5EFE7" stroke="#166534" stroke-width="1.5" />
-                <text x="70" y="134" fill="#166534" font-size="10" font-weight="bold" text-anchor="middle">RESOLUTION</text>
+                <circle cx="70" cy="130" r="26" fill="#CADECF" stroke="#144D28" stroke-width="1.5" />
+                <text x="70" y="134" fill="#144D28" font-size="10" font-weight="bold" text-anchor="middle">RESOLUTION</text>
 
-                <text x="140" y="105" fill="#2E4C38" font-size="11" font-weight="bold" text-anchor="middle">CORE ARC</text>
+                <text x="140" y="105" fill="#1C3B27" font-size="11" font-weight="bold" text-anchor="middle">CORE ARC</text>
             </svg>
         `;
     } else if (variant === 2) {
         return `
             <svg viewBox="0 0 280 200" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Analytical matrix diagram">
-                <line x1="140" y1="20" x2="140" y2="180" stroke="#C2B4A3" stroke-width="2" />
-                <line x1="30" y1="100" x2="250" y2="100" stroke="#C2B4A3" stroke-width="2" />
+                <line x1="140" y1="20" x2="140" y2="180" stroke="#A68E74" stroke-width="2" />
+                <line x1="30" y1="100" x2="250" y2="100" stroke="#A68E74" stroke-width="2" />
 
-                <rect x="35" y="25" width="95" height="65" rx="6" fill="#FAF7F2" stroke="#DDD4C8" stroke-width="1" />
-                <text x="82" y="52" fill="#B86B53" font-size="10" font-weight="bold" text-anchor="middle">Literal Text</text>
-                <text x="82" y="70" fill="#646E65" font-size="9" text-anchor="middle">Direct Action</text>
+                <rect x="35" y="25" width="95" height="65" rx="6" fill="#F2E9DC" stroke="#BBA48A" stroke-width="1" />
+                <text x="82" y="52" fill="#9E4D36" font-size="10" font-weight="bold" text-anchor="middle">Literal Text</text>
+                <text x="82" y="70" fill="#4F5E52" font-size="9" text-anchor="middle">Direct Action</text>
 
-                <rect x="150" y="25" width="95" height="65" rx="6" fill="#E5EFE7" stroke="#2E4C38" stroke-width="1.5" />
-                <text x="197" y="52" fill="#2E4C38" font-size="10" font-weight="bold" text-anchor="middle">Allegorical</text>
-                <text x="197" y="70" fill="#166534" font-size="9" text-anchor="middle">Deeper Meaning</text>
+                <rect x="150" y="25" width="95" height="65" rx="6" fill="#CADECF" stroke="#1C3B27" stroke-width="1.5" />
+                <text x="197" y="52" fill="#1C3B27" font-size="10" font-weight="bold" text-anchor="middle">Allegorical</text>
+                <text x="197" y="70" fill="#144D28" font-size="9" text-anchor="middle">Deeper Meaning</text>
 
-                <rect x="35" y="110" width="95" height="65" rx="6" fill="#FAF7F2" stroke="#DDD4C8" stroke-width="1" />
-                <text x="82" y="145" fill="#646E65" font-size="10" text-anchor="middle">Moral Weight</text>
+                <rect x="35" y="110" width="95" height="65" rx="6" fill="#F2E9DC" stroke="#BBA48A" stroke-width="1" />
+                <text x="82" y="145" fill="#4F5E52" font-size="10" text-anchor="middle">Moral Weight</text>
 
-                <rect x="150" y="110" width="95" height="65" rx="6" fill="#FAF7F2" stroke="#DDD4C8" stroke-width="1" />
-                <text x="197" y="145" fill="#646E65" font-size="10" text-anchor="middle">Transformation</text>
+                <rect x="150" y="110" width="95" height="65" rx="6" fill="#F2E9DC" stroke="#BBA48A" stroke-width="1" />
+                <text x="197" y="145" fill="#4F5E52" font-size="10" text-anchor="middle">Transformation</text>
             </svg>
         `;
     } else {
         return `
             <svg viewBox="0 0 280 200" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Process roadmap diagram">
-                <rect x="25" y="25" width="65" height="150" rx="8" fill="#FAF7F2" stroke="#C2B4A3" stroke-width="1" />
-                <text x="57" y="50" fill="#2E4C38" font-size="11" font-weight="bold" text-anchor="middle">STAGE 1</text>
-                <text x="57" y="100" fill="#1F241F" font-size="9" text-anchor="middle">Setting</text>
+                <rect x="25" y="25" width="65" height="150" rx="8" fill="#F2E9DC" stroke="#A68E74" stroke-width="1" />
+                <text x="57" y="50" fill="#1C3B27" font-size="11" font-weight="bold" text-anchor="middle">STAGE 1</text>
+                <text x="57" y="100" fill="#132417" font-size="9" text-anchor="middle">Setting</text>
 
-                <rect x="105" y="25" width="65" height="150" rx="8" fill="#FAF7F2" stroke="#C2B4A3" stroke-width="1" />
-                <text x="137" y="50" fill="#2E4C38" font-size="11" font-weight="bold" text-anchor="middle">STAGE 2</text>
-                <text x="137" y="100" fill="#1F241F" font-size="9" text-anchor="middle">Encounter</text>
+                <rect x="105" y="25" width="65" height="150" rx="8" fill="#F2E9DC" stroke="#A68E74" stroke-width="1" />
+                <text x="137" y="50" fill="#1C3B27" font-size="11" font-weight="bold" text-anchor="middle">STAGE 2</text>
+                <text x="137" y="100" fill="#132417" font-size="9" text-anchor="middle">Encounter</text>
 
-                <rect x="185" y="25" width="65" height="150" rx="8" fill="#E5EFE7" stroke="#166534" stroke-width="1.5" />
-                <text x="217" y="50" fill="#166534" font-size="11" font-weight="bold" text-anchor="middle">STAGE 3</text>
-                <text x="217" y="100" fill="#166534" font-size="9" text-anchor="middle">Resolution</text>
+                <rect x="185" y="25" width="65" height="150" rx="8" fill="#CADECF" stroke="#144D28" stroke-width="1.5" />
+                <text x="217" y="50" fill="#144D28" font-size="11" font-weight="bold" text-anchor="middle">STAGE 3</text>
+                <text x="217" y="100" fill="#144D28" font-size="9" text-anchor="middle">Resolution</text>
             </svg>
         `;
     }
@@ -3050,10 +3050,10 @@ function exportAs(format) {
 <meta charset="utf-8">
 <title>CogniFlow Export - ${mode.toUpperCase()}</title>
 <style>
-body { font-family: system-ui, sans-serif; max-width: 800px; margin: 40px auto; padding: 0 20px; line-height: 1.6; color: #1F241F; background: #F4EFEB; }
-.card { border: 1px solid #DDD4C8; border-radius: 12px; padding: 24px; margin-bottom: 24px; background: #FFFFFF; }
-h1 { color: #2E4C38; }
-.badge { display: inline-block; background: #2E4C38; color: #FFFFFF; padding: 4px 10px; border-radius: 99px; font-size: 0.8rem; font-weight: bold; }
+body { font-family: system-ui, sans-serif; max-width: 800px; margin: 40px auto; padding: 0 20px; line-height: 1.6; color: #132417; background: #CBB195; }
+.card { border: 1px solid #BBA48A; border-radius: 12px; padding: 24px; margin-bottom: 24px; background: #E8DCCB; }
+h1 { color: #1C3B27; }
+.badge { display: inline-block; background: #1C3B27; color: #F4ECE1; padding: 4px 10px; border-radius: 99px; font-size: 0.8rem; font-weight: bold; }
 </style>
 </head>
 <body>
@@ -3089,21 +3089,18 @@ function printStudioContent() {
    ADDITIONAL DOM TRACKING (INITIALIZATION)
 ====================================================== */
 window.addEventListener("DOMContentLoaded", () => {
-    // Track Timed Quiz Toggle
     if (timedQuizToggle) {
         timedQuizToggle.addEventListener("change", (e) => {
             trackEvent('toggle_timed_quiz', { enabled: e.target.checked });
         });
     }
 
-    // Track Question Count Dropdown
     if (questionCountSelect) {
         questionCountSelect.addEventListener("change", (e) => {
             trackEvent('select_question_count', { count: e.target.value });
         });
     }
 
-    // Track CTA Buttons and Navigation Links
     document.querySelectorAll(".nav-links a, .hero .buttons a").forEach(link => {
         link.addEventListener("click", () => {
             trackEvent('cta_click', {
@@ -3113,7 +3110,6 @@ window.addEventListener("DOMContentLoaded", () => {
         });
     });
 
-    // Track Skip Link
     const skipLink = document.querySelector(".skip-link");
     if (skipLink) {
         skipLink.addEventListener("click", () => {
