@@ -1448,6 +1448,15 @@ footer {
   gtag('js', new Date());
 
   gtag('config', 'G-8NLPP45RS3');
+
+  // Universal Safe Analytics Event Dispatcher
+  function trackEvent(eventName, eventParams = {}) {
+      if (typeof gtag === 'function') {
+          gtag('event', eventName, eventParams);
+      } else if (window.dataLayer) {
+          window.dataLayer.push({ event: eventName, ...eventParams });
+      }
+  }
 </script>
 
 </head>
@@ -1670,7 +1679,7 @@ footer {
                         </div>
 
                         <!-- Quiz Settings Sub-Panel -->
-                        <div id="quizSettingsPanel" class="quiz-config-panel" style="display:none;">
+                        <div id="quizSettingsPanel" class="quiz-config-panel">
                             <div class="config-toggle-row">
                                 <label for="timedQuizToggle">Timed Quiz Mode:</label>
                                 <input type="checkbox" id="timedQuizToggle">
@@ -1932,10 +1941,12 @@ function updateEngineBadge() {
 function openEngineConfigModal() {
     geminiApiKeyInput.value = storedApiKey;
     engineModal.classList.add("show");
+    trackEvent('open_ai_config_modal');
 }
 
 function closeEngineConfigModal() {
     engineModal.classList.remove("show");
+    trackEvent('close_ai_config_modal');
 }
 
 function saveApiKey() {
@@ -1943,6 +1954,7 @@ function saveApiKey() {
     localStorage.setItem("cogniflow_gemini_key", storedApiKey);
     updateEngineBadge();
     closeEngineConfigModal();
+    trackEvent('save_gemini_api_key', { success: true });
 }
 
 function clearApiKey() {
@@ -1951,6 +1963,7 @@ function clearApiKey() {
     geminiApiKeyInput.value = "";
     updateEngineBadge();
     closeEngineConfigModal();
+    trackEvent('clear_gemini_api_key');
 }
 
 /* FULLSCREEN TOGGLE */
@@ -1958,6 +1971,7 @@ function toggleWidgetFullscreen() {
     const isFull = studioWidget.classList.toggle("is-fullscreen");
     fullscreenToggleBtn.textContent = isFull ? "✕ Close" : "⛶ Expand";
     document.body.style.overflow = isFull ? "hidden" : "";
+    trackEvent('toggle_fullscreen', { is_fullscreen: isFull });
 }
 
 document.addEventListener("keydown", (e) => {
@@ -2013,6 +2027,9 @@ async function processIncomingFile(file) {
     const name = file.name.toLowerCase();
     clearError();
 
+    const extension = name.split('.').pop();
+    trackEvent('upload_document', { file_extension: extension, file_name: file.name });
+
     if (name.endsWith(".txt") || name.endsWith(".md")) {
         const reader = new FileReader();
         reader.onload = (e) => setUploadedContent(file.name, e.target.result);
@@ -2038,6 +2055,7 @@ async function processIncomingFile(file) {
 
             if (fullText.trim().length === 0) {
                 showError("The PDF appears to be empty or contains only scanned images without selectable text.");
+                trackEvent('pdf_read_error', { reason: 'empty_or_scanned' });
                 return;
             }
 
@@ -2045,6 +2063,7 @@ async function processIncomingFile(file) {
         } catch (err) {
             hideLoadingNotification();
             showError("Could not read this PDF file: " + err.message);
+            trackEvent('pdf_read_error', { error_message: err.message });
         }
     } else {
         showError("Supported formats: .pdf, .txt, and .md documents.");
@@ -2078,6 +2097,7 @@ function clearUploadedFile(e) {
     fileInput.value = "";
     fileStatusPill.style.display = "none";
     updateWordCount();
+    trackEvent('remove_uploaded_file');
 }
 
 function getActiveRawText() {
@@ -2342,6 +2362,16 @@ async function handleGenerateAction() {
 
     const promptText = userPromptDirective.value.trim();
     const mode = learningModeSelect.value;
+    const wordCount = text.split(/\s+/).length;
+
+    // Google Analytics 4 Event: Track Synthesis
+    trackEvent('generate_content', {
+        mode: mode,
+        has_file: !!uploadedFileContent,
+        word_count: wordCount,
+        has_custom_prompt: promptText.length > 0,
+        ai_engine: storedApiKey.trim().length > 10 ? 'gemini_live' : 'builtin_nlp'
+    });
 
     // Check if Gemini API key is configured
     if (storedApiKey.trim().length > 10) {
@@ -2364,6 +2394,7 @@ async function handleGenerateAction() {
         } catch (err) {
             console.warn("Gemini API call failed, falling back to local engine:", err);
             showError("Gemini live call timed out or had invalid credentials. Running local cognitive engine instead.");
+            trackEvent('gemini_api_error', { error_message: err.message });
         }
     }
 
@@ -2498,12 +2529,9 @@ function synthesizeLocalHighGradeContent(rawText, promptFilter, mode) {
             const keywords = extractKeyPhrases(sentence);
             let keyConcept = keywords[0] ? keywords[0].toUpperCase() : "THE CENTRAL CONFLICT";
 
-            // Extract the core grammatical assertion
             const clauses = sentence.split(/,|—|;/).map(c => c.trim()).filter(c => c.length > 15);
             const coreInsight = clauses[0] || sentence;
-            const contextInsight = clauses[1] || clauses[0];
 
-            // Generate contextually plausible distractors using other entities in the passage
             const otherSentences = sentences.filter((_, idx) => idx !== q);
             const distractorEntity1 = extractKeyPhrases(otherSentences[0] || "")[0] || "external guidance";
             const distractorEntity2 = extractKeyPhrases(otherSentences[1] || "")[0] || "unrelated historical precedent";
@@ -2631,6 +2659,18 @@ function extractBulletItem(sentence) {
 }
 
 /* ======================================================
+   CARD FLIP ANALYTICS HANDLER
+====================================================== */
+function handleCardFlip(el) {
+    el.classList.toggle('is-flipped');
+    const isFlipped = el.classList.contains('is-flipped');
+    trackEvent('flashcard_flip', {
+        card_index: currentIndex + 1,
+        side_revealed: isFlipped ? 'answer_back' : 'question_front'
+    });
+}
+
+/* ======================================================
    RENDER CONTROLLER (NO-OVERLAP & FIXED BOUNDS)
 ====================================================== */
 function renderCurrentItem() {
@@ -2670,7 +2710,7 @@ function renderCurrentItem() {
         const scene = document.createElement("div");
         scene.className = "flashcard-scene";
         scene.innerHTML = `
-            <div class="flashcard-object" id="activeCardObject" onclick="this.classList.toggle('is-flipped')">
+            <div class="flashcard-object" id="activeCardObject" onclick="handleCardFlip(this)">
                 <div class="flashcard-face flashcard-front">
                     <span class="slide-tag">CARD ${currentIndex + 1} OF ${activeDataset.length} • ${item.term}</span>
                     <div class="flashcard-core-text">${item.frontPrompt}</div>
@@ -2700,7 +2740,7 @@ function renderCurrentItem() {
                 if (opt === item.answer) stateClass = "correct";
                 else if (opt === userQuizAnswers[currentIndex]) stateClass = "wrong";
             }
-            optionsHtml += `<button type="button" class="quiz-opt-btn ${stateClass}" ${hasAnswered ? "disabled" : ""} onclick="handleQuizSelection(this, '${opt}')">${opt}</button>`;
+            optionsHtml += `<button type="button" class="quiz-opt-btn ${stateClass}" ${hasAnswered ? "disabled" : ""} onclick="handleQuizSelection(this, '${opt.replace(/'/g, "\\'")}')">${opt}</button>`;
         });
 
         quizCard.innerHTML = `
@@ -2734,6 +2774,15 @@ function renderCurrentItem() {
 
 function handleQuizSelection(btn, chosenOption) {
     userQuizAnswers[currentIndex] = chosenOption;
+    const item = activeDataset[currentIndex];
+    const isCorrect = chosenOption === item.answer;
+
+    // GA4 Tracking for individual answer
+    trackEvent('quiz_answer_select', {
+        question_number: currentIndex + 1,
+        is_correct: isCorrect
+    });
+
     renderCurrentItem();
 }
 
@@ -2751,6 +2800,13 @@ function showQuizSummaryDashboard() {
     });
 
     const scorePct = Math.round((correctCount / activeDataset.length) * 100);
+
+    // GA4 Tracking for quiz completion
+    trackEvent('quiz_completed', {
+        score_percentage: scorePct,
+        correct_count: correctCount,
+        total_questions: activeDataset.length
+    });
 
     const summaryCard = document.createElement("div");
     summaryCard.className = "quiz-results-card";
@@ -2771,9 +2827,8 @@ function showQuizSummaryDashboard() {
                 const isCorrect = userChoice === item.answer;
                 return `
                     <div class="review-item ${isCorrect ? 'is-correct' : 'is-incorrect'}">
-                        <div class="review-q-title">Q${idx + 1}: ${item.question}</div>
-                        <div style="margin: 4px 0;"><strong>Your Choice:</strong> ${userChoice}</div>
-                        ${!isCorrect ? `<div style="color:var(--gold); font-weight:600;">Correct Answer: ${item.answer}</div>` : ''}
+                        <div class="review-q-title">Q${idx + 1}:${item.question}</div>
+                        <div style="margin: 4px 0;"><strong>Your Choice:</strong> ${userChoice}</div>${!isCorrect ? `<div style="color:var(--gold); font-weight:600;">Correct Answer: ${item.answer}</div>` : ''}
                         <div style="font-size:0.85rem; color:var(--text-muted); margin-top:4px;">${item.explanation || ''}</div>
                     </div>
                 `;
@@ -2785,6 +2840,7 @@ function showQuizSummaryDashboard() {
 }
 
 function retryQuiz() {
+    trackEvent('quiz_retry', { total_questions: activeDataset.length });
     userQuizAnswers = {};
     currentIndex = 0;
     bottomNavControls.style.display = "flex";
@@ -2798,6 +2854,7 @@ function returnToQuestions() {
     bottomNavControls.style.display = "flex";
     currentIndex = 0;
     renderCurrentItem();
+    trackEvent('quiz_review_questions');
 }
 
 /* ======================================================
@@ -2808,6 +2865,7 @@ function startQuizTimer(durationInSeconds) {
     timerSeconds = durationInSeconds;
     timerDisplay.style.display = "flex";
     updateTimerClockDisplay();
+    trackEvent('quiz_timer_start', { duration_seconds: durationInSeconds });
 
     quizTimerInterval = setInterval(() => {
         timerSeconds--;
@@ -2815,6 +2873,7 @@ function startQuizTimer(durationInSeconds) {
 
         if (timerSeconds <= 0) {
             stopQuizTimer();
+            trackEvent('quiz_timer_expired');
             alert("Time is up! Let's review your final quiz score.");
             showQuizSummaryDashboard();
         }
@@ -2846,6 +2905,7 @@ function renderPageJumpDots() {
         li.textContent = idx + 1;
         li.setAttribute("aria-label", `Jump to item ${idx + 1}`);
         li.addEventListener("click", () => {
+            trackEvent('jump_to_step', { target_index: idx + 1, mode: learningModeSelect.value });
             currentIndex = idx;
             renderCurrentItem();
         });
@@ -2856,6 +2916,11 @@ function renderPageJumpDots() {
 function navigateStep(direction) {
     const newIdx = currentIndex + direction;
     if (newIdx >= 0 && newIdx < activeDataset.length) {
+        trackEvent('navigate_step', {
+            direction: direction > 0 ? 'next' : 'previous',
+            new_index: newIdx + 1,
+            mode: learningModeSelect.value
+        });
         currentIndex = newIdx;
         renderCurrentItem();
     }
@@ -2864,6 +2929,8 @@ function navigateStep(direction) {
 function handleModeChange() {
     const mode = learningModeSelect.value;
     quizSettingsPanel.style.display = mode === "quiz" ? "flex" : "none";
+
+    trackEvent('change_learning_mode', { selected_mode: mode });
 
     if (getActiveRawText().length >= 50) {
         handleGenerateAction();
@@ -2886,6 +2953,7 @@ function clearStudio() {
     exportMenuBtn.disabled = true;
     exportMenu.classList.remove("show");
     clearError();
+    trackEvent('clear_studio');
 }
 
 /* ======================================================
@@ -2895,6 +2963,9 @@ function toggleExportMenu(e) {
     e.stopPropagation();
     const isShowing = exportMenu.classList.toggle("show");
     exportMenuBtn.setAttribute("aria-expanded", isShowing);
+    if (isShowing) {
+        trackEvent('open_export_menu', { mode: learningModeSelect.value });
+    }
 }
 
 document.addEventListener("click", (e) => {
@@ -2921,6 +2992,12 @@ function exportAs(format) {
     let mimeType = "text/plain";
     let filename = `cogniflow-${mode}.${format}`;
 
+    trackEvent('export_file', {
+        format: format,
+        mode: mode,
+        item_count: activeDataset.length
+    });
+
     if (format === "txt") {
         content = `COGNIFLOW COMPREHENSIVE EXPORT\nMode: ${mode.toUpperCase()}\n\n`;
         activeDataset.forEach((item, i) => {
@@ -2940,7 +3017,7 @@ function exportAs(format) {
             if (item.title) {
                 content += `### ${item.title}\n\n${item.lead}\n\n`;
                 item.bullets.forEach(d => content += `- ${d.replace(/<strong>(.*?)<\/strong>/g, '**$1**')}\n`);
-                content += `\n---\n\n`;
+                content += `\n*${item.diagramCaption}*\n\n---\n\n`;
             }
             if (item.frontPrompt) content += `> **${item.frontPrompt}**\n\n${item.backAnswer}\n\n---\n\n`;
             if (item.question) content += `**${item.question}**\n\n*Answer:* **${item.answer}**\n\n*Context:* ${item.explanation || ''}\n\n---\n\n`;
@@ -2968,8 +3045,7 @@ h1 { color: #52202C; }
 <hr>
 ${activeDataset.map((item, i) => `
     <div class="card">
-        <span class="badge">Section ${i + 1}</span>
-        ${item.title ? `<h2>${item.title}</h2><p>${item.lead}</p>` : ''}
+        <span class="badge">Section ${i + 1}</span>${item.title ? `<h2>${item.title}</h2><p>${item.lead}</p>` : ''}
         ${item.frontPrompt ? `<h3>${item.frontPrompt}</h3><p><strong>Answer:</strong> ${item.backAnswer}</p>` : ''}
         ${item.question ? `<h3>${item.question}</h3><p><strong>Answer:</strong> ${item.answer}</p><p><em>${item.explanation || ''}</em></p>` : ''}
     </div>
@@ -2988,8 +3064,46 @@ ${activeDataset.map((item, i) => `
 
 function printStudioContent() {
     exportMenu.classList.remove("show");
+    trackEvent('export_file', { format: 'print_pdf', mode: learningModeSelect.value });
     window.print();
 }
+
+/* ======================================================
+   ADDITIONAL DOM TRACKING (INITIALIZATION)
+====================================================== */
+window.addEventListener("DOMContentLoaded", () => {
+    // Track Timed Quiz Toggle
+    if (timedQuizToggle) {
+        timedQuizToggle.addEventListener("change", (e) => {
+            trackEvent('toggle_timed_quiz', { enabled: e.target.checked });
+        });
+    }
+
+    // Track Question Count Dropdown
+    if (questionCountSelect) {
+        questionCountSelect.addEventListener("change", (e) => {
+            trackEvent('select_question_count', { count: e.target.value });
+        });
+    }
+
+    // Track CTA Buttons and Navigation Links
+    document.querySelectorAll(".nav-links a, .hero .buttons a").forEach(link => {
+        link.addEventListener("click", () => {
+            trackEvent('cta_click', {
+                link_text: link.textContent.trim(),
+                link_href: link.getAttribute("href")
+            });
+        });
+    });
+
+    // Track Skip Link
+    const skipLink = document.querySelector(".skip-link");
+    if (skipLink) {
+        skipLink.addEventListener("click", () => {
+            trackEvent('skip_link_click');
+        });
+    }
+});
 </script>
 
 </body>
