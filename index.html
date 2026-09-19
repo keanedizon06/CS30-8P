@@ -269,7 +269,6 @@ section {
     color: #FFFFFF !important;
 }
 
-/* High-contrast fix for "What happens before mastery?" text */
 .idea-box p {
     color: #E2ECE4 !important;
     font-size: 1.05rem;
@@ -330,7 +329,7 @@ section {
     font-size: 0.92rem;
 }
 
-/* STATEMENTS SECTION (CLEAN IVORY CONTAINER) */
+/* STATEMENTS SECTION */
 .statement {
     text-align: center;
     padding: 70px 32px;
@@ -422,12 +421,25 @@ section {
     display: flex;
     align-items: center;
     gap: 10px;
+    flex-wrap: wrap;
 }
 
 .scenario-select-wrap label {
     font-size: 0.88rem;
     font-weight: 800;
     color: var(--green-primary);
+}
+
+.category-pill {
+    background: var(--green-light);
+    border: 1px solid var(--green-border);
+    color: var(--green-primary);
+    font-size: 0.72rem;
+    font-weight: 800;
+    padding: 3px 10px;
+    border-radius: 999px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
 }
 
 .studio-select {
@@ -444,6 +456,18 @@ section {
 
 .studio-select:focus {
     outline: none;
+    border-color: var(--green-primary);
+}
+
+.random-btn {
+    background: var(--green-light);
+    color: var(--green-primary);
+    border: 1.5px solid var(--green-border);
+    font-weight: 800;
+}
+
+.random-btn:hover {
+    background: #D3E6D7;
     border-color: var(--green-primary);
 }
 
@@ -913,7 +937,7 @@ section {
     color: var(--gold);
 }
 
-/* FOOTER (CLEANED) */
+/* FOOTER */
 footer {
     text-align: center;
     padding: 40px 20px;
@@ -1208,10 +1232,35 @@ footer {
                     <div class="scenario-select-wrap">
                         <label for="scenarioSelect">Test Scenario:</label>
                         <select id="scenarioSelect" class="studio-select" onchange="handleScenarioChange()">
-                            <option value="flight">Flight Itinerary (Find Departure Gate)</option>
-                            <option value="recipe">Artisanal Sourdough (Find Oven Temp)</option>
-                            <option value="exam">Campus Exam Hall (Find Room Number)</option>
+                            <optgroup label="Travel & Transit">
+                                <option value="flight">Flight Itinerary (Find Departure Gate)</option>
+                            </optgroup>
+                            <optgroup label="Everyday & Home">
+                                <option value="recipe">Artisanal Sourdough (Find Oven Temp)</option>
+                            </optgroup>
+                            <optgroup label="Academics & Campus">
+                                <option value="exam">Campus Exam Hall (Find Room Number)</option>
+                            </optgroup>
+                            <optgroup label="Shopping & Logistics">
+                                <option value="parcel">Parcel Delivery Locker (Find Access Code)</option>
+                            </optgroup>
+                            <optgroup label="Healthcare & Wellness">
+                                <option value="prescription">Prescription Label (Find Daily Dosage)</option>
+                            </optgroup>
+                            <optgroup label="Work & Productivity">
+                                <option value="meeting">Virtual Meeting Invite (Find Passcode)</option>
+                            </optgroup>
+                            <optgroup label="Events & Entertainment">
+                                <option value="concert">Music Festival Schedule (Find Stage)</option>
+                            </optgroup>
+                            <optgroup label="Banking & Security">
+                                <option value="banking">Wire Transfer Receipt (Find Auth Code)</option>
+                            </optgroup>
                         </select>
+                        <span class="category-pill" id="scenarioCategoryBadge">TRAVEL</span>
+                        <button type="button" class="tool-btn random-btn" onclick="selectRandomScenario()" title="Pick a random surprise scenario">
+                            🎲 Surprise Me
+                        </button>
                     </div>
 
                     <div class="timer-pill" id="liveTimerWrap" style="display:none;">
@@ -1345,7 +1394,7 @@ footer {
         </div>
     </section>
 
-    <!-- WHY IT MATTERS SECTION (RESTORED BEAUTIFUL CARD GRID) -->
+    <!-- WHY IT MATTERS SECTION (HIGH-CONTRAST CARD GRID) -->
     <section id="future">
         <div class="container">
             <div class="future-header">
@@ -1356,7 +1405,6 @@ footer {
                 </p>
             </div>
 
-            <!-- Restored Multi-Column Card Grid -->
             <div class="matters-grid">
                 <article class="matter-card">
                     <div class="matter-icon" aria-hidden="true">🧠</div>
@@ -1391,7 +1439,6 @@ footer {
                 </article>
             </div>
 
-            <!-- Inverted High-Impact Takeaway Banner -->
             <div class="research-banner">
                 <div class="banner-badge">FIELD INSIGHT</div>
                 <p>
@@ -1403,7 +1450,7 @@ footer {
 
 </main>
 
-<!-- CLEANED FOOTER -->
+<!-- CLEAN FOOTER -->
 <footer>
     <div class="container">
         <p>Created by Keane Zachary S. Dizon</p>
@@ -1415,11 +1462,12 @@ footer {
    10-SECOND COGNITIVE CHALLENGE ENGINE (VANILLA JS + GA4)
 ====================================================== */
 
-// Scenarios dataset
+// Comprehensive 8-Scenario Library across multiple domains
 const SCENARIOS = {
     flight: {
         id: "flight",
         name: "Flight Itinerary",
+        category: "TRAVEL",
         targetText: "Gate B14",
         prompt: "Find and click the Departure Gate: Gate B14",
         prose: [
@@ -1443,6 +1491,7 @@ const SCENARIOS = {
     recipe: {
         id: "recipe",
         name: "Artisanal Sourdough Recipe",
+        category: "CULINARY",
         targetText: "450°F",
         prompt: "Find and click the Oven Baking Temperature: 450°F",
         prose: [
@@ -1466,6 +1515,7 @@ const SCENARIOS = {
     exam: {
         id: "exam",
         name: "Campus Exam Hall Schedule",
+        category: "ACADEMICS",
         targetText: "Room 402",
         prompt: "Find and click the Assigned Exam Hall: Room 402",
         prose: [
@@ -1485,6 +1535,121 @@ const SCENARIOS = {
             { icon: "🆔", label: "Required Item", val: "University ID", isTarget: false },
             { icon: "🧮", label: "Permitted Tool", val: "Non-Prog Calculator", isTarget: false }
         ]
+    },
+    parcel: {
+        id: "parcel",
+        name: "Parcel Delivery Locker",
+        category: "LOGISTICS",
+        targetText: "Code 8934",
+        prompt: "Find and click the Parcel Locker Code: Code 8934",
+        prose: [
+            "Your express parcel fulfillment notice has been confirmed by Metro Express Logistics depot hub 12 for parcel tracking ID 492041924. ",
+            "If you have requested contactless courier drop-off, please note that delivery drivers cannot access gated residential vestibules without prior security verification on file. ",
+            "Your shipment has been deposited safely into automated outdoor Parcel Locker Bay 6 and can be retrieved using access ",
+            { word: "Code 8934", isTarget: true },
+            " before the 72-hour collection expiration window closes on Sunday midnight. ",
+            "For return shipping labels, damaged merchandise reports, or redirection to an alternate pickup station, please contact our dispatch hotline."
+        ],
+        visualCards: [
+            { icon: "📦", label: "Carrier Hub", val: "Metro Express", isTarget: false },
+            { icon: "🔢", label: "Tracking Number", val: "#492041924", isTarget: false },
+            { icon: "🔑", label: "Locker Access", val: "Code 8934", isTarget: true },
+            { icon: "📍", label: "Locker Location", val: "Locker Bay 6", isTarget: false },
+            { icon: "⏳", label: "Pickup Window", val: "72 Hours Max", isTarget: false },
+            { icon: "🚚", label: "Delivery Type", val: "Contactless Drop", isTarget: false }
+        ]
+    },
+    prescription: {
+        id: "prescription",
+        name: "Prescription Label",
+        category: "HEALTHCARE",
+        targetText: "Take 2 Tablets Daily",
+        prompt: "Find and click the Dosage Instruction: Take 2 Tablets Daily",
+        prose: [
+            "Rx Pharmacy Dispensation Advisory for patient reference number 30948 regarding Amoxicillin Clavulanate oral suspension caplets. ",
+            "Maintain refrigerated storage away from direct sunlight and avoid operating motorized equipment if unexpected drowsiness manifests following administration. ",
+            "Patient directions specify to ",
+            { word: "Take 2 Tablets Daily", isTarget: true },
+            " with morning and evening meals for ten consecutive calendar days until the antibiotic bottle is fully exhausted. ",
+            "Consult your primary prescribing clinician immediately if skin rash, adverse allergic responses, or persistent nausea arise during your treatment cycle."
+        ],
+        visualCards: [
+            { icon: "💊", label: "Medication", val: "Amoxicillin", isTarget: false },
+            { icon: "📋", label: "Prescription", val: "Rx #30948", isTarget: false },
+            { icon: "⏰", label: "Dosage Regimen", val: "Take 2 Tablets Daily", isTarget: true },
+            { icon: "❄️", label: "Storage", val: "Refrigerate Cool", isTarget: false },
+            { icon: "📅", label: "Treatment Period", val: "10 Full Days", isTarget: false },
+            { icon: "⚠️", label: "Caution Note", val: "Avoid Heavy Driving", isTarget: false }
+        ]
+    },
+    meeting: {
+        id: "meeting",
+        name: "Virtual Meeting Invite",
+        category: "PRODUCTIVITY",
+        targetText: "Passcode 9041",
+        prompt: "Find and click the Video Meeting Passcode: Passcode 9041",
+        prose: [
+            "You have been invited to the quarterly cross-functional sprint planning conference scheduled for Tuesday morning at 9:00 AM PST hosted on workspace room alpha. ",
+            "Please review the attached strategic roadmap and prepare three operational updates concerning your team sprint deliverables before joining the voice channel. ",
+            "Dial-in attendees using international teleconference lines should input bridge ID 892-114 followed by the pound key, and web browser participants must enter ",
+            { word: "Passcode 9041", isTarget: true },
+            " upon admission to bypass the virtual lobby waiting room. ",
+            "A full audio recording and automated transcript will be archived to the team drive following meeting adjournment."
+        ],
+        visualCards: [
+            { icon: "📅", label: "Date & Time", val: "Tuesday, 9:00 AM", isTarget: false },
+            { icon: "🎙️", label: "Session Topic", val: "Sprint Planning", isTarget: false },
+            { icon: "🔒", label: "Room Security", val: "Passcode 9041", isTarget: true },
+            { icon: "💻", label: "Virtual Room", val: "Workspace Alpha", isTarget: false },
+            { icon: "📞", label: "Dial-in Bridge", val: "ID 892-114", isTarget: false },
+            { icon: "💾", label: "Meeting Archive", val: "Cloud Recording", isTarget: false }
+        ]
+    },
+    concert: {
+        id: "concert",
+        name: "Music Festival Schedule",
+        category: "EVENTS",
+        targetText: "Meadow Stage",
+        prompt: "Find and click the Headliner Stage: Meadow Stage",
+        prose: [
+            "Welcome to Solstice Music & Arts Festival visitor bulletin for all attendees holding Tier 1 general admission credentials. ",
+            "Shuttle bus departures commence every twenty minutes from the north transit parking hub and outside beverage containers will be confiscated at the security perimeter. ",
+            "The headlining audio-visual performance will take place promptly at 9:30 PM on the ",
+            { word: "Meadow Stage", isTarget: true },
+            " directly adjacent to the western art pavilion installations. ",
+            "Portable charging lockers and designated hydration stations are marked throughout zone blue on your mobile festival map."
+        ],
+        visualCards: [
+            { icon: "🎸", label: "Headliner", val: "Indie Rock Ensemble", isTarget: false },
+            { icon: "🎪", label: "Festival Stage", val: "Meadow Stage", isTarget: true },
+            { icon: "🕒", label: "Performance Time", val: "9:30 PM - 11:00 PM", isTarget: false },
+            { icon: "🎟️", label: "Pass Tier", val: "General Admission", isTarget: false },
+            { icon: "🚌", label: "Transit Shuttle", val: "North Hub (20m)", isTarget: false },
+            { icon: "💧", label: "Free Amenity", val: "Hydration Station", isTarget: false }
+        ]
+    },
+    banking: {
+        id: "banking",
+        name: "Wire Transfer Receipt",
+        category: "FINANCE",
+        targetText: "Auth #7719",
+        prompt: "Find and click the Digital Authorization Code: Auth #7719",
+        prose: [
+            "Official electronic funds transfer confirmation receipt generated by Union Capital Banking systems for transaction sequence reference 09284192. ",
+            "Please retain this electronic notification for your accounting and fiscal audit records as outgoing international transfers cannot be reversed once clearinghouse settlement completes. ",
+            "Your international supplier payment remittance of four thousand two hundred fifty dollars was verified under digital security ",
+            { word: "Auth #7719", isTarget: true },
+            " and will credit the beneficiary institution account within one to two business days. ",
+            "If you did not authorize this remittance, lock your online banking access immediately via emergency telephone support."
+        ],
+        visualCards: [
+            { icon: "🏦", label: "Financial Bank", val: "Union Capital", isTarget: false },
+            { icon: "💵", label: "Transfer Sum", val: "$4,250.00 USD", isTarget: false },
+            { icon: "🔐", label: "Authorization", val: "Auth #7719", isTarget: true },
+            { icon: "📄", label: "Transaction Ref", val: "Ref #09284192", isTarget: false },
+            { icon: "⏱️", label: "Clearance Window", val: "1-2 Business Days", isTarget: false },
+            { icon: "🛡️", label: "Security Status", val: "Verified & Locked", isTarget: false }
+        ]
     }
 };
 
@@ -1499,6 +1664,7 @@ let round2Duration = 0;
 const challengeWidget = document.getElementById("challengeWidget");
 const fullscreenToggleBtn = document.getElementById("fullscreenToggleBtn");
 const scenarioSelect = document.getElementById("scenarioSelect");
+const scenarioCategoryBadge = document.getElementById("scenarioCategoryBadge");
 const liveTimerWrap = document.getElementById("liveTimerWrap");
 const liveTimerDisplay = document.getElementById("liveTimerDisplay");
 
@@ -1551,7 +1717,32 @@ function stopLiveTimer() {
 function handleScenarioChange() {
     const chosenKey = scenarioSelect.value;
     currentScenario = SCENARIOS[chosenKey];
-    trackEvent('challenge_scenario_select', { scenario_id: chosenKey, scenario_name: currentScenario.name });
+    scenarioCategoryBadge.textContent = currentScenario.category;
+
+    trackEvent('challenge_scenario_select', {
+        scenario_id: chosenKey,
+        scenario_name: currentScenario.name,
+        category: currentScenario.category
+    });
+
+    resetChallenge();
+}
+
+function selectRandomScenario() {
+    const keys = Object.keys(SCENARIOS);
+    const availableKeys = keys.filter(k => k !== currentScenario.id);
+    const randomKey = availableKeys[Math.floor(Math.random() * availableKeys.length)];
+
+    scenarioSelect.value = randomKey;
+    currentScenario = SCENARIOS[randomKey];
+    scenarioCategoryBadge.textContent = currentScenario.category;
+
+    trackEvent('challenge_random_scenario', {
+        scenario_id: randomKey,
+        scenario_name: currentScenario.name,
+        category: currentScenario.category
+    });
+
     resetChallenge();
 }
 
@@ -1757,4 +1948,4 @@ window.addEventListener("DOMContentLoaded", () => {
 </script>
 
 </body>
-</html> 
+</html>
