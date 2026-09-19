@@ -417,17 +417,24 @@ section {
     gap: 14px;
 }
 
-.scenario-select-wrap {
+.scenario-header-wrap {
     display: flex;
     align-items: center;
     gap: 10px;
     flex-wrap: wrap;
 }
 
-.scenario-select-wrap label {
-    font-size: 0.88rem;
+.scenario-label-pill {
+    background: var(--surface-white);
+    border: 1.5px solid var(--border);
+    padding: 6px 14px;
+    border-radius: 999px;
+    font-size: 0.9rem;
     font-weight: 800;
-    color: var(--green-primary);
+    color: var(--text-primary);
+    display: flex;
+    align-items: center;
+    gap: 8px;
 }
 
 .category-pill {
@@ -440,35 +447,6 @@ section {
     border-radius: 999px;
     text-transform: uppercase;
     letter-spacing: 0.5px;
-}
-
-.studio-select {
-    padding: 8px 14px;
-    border-radius: 8px;
-    border: 1.5px solid var(--border-highlight);
-    background: var(--surface-white);
-    color: var(--text-primary);
-    font-size: 0.9rem;
-    font-weight: 700;
-    font-family: inherit;
-    cursor: pointer;
-}
-
-.studio-select:focus {
-    outline: none;
-    border-color: var(--green-primary);
-}
-
-.random-btn {
-    background: var(--green-light);
-    color: var(--green-primary);
-    border: 1.5px solid var(--green-border);
-    font-weight: 800;
-}
-
-.random-btn:hover {
-    background: #D3E6D7;
-    border-color: var(--green-primary);
 }
 
 .timer-pill {
@@ -520,6 +498,18 @@ section {
 .tool-btn:hover {
     background: var(--green-light);
     color: var(--green-primary);
+    border-color: var(--green-primary);
+}
+
+.shuffle-btn {
+    background: var(--green-light);
+    color: var(--green-primary);
+    border: 1.5px solid var(--green-border);
+    font-weight: 800;
+}
+
+.shuffle-btn:hover {
+    background: #D3E6D7;
     border-color: var(--green-primary);
 }
 
@@ -851,7 +841,7 @@ section {
 }
 
 /* ======================================================
-   WHY IT MATTERS SECTION (HIGH-CONTRAST CARD GRID FIX)
+   WHY IT MATTERS SECTION (HIGH-CONTRAST CARD GRID)
 ====================================================== */
 .future-header {
     max-width: 820px;
@@ -1227,39 +1217,16 @@ footer {
 
             <div class="challenge-widget" id="challengeWidget">
                 
-                <!-- Widget Header Toolbar -->
+                <!-- Widget Header Toolbar (Automatic Shuffler) -->
                 <div class="challenge-top-bar">
-                    <div class="scenario-select-wrap">
-                        <label for="scenarioSelect">Test Scenario:</label>
-                        <select id="scenarioSelect" class="studio-select" onchange="handleScenarioChange()">
-                            <optgroup label="Travel & Transit">
-                                <option value="flight">Flight Itinerary (Find Departure Gate)</option>
-                            </optgroup>
-                            <optgroup label="Everyday & Home">
-                                <option value="recipe">Artisanal Sourdough (Find Oven Temp)</option>
-                            </optgroup>
-                            <optgroup label="Academics & Campus">
-                                <option value="exam">Campus Exam Hall (Find Room Number)</option>
-                            </optgroup>
-                            <optgroup label="Shopping & Logistics">
-                                <option value="parcel">Parcel Delivery Locker (Find Access Code)</option>
-                            </optgroup>
-                            <optgroup label="Healthcare & Wellness">
-                                <option value="prescription">Prescription Label (Find Daily Dosage)</option>
-                            </optgroup>
-                            <optgroup label="Work & Productivity">
-                                <option value="meeting">Virtual Meeting Invite (Find Passcode)</option>
-                            </optgroup>
-                            <optgroup label="Events & Entertainment">
-                                <option value="concert">Music Festival Schedule (Find Stage)</option>
-                            </optgroup>
-                            <optgroup label="Banking & Security">
-                                <option value="banking">Wire Transfer Receipt (Find Auth Code)</option>
-                            </optgroup>
-                        </select>
+                    <div class="scenario-header-wrap">
+                        <div class="scenario-label-pill">
+                            <span>Mission:</span>
+                            <span id="scenarioNameDisplay">Flight Itinerary</span>
+                        </div>
                         <span class="category-pill" id="scenarioCategoryBadge">TRAVEL</span>
-                        <button type="button" class="tool-btn random-btn" onclick="selectRandomScenario()" title="Pick a random surprise scenario">
-                            🎲 Surprise Me
+                        <button type="button" class="tool-btn shuffle-btn" onclick="shuffleToNextScenario(true)" title="Shuffle to a different random scenario">
+                            🔀 Shuffle
                         </button>
                     </div>
 
@@ -1284,8 +1251,8 @@ footer {
                     <!-- STAGE 1: INTRO STATE -->
                     <div class="stage-intro" id="stageIntro">
                         <span class="intro-badge">Human Processing Benchmark</span>
-                        <h3>How Fast Can You Spot Critical Information?</h3>
-                        <p>You'll perform the exact same retrieval task twice: first through a dense wall of text, then through a clean visual dashboard. A live stopwatch will measure your cognitive retrieval speed.</p>
+                        <h3 id="introHeadline">How Fast Can You Spot Critical Information?</h3>
+                        <p id="introSubtext">You'll perform the exact same retrieval task twice: first through a dense wall of text, then through a clean visual dashboard. A live stopwatch will measure your cognitive retrieval speed.</p>
                         
                         <div class="instruction-steps">
                             <div class="instruction-card">
@@ -1383,7 +1350,7 @@ footer {
                         </div>
 
                         <div style="display:flex; gap:12px; flex-wrap:wrap; justify-content:center; margin-top:8px;">
-                            <button type="button" class="btn primary" onclick="resetChallenge()">Try Another Scenario ↺</button>
+                            <button type="button" class="btn primary" onclick="shuffleToNextScenario(false)">Next Shuffled Scenario ➔</button>
                             <button type="button" class="btn secondary" onclick="retryCurrentScenario()">Retry This Scenario</button>
                         </div>
                     </div>
@@ -1462,7 +1429,7 @@ footer {
    10-SECOND COGNITIVE CHALLENGE ENGINE (VANILLA JS + GA4)
 ====================================================== */
 
-// Comprehensive 8-Scenario Library across multiple domains
+// Comprehensive 8-Scenario Library across multiple everyday domains
 const SCENARIOS = {
     flight: {
         id: "flight",
@@ -1561,7 +1528,7 @@ const SCENARIOS = {
     },
     prescription: {
         id: "prescription",
-        name: "Prescription Label",
+        name: "Prescription Medication Label",
         category: "HEALTHCARE",
         targetText: "Take 2 Tablets Daily",
         prompt: "Find and click the Dosage Instruction: Take 2 Tablets Daily",
@@ -1653,8 +1620,43 @@ const SCENARIOS = {
     }
 };
 
+// Automatic Shuffling Queue
+let scenarioQueue = [];
+let currentScenario = null;
+
+function getNextShuffledScenario() {
+    if (scenarioQueue.length === 0) {
+        // Refill and shuffle using Fisher-Yates
+        scenarioQueue = Object.keys(SCENARIOS).sort(() => 0.5 - Math.random());
+        // Avoid immediate repeat if more than 1 scenario exists
+        if (currentScenario && scenarioQueue[0] === currentScenario.id && scenarioQueue.length > 1) {
+            scenarioQueue.push(scenarioQueue.shift());
+        }
+    }
+    const nextKey = scenarioQueue.shift();
+    return SCENARIOS[nextKey];
+}
+
+function updateScenarioHeader() {
+    if (!currentScenario) return;
+    document.getElementById("scenarioNameDisplay").textContent = currentScenario.name;
+    document.getElementById("scenarioCategoryBadge").textContent = currentScenario.category;
+}
+
+function shuffleToNextScenario(userTriggered = false) {
+    currentScenario = getNextShuffledScenario();
+    updateScenarioHeader();
+    resetChallenge();
+
+    trackEvent('challenge_auto_shuffle', {
+        scenario_id: currentScenario.id,
+        scenario_name: currentScenario.name,
+        category: currentScenario.category,
+        user_triggered: userTriggered
+    });
+}
+
 // Application State
-let currentScenario = SCENARIOS.flight;
 let timerStartTime = 0;
 let timerInterval = null;
 let round1Duration = 0;
@@ -1663,8 +1665,6 @@ let round2Duration = 0;
 // DOM Selectors
 const challengeWidget = document.getElementById("challengeWidget");
 const fullscreenToggleBtn = document.getElementById("fullscreenToggleBtn");
-const scenarioSelect = document.getElementById("scenarioSelect");
-const scenarioCategoryBadge = document.getElementById("scenarioCategoryBadge");
 const liveTimerWrap = document.getElementById("liveTimerWrap");
 const liveTimerDisplay = document.getElementById("liveTimerDisplay");
 
@@ -1686,6 +1686,12 @@ const resTimeRound1 = document.getElementById("resTimeRound1");
 const resTimeRound2 = document.getElementById("resTimeRound2");
 const barFillRound1 = document.getElementById("barFillRound1");
 const barFillRound2 = document.getElementById("barFillRound2");
+
+// Initialize on page load with first auto-shuffled scenario
+window.addEventListener("DOMContentLoaded", () => {
+    currentScenario = getNextShuffledScenario();
+    updateScenarioHeader();
+});
 
 /* ======================================================
    TIMER ENGINE
@@ -1714,38 +1720,6 @@ function stopLiveTimer() {
 /* ======================================================
    CHALLENGE STAGE CONTROLLER
 ====================================================== */
-function handleScenarioChange() {
-    const chosenKey = scenarioSelect.value;
-    currentScenario = SCENARIOS[chosenKey];
-    scenarioCategoryBadge.textContent = currentScenario.category;
-
-    trackEvent('challenge_scenario_select', {
-        scenario_id: chosenKey,
-        scenario_name: currentScenario.name,
-        category: currentScenario.category
-    });
-
-    resetChallenge();
-}
-
-function selectRandomScenario() {
-    const keys = Object.keys(SCENARIOS);
-    const availableKeys = keys.filter(k => k !== currentScenario.id);
-    const randomKey = availableKeys[Math.floor(Math.random() * availableKeys.length)];
-
-    scenarioSelect.value = randomKey;
-    currentScenario = SCENARIOS[randomKey];
-    scenarioCategoryBadge.textContent = currentScenario.category;
-
-    trackEvent('challenge_random_scenario', {
-        scenario_id: randomKey,
-        scenario_name: currentScenario.name,
-        category: currentScenario.category
-    });
-
-    resetChallenge();
-}
-
 function resetChallenge() {
     stopLiveTimer();
     stageIntro.style.display = "flex";
