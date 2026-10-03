@@ -4,15 +4,15 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Visual Reviewer: Turn Text to Visual Notes | CogniFlow</title>
-<meta name="description" content="CogniFlow is your smart visual reviewer. Convert dense text to visual notes and presentations in seconds to cut cognitive strain and speed up comprehension.">
+<title>Visual Reviewer: Convert Text to Visual Notes | CogniFlow</title>
+<meta name="description" content="CogniFlow is a smart visual reviewer and text to presentation converter. Turn dense textbooks and readings into structured visual notes in just seconds.">
 
 <!-- Open Graph / Social Media Preview -->
-<meta property="og:title" content="Visual Reviewer: Turn Text to Visual Notes | CogniFlow">
-<meta property="og:description" content="Convert dense text to visual notes and presentations in seconds to cut cognitive strain and speed up comprehension.">
+<meta property="og:title" content="Visual Reviewer: Convert Text to Visual Notes | CogniFlow">
+<meta property="og:description" content="CogniFlow is a smart visual reviewer and text to presentation converter. Turn dense textbooks and readings into structured visual notes in just seconds.">
 <meta property="og:type" content="website">
 
-<!-- PDF.js library for genuine, robust client-side PDF reading -->
+<!-- PDF.js library for asynchronous, high-capacity client-side PDF reading -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
 
 <style>
@@ -30,6 +30,7 @@
     --text-muted: #737373;
     
     --border: #E8E8E5;
+    --border-widget: #c0c0c0;       /* Defined medium-gray contour border */
     --border-strong: #D1D1CD;
     --border-dark: #262626;
     --focus-ring: #050505;
@@ -419,15 +420,15 @@ section {
 }
 
 /* ======================================================
-   VISUAL REVIEWER & CONVERTER STUDIO WIDGET
+   VISUAL REVIEWER STUDIO WIDGET (BORDER COLOR: #C0C0C0)
 ====================================================== */
 .studio-widget {
-    background: #FFFFFF;
-    border: 1px solid var(--border);
+    background: #F8F8F6;
+    border: 1.5px solid var(--border-widget);
     border-radius: 20px;
     padding: 32px;
     margin-top: 24px;
-    box-shadow: var(--shadow-lg);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
     transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
@@ -456,36 +457,44 @@ section {
     gap: 14px;
 }
 
+/* Distinct Drop Area with #c0c0c0 border */
 .drop-area {
-    border: 2px dashed var(--border-strong);
+    border: 2px dashed var(--border-widget);
     border-radius: 14px;
     padding: 24px 16px;
     text-align: center;
-    background: var(--bg-subtle);
+    background: #EAEAE6;
     transition: all 0.2s ease;
     cursor: pointer;
 }
 
 .drop-area:hover,
 .drop-area.dragover {
-    border-color: var(--text-primary);
-    background: var(--bg-muted);
+    border-color: #050505;
+    background: #E0E0DB;
 }
 
 .drop-area-icon {
-    font-size: 2rem;
-    margin-bottom: 6px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 8px;
+}
+
+.drop-area-icon svg {
+    color: #050505;
 }
 
 .drop-area strong {
-    color: var(--text-primary);
+    color: #050505;
     font-size: 0.95rem;
     display: block;
+    font-weight: 700;
 }
 
 .drop-area p {
     font-size: 0.82rem;
-    color: var(--text-muted);
+    color: #5A5A5A;
     margin-top: 4px;
 }
 
@@ -497,12 +506,12 @@ section {
     display: none;
     margin-top: 10px;
     background: #FFFFFF;
-    border: 1px solid var(--border-strong);
+    border: 1.5px solid var(--border-widget);
     border-radius: 8px;
     padding: 6px 12px;
     font-size: 0.82rem;
-    font-weight: 600;
-    color: var(--text-primary);
+    font-weight: 700;
+    color: #050505;
     align-items: center;
     justify-content: space-between;
 }
@@ -512,13 +521,13 @@ section {
     justify-content: space-between;
     font-size: 0.85rem;
     font-weight: 700;
-    color: var(--text-primary);
+    color: #050505;
 }
 
 .char-counter {
-    color: var(--text-muted);
+    color: #5A5A5A;
     font-size: 0.8rem;
-    font-weight: 500;
+    font-weight: 600;
 }
 
 .studio-textarea {
@@ -526,9 +535,9 @@ section {
     height: 150px;
     padding: 14px;
     border-radius: 12px;
-    border: 1px solid var(--border-strong);
-    background: var(--bg-subtle);
-    color: var(--text-primary);
+    border: 1.5px solid var(--border-widget);
+    background: #FFFFFF;
+    color: #050505;
     font-family: inherit;
     font-size: 0.92rem;
     resize: vertical;
@@ -538,14 +547,13 @@ section {
 
 .studio-textarea:focus {
     outline: none;
-    border-color: var(--text-primary);
-    background: #FFFFFF;
+    border-color: #050505;
 }
 
-/* Simplified Chapter / Topic Input */
+/* Distinct Chapter Input Container with #c0c0c0 border */
 .prompt-directive-box {
-    background: var(--bg-subtle);
-    border: 1px solid var(--border);
+    background: #EAEAE6;
+    border: 1.5px solid var(--border-widget);
     border-radius: 12px;
     padding: 12px 14px;
     display: flex;
@@ -556,7 +564,7 @@ section {
 .prompt-directive-box label {
     font-size: 0.82rem;
     font-weight: 700;
-    color: var(--text-primary);
+    color: #050505;
     display: block;
 }
 
@@ -564,16 +572,16 @@ section {
     width: 100%;
     padding: 9px 12px;
     border-radius: 8px;
-    border: 1px solid var(--border-strong);
+    border: 1.5px solid var(--border-widget);
     background: #FFFFFF;
-    color: var(--text-primary);
+    color: #050505;
     font-size: 0.88rem;
     font-family: inherit;
 }
 
 .prompt-input:focus {
     outline: none;
-    border-color: var(--text-primary);
+    border-color: #050505;
 }
 
 .status-box {
@@ -590,9 +598,9 @@ section {
     border: 1px solid #FCA5A5;
 }
 
-/* Right Panel: Output Workspace */
+/* Right Panel: Output Workspace with #c0c0c0 border */
 .studio-output-panel {
-    border: 1px solid var(--border);
+    border: 1.5px solid var(--border-widget);
     border-radius: 16px;
     padding: 24px;
     display: flex;
@@ -607,7 +615,7 @@ section {
     justify-content: space-between;
     align-items: center;
     padding-bottom: 16px;
-    border-bottom: 1px solid var(--border);
+    border-bottom: 1px solid var(--border-widget);
     flex-wrap: wrap;
     gap: 12px;
 }
@@ -629,7 +637,7 @@ section {
 .mode-select {
     padding: 7px 14px;
     border-radius: 8px;
-    border: 1px solid var(--border-strong);
+    border: 1px solid var(--border-widget);
     background: #FFFFFF;
     font-size: 0.88rem;
     font-weight: 600;
@@ -649,7 +657,7 @@ section {
     font-size: 0.85rem;
     font-weight: 600;
     border-radius: 8px;
-    border: 1px solid var(--border);
+    border: 1px solid var(--border-widget);
     background: #FFFFFF;
     color: var(--text-primary);
     cursor: pointer;
@@ -658,7 +666,7 @@ section {
 
 .tool-btn:hover:not(:disabled) {
     background: var(--bg-subtle);
-    border-color: var(--border-strong);
+    border-color: #050505;
 }
 
 /* Dropdown Menu */
@@ -670,7 +678,7 @@ section {
     width: 34px;
     height: 34px;
     border-radius: 8px;
-    border: 1px solid var(--border);
+    border: 1px solid var(--border-widget);
     background: #FFFFFF;
     color: var(--text-primary);
     font-size: 1.15rem;
@@ -693,7 +701,7 @@ section {
     right: 0;
     width: 220px;
     background: #FFFFFF;
-    border: 1px solid var(--border-strong);
+    border: 1px solid var(--border-widget);
     border-radius: 12px;
     padding: 8px;
     box-shadow: var(--shadow-lg);
@@ -737,7 +745,7 @@ section {
 
 .dropdown-divider {
     height: 1px;
-    background: var(--border);
+    background: var(--border-widget);
     margin: 6px 0;
 }
 
@@ -795,11 +803,11 @@ section {
 }
 
 /* ======================================================
-   MODE 1: DUAL-PANE PRESENTATION SLIDE (DIAGRAM ON LEFT, DETAILS ON RIGHT)
+   MODE 1: DUAL-PANE PRESENTATION SLIDE (DIAGRAM ON LEFT, DETAILS RIGHT)
 ====================================================== */
 .true-slide-deck {
     background: #FFFFFF;
-    border: 1px solid var(--border-strong);
+    border: 1px solid var(--border-widget);
     border-radius: 16px;
     width: 100%;
     max-width: 860px;
@@ -811,8 +819,8 @@ section {
 }
 
 .slide-visual-column {
-    background: var(--bg-subtle);
-    border-right: 1px solid var(--border);
+    background: #F7F7F5;
+    border-right: 1px solid var(--border-widget);
     padding: 24px;
     display: flex;
     flex-direction: column;
@@ -913,7 +921,7 @@ section {
     width: 100%;
     max-width: 820px;
     background: #FFFFFF;
-    border: 1px solid var(--border);
+    border: 1px solid var(--border-widget);
     border-radius: 16px;
     padding: 32px;
     max-height: 480px;
@@ -923,7 +931,7 @@ section {
 
 .notes-header-block {
     padding-bottom: 18px;
-    border-bottom: 1px solid var(--border);
+    border-bottom: 1px solid var(--border-widget);
     margin-bottom: 20px;
 }
 
@@ -936,7 +944,7 @@ section {
 
 .notes-item {
     background: var(--bg-subtle);
-    border: 1px solid var(--border);
+    border: 1px solid var(--border-widget);
     border-radius: 12px;
     padding: 18px;
     margin-bottom: 14px;
@@ -961,7 +969,7 @@ section {
     justify-content: space-between;
     align-items: center;
     padding-top: 16px;
-    border-top: 1px solid var(--border);
+    border-top: 1px solid var(--border-widget);
     gap: 16px;
     margin-top: 12px;
     position: relative;
@@ -976,7 +984,7 @@ section {
 .nav-arrow-btn {
     padding: 7px 16px;
     border-radius: 8px;
-    border: 1px solid var(--border-strong);
+    border: 1px solid var(--border-widget);
     background: #FFFFFF;
     color: var(--text-primary);
     font-weight: 600;
@@ -986,6 +994,7 @@ section {
 
 .nav-arrow-btn:hover:not(:disabled) {
     background: var(--bg-subtle);
+    border-color: #050505;
 }
 
 .nav-arrow-btn:disabled {
@@ -998,7 +1007,7 @@ section {
     font-weight: 700;
     color: var(--text-primary);
     background: var(--bg-subtle);
-    border: 1px solid var(--border);
+    border: 1px solid var(--border-widget);
     padding: 4px 14px;
     border-radius: 999px;
     white-space: nowrap;
@@ -1017,7 +1026,7 @@ section {
     width: 28px;
     height: 28px;
     border-radius: 6px;
-    border: 1px solid var(--border);
+    border: 1px solid var(--border-widget);
     background: #FFFFFF;
     color: var(--text-secondary);
     font-size: 0.75rem;
@@ -1153,7 +1162,7 @@ footer {
 
     .slide-visual-column {
         border-right: none;
-        border-bottom: 1px solid var(--border);
+        border-bottom: 1px solid var(--border-widget);
     }
 
     .hero {
@@ -1432,10 +1441,19 @@ footer {
                     
                     <!-- LEFT COLUMN: INPUT, UPLOAD & TARGET PROMPT -->
                     <div class="studio-input-panel">
+                        
+                        <!-- DROP AREA WITH VECTOR ICON AND #C0C0C0 BORDER -->
                         <div class="drop-area" id="dropArea" tabindex="0" role="button" aria-label="Upload document file">
-                            <div class="drop-area-icon">📚</div>
+                            <div class="drop-area-icon">
+                                <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1-2.5-2.5Z"></path>
+                                    <path d="M6 6h10"></path>
+                                    <path d="M6 10h10"></path>
+                                    <path d="M6 14h6"></path>
+                                </svg>
+                            </div>
                             <strong>Upload Textbook, PDF, or Document</strong>
-                            <p>No size cap — asynchronous parser (.pdf, .txt, .md)</p>
+                            <p>No size cap — asynchronous streaming parser (.pdf, .txt, .md)</p>
                             <input type="file" id="fileInput" class="hidden-file-input" accept=".pdf,.txt,.md">
                             <div id="fileStatusPill" class="file-status-pill">
                                 <span id="filePillName">document.pdf</span>
@@ -1450,7 +1468,7 @@ footer {
 
                         <textarea id="lessonText" class="studio-textarea" placeholder="Paste full research articles, lecture transcripts, or textbook chapters..."></textarea>
 
-                        <!-- SIMPLIFIED CHAPTER / TOPIC INPUT -->
+                        <!-- SIMPLIFIED CHAPTER INPUT WITH #C0C0C0 BORDER -->
                         <div class="prompt-directive-box">
                             <label for="userPromptDirective">Focus Chapter or Topic (Optional):</label>
                             <input type="text" id="userPromptDirective" class="prompt-input" placeholder="e.g., Chapter 1, Section 2, Key Concepts...">
