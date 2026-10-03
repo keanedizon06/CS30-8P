@@ -542,6 +542,7 @@ section {
     background: #FFFFFF;
 }
 
+/* Simplified Chapter / Topic Input */
 .prompt-directive-box {
     background: var(--bg-subtle);
     border: 1px solid var(--border);
@@ -556,9 +557,7 @@ section {
     font-size: 0.82rem;
     font-weight: 700;
     color: var(--text-primary);
-    display: flex;
-    align-items: center;
-    gap: 6px;
+    display: block;
 }
 
 .prompt-input {
@@ -1258,7 +1257,7 @@ footer {
 
 <main id="main-content">
 
-    <!-- HERO SECTION (WITH REQUESTED REVISED TITLE & KEYWORDS) -->
+    <!-- HERO SECTION -->
     <section class="container hero" id="story">
         <div>
             <span class="section-label">VISUAL REVIEWER • TEXT TO VISUAL NOTES</span>
@@ -1451,10 +1450,10 @@ footer {
 
                         <textarea id="lessonText" class="studio-textarea" placeholder="Paste full research articles, lecture transcripts, or textbook chapters..."></textarea>
 
-                        <!-- Targeted Prompt Directive -->
+                        <!-- SIMPLIFIED CHAPTER / TOPIC INPUT -->
                         <div class="prompt-directive-box">
-                            <label for="userPromptDirective">🎯 Specific Chapter or Focus Topic (Optional):</label>
-                            <input type="text" id="userPromptDirective" class="prompt-input" placeholder="e.g. Focus on Canto 1, Chapter 3, or Cognitive Load...">
+                            <label for="userPromptDirective">Focus Chapter or Topic (Optional):</label>
+                            <input type="text" id="userPromptDirective" class="prompt-input" placeholder="e.g., Chapter 1, Section 2, Key Concepts...">
                         </div>
 
                         <div id="statusMessage" class="status-box" role="alert"></div>
@@ -1504,7 +1503,7 @@ footer {
                                         <div class="dropdown-divider"></div>
                                         <button type="button" class="dropdown-item" role="menuitem" onclick="printStudioContent()">
                                             <span>Print / Save to PDF</span>
-                                            <span style="font-size:0.85rem;">🖨️️</span>
+                                            <span style="font-size:0.85rem;">🖨</span>
                                         </button>
                                     </div>
                                 </div>
@@ -1693,7 +1692,7 @@ fileInput.addEventListener("change", (e) => {
     if (e.target.files.length > 0) processIncomingFile(e.target.files[0]);
 });
 
-// NON-BLOCKING ASYNC PDF & TEXT INGESTION (HANDLES ANY BOOK SIZE)
+// NON-BLOCKING ASYNC PDF & TEXT INGESTION
 async function processIncomingFile(file) {
     const name = file.name.toLowerCase();
     clearError();
@@ -1714,7 +1713,6 @@ async function processIncomingFile(file) {
             const pdf = await loadingTask.promise;
 
             let extractedPages = [];
-            // Asynchronous batching prevents browser freeze on 500+ page books
             for (let pageNum = 1; pageNum <= pdf.numPages; pageNum++) {
                 const page = await pdf.getPage(pageNum);
                 const textContent = await page.getTextContent();
@@ -1723,7 +1721,7 @@ async function processIncomingFile(file) {
 
                 if (pageNum % 25 === 0) {
                     showLoadingNotification(`Streaming PDF pages... (${pageNum} / ${pdf.numPages})`);
-                    await new Promise(r => setTimeout(r, 0)); // yield thread
+                    await new Promise(r => setTimeout(r, 0));
                 }
             }
 
@@ -1948,7 +1946,6 @@ function generateMonochromeDiagram(conceptLabel, index) {
     const variant = index % 4;
     
     if (variant === 0) {
-        // Sequential Process / Milestone Pipeline
         return `
             <svg viewBox="0 0 280 200" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Sequential flowchart diagram">
                 <rect x="20" y="20" width="240" height="42" rx="8" fill="#FFFFFF" stroke="#050505" stroke-width="1.5" />
@@ -1968,7 +1965,6 @@ function generateMonochromeDiagram(conceptLabel, index) {
             </svg>
         `;
     } else if (variant === 1) {
-        // Central Nexus & Active Loop
         return `
             <svg viewBox="0 0 280 200" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Cognitive loop schematic">
                 <circle cx="140" cy="100" r="68" fill="none" stroke="#D1D1CD" stroke-dasharray="4 4" stroke-width="2" />
@@ -1986,7 +1982,6 @@ function generateMonochromeDiagram(conceptLabel, index) {
             </svg>
         `;
     } else if (variant === 2) {
-        // Analytical 2x2 Matrix
         return `
             <svg viewBox="0 0 280 200" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Analytical matrix diagram">
                 <line x1="140" y1="20" x2="140" y2="180" stroke="#D1D1CD" stroke-width="1.5" />
@@ -2008,7 +2003,6 @@ function generateMonochromeDiagram(conceptLabel, index) {
             </svg>
         `;
     } else {
-        // Hierarchical Breakdown Tree
         return `
             <svg viewBox="0 0 280 200" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Process roadmap diagram">
                 <rect x="25" y="25" width="65" height="150" rx="8" fill="#F7F7F5" stroke="#D1D1CD" stroke-width="1" />
@@ -2093,7 +2087,6 @@ function synthesizeVisualDeck(rawText, promptFilter) {
         return;
     }
 
-    // Adaptively package into a human-digestible slide deck (typically 5 to 8 focused slides)
     const targetSlides = Math.min(8, Math.max(4, Math.floor(sentences.length / 3.5)));
     const chunkSize = Math.max(2, Math.floor(sentences.length / targetSlides));
 
@@ -2162,7 +2155,6 @@ function renderOutputView() {
         bottomNavControls.style.display = "flex";
         renderSlide(currentSlideIndex);
     } else {
-        // Consolidated Visual Notes Sheet View
         bottomNavControls.style.display = "none";
         renderNotesSheet();
     }
@@ -2175,7 +2167,6 @@ function renderSlide(index) {
     const slideDeck = document.createElement("div");
     slideDeck.className = "true-slide-deck";
     slideDeck.innerHTML = `
-        <!-- LEFT COLUMN: DIAGRAM & SCHEMATICS -->
         <div class="slide-visual-column">
             <span class="slide-tag">${slide.conceptTag} SCHEMATIC</span>
             <div class="slide-diagram-canvas">
@@ -2184,7 +2175,6 @@ function renderSlide(index) {
             <div class="diagram-label">${slide.diagramCaption}</div>
         </div>
 
-        <!-- RIGHT COLUMN: STRUCTURED DETAILS -->
         <div class="slide-content-column">
             <span class="slide-tag">SLIDE ${index + 1} OF ${visualSlides.length}</span>
             <h3>${slide.title}</h3>
