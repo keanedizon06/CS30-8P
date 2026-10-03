@@ -4,7 +4,16 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>CogniFlow | Turn Dense Information into Visual Clarity</title>
+<title>Visual Reviewer: Turn Text to Visual Notes | CogniFlow</title>
+<meta name="description" content="CogniFlow is your smart visual reviewer. Convert dense text to visual notes and presentations in seconds to cut cognitive strain and speed up comprehension.">
+
+<!-- Open Graph / Social Media Preview -->
+<meta property="og:title" content="Visual Reviewer: Turn Text to Visual Notes | CogniFlow">
+<meta property="og:description" content="Convert dense text to visual notes and presentations in seconds to cut cognitive strain and speed up comprehension.">
+<meta property="og:type" content="website">
+
+<!-- PDF.js library for genuine, robust client-side PDF reading -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
 
 <style>
 :root {
@@ -28,6 +37,9 @@
     --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.04);
     --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.06);
     --shadow-lg: 0 12px 32px rgba(0, 0, 0, 0.08);
+
+    --error: #991B1B;
+    --error-bg: #FEE2E2;
 }
 
 * {
@@ -41,7 +53,7 @@ html {
 }
 
 body {
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
     background: var(--bg);
     color: var(--text-secondary);
     line-height: 1.6;
@@ -81,7 +93,7 @@ body {
 /* NAVIGATION */
 header {
     border-bottom: 1px solid var(--border);
-    background: rgba(255, 255, 255, 0.92);
+    background: rgba(255, 255, 255, 0.94);
     backdrop-filter: blur(12px);
     position: sticky;
     top: 0;
@@ -407,9 +419,9 @@ section {
 }
 
 /* ======================================================
-   THE 10-SECOND COGNITIVE CHALLENGE WIDGET
+   VISUAL REVIEWER & CONVERTER STUDIO WIDGET
 ====================================================== */
-.challenge-widget {
+.studio-widget {
     background: #FFFFFF;
     border: 1px solid var(--border);
     border-radius: 20px;
@@ -419,7 +431,7 @@ section {
     transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.challenge-widget.is-fullscreen {
+.studio-widget.is-fullscreen {
     position: fixed;
     inset: 0;
     z-index: 1000;
@@ -430,77 +442,207 @@ section {
     background: #FFFFFF;
 }
 
-.challenge-top-bar {
+.studio-grid {
+    display: grid;
+    grid-template-columns: 390px 1fr;
+    gap: 28px;
+    min-height: 600px;
+}
+
+/* Left Panel: Input & Ingestion */
+.studio-input-panel {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding-bottom: 18px;
-    border-bottom: 1px solid var(--border);
-    flex-wrap: wrap;
+    flex-direction: column;
     gap: 14px;
 }
 
-.scenario-header-wrap {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    flex-wrap: wrap;
+.drop-area {
+    border: 2px dashed var(--border-strong);
+    border-radius: 14px;
+    padding: 24px 16px;
+    text-align: center;
+    background: var(--bg-subtle);
+    transition: all 0.2s ease;
+    cursor: pointer;
 }
 
-.scenario-label-pill {
+.drop-area:hover,
+.drop-area.dragover {
+    border-color: var(--text-primary);
+    background: var(--bg-muted);
+}
+
+.drop-area-icon {
+    font-size: 2rem;
+    margin-bottom: 6px;
+}
+
+.drop-area strong {
+    color: var(--text-primary);
+    font-size: 0.95rem;
+    display: block;
+}
+
+.drop-area p {
+    font-size: 0.82rem;
+    color: var(--text-muted);
+    margin-top: 4px;
+}
+
+.hidden-file-input {
+    display: none;
+}
+
+.file-status-pill {
+    display: none;
+    margin-top: 10px;
+    background: #FFFFFF;
+    border: 1px solid var(--border-strong);
+    border-radius: 8px;
+    padding: 6px 12px;
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    align-items: center;
+    justify-content: space-between;
+}
+
+.input-label-row {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--text-primary);
+}
+
+.char-counter {
+    color: var(--text-muted);
+    font-size: 0.8rem;
+    font-weight: 500;
+}
+
+.studio-textarea {
+    width: 100%;
+    height: 150px;
+    padding: 14px;
+    border-radius: 12px;
+    border: 1px solid var(--border-strong);
+    background: var(--bg-subtle);
+    color: var(--text-primary);
+    font-family: inherit;
+    font-size: 0.92rem;
+    resize: vertical;
+    line-height: 1.55;
+    transition: border-color 0.2s;
+}
+
+.studio-textarea:focus {
+    outline: none;
+    border-color: var(--text-primary);
+    background: #FFFFFF;
+}
+
+.prompt-directive-box {
     background: var(--bg-subtle);
     border: 1px solid var(--border);
-    padding: 6px 14px;
-    border-radius: 999px;
-    font-size: 0.88rem;
+    border-radius: 12px;
+    padding: 12px 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.prompt-directive-box label {
+    font-size: 0.82rem;
     font-weight: 700;
     color: var(--text-primary);
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 6px;
 }
 
-.category-pill {
-    background: #050505;
-    color: #FFFFFF;
-    font-size: 0.7rem;
-    font-weight: 700;
-    padding: 3px 8px;
-    border-radius: 999px;
-    letter-spacing: 0.04em;
-}
-
-.timer-pill {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    background: #050505;
-    color: #FFFFFF;
-    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
-    font-size: 1rem;
-    font-weight: 800;
-    padding: 6px 16px;
-    border-radius: 999px;
-}
-
-.timer-pill .timer-dot {
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
+.prompt-input {
+    width: 100%;
+    padding: 9px 12px;
+    border-radius: 8px;
+    border: 1px solid var(--border-strong);
     background: #FFFFFF;
-    display: inline-block;
-    animation: pulseDot 1s infinite;
+    color: var(--text-primary);
+    font-size: 0.88rem;
+    font-family: inherit;
 }
 
-@keyframes pulseDot {
-    0%, 100% { opacity: 1; transform: scale(1); }
-    50% { opacity: 0.3; transform: scale(0.8); }
+.prompt-input:focus {
+    outline: none;
+    border-color: var(--text-primary);
 }
 
-.challenge-controls-right {
+.status-box {
+    font-size: 0.85rem;
+    padding: 10px 14px;
+    border-radius: 8px;
+    display: none;
+}
+
+.status-box.error {
+    display: block;
+    background: var(--error-bg);
+    color: var(--error);
+    border: 1px solid #FCA5A5;
+}
+
+/* Right Panel: Output Workspace */
+.studio-output-panel {
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    background: #FFFFFF;
+    position: relative;
+    box-shadow: var(--shadow-sm);
+}
+
+.studio-top-controls {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--border);
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.mode-selector {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.mode-selector label {
+    font-size: 0.82rem;
+    font-weight: 700;
+    color: var(--text-muted);
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+}
+
+.mode-select {
+    padding: 7px 14px;
+    border-radius: 8px;
+    border: 1px solid var(--border-strong);
+    background: #FFFFFF;
+    font-size: 0.88rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    cursor: pointer;
+}
+
+.extra-tools {
     display: flex;
     align-items: center;
     gap: 8px;
+    position: relative;
 }
 
 .tool-btn {
@@ -515,343 +657,387 @@ section {
     transition: all 0.15s ease;
 }
 
-.tool-btn:hover {
+.tool-btn:hover:not(:disabled) {
     background: var(--bg-subtle);
     border-color: var(--border-strong);
 }
 
-.shuffle-btn {
-    background: var(--bg-subtle);
-    font-weight: 600;
+/* Dropdown Menu */
+.dropdown-container {
+    position: relative;
 }
 
-/* Challenge Workspace Stages */
-.challenge-stage {
-    min-height: 400px;
+.more-btn {
+    width: 34px;
+    height: 34px;
+    border-radius: 8px;
+    border: 1px solid var(--border);
+    background: #FFFFFF;
+    color: var(--text-primary);
+    font-size: 1.15rem;
+    line-height: 1;
     display: flex;
-    flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding: 36px 12px;
-    text-align: center;
+    cursor: pointer;
+    transition: all 0.15s ease;
 }
 
-/* Intro Stage */
-.stage-intro {
-    max-width: 640px;
-    display: flex;
+.more-btn:hover:not(:disabled) {
+    background: var(--bg-subtle);
+    border-color: var(--text-primary);
+}
+
+.dropdown-menu {
+    position: absolute;
+    top: calc(100% + 8px);
+    right: 0;
+    width: 220px;
+    background: #FFFFFF;
+    border: 1px solid var(--border-strong);
+    border-radius: 12px;
+    padding: 8px;
+    box-shadow: var(--shadow-lg);
+    display: none;
     flex-direction: column;
-    align-items: center;
-    gap: 16px;
+    z-index: 50;
 }
 
-.intro-badge {
-    background: var(--bg-muted);
-    color: var(--text-primary);
-    font-size: 0.75rem;
-    font-weight: 700;
+.dropdown-menu.show {
+    display: flex;
+}
+
+.dropdown-header {
+    font-size: 0.72rem;
+    font-weight: 800;
+    color: var(--text-muted);
     letter-spacing: 0.06em;
-    padding: 4px 12px;
-    border-radius: 999px;
+    padding: 6px 12px 4px;
     text-transform: uppercase;
 }
 
-.stage-intro h3 {
-    font-size: 1.8rem;
+.dropdown-item {
+    padding: 9px 12px;
+    font-size: 0.85rem;
+    font-weight: 600;
     color: var(--text-primary);
-    line-height: 1.25;
-    letter-spacing: -0.02em;
-    font-weight: 800;
-}
-
-.stage-intro p {
-    color: var(--text-secondary);
-    font-size: 1.05rem;
-    line-height: 1.6;
-}
-
-.instruction-steps {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 14px;
-    width: 100%;
-    margin-top: 10px;
+    background: transparent;
+    border: none;
+    border-radius: 6px;
     text-align: left;
-}
-
-.instruction-card {
-    background: var(--bg-subtle);
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    padding: 16px;
-}
-
-.instruction-card strong {
-    color: var(--text-primary);
-    display: block;
-    margin-bottom: 4px;
-    font-size: 0.92rem;
-}
-
-.instruction-card span {
-    color: var(--text-secondary);
-    font-size: 0.88rem;
-}
-
-/* Round 1: Wall of Text Stage */
-.stage-round1 {
-    width: 100%;
-    max-width: 760px;
-    display: flex;
-    flex-direction: column;
-    gap: 18px;
-    text-align: left;
-}
-
-.task-banner {
-    background: var(--text-primary);
-    color: #FFFFFF;
-    padding: 16px 22px;
-    border-radius: 12px;
+    cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    flex-wrap: wrap;
-    gap: 10px;
-}
-
-.task-banner .task-label {
-    font-size: 0.75rem;
-    letter-spacing: 0.05em;
-    text-transform: uppercase;
-    color: #A3A3A3;
-    display: block;
-    margin-bottom: 2px;
-}
-
-.task-banner .task-prompt {
-    font-size: 1.15rem;
-    font-weight: 700;
-    color: #FFFFFF;
-}
-
-.wall-of-text-box {
-    background: #FFFFFF;
-    border: 1px solid var(--border);
-    border-radius: 14px;
-    padding: 28px;
-    font-size: 1.05rem;
-    line-height: 1.85;
-    color: var(--text-secondary);
-    user-select: none;
-    box-shadow: var(--shadow-sm);
-}
-
-.interactive-word {
-    cursor: pointer;
-    border-radius: 4px;
-    padding: 1px 3px;
     transition: background 0.12s ease;
 }
 
-.interactive-word:hover {
-    background: var(--bg-muted);
-    color: var(--text-primary);
+.dropdown-item:hover {
+    background: var(--bg-subtle);
 }
 
-.interactive-word.clicked-wrong {
-    background: #000000;
-    color: #FFFFFF;
-    animation: shakeWrong 0.35s ease;
+.dropdown-divider {
+    height: 1px;
+    background: var(--border);
+    margin: 6px 0;
 }
 
-@keyframes shakeWrong {
-    0%, 100% { transform: translateX(0); }
-    25% { transform: translateX(-4px); }
-    75% { transform: translateX(4px); }
-}
-
-/* Intermission Transition Stage */
-.stage-intermission {
-    max-width: 600px;
+/* Center Stage Viewport */
+.studio-stage {
+    flex: 1;
     display: flex;
-    flex-direction: column;
     align-items: center;
-    gap: 16px;
+    justify-content: center;
+    padding: 24px 0;
+    position: relative;
+    min-height: 440px;
 }
 
-.round1-time-callout {
-    font-size: 3rem;
-    font-weight: 800;
-    color: var(--text-primary);
-    font-family: ui-monospace, monospace;
-    letter-spacing: -0.03em;
+.stage-placeholder {
+    text-align: center;
+    color: var(--text-muted);
 }
 
-/* Round 2: Visual Card Stage */
-.stage-round2 {
-    width: 100%;
-    max-width: 760px;
-    display: flex;
-    flex-direction: column;
-    gap: 18px;
-    text-align: left;
+.stage-placeholder span {
+    font-size: 3.5rem;
+    display: block;
+    margin-bottom: 8px;
 }
 
-.visual-target-deck {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 14px;
-    margin-top: 8px;
-}
-
-.visual-fact-card {
-    background: #FFFFFF;
-    border: 1px solid var(--border);
-    border-radius: 14px;
-    padding: 20px 16px;
-    display: flex;
+/* Progress / Streaming Screen */
+.loading-overlay {
+    display: none;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     text-align: center;
-    gap: 6px;
-    cursor: pointer;
-    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
-    box-shadow: var(--shadow-sm);
+    gap: 14px;
+    width: 80%;
 }
 
-.visual-fact-card:hover {
-    transform: translateY(-2px);
-    border-color: var(--text-primary);
+.loading-overlay p {
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.progress-bar-container {
+    width: 100%;
+    height: 8px;
+    background: var(--bg-muted);
+    border-radius: 999px;
+    overflow: hidden;
+}
+
+.progress-bar-fill {
+    width: 0%;
+    height: 100%;
+    background: #050505;
+    transition: width 0.08s linear;
+}
+
+/* ======================================================
+   MODE 1: DUAL-PANE PRESENTATION SLIDE (DIAGRAM ON LEFT, DETAILS ON RIGHT)
+====================================================== */
+.true-slide-deck {
+    background: #FFFFFF;
+    border: 1px solid var(--border-strong);
+    border-radius: 16px;
+    width: 100%;
+    max-width: 860px;
+    display: grid;
+    grid-template-columns: 0.95fr 1.05fr;
+    overflow: hidden;
     box-shadow: var(--shadow-md);
+    min-height: 400px;
 }
 
-.visual-fact-card .card-icon {
-    font-size: 1.8rem;
-    margin-bottom: 2px;
+.slide-visual-column {
+    background: var(--bg-subtle);
+    border-right: 1px solid var(--border);
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
 }
 
-.visual-fact-card .card-label {
+.slide-diagram-canvas {
+    width: 100%;
+    height: 240px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.slide-diagram-canvas svg {
+    max-width: 100%;
+    max-height: 100%;
+}
+
+.diagram-label {
     font-size: 0.75rem;
     font-weight: 700;
     color: var(--text-muted);
     letter-spacing: 0.04em;
+    margin-top: 14px;
+    text-align: center;
     text-transform: uppercase;
 }
 
-.visual-fact-card .card-val {
-    font-size: 1.35rem;
+.slide-content-column {
+    padding: 32px 28px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    overflow-y: auto;
+    max-height: 460px;
+}
+
+.slide-tag {
+    font-size: 0.72rem;
     font-weight: 800;
+    color: var(--text-muted);
+    letter-spacing: 0.08em;
+    margin-bottom: 6px;
+    text-transform: uppercase;
+}
+
+.slide-content-column h3 {
+    font-size: 1.35rem;
+    margin-bottom: 10px;
     color: var(--text-primary);
+    line-height: 1.3;
+    font-weight: 800;
     letter-spacing: -0.02em;
 }
 
-/* Results Stage */
-.stage-results {
-    width: 100%;
-    max-width: 720px;
+.slide-lead-concept {
+    font-size: 0.95rem;
+    color: var(--text-secondary);
+    margin-bottom: 16px;
+    line-height: 1.55;
+}
+
+.slide-bullets {
+    list-style: none;
     display: flex;
     flex-direction: column;
-    align-items: center;
-    gap: 22px;
+    gap: 10px;
 }
 
-.results-speedup-banner {
-    background: #050505;
-    color: #FFFFFF;
-    border-radius: 18px;
-    padding: 32px 24px;
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 6px;
-    box-shadow: var(--shadow-md);
-}
-
-.results-speedup-banner h2 {
-    font-size: clamp(2.4rem, 5vw, 3.4rem);
-    font-weight: 900;
-    color: #FFFFFF;
-    line-height: 1;
-    letter-spacing: -0.03em;
-}
-
-.results-speedup-banner p {
-    font-size: 1.05rem;
-    color: #A3A3A3;
-}
-
-.comparison-bars-box {
-    background: var(--bg-subtle);
-    border: 1px solid var(--border);
-    border-radius: 14px;
-    padding: 24px;
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-    text-align: left;
-}
-
-.bar-row {
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
-}
-
-.bar-header {
-    display: flex;
-    justify-content: space-between;
+.slide-bullets li {
+    position: relative;
+    padding-left: 20px;
     font-size: 0.88rem;
-    font-weight: 700;
+    color: var(--text-secondary);
+    line-height: 1.5;
+}
+
+.slide-bullets li::before {
+    content: "▸";
+    position: absolute;
+    left: 0;
+    color: var(--text-primary);
+    font-size: 1rem;
+    top: -2px;
+}
+
+.slide-bullets strong {
     color: var(--text-primary);
 }
 
-.bar-track {
-    background: var(--bg-muted);
-    border-radius: 999px;
-    height: 12px;
-    overflow: hidden;
-}
-
-.bar-fill {
-    height: 100%;
-    border-radius: 999px;
-    transition: width 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.bar-fill.text-bar {
-    background: #A3A3A3;
-}
-
-.bar-fill.visual-bar {
-    background: #050505;
-}
-
-.takeaway-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 14px;
+/* ======================================================
+   MODE 2: VISUAL NOTES SUMMARY SHEET VIEW
+====================================================== */
+.notes-sheet {
     width: 100%;
-    text-align: left;
+    max-width: 820px;
+    background: #FFFFFF;
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 32px;
+    max-height: 480px;
+    overflow-y: auto;
+    box-shadow: var(--shadow-sm);
 }
 
-.takeaway-card {
-    background: #FFFFFF;
+.notes-header-block {
+    padding-bottom: 18px;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 20px;
+}
+
+.notes-header-block h2 {
+    font-size: 1.5rem;
+    color: var(--text-primary);
+    font-weight: 800;
+    letter-spacing: -0.02em;
+}
+
+.notes-item {
+    background: var(--bg-subtle);
     border: 1px solid var(--border);
     border-radius: 12px;
     padding: 18px;
-    font-size: 0.9rem;
-    color: var(--text-secondary);
+    margin-bottom: 14px;
 }
 
-.takeaway-card strong {
+.notes-item h4 {
+    font-size: 1.05rem;
     color: var(--text-primary);
-    display: block;
-    margin-bottom: 4px;
-    font-size: 0.95rem;
+    margin-bottom: 6px;
+    font-weight: 700;
+}
+
+.notes-item p {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    line-height: 1.55;
+}
+
+/* Bottom Navigation Controls */
+.studio-bottom-controls {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 16px;
+    border-top: 1px solid var(--border);
+    gap: 16px;
+    margin-top: 12px;
+    position: relative;
+    z-index: 10;
+}
+
+.nav-arrows-group {
+    display: flex;
+    gap: 8px;
+}
+
+.nav-arrow-btn {
+    padding: 7px 16px;
+    border-radius: 8px;
+    border: 1px solid var(--border-strong);
+    background: #FFFFFF;
+    color: var(--text-primary);
+    font-weight: 600;
+    font-size: 0.85rem;
+    cursor: pointer;
+}
+
+.nav-arrow-btn:hover:not(:disabled) {
+    background: var(--bg-subtle);
+}
+
+.nav-arrow-btn:disabled {
+    opacity: 0.35;
+    cursor: not-allowed;
+}
+
+.progress-pill {
+    font-size: 0.82rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    background: var(--bg-subtle);
+    border: 1px solid var(--border);
+    padding: 4px 14px;
+    border-radius: 999px;
+    white-space: nowrap;
+}
+
+.page-jump-links {
+    display: flex;
+    gap: 6px;
+    list-style: none;
+    flex-wrap: wrap;
+    max-height: 60px;
+    overflow-y: auto;
+}
+
+.jump-dot {
+    width: 28px;
+    height: 28px;
+    border-radius: 6px;
+    border: 1px solid var(--border);
+    background: #FFFFFF;
+    color: var(--text-secondary);
+    font-size: 0.75rem;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.15s ease;
+}
+
+.jump-dot:hover {
+    border-color: var(--text-primary);
+}
+
+.jump-dot.active {
+    background: #050505;
+    color: #FFFFFF;
+    border-color: #050505;
 }
 
 /* ======================================================
@@ -952,12 +1138,25 @@ footer {
     font-weight: 500;
 }
 
-/* RESPONSIVE LAYOUT BREAKPOINTS */
+/* RESPONSIVE BREAKPOINTS */
 @media (max-width: 992px) {
     .journey-grid {
         grid-template-columns: repeat(3, 1fr);
     }
     
+    .studio-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .true-slide-deck {
+        grid-template-columns: 1fr;
+    }
+
+    .slide-visual-column {
+        border-right: none;
+        border-bottom: 1px solid var(--border);
+    }
+
     .hero {
         grid-template-columns: 1fr;
         gap: 36px;
@@ -968,10 +1167,7 @@ footer {
     .split-layout,
     .benefits-grid,
     .journey-grid,
-    .matters-grid,
-    .instruction-steps,
-    .visual-target-deck,
-    .takeaway-grid {
+    .matters-grid {
         grid-template-columns: 1fr;
     }
 
@@ -990,17 +1186,23 @@ footer {
         flex-direction: column;
     }
 
-    .challenge-widget {
+    .studio-widget {
         padding: 20px 16px;
     }
 
-    .challenge-top-bar {
+    .studio-top-controls {
         flex-direction: column;
         align-items: stretch;
     }
 
-    .challenge-controls-right {
-        justify-content: space-between;
+    .studio-bottom-controls {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 12px;
+    }
+
+    .page-jump-links {
+        justify-content: center;
     }
 
     .research-banner {
@@ -1047,7 +1249,7 @@ footer {
                 <li><a href="#story">The Story</a></li>
                 <li><a href="#journey">The Journey</a></li>
                 <li><a href="#benefits">The Benefits</a></li>
-                <li><a href="#challenge">Cognitive Test</a></li>
+                <li><a href="#studio">Visual Reviewer</a></li>
                 <li><a href="#future">Why It Matters</a></li>
             </ul>
         </nav>
@@ -1056,14 +1258,14 @@ footer {
 
 <main id="main-content">
 
-    <!-- HERO SECTION -->
+    <!-- HERO SECTION (WITH REQUESTED REVISED TITLE & KEYWORDS) -->
     <section class="container hero" id="story">
         <div>
-            <span class="section-label">COGNITIVE CLARITY • VISUAL ARCHITECTURE</span>
-            <h1 class="section-title">Turn dense information into direct understanding.</h1>
-            <p>Mastering complex instructions, technical documents, and everyday guides shouldn't feel like deciphering walls of text. CogniFlow proves why visual clarity outperforms dense prose in human comprehension speed.</p>
+            <span class="section-label">VISUAL REVIEWER • TEXT TO VISUAL NOTES</span>
+            <h1 class="section-title">The Visual Reviewer That Turns Dense Text into Visual Notes.</h1>
+            <p>Upload entire textbooks, academic papers, or dense course guides without arbitrary limits. CogniFlow extracts critical narrative arcs, filters out index noise, and transforms text to presentation slides and structured visual notes.</p>
             <div class="buttons">
-                <a href="#challenge" class="btn primary">Take the 10s Speed Test ➔</a>
+                <a href="#studio" class="btn primary">Open Visual Reviewer ➔</a>
                 <a href="#journey" class="btn secondary">Explore the Journey</a>
             </div>
         </div>
@@ -1080,7 +1282,7 @@ footer {
                 <rect width="520" height="340" rx="14" fill="url(#monoGrid)" />
                 <rect width="520" height="340" rx="14" stroke="#E8E8E5" stroke-width="1.5" />
 
-                <!-- Left Panel: Raw Text Representation -->
+                <!-- Left Panel: Raw Textbook Representation -->
                 <rect x="28" y="45" width="180" height="250" rx="10" fill="#F7F7F5" stroke="#E8E8E5" stroke-width="1.5" />
                 <rect x="42" y="60" width="80" height="8" rx="4" fill="#050505" />
                 <rect x="42" y="80" width="150" height="5" rx="2.5" fill="#D1D1CD" />
@@ -1095,7 +1297,7 @@ footer {
                 <rect x="42" y="206" width="115" height="5" rx="2.5" fill="#D1D1CD" />
                 
                 <rect x="42" y="235" width="150" height="34" rx="6" fill="#FFFFFF" stroke="#D1D1CD" />
-                <text x="117" y="256" fill="#050505" font-size="10" font-family="system-ui, sans-serif" font-weight="700" text-anchor="middle">Dense Document</text>
+                <text x="117" y="256" fill="#050505" font-size="10" font-family="system-ui, sans-serif" font-weight="700" text-anchor="middle">Dense Textbook</text>
 
                 <!-- Center: Transformation Pathways -->
                 <path d="M 218 170 C 248 170, 248 95, 278 95" stroke="#050505" stroke-width="2" stroke-linecap="round" fill="none" />
@@ -1111,27 +1313,27 @@ footer {
                     <rect x="285" y="65" width="205" height="60" rx="8" fill="#FFFFFF" stroke="#E8E8E5" stroke-width="1.5" />
                     <rect x="297" y="77" width="24" height="24" rx="6" fill="#050505" />
                     <text x="309" y="93" fill="#FFFFFF" font-size="10" font-weight="800" text-anchor="middle">01</text>
-                    <text x="330" y="88" fill="#050505" font-size="11" font-weight="700">EXTRACT STEPS</text>
-                    <text x="330" y="103" fill="#737373" font-size="9">Organize logical phases</text>
+                    <text x="330" y="88" fill="#050505" font-size="11" font-weight="700">EXTRACT CORE</text>
+                    <text x="330" y="103" fill="#737373" font-size="9">Filters index & TOC noise</text>
                 </g>
 
                 <g filter="drop-shadow(0px 2px 6px rgba(0,0,0,0.04))">
                     <rect x="285" y="140" width="205" height="60" rx="8" fill="#FFFFFF" stroke="#E8E8E5" stroke-width="1.5" />
                     <rect x="297" y="152" width="24" height="24" rx="6" fill="#4A4A4A" />
                     <text x="309" y="168" fill="#FFFFFF" font-size="10" font-weight="800" text-anchor="middle">02</text>
-                    <text x="330" y="163" fill="#050505" font-size="11" font-weight="700">STRUCTURE CARDS</text>
-                    <text x="330" y="178" fill="#737373" font-size="9">Instant spatial targeting</text>
+                    <text x="330" y="163" fill="#050505" font-size="11" font-weight="700">VISUAL SCHEMATICS</text>
+                    <text x="330" y="178" fill="#737373" font-size="9">Dual-pane presentation decks</text>
                 </g>
 
                 <g filter="drop-shadow(0px 2px 6px rgba(0,0,0,0.04))">
                     <rect x="285" y="215" width="205" height="60" rx="8" fill="#FFFFFF" stroke="#E8E8E5" stroke-width="1.5" />
                     <rect x="297" y="227" width="24" height="24" rx="6" fill="#737373" />
                     <text x="309" y="243" fill="#FFFFFF" font-size="10" font-weight="800" text-anchor="middle">03</text>
-                    <text x="330" y="238" fill="#050505" font-size="11" font-weight="700">REDUCE FRICTION</text>
-                    <text x="330" y="253" fill="#737373" font-size="9">Accelerate retrieval</text>
+                    <text x="330" y="238" fill="#050505" font-size="11" font-weight="700">STRUCTURED NOTES</text>
+                    <text x="330" y="253" fill="#737373" font-size="9">Accelerate exam retention</text>
                 </g>
             </svg>
-            <div class="hero-visual-caption">CogniFlow Studio • Cognitive Friction & Visual Lab</div>
+            <div class="hero-visual-caption">CogniFlow Studio • Text to Presentation & Visual Notes Converter</div>
         </div>
     </section>
 
@@ -1218,156 +1420,134 @@ footer {
     </section>
 
     <!-- ======================================================
-         INTERACTIVE COMPONENT: 10-SECOND COGNITIVE SPEED TEST
+         INTERACTIVE COMPONENT: VISUAL REVIEWER CONVERTER STUDIO
     ======================================================= -->
-    <section id="challenge">
+    <section id="studio">
         <div class="container">
-            <span class="section-label">INTERACTIVE EXPERIMENT</span>
-            <h2 class="section-title">The 10-Second Cognitive Speed Test</h2>
-            <p class="section-lead">Test your own brain in real time. Experience how much faster your visual cortex processes information compared to hunting through unformatted walls of text.</p>
+            <span class="section-label">INTERACTIVE STUDIO</span>
+            <h2 class="section-title">Visual Reviewer: Convert Text to Visual Notes</h2>
+            <p class="section-lead">Upload entire books or paste dense excerpts. CogniFlow cleans the front-matter, targets the requested chapter, and generates a visual slide deck or summary sheet.</p>
 
-            <div class="challenge-widget" id="challengeWidget">
-                
-                <!-- Widget Header Toolbar -->
-                <div class="challenge-top-bar">
-                    <div class="scenario-header-wrap">
-                        <div class="scenario-label-pill">
-                            <span>Mission:</span>
-                            <span id="scenarioNameDisplay">Flight Itinerary</span>
-                        </div>
-                        <span class="category-pill" id="scenarioCategoryBadge">TRAVEL</span>
-                        <button type="button" class="tool-btn shuffle-btn" onclick="shuffleToNextScenario(true)" title="Shuffle to a different random scenario">
-                            🔀 Shuffle
-                        </button>
-                    </div>
-
-                    <div class="timer-pill" id="liveTimerWrap" style="display:none;">
-                        <span class="timer-dot"></span>
-                        <span id="liveTimerDisplay">0.00s</span>
-                    </div>
-
-                    <div class="challenge-controls-right">
-                        <button type="button" class="tool-btn" id="fullscreenToggleBtn" onclick="toggleWidgetFullscreen()" title="Toggle Fullscreen Mode">
-                            ⛶ Expand
-                        </button>
-                        <button type="button" class="tool-btn" onclick="resetChallenge()" title="Reset to Start">
-                            ↺ Reset
-                        </button>
-                    </div>
-                </div>
-
-                <!-- Active Challenge Stage Viewport -->
-                <div class="challenge-stage" id="challengeStage">
+            <div class="studio-widget" id="studioWidget">
+                <div class="studio-grid">
                     
-                    <!-- STAGE 1: INTRO STATE -->
-                    <div class="stage-intro" id="stageIntro">
-                        <span class="intro-badge">Human Processing Benchmark</span>
-                        <h3 id="introHeadline">How Fast Can You Spot Critical Information?</h3>
-                        <p id="introSubtext">You'll perform the exact same retrieval task twice: first through a dense wall of text, then through a clean visual dashboard. A live stopwatch will measure your cognitive retrieval speed.</p>
+                    <!-- LEFT COLUMN: INPUT, UPLOAD & TARGET PROMPT -->
+                    <div class="studio-input-panel">
+                        <div class="drop-area" id="dropArea" tabindex="0" role="button" aria-label="Upload document file">
+                            <div class="drop-area-icon">📚</div>
+                            <strong>Upload Textbook, PDF, or Document</strong>
+                            <p>No size cap — asynchronous parser (.pdf, .txt, .md)</p>
+                            <input type="file" id="fileInput" class="hidden-file-input" accept=".pdf,.txt,.md">
+                            <div id="fileStatusPill" class="file-status-pill">
+                                <span id="filePillName">document.pdf</span>
+                                <span style="cursor:pointer;" onclick="clearUploadedFile(event)">✕</span>
+                            </div>
+                        </div>
+
+                        <div class="input-label-row">
+                            <label for="lessonText">Or Paste Dense Text:</label>
+                            <span class="char-counter" id="charCounter">0 words</span>
+                        </div>
+
+                        <textarea id="lessonText" class="studio-textarea" placeholder="Paste full research articles, lecture transcripts, or textbook chapters..."></textarea>
+
+                        <!-- Targeted Prompt Directive -->
+                        <div class="prompt-directive-box">
+                            <label for="userPromptDirective">🎯 Specific Chapter or Focus Topic (Optional):</label>
+                            <input type="text" id="userPromptDirective" class="prompt-input" placeholder="e.g. Focus on Canto 1, Chapter 3, or Cognitive Load...">
+                        </div>
+
+                        <div id="statusMessage" class="status-box" role="alert"></div>
+
+                        <button type="button" class="btn primary" id="generateBtn" style="padding:12px 20px; width:100%;" onclick="handleGenerateAction()">
+                            Synthesize & Convert to Visuals ➔
+                        </button>
+                    </div>
+
+                    <!-- RIGHT COLUMN: VISUAL OUTPUT CANVAS -->
+                    <div class="studio-output-panel">
                         
-                        <div class="instruction-steps">
-                            <div class="instruction-card">
-                                <strong>Phase 1: Dense Paragraph</strong>
-                                <span>Hunt through an unformatted email or article to click the target detail.</span>
-                            </div>
-                            <div class="instruction-card">
-                                <strong>Phase 2: Visual Card</strong>
-                                <span>Spot the exact same piece of data on an organized, icon-backed card.</span>
-                            </div>
-                        </div>
-
-                        <button type="button" class="btn primary" style="margin-top:8px; font-size:1rem; padding:12px 30px;" onclick="startRoundOne()">
-                            Start Speed Test ➔
-                        </button>
-                    </div>
-
-                    <!-- STAGE 2: ROUND 1 (WALL OF TEXT) -->
-                    <div class="stage-round1" id="stageRound1" style="display:none;">
-                        <div class="task-banner">
-                            <div>
-                                <span class="task-label">Round 1 of 2: Wall of Text</span>
-                                <span class="task-prompt" id="round1PromptText">Find and click: Gate B14</span>
-                            </div>
-                            <span style="font-size:0.85rem; font-weight:600; color:#A3A3A3;">⏱ Live Timer Active</span>
-                        </div>
-
-                        <div class="wall-of-text-box" id="wallOfTextBox"></div>
-                    </div>
-
-                    <!-- STAGE 3: INTERMISSION TRANSITION -->
-                    <div class="stage-intermission" id="stageIntermission" style="display:none;">
-                        <span class="intro-badge">Round 1 Completed</span>
-                        <h3>Text Retrieval Logged</h3>
-                        <div class="round1-time-callout" id="intermissionTimeCallout">5.82s</div>
-                        <p>It took your brain this long to read, parse, and extract that single fact from the paragraph. Now, see what happens when the exact same information is presented visually.</p>
-
-                        <button type="button" class="btn primary" style="font-size:1rem; padding:12px 30px;" onclick="startRoundTwo()">
-                            Start Round 2: Visual Card ➔
-                        </button>
-                    </div>
-
-                    <!-- STAGE 4: ROUND 2 (VISUAL CARD) -->
-                    <div class="stage-round2" id="stageRound2" style="display:none;">
-                        <div class="task-banner">
-                            <div>
-                                <span class="task-label">Round 2 of 2: Structured Visual</span>
-                                <span class="task-prompt" id="round2PromptText">Find and click: Gate B14</span>
-                            </div>
-                            <span style="font-size:0.85rem; font-weight:600; color:#A3A3A3;">⏱ Live Timer Active</span>
-                        </div>
-
-                        <div class="visual-target-deck" id="visualTargetDeck"></div>
-                    </div>
-
-                    <!-- STAGE 5: COMPREHENSIVE RESULTS DASHBOARD -->
-                    <div class="stage-results" id="stageResults" style="display:none;">
-                        <div class="results-speedup-banner">
-                            <span style="font-size:0.8rem; letter-spacing:0.06em; text-transform:uppercase; font-weight:700; color:#A3A3A3;">Cognitive Retrieval Multiplier</span>
-                            <h2 id="speedupMetricDisplay">+340% Faster</h2>
-                            <p id="speedupSummarySentence">Your visual cortex extracted the exact same information in a fraction of the time.</p>
-                        </div>
-
-                        <div class="comparison-bars-box">
-                            <div class="bar-row">
-                                <div class="bar-header">
-                                    <span>Wall of Text Retrieval</span>
-                                    <span id="resTimeRound1">5.82 seconds</span>
-                                </div>
-                                <div class="bar-track">
-                                    <div class="bar-fill text-bar" id="barFillRound1" style="width: 100%;"></div>
-                                </div>
+                        <!-- Top Bar: View Format & Toolbar -->
+                        <div class="studio-top-controls">
+                            <div class="mode-selector">
+                                <label for="viewModeSelect">View Format:</label>
+                                <select id="viewModeSelect" class="mode-select" onchange="handleViewModeChange()">
+                                    <option value="presentation">Presentation Slides (Diagrams + Details)</option>
+                                    <option value="notes">Visual Notes Sheet (Consolidated Summary)</option>
+                                </select>
                             </div>
 
-                            <div class="bar-row">
-                                <div class="bar-header">
-                                    <span>Visual Card Retrieval</span>
-                                    <span id="resTimeRound2" style="color:var(--text-primary); font-weight:800;">1.24 seconds</span>
-                                </div>
-                                <div class="bar-track">
-                                    <div class="bar-fill visual-bar" id="barFillRound2" style="width: 21%;"></div>
+                            <div class="extra-tools">
+                                <button type="button" class="tool-btn" id="fullscreenToggleBtn" onclick="toggleWidgetFullscreen()" title="Toggle Fullscreen Mode">
+                                    ⛶ Expand
+                                </button>
+                                <button type="button" class="tool-btn" onclick="clearStudio()" title="Clear content">
+                                    Clear
+                                </button>
+
+                                <!-- 3-Dot Export Dropdown Menu -->
+                                <div class="dropdown-container">
+                                    <button type="button" class="more-btn" id="exportMenuBtn" onclick="toggleExportMenu(event)" aria-haspopup="true" aria-expanded="false" aria-label="Export settings and options" disabled>
+                                        &#8942;
+                                    </button>
+
+                                    <div class="dropdown-menu" id="exportMenu" role="menu">
+                                        <div class="dropdown-header">Export Visual Review</div>
+                                        <button type="button" class="dropdown-item" role="menuitem" onclick="exportAs('md')">
+                                            <span>Markdown Notes</span>
+                                            <span style="color:var(--text-muted); font-size:0.75rem;">.MD</span>
+                                        </button>
+                                        <button type="button" class="dropdown-item" role="menuitem" onclick="exportAs('txt')">
+                                            <span>Text Document</span>
+                                            <span style="color:var(--text-muted); font-size:0.75rem;">.TXT</span>
+                                        </button>
+                                        <div class="dropdown-divider"></div>
+                                        <button type="button" class="dropdown-item" role="menuitem" onclick="printStudioContent()">
+                                            <span>Print / Save to PDF</span>
+                                            <span style="font-size:0.85rem;">🖨️️</span>
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
 
-                        <div class="takeaway-grid">
-                            <div class="takeaway-card">
-                                <strong>The Extraneous Load Effect</strong>
-                                <span>Dense text forces the brain to translate syntax before reaching the fact. Visual hierarchy provides instant spatial targeting.</span>
+                        <!-- Center Display Stage -->
+                        <div class="studio-stage" id="studioStage">
+                            
+                            <!-- Initial Empty State -->
+                            <div class="stage-placeholder" id="placeholderView">
+                                <span>🎨</span>
+                                <p>Upload a book or paste dense text.<br>Your structured visual presentation or study notes will render here.</p>
                             </div>
-                            <div class="takeaway-card">
-                                <strong>Real-World Productivity</strong>
-                                <span>At this rate, switching reference guides or manuals to visual formats saves the average learner 40+ hours per year.</span>
+
+                            <!-- Streaming / Parsing Progress Screen -->
+                            <div class="loading-overlay" id="loadingView">
+                                <p id="loadingMsgText">Scrubbing front-matter and isolating core concepts...</p>
+                                <div class="progress-bar-container">
+                                    <div class="progress-bar-fill" id="progressBar"></div>
+                                </div>
                             </div>
+
+                            <!-- Active Output Container -->
+                            <div id="activeRenderContainer" style="display:none; width:100%; display:flex; justify-content:center;"></div>
+
                         </div>
 
-                        <div style="display:flex; gap:12px; flex-wrap:wrap; justify-content:center; margin-top:8px;">
-                            <button type="button" class="btn primary" onclick="shuffleToNextScenario(false)">Next Shuffled Scenario ➔</button>
-                            <button type="button" class="btn secondary" onclick="retryCurrentScenario()">Retry This Scenario</button>
+                        <!-- Bottom Navigation Controls (For Presentation Mode) -->
+                        <div class="studio-bottom-controls" id="bottomNavControls" style="display:none;">
+                            <div class="nav-arrows-group">
+                                <button type="button" class="nav-arrow-btn" id="prevBtn" onclick="navigateSlide(-1)" aria-label="Previous Slide">← Previous</button>
+                                <button type="button" class="nav-arrow-btn" id="nextBtn" onclick="navigateSlide(1)" aria-label="Next Slide">Next →</button>
+                            </div>
+
+                            <span class="progress-pill" id="slideCounter">Slide 1 / 1</span>
+
+                            <ul class="page-jump-links" id="pageDots" aria-label="Jump to slide"></ul>
                         </div>
+
                     </div>
 
                 </div>
-
             </div>
         </div>
     </section>
@@ -1435,461 +1615,750 @@ footer {
 </footer>
 
 <script>
+/* PDF.js worker setup */
+if (window.pdfjsLib) {
+    pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+}
+
 /* ======================================================
-   10-SECOND COGNITIVE CHALLENGE ENGINE (VANILLA JS + GA4)
+   TEXT-TO-VISUAL CONVERTER ENGINE (VANILLA JS)
 ====================================================== */
-
-const SCENARIOS = {
-    flight: {
-        id: "flight",
-        name: "Flight Itinerary",
-        category: "TRAVEL",
-        targetText: "Gate B14",
-        prompt: "Find and click the Departure Gate: Gate B14",
-        prose: [
-            "Dear traveler, thank you for booking your journey with Horizon Airways for flight HA-842 with nonstop scheduled service to Chicago O'Hare. ",
-            "Please review all checked baggage guidelines prior to your terminal arrival, as oversized luggage incurs additional transit fees at the ticket kiosk. ",
-            "Passengers enrolled in Priority Access may board during Group 2, provided they hold a digital confirmation barcode on their mobile device. ",
-            "Your aircraft departure will take place from ",
-            { word: "Gate B14", isTarget: true },
-            " with boarding beginning promptly thirty minutes prior to wheels-up at 10:45 AM. ",
-            "For meal vouchers, terminal maps, connecting train connections, or seat upgrade requests, please speak to a customer service agent located at customer desk 4."
-        ],
-        visualCards: [
-            { icon: "✈️", label: "Flight Number", val: "HA-842", isTarget: false },
-            { icon: "🚪", label: "Departure Gate", val: "Gate B14", isTarget: true },
-            { icon: "⏰", label: "Boarding Time", val: "10:15 AM", isTarget: false },
-            { icon: "💺", label: "Assigned Seat", val: "14C (Aisle)", isTarget: false },
-            { icon: "🧳", label: "Luggage Allowance", val: "2 Checked Bags", isTarget: false },
-            { icon: "📍", label: "Destination", val: "Chicago ORD", isTarget: false }
-        ]
-    },
-    recipe: {
-        id: "recipe",
-        name: "Artisanal Sourdough Recipe",
-        category: "CULINARY",
-        targetText: "450°F",
-        prompt: "Find and click the Oven Baking Temperature: 450°F",
-        prose: [
-            "Every autumn morning reminds me of my grandmother's rustic kitchen and the rhythmic crackle of fresh wood-fired ovens filling the valley air with sourdough aromas. ",
-            "Before beginning your bake, ensure that your wild yeast levain has doubled in volume and floats effortlessly in lukewarm filtered water. ",
-            "Bulk fermentation should proceed undisturbed for four hours with gentle envelope stretch-and-folds administered every thirty minutes to strengthen the gluten matrix. ",
-            "Preheat your heavy cast-iron Dutch oven at ",
-            { word: "450°F", isTarget: true },
-            " for a minimum of forty-five minutes so the retained thermal energy creates maximum oven spring when the boule is loaded into the steam chamber. ",
-            "Carefully score the scored loaf with a sharp razor blade along the longitudinal axis to release carbon dioxide blisters evenly across the crust."
-        ],
-        visualCards: [
-            { icon: "🌾", label: "Flour Blend", val: "Organic Bread Flour", isTarget: false },
-            { icon: "💧", label: "Hydration Ratio", val: "78% Hydration", isTarget: false },
-            { icon: "🔥", label: "Oven Temperature", val: "450°F", isTarget: true },
-            { icon: "⏱️", label: "Preheat Duration", val: "45 Minutes", isTarget: false },
-            { icon: "🍞", label: "Bake Vessel", val: "Cast Iron Pot", isTarget: false },
-            { icon: "🔪", label: "Scoring Style", val: "Longitudinal Slash", isTarget: false }
-        ]
-    },
-    exam: {
-        id: "exam",
-        name: "Campus Exam Hall Schedule",
-        category: "ACADEMICS",
-        targetText: "Room 402",
-        prompt: "Find and click the Assigned Exam Hall: Room 402",
-        prose: [
-            "Notice to all undergraduate candidates registered for the upcoming midterm assessment in Analytical Statics and Dynamics for the third term. ",
-            "All examinees must display their physical university identification cards and official registration receipts atop their assigned writing stations at all times during the examination period. ",
-            "Programmable scientific calculators, smart watches, and cellular devices must be powered down and stored inside personal bags placed near the front whiteboard perimeter. ",
-            "Students assigned to Cohort B must present themselves directly at ",
-            { word: "Room 402", isTarget: true },
-            " inside the engineering annex building no later than 8:15 AM for proctor roll call. ",
-            "Late arrivals exceeding fifteen minutes will forfeit testing privileges and must petition the department chair for a formal hardship review."
-        ],
-        visualCards: [
-            { icon: "📐", label: "Course Module", val: "Statics & Dynamics", isTarget: false },
-            { icon: "📅", label: "Session Date", val: "Thursday, Midterms", isTarget: false },
-            { icon: "🏫", label: "Assigned Hall", val: "Room 402", isTarget: true },
-            { icon: "🕒", label: "Check-in Time", val: "8:15 AM Sharp", isTarget: false },
-            { icon: "🆔", label: "Required Item", val: "University ID", isTarget: false },
-            { icon: "🧮", label: "Permitted Tool", val: "Non-Prog Calculator", isTarget: false }
-        ]
-    },
-    parcel: {
-        id: "parcel",
-        name: "Parcel Delivery Locker",
-        category: "LOGISTICS",
-        targetText: "Code 8934",
-        prompt: "Find and click the Parcel Locker Code: Code 8934",
-        prose: [
-            "Your express parcel fulfillment notice has been confirmed by Metro Express Logistics depot hub 12 for parcel tracking ID 492041924. ",
-            "If you have requested contactless courier drop-off, please note that delivery drivers cannot access gated residential vestibules without prior security verification on file. ",
-            "Your shipment has been deposited safely into automated outdoor Parcel Locker Bay 6 and can be retrieved using access ",
-            { word: "Code 8934", isTarget: true },
-            " before the 72-hour collection expiration window closes on Sunday midnight. ",
-            "For return shipping labels, damaged merchandise reports, or redirection to an alternate pickup station, please contact our dispatch hotline."
-        ],
-        visualCards: [
-            { icon: "📦", label: "Carrier Hub", val: "Metro Express", isTarget: false },
-            { icon: "🔢", label: "Tracking Number", val: "#492041924", isTarget: false },
-            { icon: "🔑", label: "Locker Access", val: "Code 8934", isTarget: true },
-            { icon: "📍", label: "Locker Location", val: "Locker Bay 6", isTarget: false },
-            { icon: "⏳", label: "Pickup Window", val: "72 Hours Max", isTarget: false },
-            { icon: "🚚", label: "Delivery Type", val: "Contactless Drop", isTarget: false }
-        ]
-    },
-    prescription: {
-        id: "prescription",
-        name: "Prescription Medication Label",
-        category: "HEALTHCARE",
-        targetText: "Take 2 Tablets Daily",
-        prompt: "Find and click the Dosage Instruction: Take 2 Tablets Daily",
-        prose: [
-            "Rx Pharmacy Dispensation Advisory for patient reference number 30948 regarding Amoxicillin Clavulanate oral suspension caplets. ",
-            "Maintain refrigerated storage away from direct sunlight and avoid operating motorized equipment if unexpected drowsiness manifests following administration. ",
-            "Patient directions specify to ",
-            { word: "Take 2 Tablets Daily", isTarget: true },
-            " with morning and evening meals for ten consecutive calendar days until the antibiotic bottle is fully exhausted. ",
-            "Consult your primary prescribing clinician immediately if skin rash, adverse allergic responses, or persistent nausea arise during your treatment cycle."
-        ],
-        visualCards: [
-            { icon: "💊", label: "Medication", val: "Amoxicillin", isTarget: false },
-            { icon: "📋", label: "Prescription", val: "Rx #30948", isTarget: false },
-            { icon: "⏰", label: "Dosage Regimen", val: "Take 2 Tablets Daily", isTarget: true },
-            { icon: "❄️", label: "Storage", val: "Refrigerate Cool", isTarget: false },
-            { icon: "📅", label: "Treatment Period", val: "10 Full Days", isTarget: false },
-            { icon: "⚠️", label: "Caution Note", val: "Avoid Heavy Driving", isTarget: false }
-        ]
-    },
-    meeting: {
-        id: "meeting",
-        name: "Virtual Meeting Invite",
-        category: "PRODUCTIVITY",
-        targetText: "Passcode 9041",
-        prompt: "Find and click the Video Meeting Passcode: Passcode 9041",
-        prose: [
-            "You have been invited to the quarterly cross-functional sprint planning conference scheduled for Tuesday morning at 9:00 AM PST hosted on workspace room alpha. ",
-            "Please review the attached strategic roadmap and prepare three operational updates concerning your team sprint deliverables before joining the voice channel. ",
-            "Dial-in attendees using international teleconference lines should input bridge ID 892-114 followed by the pound key, and web browser participants must enter ",
-            { word: "Passcode 9041", isTarget: true },
-            " upon admission to bypass the virtual lobby waiting room. ",
-            "A full audio recording and automated transcript will be archived to the team drive following meeting adjournment."
-        ],
-        visualCards: [
-            { icon: "📅", label: "Date & Time", val: "Tuesday, 9:00 AM", isTarget: false },
-            { icon: "🎙️", label: "Session Topic", val: "Sprint Planning", isTarget: false },
-            { icon: "🔒", label: "Room Security", val: "Passcode 9041", isTarget: true },
-            { icon: "💻", label: "Virtual Room", val: "Workspace Alpha", isTarget: false },
-            { icon: "📞", label: "Dial-in Bridge", val: "ID 892-114", isTarget: false },
-            { icon: "💾", label: "Meeting Archive", val: "Cloud Recording", isTarget: false }
-        ]
-    },
-    concert: {
-        id: "concert",
-        name: "Music Festival Schedule",
-        category: "EVENTS",
-        targetText: "Meadow Stage",
-        prompt: "Find and click the Headliner Stage: Meadow Stage",
-        prose: [
-            "Welcome to Solstice Music & Arts Festival visitor bulletin for all attendees holding Tier 1 general admission credentials. ",
-            "Shuttle bus departures commence every twenty minutes from the north transit parking hub and outside beverage containers will be confiscated at the security perimeter. ",
-            "The headlining audio-visual performance will take place promptly at 9:30 PM on the ",
-            { word: "Meadow Stage", isTarget: true },
-            " directly adjacent to the western art pavilion installations. ",
-            "Portable charging lockers and designated hydration stations are marked throughout zone blue on your mobile festival map."
-        ],
-        visualCards: [
-            { icon: "🎸", label: "Headliner", val: "Indie Rock Ensemble", isTarget: false },
-            { icon: "🎪", label: "Festival Stage", val: "Meadow Stage", isTarget: true },
-            { icon: "🕒", label: "Performance Time", val: "9:30 PM - 11:00 PM", isTarget: false },
-            { icon: "🎟️", label: "Pass Tier", val: "General Admission", isTarget: false },
-            { icon: "🚌", label: "Transit Shuttle", val: "North Hub (20m)", isTarget: false },
-            { icon: "💧", label: "Free Amenity", val: "Hydration Station", isTarget: false }
-        ]
-    },
-    banking: {
-        id: "banking",
-        name: "Wire Transfer Receipt",
-        category: "FINANCE",
-        targetText: "Auth #7719",
-        prompt: "Find and click the Digital Authorization Code: Auth #7719",
-        prose: [
-            "Official electronic funds transfer confirmation receipt generated by Union Capital Banking systems for transaction sequence reference 09284192. ",
-            "Please retain this electronic notification for your accounting and fiscal audit records as outgoing international transfers cannot be reversed once clearinghouse settlement completes. ",
-            "Your international supplier payment remittance of four thousand two hundred fifty dollars was verified under digital security ",
-            { word: "Auth #7719", isTarget: true },
-            " and will credit the beneficiary institution account within one to two business days. ",
-            "If you did not authorize this remittance, lock your online banking access immediately via emergency telephone support."
-        ],
-        visualCards: [
-            { icon: "🏦", label: "Financial Bank", val: "Union Capital", isTarget: false },
-            { icon: "💵", label: "Transfer Sum", val: "$4,250.00 USD", isTarget: false },
-            { icon: "🔐", label: "Authorization", val: "Auth #7719", isTarget: true },
-            { icon: "📄", label: "Transaction Ref", val: "Ref #09284192", isTarget: false },
-            { icon: "⏱️", label: "Clearance Window", val: "1-2 Business Days", isTarget: false },
-            { icon: "🛡️", label: "Security Status", val: "Verified & Locked", isTarget: false }
-        ]
-    }
-};
-
-let scenarioQueue = [];
-let currentScenario = null;
-
-function getNextShuffledScenario() {
-    if (scenarioQueue.length === 0) {
-        scenarioQueue = Object.keys(SCENARIOS).sort(() => 0.5 - Math.random());
-        if (currentScenario && scenarioQueue[0] === currentScenario.id && scenarioQueue.length > 1) {
-            scenarioQueue.push(scenarioQueue.shift());
-        }
-    }
-    const nextKey = scenarioQueue.shift();
-    return SCENARIOS[nextKey];
-}
-
-function updateScenarioHeader() {
-    if (!currentScenario) return;
-    document.getElementById("scenarioNameDisplay").textContent = currentScenario.name;
-    document.getElementById("scenarioCategoryBadge").textContent = currentScenario.category;
-}
-
-function shuffleToNextScenario(userTriggered = false) {
-    currentScenario = getNextShuffledScenario();
-    updateScenarioHeader();
-    resetChallenge();
-
-    trackEvent('challenge_auto_shuffle', {
-        scenario_id: currentScenario.id,
-        scenario_name: currentScenario.name,
-        category: currentScenario.category,
-        user_triggered: userTriggered
-    });
-}
-
-let timerStartTime = 0;
-let timerInterval = null;
-let round1Duration = 0;
-let round2Duration = 0;
-
-const challengeWidget = document.getElementById("challengeWidget");
+const studioWidget = document.getElementById("studioWidget");
 const fullscreenToggleBtn = document.getElementById("fullscreenToggleBtn");
-const liveTimerWrap = document.getElementById("liveTimerWrap");
-const liveTimerDisplay = document.getElementById("liveTimerDisplay");
+const lessonTextInput = document.getElementById("lessonText");
+const userPromptDirective = document.getElementById("userPromptDirective");
+const charCounter = document.getElementById("charCounter");
+const statusMessage = document.getElementById("statusMessage");
+const dropArea = document.getElementById("dropArea");
+const fileInput = document.getElementById("fileInput");
+const fileStatusPill = document.getElementById("fileStatusPill");
+const filePillName = document.getElementById("filePillName");
+const viewModeSelect = document.getElementById("viewModeSelect");
+const placeholderView = document.getElementById("placeholderView");
+const loadingView = document.getElementById("loadingView");
+const loadingMsgText = document.getElementById("loadingMsgText");
+const progressBar = document.getElementById("progressBar");
+const activeRenderContainer = document.getElementById("activeRenderContainer");
+const bottomNavControls = document.getElementById("bottomNavControls");
+const prevBtn = document.getElementById("prevBtn");
+const nextBtn = document.getElementById("nextBtn");
+const slideCounter = document.getElementById("slideCounter");
+const pageDots = document.getElementById("pageDots");
+const exportMenuBtn = document.getElementById("exportMenuBtn");
+const exportMenu = document.getElementById("exportMenu");
 
-const stageIntro = document.getElementById("stageIntro");
-const stageRound1 = document.getElementById("stageRound1");
-const stageIntermission = document.getElementById("stageIntermission");
-const stageRound2 = document.getElementById("stageRound2");
-const stageResults = document.getElementById("stageResults");
+let uploadedFileContent = "";
+let visualSlides = [];
+let currentSlideIndex = 0;
 
-const round1PromptText = document.getElementById("round1PromptText");
-const round2PromptText = document.getElementById("round2PromptText");
-const wallOfTextBox = document.getElementById("wallOfTextBox");
-const visualTargetDeck = document.getElementById("visualTargetDeck");
-const intermissionTimeCallout = document.getElementById("intermissionTimeCallout");
+// Dynamic Word Counter
+lessonTextInput.addEventListener("input", updateWordCount);
 
-const speedupMetricDisplay = document.getElementById("speedupMetricDisplay");
-const speedupSummarySentence = document.getElementById("speedupSummarySentence");
-const resTimeRound1 = document.getElementById("resTimeRound1");
-const resTimeRound2 = document.getElementById("resTimeRound2");
-const barFillRound1 = document.getElementById("barFillRound1");
-const barFillRound2 = document.getElementById("barFillRound2");
+function updateWordCount() {
+    const text = getActiveRawText();
+    const words = text.trim() ? text.trim().split(/\s+/).length : 0;
+    const chars = text.length;
+    charCounter.textContent = `${words.toLocaleString()} words (${chars.toLocaleString()} chars)`;
+}
 
-window.addEventListener("DOMContentLoaded", () => {
-    currentScenario = getNextShuffledScenario();
-    updateScenarioHeader();
+// File Drag & Drop Handlers
+dropArea.addEventListener("click", (e) => {
+    if (e.target.tagName !== "SPAN") fileInput.click();
 });
 
-function startLiveTimer() {
-    stopLiveTimer();
-    timerStartTime = performance.now();
-    liveTimerWrap.style.display = "flex";
-    liveTimerDisplay.textContent = "0.00s";
+dropArea.addEventListener("keydown", (e) => {
+    if (e.key === "Enter" || e.key === " ") fileInput.click();
+});
 
-    timerInterval = setInterval(() => {
-        const elapsed = (performance.now() - timerStartTime) / 1000;
-        liveTimerDisplay.textContent = elapsed.toFixed(2) + "s";
-    }, 40);
-}
-
-function stopLiveTimer() {
-    if (timerInterval) {
-        clearInterval(timerInterval);
-        timerInterval = null;
-    }
-    liveTimerWrap.style.display = "none";
-    return (performance.now() - timerStartTime) / 1000;
-}
-
-function resetChallenge() {
-    stopLiveTimer();
-    stageIntro.style.display = "flex";
-    stageRound1.style.display = "none";
-    stageIntermission.style.display = "none";
-    stageRound2.style.display = "none";
-    stageResults.style.display = "none";
-}
-
-function retryCurrentScenario() {
-    startRoundOne();
-    trackEvent('challenge_retry', { scenario_id: currentScenario.id });
-}
-
-function startRoundOne() {
-    resetChallenge();
-    stageIntro.style.display = "none";
-    stageRound1.style.display = "flex";
-
-    round1PromptText.textContent = currentScenario.prompt;
-    renderWallOfText();
-
-    startLiveTimer();
-
-    trackEvent('challenge_round1_start', {
-        scenario_id: currentScenario.id,
-        target_text: currentScenario.targetText
+["dragenter", "dragover"].forEach(evt => {
+    dropArea.addEventListener(evt, (e) => {
+        e.preventDefault();
+        dropArea.classList.add("dragover");
     });
-}
+});
 
-function renderWallOfText() {
-    wallOfTextBox.innerHTML = "";
+["dragleave", "drop"].forEach(evt => {
+    dropArea.addEventListener(evt, (e) => {
+        e.preventDefault();
+        dropArea.classList.remove("dragover");
+    });
+});
 
-    currentScenario.prose.forEach(segment => {
-        if (typeof segment === "string") {
-            const words = segment.split(/(\s+)/);
-            words.forEach(chunk => {
-                if (chunk.trim().length > 0) {
-                    const span = document.createElement("span");
-                    span.className = "interactive-word";
-                    span.textContent = chunk;
-                    span.onclick = () => handleWrongWordClick(span);
-                    wallOfTextBox.appendChild(span);
-                } else {
-                    wallOfTextBox.appendChild(document.createTextNode(chunk));
+dropArea.addEventListener("drop", (e) => {
+    const files = e.dataTransfer.files;
+    if (files.length > 0) processIncomingFile(files[0]);
+});
+
+fileInput.addEventListener("change", (e) => {
+    if (e.target.files.length > 0) processIncomingFile(e.target.files[0]);
+});
+
+// NON-BLOCKING ASYNC PDF & TEXT INGESTION (HANDLES ANY BOOK SIZE)
+async function processIncomingFile(file) {
+    const name = file.name.toLowerCase();
+    clearError();
+
+    const extension = name.split('.').pop();
+    trackEvent('upload_document', { file_extension: extension, file_name: file.name });
+
+    if (name.endsWith(".txt") || name.endsWith(".md")) {
+        const reader = new FileReader();
+        reader.onload = (e) => setUploadedContent(file.name, e.target.result);
+        reader.readAsText(file);
+    } 
+    else if (name.endsWith(".pdf")) {
+        try {
+            showLoadingNotification("Streaming PDF document pages into memory...");
+            const arrayBuffer = await file.arrayBuffer();
+            const loadingTask = pdfjsLib.getDocument({ data: arrayBuffer });
+            const pdf = await loadingTask.promise;
+
+            let extractedPages = [];
+            // Asynchronous batching prevents browser freeze on 500+ page books
+            for (let pageNum = 1; pageNum <= pdf.numPages; pageNum++) {
+                const page = await pdf.getPage(pageNum);
+                const textContent = await page.getTextContent();
+                const pageStrings = textContent.items.map(item => item.str);
+                extractedPages.push(pageStrings.join(" "));
+
+                if (pageNum % 25 === 0) {
+                    showLoadingNotification(`Streaming PDF pages... (${pageNum} / ${pdf.numPages})`);
+                    await new Promise(r => setTimeout(r, 0)); // yield thread
                 }
-            });
-        } else if (segment.isTarget) {
-            const targetSpan = document.createElement("span");
-            targetSpan.className = "interactive-word";
-            targetSpan.textContent = segment.word;
-            targetSpan.style.fontWeight = "inherit";
-            targetSpan.onclick = () => handleCorrectRound1Click();
-            wallOfTextBox.appendChild(targetSpan);
+            }
+
+            hideLoadingNotification();
+            const fullText = extractedPages.join("\n\n");
+
+            if (fullText.trim().length === 0) {
+                showError("The PDF appears to be empty or contains only scanned images without selectable text.");
+                trackEvent('pdf_read_error', { reason: 'empty_or_scanned' });
+                return;
+            }
+
+            setUploadedContent(file.name, fullText);
+        } catch (err) {
+            hideLoadingNotification();
+            showError("Could not read this PDF file: " + err.message);
+            trackEvent('pdf_read_error', { error_message: err.message });
         }
-    });
-}
-
-function handleWrongWordClick(el) {
-    el.classList.add("clicked-wrong");
-    setTimeout(() => el.classList.remove("clicked-wrong"), 450);
-
-    trackEvent('challenge_round1_click_incorrect', {
-        clicked_text: el.textContent.trim(),
-        scenario_id: currentScenario.id
-    });
-}
-
-function handleCorrectRound1Click() {
-    round1Duration = stopLiveTimer();
-    stageRound1.style.display = "none";
-    stageIntermission.style.display = "flex";
-
-    intermissionTimeCallout.textContent = round1Duration.toFixed(2) + "s";
-
-    trackEvent('challenge_round1_complete', {
-        time_seconds: parseFloat(round1Duration.toFixed(2)),
-        scenario_id: currentScenario.id
-    });
-}
-
-function startRoundTwo() {
-    stageIntermission.style.display = "none";
-    stageRound2.style.display = "flex";
-
-    round2PromptText.textContent = currentScenario.prompt;
-    renderVisualCards();
-
-    startLiveTimer();
-
-    trackEvent('challenge_round2_start', {
-        scenario_id: currentScenario.id
-    });
-}
-
-function renderVisualCards() {
-    visualTargetDeck.innerHTML = "";
-
-    const cards = [...currentScenario.visualCards].sort(() => 0.5 - Math.random());
-
-    cards.forEach(c => {
-        const cardEl = document.createElement("div");
-        cardEl.className = "visual-fact-card";
-        cardEl.innerHTML = `
-            <span class="card-icon">${c.icon}</span>
-            <span class="card-label">${c.label}</span>
-            <span class="card-val">${c.val}</span>
-        `;
-
-        if (c.isTarget) {
-            cardEl.onclick = () => handleCorrectRound2Click();
-        } else {
-            cardEl.onclick = () => {
-                cardEl.style.borderColor = "#000000";
-                setTimeout(() => cardEl.style.borderColor = "var(--border)", 400);
-            };
-        }
-
-        visualTargetDeck.appendChild(cardEl);
-    });
-}
-
-function handleCorrectRound2Click() {
-    round2Duration = stopLiveTimer();
-    stageRound2.style.display = "none";
-    showResults();
-
-    const speedupPct = Math.round(((round1Duration - round2Duration) / round2Duration) * 100);
-
-    trackEvent('challenge_round2_complete', {
-        round1_seconds: parseFloat(round1Duration.toFixed(2)),
-        round2_seconds: parseFloat(round2Duration.toFixed(2)),
-        speedup_percentage: speedupPct,
-        scenario_id: currentScenario.id
-    });
-}
-
-function showResults() {
-    stageResults.style.display = "flex";
-
-    const r1 = Math.max(0.1, round1Duration);
-    const r2 = Math.max(0.1, round2Duration);
-    const speedupPct = Math.round(((r1 - r2) / r2) * 100);
-
-    if (speedupPct > 0) {
-        speedupMetricDisplay.textContent = `+${speedupPct}% Faster`;
-        speedupSummarySentence.textContent = `Your visual cortex extracted the exact same information ${speedupPct}% faster than reading text.`;
     } else {
-        speedupMetricDisplay.textContent = "High Visual Clarity";
-        speedupSummarySentence.textContent = "You located both quickly! Visual organization eliminates mental translation fatigue.";
+        showError("Supported formats: .pdf, .txt, and .md documents.");
+    }
+}
+
+function showLoadingNotification(msg) {
+    statusMessage.textContent = msg;
+    statusMessage.className = "status-box";
+    statusMessage.style.display = "block";
+    statusMessage.style.background = "var(--bg-subtle)";
+    statusMessage.style.color = "var(--text-primary)";
+    statusMessage.style.border = "1px solid var(--border)";
+}
+
+function hideLoadingNotification() {
+    statusMessage.style.display = "none";
+}
+
+function setUploadedContent(fileName, text) {
+    uploadedFileContent = text;
+    filePillName.textContent = fileName;
+    fileStatusPill.style.display = "flex";
+    updateWordCount();
+    clearError();
+}
+
+function clearUploadedFile(e) {
+    if (e) e.stopPropagation();
+    uploadedFileContent = "";
+    fileInput.value = "";
+    fileStatusPill.style.display = "none";
+    updateWordCount();
+    trackEvent('remove_uploaded_file');
+}
+
+function getActiveRawText() {
+    return (uploadedFileContent || lessonTextInput.value).trim();
+}
+
+function showError(msg) {
+    statusMessage.textContent = msg;
+    statusMessage.className = "status-box error";
+    statusMessage.style.display = "block";
+}
+
+function clearError() {
+    statusMessage.textContent = "";
+    statusMessage.className = "status-box";
+    statusMessage.style.display = "none";
+}
+
+/* ======================================================
+   NATURAL LANGUAGE PARSER & FRONT-MATTER SCRUBBER
+====================================================== */
+const STOP_WORDS = new Set([
+    "the","and","of","to","a","in","is","that","for","it","as","was","with","be","by","on","not",
+    "he","i","this","are","from","at","or","an","they","which","one","you","were","her","all",
+    "she","there","would","their","we","him","been","has","when","who","will","more","no","if",
+    "out","so","said","what","up","its","about","into","than","them","can","only","other","new",
+    "some","could","time","these","two","may","then","do","first","any","my","now","such","like"
+]);
+
+const PUBLISHER_OCR_BLACKLIST = new Set([
+    "gujn","guin","penguin","classics","press","routledge","oxford","springer","harper","edition",
+    "copyright","isbn","cataloging","congress","library","musa","translator","published","inc",
+    "york","london","boston","toronto","sydney","auckland","all","rights","reserved","printed"
+]);
+
+function romanToArabic(roman) {
+    if (!roman) return null;
+    const map = { I: 1, V: 5, X: 10, L: 50, C: 100, D: 500, M: 1000 };
+    let total = 0, prev = 0;
+    const s = roman.toUpperCase().trim();
+    for (let i = s.length - 1; i >= 0; i--) {
+        const val = map[s[i]];
+        if (!val) return null;
+        if (val < prev) total -= val;
+        else { total += val; prev = val; }
+    }
+    return total;
+}
+
+function arabicToRoman(num) {
+    const lookup = { M:1000,CM:900,D:500,CD:400,C:100,XC:90,L:50,XL:40,X:10,IX:9,V:5,IV:4,I:1 };
+    let roman = '';
+    for (let i in lookup) {
+        while (num >= lookup[i]) {
+            roman += i;
+            num -= lookup[i];
+        }
+    }
+    return roman;
+}
+
+function isJunkOrIndexLine(line) {
+    const trimmed = line.trim();
+    if (trimmed.length < 25) return true;
+    
+    const digitCount = (trimmed.match(/\d/g) || []).length;
+    if (digitCount / trimmed.length > 0.18) return true;
+    
+    const cantoOccurrences = (trimmed.match(/\b(canto|chapter|page|section)\b/gi) || []).length;
+    if (cantoOccurrences >= 2) return true;
+
+    if (/(table of contents|contents|acknowledgments|introduction to|translator's note|publisher|copyright|library of congress|all rights reserved|penguin|classics)/i.test(trimmed)) {
+        return true;
     }
 
-    resTimeRound1.textContent = `${r1.toFixed(2)} seconds`;
-    resTimeRound2.textContent = `${r2.toFixed(2)} seconds`;
-
-    barFillRound1.style.width = "100%";
-    const r2BarPct = Math.max(12, Math.min(100, Math.round((r2 / r1) * 100)));
-    barFillRound2.style.width = r2BarPct + "%";
+    return false;
 }
 
+function isValidSemanticKeyword(w) {
+    if (!w || w.length < 3 || w.length > 20) return false;
+    const lower = w.toLowerCase();
+    if (STOP_WORDS.has(lower) || PUBLISHER_OCR_BLACKLIST.has(lower)) return false;
+    if (!/[aeiouy]/i.test(lower)) return false;
+    if (/[bcdfghjklmnpqrstvwxz]{4,}/i.test(lower)) return false;
+    return true;
+}
+
+function bypassFrontMatter(rawText) {
+    const match = rawText.match(/\b(CANTO\s+I\b|CANTO\s+1\b|CHAPTER\s+I\b|CHAPTER\s+1\b|BOOK\s+ONE\b|ACT\s+I\b)/i);
+    if (match && match.index !== undefined) {
+        const subsequentText = rawText.slice(match.index);
+        const secondOccurrence = subsequentText.slice(50).search(/\b(CANTO\s+I\b|CANTO\s+1\b|CHAPTER\s+I\b|CHAPTER\s+1\b)/i);
+        if (secondOccurrence !== -1 && match.index < 8000) {
+            return subsequentText.slice(secondOccurrence + 50);
+        }
+        return subsequentText;
+    }
+    
+    if (rawText.length > 12000 && /(penguin|copyright|contents|isbn)/i.test(rawText.slice(0, 4000))) {
+        return rawText.slice(6000);
+    }
+    
+    return rawText;
+}
+
+function extractTargetedChapter(rawText, promptFilter) {
+    if (promptFilter && promptFilter.trim().length > 0) {
+        const promptClean = promptFilter.trim();
+        const match = promptClean.match(/\b(canto|chapter|book|section|part)\s*([0-9]+|[ivxlcdm]+)\b/i);
+        
+        if (match) {
+            const prefix = match[1];
+            const rawVal = match[2];
+            const num = isNaN(rawVal) ? romanToArabic(rawVal) : parseInt(rawVal, 10);
+            const roman = isNaN(rawVal) ? rawVal.toUpperCase() : arabicToRoman(num);
+
+            const searchPattern = new RegExp(`\\b${prefix}\\s*(${num}|${roman})\\b`, "gi");
+            const matches = [];
+            let m;
+            while ((m = searchPattern.exec(rawText)) !== null) {
+                matches.push(m.index);
+            }
+
+            if (matches.length > 0) {
+                let bodyIndex = matches[0];
+                for (let idx of matches) {
+                    const sampleAfter = rawText.slice(idx, idx + 400);
+                    const sampleDigitRatio = (sampleAfter.match(/\d/g) || []).length / sampleAfter.length;
+                    if (sampleDigitRatio < 0.12 && !/contents/i.test(sampleAfter)) {
+                        bodyIndex = idx;
+                        break;
+                    }
+                }
+
+                const textFromChapter = rawText.slice(bodyIndex);
+                const nextNum = num ? num + 1 : null;
+                const nextRoman = nextNum ? arabicToRoman(nextNum) : null;
+                const nextRegex = new RegExp(`\\b${prefix}\\s*(${nextNum}|${nextRoman})\\b`, "i");
+                const nextMatch = textFromChapter.slice(100).search(nextRegex);
+
+                if (nextMatch !== -1) {
+                    return textFromChapter.slice(0, nextMatch + 100);
+                } else {
+                    return textFromChapter.slice(0, 20000);
+                }
+            }
+        }
+    }
+
+    return bypassFrontMatter(rawText);
+}
+
+function digestTextIntoCleanSentences(rawText, promptFilter) {
+    const targetedText = extractTargetedChapter(rawText, promptFilter);
+    return targetedText
+        .replace(/[\r\n]+/g, " ")
+        .split(/(?<=[.?!])\s+/)
+        .map(s => s.trim())
+        .filter(s => s.length > 30 && !isJunkOrIndexLine(s));
+}
+
+function extractKeyPhrases(sentence) {
+    const words = sentence.toLowerCase().match(/\b[a-z]{3,}\b/g) || [];
+    return words.filter(w => isValidSemanticKeyword(w));
+}
+
+/* ======================================================
+   DYNAMIC MONOCHROME SCHEMATIC DIAGRAM GENERATOR
+====================================================== */
+function generateMonochromeDiagram(conceptLabel, index) {
+    const variant = index % 4;
+    
+    if (variant === 0) {
+        // Sequential Process / Milestone Pipeline
+        return `
+            <svg viewBox="0 0 280 200" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Sequential flowchart diagram">
+                <rect x="20" y="20" width="240" height="42" rx="8" fill="#FFFFFF" stroke="#050505" stroke-width="1.5" />
+                <text x="140" y="46" fill="#050505" font-size="11" font-weight="700" text-anchor="middle">Phase I: ${conceptLabel.slice(0, 16)}</text>
+                
+                <path d="M 140 62 L 140 84" stroke="#050505" stroke-width="2" />
+                <polygon points="140,88 136,78 144,78" fill="#050505" />
+
+                <rect x="35" y="88" width="210" height="42" rx="8" fill="#F7F7F5" stroke="#737373" stroke-width="1.5" />
+                <text x="140" y="114" fill="#050505" font-size="11" font-weight="700" text-anchor="middle">Synthesis & Core Tension</text>
+
+                <path d="M 140 130 L 140 150" stroke="#050505" stroke-width="2" />
+                <polygon points="140,154 136,144 144,144" fill="#050505" />
+
+                <rect x="20" y="154" width="240" height="40" rx="8" fill="#050505" />
+                <text x="140" y="179" fill="#FFFFFF" font-size="11" font-weight="700" text-anchor="middle">Outcome & Resolution</text>
+            </svg>
+        `;
+    } else if (variant === 1) {
+        // Central Nexus & Active Loop
+        return `
+            <svg viewBox="0 0 280 200" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Cognitive loop schematic">
+                <circle cx="140" cy="100" r="68" fill="none" stroke="#D1D1CD" stroke-dasharray="4 4" stroke-width="2" />
+                
+                <circle cx="140" cy="35" r="26" fill="#FFFFFF" stroke="#050505" stroke-width="1.5" />
+                <text x="140" y="39" fill="#050505" font-size="10" font-weight="bold" text-anchor="middle">ORIGIN</text>
+
+                <circle cx="210" cy="130" r="26" fill="#FFFFFF" stroke="#050505" stroke-width="1.5" />
+                <text x="210" y="134" fill="#050505" font-size="10" font-weight="bold" text-anchor="middle">ACTION</text>
+
+                <circle cx="70" cy="130" r="26" fill="#050505" />
+                <text x="70" y="134" fill="#FFFFFF" font-size="10" font-weight="bold" text-anchor="middle">INSIGHT</text>
+
+                <text x="140" y="105" fill="#737373" font-size="10" font-weight="bold" text-anchor="middle">NEXUS</text>
+            </svg>
+        `;
+    } else if (variant === 2) {
+        // Analytical 2x2 Matrix
+        return `
+            <svg viewBox="0 0 280 200" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Analytical matrix diagram">
+                <line x1="140" y1="20" x2="140" y2="180" stroke="#D1D1CD" stroke-width="1.5" />
+                <line x1="30" y1="100" x2="250" y2="100" stroke="#D1D1CD" stroke-width="1.5" />
+
+                <rect x="35" y="25" width="95" height="65" rx="6" fill="#F7F7F5" stroke="#E8E8E5" stroke-width="1" />
+                <text x="82" y="52" fill="#050505" font-size="10" font-weight="bold" text-anchor="middle">Direct Literal</text>
+                <text x="82" y="70" fill="#737373" font-size="9" text-anchor="middle">Primary Event</text>
+
+                <rect x="150" y="25" width="95" height="65" rx="6" fill="#050505" />
+                <text x="197" y="52" fill="#FFFFFF" font-size="10" font-weight="bold" text-anchor="middle">Allegorical</text>
+                <text x="197" y="70" fill="#A3A3A3" font-size="9" text-anchor="middle">Deeper Meaning</text>
+
+                <rect x="35" y="110" width="95" height="65" rx="6" fill="#FFFFFF" stroke="#E8E8E5" stroke-width="1" />
+                <text x="82" y="145" fill="#737373" font-size="9" text-anchor="middle">Secondary Cause</text>
+
+                <rect x="150" y="110" width="95" height="65" rx="6" fill="#F7F7F5" stroke="#D1D1CD" stroke-width="1" />
+                <text x="197" y="145" fill="#050505" font-size="9" font-weight="bold" text-anchor="middle">Transformation</text>
+            </svg>
+        `;
+    } else {
+        // Hierarchical Breakdown Tree
+        return `
+            <svg viewBox="0 0 280 200" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Process roadmap diagram">
+                <rect x="25" y="25" width="65" height="150" rx="8" fill="#F7F7F5" stroke="#D1D1CD" stroke-width="1" />
+                <text x="57" y="50" fill="#050505" font-size="10" font-weight="bold" text-anchor="middle">LEVEL 1</text>
+                <text x="57" y="100" fill="#737373" font-size="9" text-anchor="middle">Premise &</text>
+                <text x="57" y="115" fill="#737373" font-size="9" text-anchor="middle">Setting</text>
+
+                <rect x="105" y="25" width="65" height="150" rx="8" fill="#F7F7F5" stroke="#D1D1CD" stroke-width="1" />
+                <text x="137" y="50" fill="#050505" font-size="10" font-weight="bold" text-anchor="middle">LEVEL 2</text>
+                <text x="137" y="100" fill="#737373" font-size="9" text-anchor="middle">Friction &</text>
+                <text x="137" y="115" fill="#737373" font-size="9" text-anchor="middle">Conflict</text>
+
+                <rect x="185" y="25" width="65" height="150" rx="8" fill="#050505" />
+                <text x="217" y="50" fill="#FFFFFF" font-size="10" font-weight="bold" text-anchor="middle">LEVEL 3</text>
+                <text x="217" y="100" fill="#E5E5E5" font-size="9" text-anchor="middle">Resolution</text>
+                <text x="217" y="115" fill="#E5E5E5" font-size="9" text-anchor="middle">Strategy</text>
+            </svg>
+        `;
+    }
+}
+
+/* ======================================================
+   SYNTHESIS CONTROLLER: TEXT TO PRESENTATION & NOTES
+====================================================== */
+function handleGenerateAction() {
+    const text = getActiveRawText();
+
+    if (text.length === 0) {
+        showError("Please upload a textbook file or paste text content to convert.");
+        return;
+    }
+    if (text.length < 50) {
+        showError("Content is too brief to analyze. Please provide a substantive excerpt or file.");
+        return;
+    }
+
+    clearError();
+    placeholderView.style.display = "none";
+    activeRenderContainer.style.display = "none";
+    bottomNavControls.style.display = "none";
+    loadingView.style.display = "flex";
+    progressBar.style.width = "0%";
+
+    const promptText = userPromptDirective.value.trim();
+
+    trackEvent('generate_visual_notes', {
+        has_file: !!uploadedFileContent,
+        word_count: text.split(/\s+/).length,
+        has_chapter_target: promptText.length > 0
+    });
+
+    let progress = 0;
+    const interval = setInterval(() => {
+        progress += 8;
+        progressBar.style.width = progress + "%";
+
+        if (progress === 32) {
+            loadingMsgText.textContent = promptText 
+                ? `Scrubbing indexes & targeting: "${promptText.slice(0, 25)}..."`
+                : "Filtering front-matter & isolating narrative structure...";
+        } else if (progress === 72) {
+            loadingMsgText.textContent = "Synthesizing visual schematics and distilled slide takeaways...";
+        }
+
+        if (progress >= 100) {
+            clearInterval(interval);
+            setTimeout(() => {
+                loadingView.style.display = "none";
+                synthesizeVisualDeck(text, promptText);
+            }, 200);
+        }
+    }, 25);
+}
+
+function synthesizeVisualDeck(rawText, promptFilter) {
+    const sentences = digestTextIntoCleanSentences(rawText, promptFilter);
+    visualSlides = [];
+
+    if (sentences.length === 0) {
+        showError("Could not find readable chapter content matching your prompt. Try a broader search term.");
+        placeholderView.style.display = "block";
+        return;
+    }
+
+    // Adaptively package into a human-digestible slide deck (typically 5 to 8 focused slides)
+    const targetSlides = Math.min(8, Math.max(4, Math.floor(sentences.length / 3.5)));
+    const chunkSize = Math.max(2, Math.floor(sentences.length / targetSlides));
+
+    const titles = [
+        "Conceptual Foundation & Scope",
+        "Primary Conflict & Interaction",
+        "Allegorical Depth & Meaning",
+        "Mechanisms & System Dynamics",
+        "Pivotal Turning Point",
+        "Actionable Trajectory & Synthesis",
+        "Underlying Theoretical Structure",
+        "Comprehensive Retrospective"
+    ];
+
+    for (let i = 0; i < targetSlides; i++) {
+        const chunk = sentences.slice(i * chunkSize, (i + 1) * chunkSize);
+        if (chunk.length === 0) break;
+
+        const leadSentence = chunk[0];
+        const keywords = extractKeyPhrases(leadSentence);
+        let conceptTag = keywords.find(k => isValidSemanticKeyword(k)) || "PRINCIPLE";
+        conceptTag = conceptTag.toUpperCase();
+
+        visualSlides.push({
+            slideNumber: i + 1,
+            title: titles[i] || `Analytical Focus Phase ${i + 1}`,
+            conceptTag: conceptTag,
+            lead: leadSentence,
+            bullets: chunk.map(s => extractBulletItem(s)),
+            diagramHtml: generateMonochromeDiagram(conceptTag, i),
+            diagramCaption: `Figure ${i + 1}.1: Conceptual ${conceptTag} Schematic`
+        });
+    }
+
+    currentSlideIndex = 0;
+    renderOutputView();
+    exportMenuBtn.disabled = false;
+}
+
+function extractBulletItem(sentence) {
+    const parts = sentence.split(/,|—|;/);
+    const key = parts[0].trim();
+    const detail = parts.slice(1).join(", ").trim();
+    if (detail.length > 5) {
+        return `<strong>${key}</strong>: ${detail}`;
+    }
+    return `<strong>Insight</strong>: ${sentence}`;
+}
+
+/* ======================================================
+   RENDER VIEW CONTROLLER (PRESENTATION VS. NOTES SHEET)
+====================================================== */
+function handleViewModeChange() {
+    trackEvent('change_view_format', { selected_format: viewModeSelect.value });
+    renderOutputView();
+}
+
+function renderOutputView() {
+    if (visualSlides.length === 0) return;
+    activeRenderContainer.style.display = "flex";
+    activeRenderContainer.innerHTML = "";
+
+    const mode = viewModeSelect.value;
+
+    if (mode === "presentation") {
+        bottomNavControls.style.display = "flex";
+        renderSlide(currentSlideIndex);
+    } else {
+        // Consolidated Visual Notes Sheet View
+        bottomNavControls.style.display = "none";
+        renderNotesSheet();
+    }
+}
+
+function renderSlide(index) {
+    activeRenderContainer.innerHTML = "";
+    const slide = visualSlides[index];
+
+    const slideDeck = document.createElement("div");
+    slideDeck.className = "true-slide-deck";
+    slideDeck.innerHTML = `
+        <!-- LEFT COLUMN: DIAGRAM & SCHEMATICS -->
+        <div class="slide-visual-column">
+            <span class="slide-tag">${slide.conceptTag} SCHEMATIC</span>
+            <div class="slide-diagram-canvas">
+                ${slide.diagramHtml}
+            </div>
+            <div class="diagram-label">${slide.diagramCaption}</div>
+        </div>
+
+        <!-- RIGHT COLUMN: STRUCTURED DETAILS -->
+        <div class="slide-content-column">
+            <span class="slide-tag">SLIDE ${index + 1} OF ${visualSlides.length}</span>
+            <h3>${slide.title}</h3>
+            <p class="slide-lead-concept">${slide.lead}</p>
+            <ul class="slide-bullets">
+                ${slide.bullets.map(b => `<li>${b}</li>`).join('')}
+            </ul>
+        </div>
+    `;
+
+    activeRenderContainer.appendChild(slideDeck);
+
+    slideCounter.textContent = `Slide ${index + 1} / ${visualSlides.length}`;
+    prevBtn.disabled = index === 0;
+    nextBtn.disabled = index === visualSlides.length - 1;
+
+    renderPageJumpDots();
+}
+
+function renderNotesSheet() {
+    const sheet = document.createElement("div");
+    sheet.className = "notes-sheet";
+    sheet.innerHTML = `
+        <div class="notes-header-block">
+            <span class="slide-tag">CONSOLIDATED VISUAL NOTES</span>
+            <h2>Executive Review & Study Guide</h2>
+            <p style="color:var(--text-muted); font-size:0.88rem; margin-top:4px;">
+                Synthesized across ${visualSlides.length} structured conceptual sections.
+            </p>
+        </div>
+
+        ${visualSlides.map(s => `
+            <div class="notes-item">
+                <span class="slide-tag">[${s.conceptTag}]</span>
+                <h4>${s.slideNumber}.${s.title}</h4>
+                <p><strong>Lead Takeaway:</strong> ${s.lead}</p>
+                <ul style="margin-top:8px; padding-left:18px; font-size:0.88rem; color:var(--text-secondary);">
+                    ${s.bullets.map(b => `<li style="margin-bottom:4px;">${b}</li>`).join('')}
+                </ul>
+            </div>
+        `).join('')}
+    `;
+
+    activeRenderContainer.appendChild(sheet);
+}
+
+function navigateSlide(direction) {
+    const nextIdx = currentSlideIndex + direction;
+    if (nextIdx >= 0 && nextIdx < visualSlides.length) {
+        currentSlideIndex = nextIdx;
+        trackEvent('navigate_slide', {
+            new_slide: nextIdx + 1,
+            direction: direction > 0 ? 'next' : 'previous'
+        });
+        renderSlide(currentSlideIndex);
+    }
+}
+
+function renderPageJumpDots() {
+    pageDots.innerHTML = "";
+    visualSlides.forEach((_, idx) => {
+        const li = document.createElement("li");
+        li.className = `jump-dot ${idx === currentSlideIndex ? "active" : ""}`;
+        li.textContent = idx + 1;
+        li.setAttribute("aria-label", `Jump to slide ${idx + 1}`);
+        li.addEventListener("click", () => {
+            currentSlideIndex = idx;
+            trackEvent('jump_to_slide', { slide_number: idx + 1 });
+            renderSlide(currentSlideIndex);
+        });
+        pageDots.appendChild(li);
+    });
+}
+
+function clearStudio() {
+    lessonTextInput.value = "";
+    userPromptDirective.value = "";
+    clearUploadedFile();
+    updateWordCount();
+    visualSlides = [];
+    currentSlideIndex = 0;
+    activeRenderContainer.innerHTML = "";
+    activeRenderContainer.style.display = "none";
+    bottomNavControls.style.display = "none";
+    placeholderView.style.display = "block";
+    exportMenuBtn.disabled = true;
+    exportMenu.classList.remove("show");
+    clearError();
+    trackEvent('clear_studio');
+}
+
+/* ======================================================
+   EXPORT ENGINE (MARKDOWN, TEXT, PRINT TO PDF)
+====================================================== */
+function toggleExportMenu(e) {
+    e.stopPropagation();
+    const isShowing = exportMenu.classList.toggle("show");
+    exportMenuBtn.setAttribute("aria-expanded", isShowing);
+}
+
+document.addEventListener("click", (e) => {
+    if (!e.target.closest(".dropdown-container")) {
+        exportMenu.classList.remove("show");
+        exportMenuBtn.setAttribute("aria-expanded", "false");
+    }
+});
+
+function exportAs(format) {
+    if (visualSlides.length === 0) return;
+    exportMenu.classList.remove("show");
+
+    let content = "";
+    let mimeType = "text/plain";
+    let filename = `cogniflow-visual-notes.${format}`;
+
+    trackEvent('export_notes', { format: format, slides_count: visualSlides.length });
+
+    if (format === "txt") {
+        content = `COGNIFLOW VISUAL REVIEWER NOTES\nTotal Sections: ${visualSlides.length}\n\n`;
+        visualSlides.forEach(s => {
+            content += `================ SECTION ${s.slideNumber}: ${s.title.toUpperCase()} ================\n`;
+            content += `Concept Tag: ${s.conceptTag}\n`;
+            content += `Lead Principle: ${s.lead}\n\n`;
+            s.bullets.forEach(b => {
+                content += ` * ${b.replace(/<[^>]*>/g, '')}\n`;
+            });
+            content += `\n`;
+        });
+    } else if (format === "md") {
+        content = `# CogniFlow Visual Review Notes\n\n`;
+        visualSlides.forEach(s => {
+            content += `## ${s.slideNumber}. ${s.title}\n`;
+            content += `**Tag:** \`${s.conceptTag}\`\n\n`;
+            content += `> ${s.lead}\n\n`;
+            s.bullets.forEach(b => {
+                content += `- ${b.replace(/<strong>(.*?)<\/strong>/g, '**$1**')}\n`;
+            });
+            content += `\n---\n\n`;
+        });
+        mimeType = "text/markdown";
+    }
+
+    const blob = new Blob([content], { type: mimeType });
+    const link = document.createElement("a");
+    link.href = URL.createObjectURL(blob);
+    link.download = filename;
+    link.click();
+}
+
+function printStudioContent() {
+    exportMenu.classList.remove("show");
+    trackEvent('export_notes', { format: 'print_pdf' });
+    window.print();
+}
+
+/* ======================================================
+   FULLSCREEN THEATRE TOGGLE
+====================================================== */
 function toggleWidgetFullscreen() {
-    const isFull = challengeWidget.classList.toggle("is-fullscreen");
+    const isFull = studioWidget.classList.toggle("is-fullscreen");
     fullscreenToggleBtn.textContent = isFull ? "✕ Close" : "⛶ Expand";
     document.body.style.overflow = isFull ? "hidden" : "";
     trackEvent('toggle_fullscreen', { is_fullscreen: isFull });
 }
 
 document.addEventListener("keydown", (e) => {
-    if (e.key === "Escape" && challengeWidget.classList.contains("is-fullscreen")) {
+    if (e.key === "Escape" && studioWidget.classList.contains("is-fullscreen")) {
         toggleWidgetFullscreen();
     }
 });
 
+/* ======================================================
+   NAV & CTA CLICK TRACKING
+====================================================== */
 window.addEventListener("DOMContentLoaded", () => {
     document.querySelectorAll(".nav-links a, .hero .buttons a").forEach(link => {
         link.addEventListener("click", () => {
