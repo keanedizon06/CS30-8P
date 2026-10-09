@@ -461,7 +461,7 @@ section {
     gap: 14px;
 }
 
-/* Drop Area with #c0c0c0 border */
+/* Distinct Drop Area with #c0c0c0 border */
 .drop-area {
     border: 2px dashed var(--border-widget);
     border-radius: 14px;
@@ -554,7 +554,7 @@ section {
     border-color: #050505;
 }
 
-/* Chapter Input Container with #c0c0c0 border */
+/* Distinct Chapter Input Container with #c0c0c0 border */
 .prompt-directive-box {
     background: #EAEAE6;
     border: 1.5px solid var(--border-widget);
@@ -1227,13 +1227,21 @@ footer {
 </style>
 
 <!-- Google tag (gtag.js) -->
-<script async src="https://googletagmanager.com"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-8NLPP45RS3"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
 
   gtag('config', 'G-8NLPP45RS3');
+
+  function trackEvent(eventName, eventParams = {}) {
+      if (typeof gtag === 'function') {
+          gtag('event', eventName, eventParams);
+      } else if (window.dataLayer) {
+          window.dataLayer.push({ event: eventName, ...eventParams });
+      }
+  }
 </script>
 
 </head>
@@ -2366,27 +2374,9 @@ document.addEventListener("keydown", (e) => {
 });
 
 /* ======================================================
-   NAV, CTA & INBOUND EMAIL TELEMETRY TRACKING
+   NAV & CTA CLICK TRACKING
 ====================================================== */
 window.addEventListener("DOMContentLoaded", () => {
-    // 1. Inbound Email Campaign Listener (Detects clicks originating from email-campaign.html)
-    const urlParams = new URLSearchParams(window.location.search);
-    const utmSource = urlParams.get('utm_source');
-    const utmMedium = urlParams.get('utm_medium');
-    const utmCampaign = urlParams.get('utm_campaign');
-    const utmContent = urlParams.get('utm_content');
-
-    if (utmMedium === 'email' || utmSource === 'newsletter') {
-        trackEvent('email_cta_click', {
-            campaign: utmCampaign || 'visual_reviewer_launch',
-            source: utmSource || 'newsletter',
-            medium: utmMedium || 'email',
-            button_id: utmContent || 'email_cta',
-            landing_section: window.location.hash || 'page_top'
-        });
-    }
-
-    // 2. On-Page Click Tracking
     document.querySelectorAll(".nav-links a, .hero .buttons a").forEach(link => {
         link.addEventListener("click", () => {
             trackEvent('cta_click', {
