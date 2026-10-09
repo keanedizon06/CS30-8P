@@ -1226,17 +1226,14 @@ footer {
 }
 </style>
 
-<!-- Google tag (gtag.js) with Debug Mode & Console Telemetry -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-8NLPP45RS3"></script>
+<!-- Google tag (gtag.js) -->
+<script async src="https://googletagmanager.com"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
 
-  // debug_mode: true routes events live to GA4 DebugView for immediate verification
-  gtag('config', 'G-8NLPP45RS3', {
-      debug_mode: true
-  });
+  gtag('config', 'G-8NLPP45RS3');
 
   function trackEvent(eventName, eventParams = {}) {
       if (typeof gtag === 'function') {
