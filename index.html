@@ -135,7 +135,7 @@ nav {
 .nav-links {
     display: flex;
     align-items: center;
-    gap: 24px;
+    gap: 28px;
     list-style: none;
 }
 
@@ -149,45 +149,6 @@ nav {
 
 .nav-links a:hover {
     color: var(--text-primary);
-}
-
-.nav-email-link {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    padding: 5px 12px;
-    border: 1px solid var(--border-widget);
-    border-radius: 999px;
-    font-size: 0.82rem;
-    font-weight: 600;
-    background: var(--bg-subtle);
-    color: var(--text-primary) !important;
-}
-
-.nav-email-link:hover {
-    background: #FFFFFF;
-    border-color: #050505;
-}
-
-/* INBOUND CAMPAIGN BANNER */
-.campaign-banner {
-    display: none;
-    background: #050505;
-    color: #FFFFFF;
-    padding: 10px 20px;
-    font-size: 0.85rem;
-    text-align: center;
-    font-weight: 500;
-}
-
-.campaign-banner strong {
-    color: #FFFFFF;
-}
-
-.campaign-banner a {
-    color: #FFFFFF;
-    margin-left: 10px;
-    text-decoration: underline;
 }
 
 /* BUTTONS */
@@ -500,7 +461,7 @@ section {
     gap: 14px;
 }
 
-/* Drop Area with #c0c0c0 border */
+/* Distinct Drop Area with #c0c0c0 border */
 .drop-area {
     border: 2px dashed var(--border-widget);
     border-radius: 14px;
@@ -593,7 +554,7 @@ section {
     border-color: #050505;
 }
 
-/* Chapter Input Container with #c0c0c0 border */
+/* Distinct Chapter Input Container with #c0c0c0 border */
 .prompt-directive-box {
     background: #EAEAE6;
     border: 1.5px solid var(--border-widget);
@@ -1289,12 +1250,6 @@ footer {
 
 <a href="#main-content" class="skip-link">Skip to main content</a>
 
-<!-- DYNAMIC INBOUND EMAIL CAMPAIGN RECOGNITION BANNER -->
-<div id="campaignBanner" class="campaign-banner">
-    <span>Welcome! You arrived from our newsletter campaign: <strong id="campaignNameText">Product Launch</strong>.</span>
-    <a href="#studio">Jump to Studio ➔</a>
-</div>
-
 <header>
     <div class="container">
         <nav aria-label="Main Navigation">
@@ -1308,7 +1263,6 @@ footer {
                 <li><a href="#benefits">The Benefits</a></li>
                 <li><a href="#studio">Visual Reviewer</a></li>
                 <li><a href="#future">Why It Matters</a></li>
-                <li><a href="email-campaign.html" target="_blank" class="nav-email-link" title="Preview Marketing Newsletter">✉ Newsletter Asset</a></li>
             </ul>
         </nav>
     </div>
@@ -1316,7 +1270,7 @@ footer {
 
 <main id="main-content">
 
-    <!-- HERO SECTION (WITH REWRITTEN OPENING PARAGRAPHS) -->
+    <!-- HERO SECTION -->
     <section class="container hero" id="story">
         <div>
             <span class="section-label">VISUAL REVIEWER • TEXT TO VISUAL NOTES</span>
@@ -1435,7 +1389,7 @@ footer {
                     <p>Analyzing reference patterns, diagrams, and working architectures.</p>
                 </article>
                 <article class="step-card">
-                    <div class="step-number">03</div>
+                    <div class="step-number" aria-hidden="true">03</div>
                     <h3>Practice</h3>
                     <p>Applying concepts directly through tactile trial and error.</p>
                 </article>
@@ -1680,7 +1634,6 @@ footer {
 
 </main>
 
-<!-- FOOTER WITH REVISED ATTRIBUTION -->
 <footer>
     <div class="container">
         <p>Created by K.Z.D</p>
@@ -2421,37 +2374,9 @@ document.addEventListener("keydown", (e) => {
 });
 
 /* ======================================================
-   INBOUND EMAIL TELEMETRY & NAV CLICK TRACKING
+   NAV & CTA CLICK TRACKING
 ====================================================== */
 window.addEventListener("DOMContentLoaded", () => {
-    // 1. Inbound Email Campaign Listener (Handles connection from email-campaign.html)
-    const urlParams = new URLSearchParams(window.location.search);
-    const utmSource = urlParams.get('utm_source');
-    const utmMedium = urlParams.get('utm_medium');
-    const utmCampaign = urlParams.get('utm_campaign');
-    const utmContent = urlParams.get('utm_content');
-
-    if (utmMedium === 'email' || utmSource === 'newsletter') {
-        // Track the inbound arrival directly in Google Analytics
-        trackEvent('email_campaign_arrival', {
-            campaign: utmCampaign || 'visual_reviewer_launch',
-            source: utmSource || 'newsletter',
-            button_clicked: utmContent || 'unknown_cta',
-            landing_anchor: window.location.hash || 'page_top'
-        });
-
-        // Show welcome feedback banner
-        const banner = document.getElementById("campaignBanner");
-        const bannerText = document.getElementById("campaignNameText");
-        if (banner) {
-            banner.style.display = "block";
-            if (bannerText && utmCampaign) {
-                bannerText.textContent = utmCampaign.replace(/_/g, ' ').toUpperCase();
-            }
-        }
-    }
-
-    // 2. Navigation and CTA Click Tracking
     document.querySelectorAll(".nav-links a, .hero .buttons a").forEach(link => {
         link.addEventListener("click", () => {
             trackEvent('cta_click', {
