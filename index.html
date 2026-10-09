@@ -1234,14 +1234,6 @@ footer {
   gtag('js', new Date());
 
   gtag('config', 'G-8NLPP45RS3');
-
-  function trackEvent(eventName, eventParams = {}) {
-      if (typeof gtag === 'function') {
-          gtag('event', eventName, eventParams);
-      } else if (window.dataLayer) {
-          window.dataLayer.push({ event: eventName, ...eventParams });
-      }
-  }
 </script>
 
 </head>
