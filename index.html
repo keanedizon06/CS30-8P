@@ -461,7 +461,7 @@ section {
     gap: 14px;
 }
 
-/* Distinct Drop Area with #c0c0c0 border */
+/* Drop Area with #c0c0c0 border */
 .drop-area {
     border: 2px dashed var(--border-widget);
     border-radius: 14px;
@@ -554,7 +554,7 @@ section {
     border-color: #050505;
 }
 
-/* Distinct Chapter Input Container with #c0c0c0 border */
+/* Chapter Input Container with #c0c0c0 border */
 .prompt-directive-box {
     background: #EAEAE6;
     border: 1.5px solid var(--border-widget);
@@ -2374,9 +2374,26 @@ document.addEventListener("keydown", (e) => {
 });
 
 /* ======================================================
-   NAV & CTA CLICK TRACKING
+   NAV, CTA & INBOUND EMAIL TELEMETRY TRACKING
 ====================================================== */
 window.addEventListener("DOMContentLoaded", () => {
+    // 1. Inbound Campaign Attribution Listener (Detects traffic arriving from email links)
+    const urlParams = new URLSearchParams(window.location.search);
+    const utmSource = urlParams.get('utm_source');
+    const utmMedium = urlParams.get('utm_medium');
+    const utmCampaign = urlParams.get('utm_campaign');
+    const utmContent = urlParams.get('utm_content');
+
+    if (utmMedium === 'email' || utmSource === 'newsletter') {
+        trackEvent('email_campaign_arrival', {
+            campaign: utmCampaign || 'visual_reviewer_launch',
+            source: utmSource || 'newsletter',
+            button_clicked: utmContent || 'unknown_cta',
+            landing_anchor: window.location.hash || 'page_top'
+        });
+    }
+
+    // 2. On-Page Click Tracking
     document.querySelectorAll(".nav-links a, .hero .buttons a").forEach(link => {
         link.addEventListener("click", () => {
             trackEvent('cta_click', {
