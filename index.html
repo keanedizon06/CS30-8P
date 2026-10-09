@@ -1232,9 +1232,59 @@ footer {
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
-
   gtag('config', 'G-8NLPP45RS3');
-  
+
+  /* ---------- Email campaign attribution ---------- */
+  var EMAIL_CAMPAIGN_KEY = 'cogniflow_email_campaign_attr';
+
+  function getEmailCampaignAttribution() {
+    try {
+      var raw = sessionStorage.getItem(EMAIL_CAMPAIGN_KEY);
+      return raw ? JSON.parse(raw) : null;
+    } catch (e) {
+      return null;
+    }
+  }
+
+  /* Shared event helper used across the whole page.
+     If the visitor arrived from the email campaign, every event
+     also carries the campaign name. */
+  function trackEvent(name, params) {
+    var payload = Object.assign({}, params || {});
+    var attr = getEmailCampaignAttribution();
+    if (attr) payload.email_campaign = attr.campaign;
+    gtag('event', name, payload);
+  }
+
+  /* Detect arrival from the email campaign (runs once per session) */
+  (function trackEmailCampaignVisit() {
+    var p = new URLSearchParams(window.location.search);
+    if (p.get('utm_source') !== 'newsletter') return;
+
+    var attr = {
+      campaign: p.get('utm_campaign') || '(not set)',
+      content: p.get('utm_content') || '(not set)'
+    };
+
+    var alreadyLogged = false;
+    try {
+      alreadyLogged = !!sessionStorage.getItem(EMAIL_CAMPAIGN_KEY);
+      sessionStorage.setItem(EMAIL_CAMPAIGN_KEY, JSON.stringify(attr));
+    } catch (e) {}
+
+    if (alreadyLogged) return; // avoid double-counting on refresh
+
+    // Footer links (preferences/unsubscribe) are logged separately
+    // so they don't inflate your real CTA numbers
+    var isFooter = /_(pref|unsub)$/.test(attr.content);
+
+    gtag('event', isFooter ? 'email_campaign_footer' : 'email_campaign_cta', {
+      campaign: attr.campaign,
+      content: attr.content
+    });
+
+    gtag('set', 'user_properties', { acquired_via_email_campaign: 'yes' });
+  })();
 </script>
 </head>
 
