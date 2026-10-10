@@ -1,0 +1,1925 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CogniFlow | Transform Dense Text into Intuitive Visuals</title>
+
+<style>
+:root {
+    /* Natural Light Brown & Forest Sage Palette (High-Contrast & WCAG AA Compliant) */
+    --bg: #CBB195;                  /* Warm light brown / tan canvas */
+    --surface: #F8F3EC;             /* Clean warm ivory / toasted almond surface */
+    --surface-white: #FFFFFF;       /* Crisp white for cards and focus blocks */
+    --surface-elevated: #EBDDCB;    /* Medium tan for panels and containers */
+    --surface-dark: #14291A;        /* Deep cedar moss slate for inverted focal blocks */
+    
+    --green-primary: #14381F;       /* Deep high-contrast forest moss green */
+    --green-muted: #2E5238;         /* Mid-tone foliage green */
+    --green-light: #E1ECE3;         /* Crisp pale sage for badges & active states */
+    --green-border: #99BEA4;        /* Soft sage outline for badges */
+    --clay-accent: #7A2912;         /* Rich burnt terracotta for strong accent contrast */
+    --gold: #E5C158;                /* Warm gold highlight */
+    
+    --text-primary: #0D1C11;        /* Ultra-dark forest slate for maximum title contrast */
+    --text-secondary: #1F3124;      /* Deep evergreen charcoal for readable body text */
+    --text-muted: #425446;          /* Muted dark pine for secondary captions */
+    
+    --border: #B29B82;              /* Warm clay-sand contour border */
+    --border-highlight: #967E66;    /* Defined accent border */
+    --focus-ring: #14381F;          /* Focus ring indicator */
+    
+    --error: #7F1D1D;
+    --error-bg: #FEE2E2;
+    --success: #14532D;
+    --success-bg: #DCFCE7;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    background: var(--bg);
+    color: var(--text-secondary);
+    line-height: 1.6;
+}
+
+/* ACCESSIBILITY: SKIP LINK & FOCUS INDICATORS */
+.skip-link {
+    position: absolute;
+    top: -40px;
+    left: 20px;
+    background: var(--green-primary);
+    color: #FFFFFF;
+    padding: 10px 16px;
+    z-index: 999;
+    text-decoration: none;
+    font-weight: 700;
+    border-radius: 6px;
+    transition: top 0.2s;
+}
+
+.skip-link:focus {
+    top: 20px;
+}
+
+:focus-visible {
+    outline: 3px solid var(--focus-ring);
+    outline-offset: 3px;
+}
+
+.container {
+    max-width: 1200px;
+    margin: auto;
+    padding: 0 24px;
+}
+
+/* NAVIGATION */
+header {
+    border-bottom: 1.5px solid var(--border);
+    background: rgba(203, 177, 149, 0.96);
+    backdrop-filter: blur(8px);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 0;
+}
+
+.logo {
+    font-weight: 800;
+    font-size: 1.35rem;
+    color: var(--text-primary);
+    letter-spacing: 0.5px;
+}
+
+.logo span {
+    color: var(--green-primary);
+}
+
+.nav-links {
+    display: flex;
+    gap: 24px;
+    list-style: none;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: var(--text-primary);
+    font-weight: 700;
+    font-size: 0.95rem;
+    transition: color 0.2s;
+}
+
+.nav-links a:hover {
+    color: var(--clay-accent);
+}
+
+/* BUTTONS & LINKS */
+.btn {
+    display: inline-block;
+    padding: 12px 26px;
+    border-radius: 999px;
+    font-weight: 700;
+    text-decoration: none;
+    cursor: pointer;
+    border: none;
+    font-size: 1rem;
+    transition: transform 0.2s, background-color 0.2s, box-shadow 0.2s;
+    text-align: center;
+}
+
+.btn:hover:not(:disabled) {
+    transform: translateY(-2px);
+}
+
+.btn:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+}
+
+.primary {
+    background: var(--green-primary);
+    color: #FFFFFF;
+    box-shadow: 0 4px 14px rgba(20, 56, 31, 0.28);
+}
+
+.primary:hover:not(:disabled) {
+    background: var(--green-muted);
+}
+
+.secondary {
+    border: 2px solid var(--green-primary);
+    color: var(--green-primary);
+    background: #F8F3EC;
+}
+
+.secondary:hover:not(:disabled) {
+    background: var(--green-light);
+}
+
+/* SECTIONS COMMON */
+section {
+    padding: 90px 0;
+    scroll-margin-top: 80px;
+}
+
+.section-label {
+    color: var(--clay-accent);
+    font-weight: 800;
+    letter-spacing: 1.5px;
+    font-size: 0.88rem;
+    display: inline-block;
+}
+
+.section-title {
+    font-size: clamp(2rem, 4vw, 3rem);
+    line-height: 1.15;
+    margin: 12px 0 24px;
+    color: var(--text-primary);
+}
+
+/* HERO SECTION */
+.hero {
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    align-items: center;
+    gap: 48px;
+    min-height: 80vh;
+}
+
+.hero p {
+    color: var(--text-secondary);
+    font-size: 1.15rem;
+    max-width: 520px;
+    font-weight: 500;
+}
+
+.hero .buttons {
+    margin-top: 32px;
+    display: flex;
+    gap: 16px;
+}
+
+/* HERO VECTOR PIPELINE VISUAL */
+.hero-visual-container {
+    background: radial-gradient(circle at center, #E6D8C6 0%, #D4C1AA 100%);
+    border-radius: 28px;
+    border: 1.5px solid var(--border-highlight);
+    padding: 24px;
+    box-shadow: 0 16px 36px rgba(40, 25, 10, 0.12);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.hero-visual-container svg {
+    width: 100%;
+    height: auto;
+    max-height: 380px;
+    display: block;
+}
+
+.hero-visual-caption {
+    margin-top: 14px;
+    color: var(--green-primary);
+    font-size: 0.85rem;
+    font-weight: 800;
+    letter-spacing: 0.5px;
+    text-align: center;
+}
+
+/* THE BIG IDEA */
+.split-layout {
+    display: grid;
+    grid-template-columns: 1fr 1.2fr;
+    gap: 40px;
+    align-items: center;
+}
+
+.idea-box {
+    background: var(--surface-dark);
+    border: 2px solid #28442F;
+    padding: 40px;
+    border-radius: 20px;
+    box-shadow: 0 12px 30px rgba(20, 41, 26, 0.25);
+}
+
+.idea-box h3 {
+    font-size: 2rem;
+    line-height: 1.2;
+    margin-bottom: 16px;
+    color: #FFFFFF !important;
+}
+
+.idea-box p {
+    color: #E2ECE4 !important;
+    font-size: 1.05rem;
+    line-height: 1.65;
+    font-weight: 400;
+}
+
+.split-layout p {
+    color: var(--text-secondary);
+    margin-bottom: 16px;
+    font-size: 1.05rem;
+    font-weight: 500;
+}
+
+/* THE JOURNEY */
+.journey-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 16px;
+    margin-top: 36px;
+}
+
+.step-card {
+    background: var(--surface-white);
+    padding: 24px;
+    border-radius: 16px;
+    border: 1.5px solid var(--border);
+    transition: transform 0.2s, border-color 0.2s;
+    box-shadow: 0 4px 14px rgba(40, 25, 10, 0.06);
+}
+
+.step-card:hover {
+    border-color: var(--green-primary);
+    transform: translateY(-3px);
+}
+
+.step-number {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    background: var(--green-primary);
+    color: #FFFFFF;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 16px;
+    font-weight: 800;
+}
+
+.step-card h3 {
+    margin-bottom: 8px;
+    font-size: 1.15rem;
+    color: var(--text-primary);
+}
+
+.step-card p {
+    color: var(--text-secondary);
+    font-size: 0.92rem;
+}
+
+/* STATEMENTS SECTION */
+.statement {
+    text-align: center;
+    padding: 70px 32px;
+    background: var(--surface-white);
+    border: 1.5px solid var(--border);
+    border-radius: 22px;
+    box-shadow: 0 6px 18px rgba(40, 25, 10, 0.06);
+    margin: 30px auto;
+}
+
+.statement h2 {
+    font-size: clamp(1.8rem, 3.2vw, 2.8rem);
+    color: var(--text-primary);
+    line-height: 1.3;
+}
+
+.statement span {
+    color: var(--green-primary);
+}
+
+/* BENEFITS GRID */
+.benefits-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    margin-top: 36px;
+}
+
+.card {
+    background: var(--surface-white);
+    border: 1.5px solid var(--border);
+    padding: 32px;
+    border-radius: 16px;
+    transition: transform 0.2s ease, border-color 0.2s ease;
+    box-shadow: 0 4px 14px rgba(40, 25, 10, 0.06);
+}
+
+.card:hover {
+    transform: translateY(-4px);
+    border-color: var(--green-primary);
+}
+
+.card h3 {
+    margin-bottom: 12px;
+    color: var(--green-primary);
+    font-size: 1.3rem;
+}
+
+.card p {
+    color: var(--text-secondary);
+    font-size: 0.98rem;
+}
+
+/* ======================================================
+   THE 10-SECOND COGNITIVE CHALLENGE WIDGET
+====================================================== */
+.challenge-widget {
+    background: var(--surface);
+    border: 1.5px solid var(--border);
+    border-radius: 22px;
+    padding: 34px;
+    margin-top: 24px;
+    box-shadow: 0 12px 32px rgba(40, 25, 10, 0.1);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.challenge-widget.is-fullscreen {
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    border-radius: 0;
+    padding: 24px 32px;
+    margin: 0;
+    overflow-y: auto;
+    background: var(--bg);
+}
+
+.challenge-top-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 18px;
+    border-bottom: 1.5px solid var(--border);
+    flex-wrap: wrap;
+    gap: 14px;
+}
+
+.scenario-header-wrap {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.scenario-label-pill {
+    background: var(--surface-white);
+    border: 1.5px solid var(--border);
+    padding: 6px 14px;
+    border-radius: 999px;
+    font-size: 0.9rem;
+    font-weight: 800;
+    color: var(--text-primary);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.category-pill {
+    background: var(--green-light);
+    border: 1px solid var(--green-border);
+    color: var(--green-primary);
+    font-size: 0.72rem;
+    font-weight: 800;
+    padding: 3px 10px;
+    border-radius: 999px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.timer-pill {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--green-primary);
+    color: #FFFFFF;
+    font-family: ui-monospace, monospace;
+    font-size: 1.1rem;
+    font-weight: 900;
+    padding: 6px 18px;
+    border-radius: 999px;
+    box-shadow: 0 2px 8px rgba(20, 56, 31, 0.2);
+}
+
+.timer-pill .timer-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: #86EFAC;
+    display: inline-block;
+    animation: pulseDot 1s infinite;
+}
+
+@keyframes pulseDot {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.4; transform: scale(0.85); }
+}
+
+.challenge-controls-right {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.tool-btn {
+    padding: 8px 16px;
+    font-size: 0.88rem;
+    font-weight: 700;
+    border-radius: 8px;
+    border: 1.5px solid var(--border);
+    background: var(--surface-white);
+    color: var(--text-primary);
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.tool-btn:hover {
+    background: var(--green-light);
+    color: var(--green-primary);
+    border-color: var(--green-primary);
+}
+
+.shuffle-btn {
+    background: var(--green-light);
+    color: var(--green-primary);
+    border: 1.5px solid var(--green-border);
+    font-weight: 800;
+}
+
+.shuffle-btn:hover {
+    background: #D3E6D7;
+    border-color: var(--green-primary);
+}
+
+/* Challenge Workspace Stages */
+.challenge-stage {
+    min-height: 420px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 32px 12px;
+    text-align: center;
+}
+
+/* Intro Stage */
+.stage-intro {
+    max-width: 680px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+}
+
+.intro-badge {
+    background: var(--green-light);
+    border: 1px solid var(--green-border);
+    color: var(--green-primary);
+    font-size: 0.8rem;
+    font-weight: 800;
+    letter-spacing: 1px;
+    padding: 4px 14px;
+    border-radius: 999px;
+    text-transform: uppercase;
+}
+
+.stage-intro h3 {
+    font-size: 1.7rem;
+    color: var(--text-primary);
+    line-height: 1.25;
+}
+
+.stage-intro p {
+    color: var(--text-secondary);
+    font-size: 1.05rem;
+    line-height: 1.6;
+}
+
+.instruction-steps {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+    width: 100%;
+    margin-top: 10px;
+    text-align: left;
+}
+
+.instruction-card {
+    background: var(--surface-white);
+    border: 1.5px solid var(--border);
+    border-radius: 12px;
+    padding: 16px;
+}
+
+.instruction-card strong {
+    color: var(--green-primary);
+    display: block;
+    margin-bottom: 4px;
+    font-size: 0.95rem;
+}
+
+/* Round 1: Wall of Text Stage */
+.stage-round1 {
+    width: 100%;
+    max-width: 760px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    text-align: left;
+}
+
+.task-banner {
+    background: var(--green-primary);
+    color: #FFFFFF;
+    padding: 16px 22px;
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 10px;
+    box-shadow: 0 4px 12px rgba(20, 56, 31, 0.2);
+}
+
+.task-banner .task-label {
+    font-size: 0.82rem;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    opacity: 0.9;
+    display: block;
+}
+
+.task-banner .task-prompt {
+    font-size: 1.15rem;
+    font-weight: 900;
+}
+
+.wall-of-text-box {
+    background: var(--surface-white);
+    border: 1.5px solid var(--border);
+    border-radius: 14px;
+    padding: 28px;
+    font-size: 1.05rem;
+    line-height: 1.85;
+    color: var(--text-secondary);
+    user-select: none;
+    box-shadow: 0 4px 14px rgba(40, 25, 10, 0.05);
+}
+
+.interactive-word {
+    cursor: pointer;
+    border-radius: 4px;
+    padding: 1px 4px;
+    transition: background 0.15s ease, color 0.15s ease;
+}
+
+.interactive-word:hover {
+    background: rgba(203, 177, 149, 0.35);
+}
+
+.interactive-word.clicked-wrong {
+    background: var(--error-bg);
+    color: var(--error);
+    animation: shakeWrong 0.4s ease;
+}
+
+@keyframes shakeWrong {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-4px); }
+    75% { transform: translateX(4px); }
+}
+
+/* Intermission Transition Stage */
+.stage-intermission {
+    max-width: 640px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+}
+
+.round1-time-callout {
+    font-size: 2.8rem;
+    font-weight: 900;
+    color: var(--clay-accent);
+    font-family: ui-monospace, monospace;
+}
+
+/* Round 2: Visual Card Stage */
+.stage-round2 {
+    width: 100%;
+    max-width: 760px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    text-align: left;
+}
+
+.visual-target-deck {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    margin-top: 10px;
+}
+
+.visual-fact-card {
+    background: var(--surface-white);
+    border: 2px solid var(--border);
+    border-radius: 16px;
+    padding: 22px 18px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    gap: 8px;
+    cursor: pointer;
+    transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+    box-shadow: 0 4px 12px rgba(40, 25, 10, 0.05);
+}
+
+.visual-fact-card:hover {
+    transform: translateY(-4px);
+    border-color: var(--green-primary);
+    box-shadow: 0 8px 22px rgba(20, 56, 31, 0.15);
+}
+
+.visual-fact-card .card-icon {
+    font-size: 2.2rem;
+}
+
+.visual-fact-card .card-label {
+    font-size: 0.8rem;
+    font-weight: 800;
+    color: var(--text-muted);
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+}
+
+.visual-fact-card .card-val {
+    font-size: 1.45rem;
+    font-weight: 900;
+    color: var(--text-primary);
+}
+
+.visual-fact-card.is-target {
+    border-color: var(--green-border);
+}
+
+.visual-fact-card.is-target:hover {
+    border-color: var(--green-primary);
+    background: #FAFDFB;
+}
+
+/* Results Stage */
+.stage-results {
+    width: 100%;
+    max-width: 720px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 24px;
+}
+
+.results-speedup-banner {
+    background: var(--green-primary);
+    color: #FFFFFF;
+    border-radius: 20px;
+    padding: 28px;
+    width: 100%;
+    box-shadow: 0 8px 24px rgba(20, 56, 31, 0.25);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+}
+
+.results-speedup-banner h2 {
+    font-size: clamp(2rem, 5vw, 3.2rem);
+    font-weight: 900;
+    color: #86EFAC;
+    line-height: 1;
+}
+
+.results-speedup-banner p {
+    font-size: 1.1rem;
+    font-weight: 600;
+    opacity: 0.95;
+}
+
+.comparison-bars-box {
+    background: var(--surface-white);
+    border: 1.5px solid var(--border);
+    border-radius: 16px;
+    padding: 24px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    text-align: left;
+}
+
+.bar-row {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.bar-header {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.92rem;
+    font-weight: 800;
+    color: var(--text-primary);
+}
+
+.bar-track {
+    background: var(--surface-elevated);
+    border-radius: 999px;
+    height: 16px;
+    overflow: hidden;
+    position: relative;
+}
+
+.bar-fill {
+    height: 100%;
+    border-radius: 999px;
+    transition: width 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.bar-fill.text-bar {
+    background: var(--clay-accent);
+}
+
+.bar-fill.visual-bar {
+    background: var(--green-primary);
+}
+
+.takeaway-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+    width: 100%;
+    text-align: left;
+}
+
+.takeaway-card {
+    background: var(--surface-white);
+    border: 1.5px solid var(--border);
+    border-radius: 12px;
+    padding: 16px;
+    font-size: 0.92rem;
+    color: var(--text-secondary);
+}
+
+.takeaway-card strong {
+    color: var(--green-primary);
+    display: block;
+    margin-bottom: 4px;
+}
+
+/* ======================================================
+   WHY IT MATTERS SECTION (HIGH-CONTRAST CARD GRID)
+====================================================== */
+.future-header {
+    max-width: 820px;
+    margin-bottom: 40px;
+}
+
+.section-lead {
+    font-size: 1.15rem;
+    color: var(--text-secondary);
+    line-height: 1.65;
+    font-weight: 500;
+}
+
+.matters-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+    margin-bottom: 36px;
+}
+
+.matter-card {
+    background: var(--surface-white) !important;
+    border: 1.5px solid var(--border) !important;
+    border-radius: 18px;
+    padding: 32px;
+    box-shadow: 0 4px 14px rgba(40, 25, 10, 0.06);
+    transition: transform 0.2s ease, border-color 0.2s ease;
+}
+
+.matter-card:hover {
+    transform: translateY(-3px);
+    border-color: var(--green-primary) !important;
+}
+
+.matter-icon {
+    font-size: 2rem;
+    margin-bottom: 14px;
+    display: inline-block;
+}
+
+.matter-card h3 {
+    font-size: 1.25rem;
+    margin-bottom: 10px;
+    color: var(--text-primary);
+}
+
+.matter-card p {
+    color: var(--text-secondary);
+    font-size: 0.96rem;
+    line-height: 1.6;
+}
+
+.research-banner {
+    background: var(--green-primary) !important;
+    border: 1.5px solid #28442F !important;
+    border-radius: 16px;
+    padding: 24px 30px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    box-shadow: 0 6px 18px rgba(20, 56, 31, 0.2);
+}
+
+.banner-badge {
+    background: var(--gold);
+    color: var(--green-primary);
+    font-size: 0.78rem;
+    font-weight: 900;
+    letter-spacing: 1px;
+    padding: 6px 14px;
+    border-radius: 999px;
+    white-space: nowrap;
+}
+
+.research-banner p {
+    color: #FFFFFF !important;
+    font-size: 1.05rem;
+    margin: 0;
+    line-height: 1.55;
+}
+
+.research-banner strong {
+    color: var(--gold);
+}
+
+/* FOOTER */
+footer {
+    text-align: center;
+    padding: 40px 20px;
+    border-top: 1.5px solid var(--border);
+    color: var(--text-primary);
+    font-weight: 700;
+}
+
+/* RESPONSIVE LAYOUT BREAKPOINTS */
+@media (max-width: 992px) {
+    .journey-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+    
+    .hero {
+        grid-template-columns: 1fr;
+        gap: 36px;
+    }
+}
+
+@media (max-width: 768px) {
+    .split-layout,
+    .benefits-grid,
+    .journey-grid,
+    .matters-grid,
+    .instruction-steps,
+    .visual-target-deck,
+    .takeaway-grid {
+        grid-template-columns: 1fr;
+    }
+
+    nav {
+        flex-direction: column;
+        gap: 16px;
+    }
+
+    .nav-links {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 16px;
+    }
+
+    .hero-visual-container {
+        padding: 16px;
+    }
+
+    .hero .buttons {
+        flex-direction: column;
+    }
+
+    .challenge-widget {
+        padding: 20px 16px;
+    }
+
+    .challenge-top-bar {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .challenge-controls-right {
+        justify-content: space-between;
+    }
+
+    .research-banner {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+        padding: 20px;
+    }
+}
+</style>
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-8NLPP45RS3"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-8NLPP45RS3');
+
+  // Universal Safe Analytics Event Dispatcher
+  function trackEvent(eventName, eventParams = {}) {
+      if (typeof gtag === 'function') {
+          gtag('event', eventName, eventParams);
+      } else if (window.dataLayer) {
+          window.dataLayer.push({ event: eventName, ...eventParams });
+      }
+  }
+</script>
+
+</head>
+
+<body>
+
+<a href="#main-content" class="skip-link">Skip to main content</a>
+
+<header>
+    <div class="container">
+        <nav aria-label="Main Navigation">
+            <div class="logo">Cogni<span>Flow</span></div>
+            <ul class="nav-links">
+                <li><a href="#story">The Story</a></li>
+                <li><a href="#journey">The Journey</a></li>
+                <li><a href="#benefits">The Benefits</a></li>
+                <li><a href="#challenge">Cognitive Test</a></li>
+                <li><a href="#future">Why It Matters</a></li>
+            </ul>
+        </nav>
+    </div>
+</header>
+
+<main id="main-content">
+
+    <!-- HERO SECTION -->
+    <section class="container hero" id="story">
+        <div>
+            <span class="section-label">COGNITIVE CLARITY • VISUAL ARCHITECTURE</span>
+            <h1 class="section-title">CogniFlow: Turn dense information into direct understanding.</h1>
+            <p>Mastering complex instructions, technical documents, and everyday guides shouldn't feel like deciphering walls of text. CogniFlow proves why visual clarity outperforms dense prose in human comprehension speed.</p>
+            <div class="buttons">
+                <a href="#challenge" class="btn primary">Take the 10s Speed Test</a>
+                <a href="#journey" class="btn secondary">Explore the Journey</a>
+            </div>
+        </div>
+
+        <div class="hero-visual-container">
+            <svg viewBox="0 0 520 340" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Diagram showing dense technical prose transforming into structured visual modules">
+                <defs>
+                    <pattern id="heroGrid" width="24" height="24" patternUnits="userSpaceOnUse">
+                        <path d="M 24 0 L 0 0 0 24" fill="none" stroke="#B29B82" stroke-width="0.8" opacity="0.6" />
+                    </pattern>
+                    <linearGradient id="tanGlow" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" stop-color="#EBDDCB" />
+                        <stop offset="100%" stop-color="#CBB195" />
+                    </linearGradient>
+                </defs>
+
+                <rect width="520" height="340" rx="16" fill="url(#tanGlow)" />
+                <rect width="520" height="340" rx="16" fill="url(#heroGrid)" />
+
+                <!-- Left Panel: Raw Text Representation -->
+                <rect x="28" y="45" width="180" height="250" rx="12" fill="#F8F3EC" stroke="#967E66" stroke-width="1.5" />
+                <rect x="42" y="60" width="90" height="10" rx="5" fill="#14381F" opacity="0.9" />
+                <rect x="42" y="82" width="150" height="6" rx="3" fill="#7A2912" opacity="0.8" />
+                <rect x="42" y="96" width="138" height="6" rx="3" fill="#B29B82" />
+                <rect x="42" y="110" width="144" height="6" rx="3" fill="#B29B82" />
+                <rect x="42" y="124" width="120" height="6" rx="3" fill="#B29B82" />
+                
+                <rect x="42" y="148" width="110" height="8" rx="4" fill="#2E5238" opacity="0.8" />
+                <rect x="42" y="166" width="148" height="6" rx="3" fill="#B29B82" />
+                <rect x="42" y="180" width="135" height="6" rx="3" fill="#7A2912" opacity="0.6" />
+                <rect x="42" y="194" width="140" height="6" rx="3" fill="#B29B82" />
+                <rect x="42" y="208" width="115" height="6" rx="3" fill="#B29B82" />
+                
+                <rect x="42" y="235" width="150" height="36" rx="8" fill="#FFFFFF" stroke="#14381F" stroke-dasharray="3 3" />
+                <text x="117" y="258" fill="#14381F" font-size="11" font-family="system-ui, sans-serif" font-weight="800" text-anchor="middle">Dense Technical Manual</text>
+
+                <!-- Center: Transformation Pathways -->
+                <path d="M 218 170 C 248 170, 248 95, 278 95" stroke="#14381F" stroke-width="2.5" stroke-linecap="round" fill="none" />
+                <circle cx="248" cy="132" r="6" fill="#14381F" />
+                
+                <path d="M 218 170 C 248 170, 248 170, 278 170" stroke="#14381F" stroke-width="2.5" stroke-linecap="round" fill="none" />
+                
+                <path d="M 218 170 C 248 170, 248 245, 278 245" stroke="#14381F" stroke-width="2.5" stroke-linecap="round" fill="none" />
+                <circle cx="248" cy="208" r="6" fill="#14381F" />
+
+                <!-- Right Visual Modules -->
+                <g filter="drop-shadow(0px 4px 8px rgba(40,25,10,0.08))">
+                    <rect x="285" y="65" width="205" height="62" rx="10" fill="#F8F3EC" stroke="#14381F" stroke-width="1.5" />
+                    <circle cx="310" cy="96" r="14" fill="#14381F" />
+                    <text x="310" y="101" fill="#FFFFFF" font-size="11" font-weight="900" text-anchor="middle">01</text>
+                    <text x="334" y="90" fill="#0D1C11" font-size="12" font-weight="800">EXTRACT STEPS</text>
+                    <text x="334" y="106" fill="#425446" font-size="10" font-weight="600">Organize logical phases</text>
+                </g>
+
+                <g filter="drop-shadow(0px 4px 8px rgba(40,25,10,0.08))">
+                    <rect x="285" y="140" width="205" height="62" rx="10" fill="#F8F3EC" stroke="#2E5238" stroke-width="1.5" />
+                    <circle cx="310" cy="171" r="14" fill="#2E5238" />
+                    <text x="310" y="176" fill="#FFFFFF" font-size="11" font-weight="900" text-anchor="middle">02</text>
+                    <text x="334" y="165" fill="#0D1C11" font-size="12" font-weight="800">MAP HOTKEYS</text>
+                    <text x="334" y="181" fill="#425446" font-size="10" font-weight="600">Intuitive visual keycaps</text>
+                </g>
+
+                <g filter="drop-shadow(0px 4px 8px rgba(40,25,10,0.08))">
+                    <rect x="285" y="215" width="205" height="62" rx="10" fill="#F8F3EC" stroke="#7A2912" stroke-width="1.5" />
+                    <circle cx="310" cy="246" r="14" fill="#7A2912" />
+                    <text x="310" y="251" fill="#FFFFFF" font-size="11" font-weight="900" text-anchor="middle">03</text>
+                    <text x="334" y="240" fill="#0D1C11" font-size="12" font-weight="800">EXPORT PIPELINES</text>
+                    <text x="334" y="256" fill="#425446" font-size="10" font-weight="600">Printable cheat sheets</text>
+                </g>
+            </svg>
+            <div class="hero-visual-caption">CogniFlow Studio • Interactive Cognitive Friction & Vision Lab</div>
+        </div>
+    </section>
+
+    <!-- THE BIG IDEA SECTION -->
+    <section id="idea">
+        <div class="container">
+            <span class="section-label">THE BIG IDEA</span>
+            <h2 class="section-title">Mastery develops before the final result.</h2>
+            <div class="split-layout">
+                <div class="idea-box">
+                    <h3>What happens before mastery?</h3>
+                    <p>Growth develops iteratively through observation, practice, mistakes, feedback, and repetition.</p>
+                </div>
+                <div>
+                    <p>We often celebrate outcomes, but true cognition develops gradually. People learn by connecting abstract principles to applied scenarios.</p>
+                    <p>Visual tools shorten this loop by clarifying dependencies, priorities, and workflow sequences on a single canvas.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- THE JOURNEY SECTION -->
+    <section id="journey">
+        <div class="container">
+            <span class="section-label">THE JOURNEY</span>
+            <h2 class="section-title">How understanding takes shape</h2>
+            <div class="journey-grid">
+                <article class="step-card">
+                    <div class="step-number" aria-hidden="true">01</div>
+                    <h3>Discover</h3>
+                    <p>Encountering the core challenge and framing the problem scope.</p>
+                </article>
+                <article class="step-card">
+                    <div class="step-number" aria-hidden="true">02</div>
+                    <h3>Observe</h3>
+                    <p>Analyzing reference patterns, diagrams, and working architectures.</p>
+                </article>
+                <article class="step-card">
+                    <div class="step-number" aria-hidden="true">03</div>
+                    <h3>Practice</h3>
+                    <p>Applying concepts directly through tactile trial and error.</p>
+                </article>
+                <article class="step-card">
+                    <div class="step-number" aria-hidden="true">04</div>
+                    <h3>Improve</h3>
+                    <p>Refining execution through evaluation and corrective iterations.</p>
+                </article>
+                <article class="step-card">
+                    <div class="step-number" aria-hidden="true">05</div>
+                    <h3>Master</h3>
+                    <p>Executing independently with intuitive competence.</p>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <!-- STATEMENT SECTION (CONTAINED IVORY CARD) -->
+    <section class="container">
+        <div class="statement">
+            <h2>Learning does not happen in a straight line. <span>It evolves.</span></h2>
+        </div>
+    </section>
+
+    <!-- THE BENEFITS SECTION -->
+    <section id="benefits">
+        <div class="container">
+            <span class="section-label">THE BENEFITS</span>
+            <h2 class="section-title">Why visual learning works</h2>
+            <div class="benefits-grid">
+                <div class="card">
+                    <h3>Accelerate Retention</h3>
+                    <p>Visual structures reinforce semantic connections directly in long-term memory.</p>
+                </div>
+                <div class="card">
+                    <h3>Reduce Cognitive Load</h3>
+                    <p>Translating prose into sequential charts eliminates ambiguity and extraneous detail.</p>
+                </div>
+                <div class="card">
+                    <h3>Encourage Autonomy</h3>
+                    <p>Visual steps serve as clear, actionable self-guided learning checkpoints.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ======================================================
+         INTERACTIVE COMPONENT: 10-SECOND COGNITIVE SPEED TEST
+    ======================================================= -->
+    <section id="challenge">
+        <div class="container">
+            <span class="section-label">INTERACTIVE EXPERIMENT</span>
+            <h2 class="section-title">The 10-Second Cognitive Speed Test</h2>
+            <p class="section-lead">Test your own brain in real time. Experience how much faster your visual cortex processes information compared to hunting through unformatted walls of text.</p>
+
+            <div class="challenge-widget" id="challengeWidget">
+                
+                <!-- Widget Header Toolbar (Automatic Shuffler) -->
+                <div class="challenge-top-bar">
+                    <div class="scenario-header-wrap">
+                        <div class="scenario-label-pill">
+                            <span>Mission:</span>
+                            <span id="scenarioNameDisplay">Flight Itinerary</span>
+                        </div>
+                        <span class="category-pill" id="scenarioCategoryBadge">TRAVEL</span>
+                        <button type="button" class="tool-btn shuffle-btn" onclick="shuffleToNextScenario(true)" title="Shuffle to a different random scenario">
+                            🔀 Shuffle
+                        </button>
+                    </div>
+
+                    <div class="timer-pill" id="liveTimerWrap" style="display:none;">
+                        <span class="timer-dot"></span>
+                        <span id="liveTimerDisplay">0.00s</span>
+                    </div>
+
+                    <div class="challenge-controls-right">
+                        <button type="button" class="tool-btn" id="fullscreenToggleBtn" onclick="toggleWidgetFullscreen()" title="Toggle Fullscreen Mode">
+                            ⛶ Expand
+                        </button>
+                        <button type="button" class="tool-btn" onclick="resetChallenge()" title="Reset to Start">
+                            ↺ Reset
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Active Challenge Stage Viewport -->
+                <div class="challenge-stage" id="challengeStage">
+                    
+                    <!-- STAGE 1: INTRO STATE -->
+                    <div class="stage-intro" id="stageIntro">
+                        <span class="intro-badge">Human Processing Benchmark</span>
+                        <h3 id="introHeadline">How Fast Can You Spot Critical Information?</h3>
+                        <p id="introSubtext">You'll perform the exact same retrieval task twice: first through a dense wall of text, then through a clean visual dashboard. A live stopwatch will measure your cognitive retrieval speed.</p>
+                        
+                        <div class="instruction-steps">
+                            <div class="instruction-card">
+                                <strong>Phase 1: Dense Paragraph</strong>
+                                <span>Hunt through an unformatted email or article to click the target detail.</span>
+                            </div>
+                            <div class="instruction-card">
+                                <strong>Phase 2: Visual Card</strong>
+                                <span>Spot the exact same piece of data on an organized, icon-backed card.</span>
+                            </div>
+                        </div>
+
+                        <button type="button" class="btn primary" style="margin-top:10px; font-size:1.1rem; padding:14px 34px;" onclick="startRoundOne()">
+                            Start Speed Test ⚡
+                        </button>
+                    </div>
+
+                    <!-- STAGE 2: ROUND 1 (WALL OF TEXT) -->
+                    <div class="stage-round1" id="stageRound1" style="display:none;">
+                        <div class="task-banner">
+                            <div>
+                                <span class="task-label">Round 1 of 2: Wall of Text</span>
+                                <span class="task-prompt" id="round1PromptText">Find and click: Gate B14</span>
+                            </div>
+                            <span style="font-size:0.85rem; font-weight:700;">⏱ Live Timer Active</span>
+                        </div>
+
+                        <div class="wall-of-text-box" id="wallOfTextBox"></div>
+                    </div>
+
+                    <!-- STAGE 3: INTERMISSION TRANSITION -->
+                    <div class="stage-intermission" id="stageIntermission" style="display:none;">
+                        <span class="intro-badge">Round 1 Completed</span>
+                        <h3>Text Retrieval Logged!</h3>
+                        <div class="round1-time-callout" id="intermissionTimeCallout">5.82s</div>
+                        <p>It took your brain this long to read, parse, and extract that single fact from the paragraph. Now, see what happens when the exact same information is presented visually.</p>
+
+                        <button type="button" class="btn primary" style="font-size:1.1rem; padding:14px 34px;" onclick="startRoundTwo()">
+                            Start Round 2: Visual Card ➔
+                        </button>
+                    </div>
+
+                    <!-- STAGE 4: ROUND 2 (VISUAL CARD) -->
+                    <div class="stage-round2" id="stageRound2" style="display:none;">
+                        <div class="task-banner">
+                            <div>
+                                <span class="task-label">Round 2 of 2: Structured Visual</span>
+                                <span class="task-prompt" id="round2PromptText">Find and click: Gate B14</span>
+                            </div>
+                            <span style="font-size:0.85rem; font-weight:700;">⏱ Live Timer Active</span>
+                        </div>
+
+                        <div class="visual-target-deck" id="visualTargetDeck"></div>
+                    </div>
+
+                    <!-- STAGE 5: COMPREHENSIVE RESULTS DASHBOARD -->
+                    <div class="stage-results" id="stageResults" style="display:none;">
+                        <div class="results-speedup-banner">
+                            <span style="font-size:0.82rem; letter-spacing:1px; text-transform:uppercase; font-weight:800;">Cognitive Retrieval Multiplier</span>
+                            <h2 id="speedupMetricDisplay">+340% Faster</h2>
+                            <p id="speedupSummarySentence">You processed the visual card in a fraction of the time.</p>
+                        </div>
+
+                        <div class="comparison-bars-box">
+                            <div class="bar-row">
+                                <div class="bar-header">
+                                    <span>Wall of Text Retrieval</span>
+                                    <span id="resTimeRound1">5.82 seconds</span>
+                                </div>
+                                <div class="bar-track">
+                                    <div class="bar-fill text-bar" id="barFillRound1" style="width: 100%;"></div>
+                                </div>
+                            </div>
+
+                            <div class="bar-row">
+                                <div class="bar-header">
+                                    <span>Visual Card Retrieval</span>
+                                    <span id="resTimeRound2" style="color:var(--green-primary); font-weight:900;">1.24 seconds</span>
+                                </div>
+                                <div class="bar-track">
+                                    <div class="bar-fill visual-bar" id="barFillRound2" style="width: 21%;"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="takeaway-grid">
+                            <div class="takeaway-card">
+                                <strong>The Extraneous Load Effect</strong>
+                                <span>Dense text forces the brain to translate syntax before reaching the fact. Visual hierarchy provides instant spatial targeting.</span>
+                            </div>
+                            <div class="takeaway-card">
+                                <strong>Real-World Productivity</strong>
+                                <span>At this rate, switching daily reference guides or manuals to visual formats saves the average student or worker 40+ hours per year.</span>
+                            </div>
+                        </div>
+
+                        <div style="display:flex; gap:12px; flex-wrap:wrap; justify-content:center; margin-top:8px;">
+                            <button type="button" class="btn primary" onclick="shuffleToNextScenario(false)">Next Shuffled Scenario ➔</button>
+                            <button type="button" class="btn secondary" onclick="retryCurrentScenario()">Retry This Scenario</button>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- WHY IT MATTERS SECTION (HIGH-CONTRAST CARD GRID) -->
+    <section id="future">
+        <div class="container">
+            <div class="future-header">
+                <span class="section-label">WHY IT MATTERS</span>
+                <h2 class="section-title">The "Show, Don't Tell" Shift in Education</h2>
+                <p class="section-lead">
+                    From 3D design tools like AutoCAD to data analysis suites like MATLAB, learning modern software has outpaced the traditional PDF manual. When learning is visual, mastering complex tools stops feeling like deciphering instructions and starts feeling like second nature.
+                </p>
+            </div>
+
+            <div class="matters-grid">
+                <article class="matter-card">
+                    <div class="matter-icon" aria-hidden="true">🧠</div>
+                    <h3>Cutting Out the Mental Middleman</h3>
+                    <p>
+                        Reading a manual requires two steps: translating written text into a mental picture, then hunting across a crowded screen to find where to click. Visual walkthroughs remove that friction—letting learners focus directly on solving the problem, not translating the guide.
+                    </p>
+                </article>
+
+                <article class="matter-card">
+                    <div class="matter-icon" aria-hidden="true">🎯</div>
+                    <h3>Confidence Over Guesswork</h3>
+                    <p>
+                        Nothing stalls a beginner faster than the fear of clicking the wrong button. Watching someone perform a command in real time gives immediate reassurance, cutting down trial-and-error mistakes and replacing classroom hesitation with hands-on practice.
+                    </p>
+                </article>
+
+                <article class="matter-card">
+                    <div class="matter-icon" aria-hidden="true">🔍</div>
+                    <h3>Meeting Students Where They Actually Go</h3>
+                    <p>
+                        When a wall of text stalls out, learners immediately turn to YouTube for quick visual demos. Modern instructional design simply brings that reality into the classroom, offering screen-recorded flows that match how people instinctively learn today.
+                    </p>
+                </article>
+
+                <article class="matter-card">
+                    <div class="matter-icon" aria-hidden="true">⚖️</div>
+                    <h3>The Power of Hybrid Design</h3>
+                    <p>
+                        Showing isn't about throwing out reading altogether. The most resilient learning combines high-clarity visual demonstrations with concise written takeaways—giving learners the best of quick visual intuition and easy reference material.
+                    </p>
+                </article>
+            </div>
+
+            <div class="research-banner">
+                <div class="banner-badge">FIELD INSIGHT</div>
+                <p>
+                    <strong>The Core Takeaway:</strong> Software interfaces are inherently spatial and visual. Providing learners with visual demonstrations and clean step-by-step maps turns dense manuals into actionable, lasting skills.
+                </p>
+            </div>
+        </div>
+    </section>
+
+</main>
+
+<!-- CLEAN FOOTER -->
+<footer>
+    <div class="container">
+        <p>Created by Keane Zachary S. Dizon</p>
+    </div>
+</footer>
+
+<script>
+/* ======================================================
+   10-SECOND COGNITIVE CHALLENGE ENGINE (VANILLA JS + GA4)
+====================================================== */
+
+// Comprehensive 8-Scenario Library across multiple everyday domains
+const SCENARIOS = {
+    flight: {
+        id: "flight",
+        name: "Flight Itinerary",
+        category: "TRAVEL",
+        targetText: "Gate B14",
+        prompt: "Find and click the Departure Gate: Gate B14",
+        prose: [
+            "Dear traveler, thank you for booking your journey with Horizon Airways for flight HA-842 with nonstop scheduled service to Chicago O'Hare. ",
+            "Please review all checked baggage guidelines prior to your terminal arrival, as oversized luggage incurs additional transit fees at the ticket kiosk. ",
+            "Passengers enrolled in Priority Access may board during Group 2, provided they hold a digital confirmation barcode on their mobile device. ",
+            "Your aircraft departure will take place from ",
+            { word: "Gate B14", isTarget: true },
+            " with boarding beginning promptly thirty minutes prior to wheels-up at 10:45 AM. ",
+            "For meal vouchers, terminal maps, connecting train connections, or seat upgrade requests, please speak to a customer service agent located at customer desk 4."
+        ],
+        visualCards: [
+            { icon: "✈️", label: "Flight Number", val: "HA-842", isTarget: false },
+            { icon: "🚪", label: "Departure Gate", val: "Gate B14", isTarget: true },
+            { icon: "⏰", label: "Boarding Time", val: "10:15 AM", isTarget: false },
+            { icon: "💺", label: "Assigned Seat", val: "14C (Aisle)", isTarget: false },
+            { icon: "🧳", label: "Luggage Allowance", val: "2 Checked Bags", isTarget: false },
+            { icon: "📍", label: "Destination", val: "Chicago ORD", isTarget: false }
+        ]
+    },
+    recipe: {
+        id: "recipe",
+        name: "Artisanal Sourdough Recipe",
+        category: "CULINARY",
+        targetText: "450°F",
+        prompt: "Find and click the Oven Baking Temperature: 450°F",
+        prose: [
+            "Every autumn morning reminds me of my grandmother's rustic kitchen and the rhythmic crackle of fresh wood-fired ovens filling the valley air with sourdough aromas. ",
+            "Before beginning your bake, ensure that your wild yeast levain has doubled in volume and floats effortlessly in lukewarm filtered water. ",
+            "Bulk fermentation should proceed undisturbed for four hours with gentle envelope stretch-and-folds administered every thirty minutes to strengthen the gluten matrix. ",
+            "Preheat your heavy cast-iron Dutch oven at ",
+            { word: "450°F", isTarget: true },
+            " for a minimum of forty-five minutes so the retained thermal energy creates maximum oven spring when the boule is loaded into the steam chamber. ",
+            "Carefully score the scored loaf with a sharp razor blade along the longitudinal axis to release carbon dioxide blisters evenly across the crust."
+        ],
+        visualCards: [
+            { icon: "🌾", label: "Flour Blend", val: "Organic Bread Flour", isTarget: false },
+            { icon: "💧", label: "Hydration Ratio", val: "78% Hydration", isTarget: false },
+            { icon: "🔥", label: "Oven Temperature", val: "450°F", isTarget: true },
+            { icon: "⏱️", label: "Preheat Duration", val: "45 Minutes", isTarget: false },
+            { icon: "🍞", label: "Bake Vessel", val: "Cast Iron Pot", isTarget: false },
+            { icon: "🔪", label: "Scoring Style", val: "Longitudinal Slash", isTarget: false }
+        ]
+    },
+    exam: {
+        id: "exam",
+        name: "Campus Exam Hall Schedule",
+        category: "ACADEMICS",
+        targetText: "Room 402",
+        prompt: "Find and click the Assigned Exam Hall: Room 402",
+        prose: [
+            "Notice to all undergraduate candidates registered for the upcoming midterm assessment in Analytical Statics and Dynamics for the third term. ",
+            "All examinees must display their physical university identification cards and official registration receipts atop their assigned writing stations at all times during the examination period. ",
+            "Programmable scientific calculators, smart watches, and cellular devices must be powered down and stored inside personal bags placed near the front whiteboard perimeter. ",
+            "Students assigned to Cohort B must present themselves directly at ",
+            { word: "Room 402", isTarget: true },
+            " inside the engineering annex building no later than 8:15 AM for proctor roll call. ",
+            "Late arrivals exceeding fifteen minutes will forfeit testing privileges and must petition the department chair for a formal hardship review."
+        ],
+        visualCards: [
+            { icon: "📐", label: "Course Module", val: "Statics & Dynamics", isTarget: false },
+            { icon: "📅", label: "Session Date", val: "Thursday, Midterms", isTarget: false },
+            { icon: "🏫", label: "Assigned Hall", val: "Room 402", isTarget: true },
+            { icon: "🕒", label: "Check-in Time", val: "8:15 AM Sharp", isTarget: false },
+            { icon: "🆔", label: "Required Item", val: "University ID", isTarget: false },
+            { icon: "🧮", label: "Permitted Tool", val: "Non-Prog Calculator", isTarget: false }
+        ]
+    },
+    parcel: {
+        id: "parcel",
+        name: "Parcel Delivery Locker",
+        category: "LOGISTICS",
+        targetText: "Code 8934",
+        prompt: "Find and click the Parcel Locker Code: Code 8934",
+        prose: [
+            "Your express parcel fulfillment notice has been confirmed by Metro Express Logistics depot hub 12 for parcel tracking ID 492041924. ",
+            "If you have requested contactless courier drop-off, please note that delivery drivers cannot access gated residential vestibules without prior security verification on file. ",
+            "Your shipment has been deposited safely into automated outdoor Parcel Locker Bay 6 and can be retrieved using access ",
+            { word: "Code 8934", isTarget: true },
+            " before the 72-hour collection expiration window closes on Sunday midnight. ",
+            "For return shipping labels, damaged merchandise reports, or redirection to an alternate pickup station, please contact our dispatch hotline."
+        ],
+        visualCards: [
+            { icon: "📦", label: "Carrier Hub", val: "Metro Express", isTarget: false },
+            { icon: "🔢", label: "Tracking Number", val: "#492041924", isTarget: false },
+            { icon: "🔑", label: "Locker Access", val: "Code 8934", isTarget: true },
+            { icon: "📍", label: "Locker Location", val: "Locker Bay 6", isTarget: false },
+            { icon: "⏳", label: "Pickup Window", val: "72 Hours Max", isTarget: false },
+            { icon: "🚚", label: "Delivery Type", val: "Contactless Drop", isTarget: false }
+        ]
+    },
+    prescription: {
+        id: "prescription",
+        name: "Prescription Medication Label",
+        category: "HEALTHCARE",
+        targetText: "Take 2 Tablets Daily",
+        prompt: "Find and click the Dosage Instruction: Take 2 Tablets Daily",
+        prose: [
+            "Rx Pharmacy Dispensation Advisory for patient reference number 30948 regarding Amoxicillin Clavulanate oral suspension caplets. ",
+            "Maintain refrigerated storage away from direct sunlight and avoid operating motorized equipment if unexpected drowsiness manifests following administration. ",
+            "Patient directions specify to ",
+            { word: "Take 2 Tablets Daily", isTarget: true },
+            " with morning and evening meals for ten consecutive calendar days until the antibiotic bottle is fully exhausted. ",
+            "Consult your primary prescribing clinician immediately if skin rash, adverse allergic responses, or persistent nausea arise during your treatment cycle."
+        ],
+        visualCards: [
+            { icon: "💊", label: "Medication", val: "Amoxicillin", isTarget: false },
+            { icon: "📋", label: "Prescription", val: "Rx #30948", isTarget: false },
+            { icon: "⏰", label: "Dosage Regimen", val: "Take 2 Tablets Daily", isTarget: true },
+            { icon: "❄️", label: "Storage", val: "Refrigerate Cool", isTarget: false },
+            { icon: "📅", label: "Treatment Period", val: "10 Full Days", isTarget: false },
+            { icon: "⚠️", label: "Caution Note", val: "Avoid Heavy Driving", isTarget: false }
+        ]
+    },
+    meeting: {
+        id: "meeting",
+        name: "Virtual Meeting Invite",
+        category: "PRODUCTIVITY",
+        targetText: "Passcode 9041",
+        prompt: "Find and click the Video Meeting Passcode: Passcode 9041",
+        prose: [
+            "You have been invited to the quarterly cross-functional sprint planning conference scheduled for Tuesday morning at 9:00 AM PST hosted on workspace room alpha. ",
+            "Please review the attached strategic roadmap and prepare three operational updates concerning your team sprint deliverables before joining the voice channel. ",
+            "Dial-in attendees using international teleconference lines should input bridge ID 892-114 followed by the pound key, and web browser participants must enter ",
+            { word: "Passcode 9041", isTarget: true },
+            " upon admission to bypass the virtual lobby waiting room. ",
+            "A full audio recording and automated transcript will be archived to the team drive following meeting adjournment."
+        ],
+        visualCards: [
+            { icon: "📅", label: "Date & Time", val: "Tuesday, 9:00 AM", isTarget: false },
+            { icon: "🎙️", label: "Session Topic", val: "Sprint Planning", isTarget: false },
+            { icon: "🔒", label: "Room Security", val: "Passcode 9041", isTarget: true },
+            { icon: "💻", label: "Virtual Room", val: "Workspace Alpha", isTarget: false },
+            { icon: "📞", label: "Dial-in Bridge", val: "ID 892-114", isTarget: false },
+            { icon: "💾", label: "Meeting Archive", val: "Cloud Recording", isTarget: false }
+        ]
+    },
+    concert: {
+        id: "concert",
+        name: "Music Festival Schedule",
+        category: "EVENTS",
+        targetText: "Meadow Stage",
+        prompt: "Find and click the Headliner Stage: Meadow Stage",
+        prose: [
+            "Welcome to Solstice Music & Arts Festival visitor bulletin for all attendees holding Tier 1 general admission credentials. ",
+            "Shuttle bus departures commence every twenty minutes from the north transit parking hub and outside beverage containers will be confiscated at the security perimeter. ",
+            "The headlining audio-visual performance will take place promptly at 9:30 PM on the ",
+            { word: "Meadow Stage", isTarget: true },
+            " directly adjacent to the western art pavilion installations. ",
+            "Portable charging lockers and designated hydration stations are marked throughout zone blue on your mobile festival map."
+        ],
+        visualCards: [
+            { icon: "🎸", label: "Headliner", val: "Indie Rock Ensemble", isTarget: false },
+            { icon: "🎪", label: "Festival Stage", val: "Meadow Stage", isTarget: true },
+            { icon: "🕒", label: "Performance Time", val: "9:30 PM - 11:00 PM", isTarget: false },
+            { icon: "🎟️", label: "Pass Tier", val: "General Admission", isTarget: false },
+            { icon: "🚌", label: "Transit Shuttle", val: "North Hub (20m)", isTarget: false },
+            { icon: "💧", label: "Free Amenity", val: "Hydration Station", isTarget: false }
+        ]
+    },
+    banking: {
+        id: "banking",
+        name: "Wire Transfer Receipt",
+        category: "FINANCE",
+        targetText: "Auth #7719",
+        prompt: "Find and click the Digital Authorization Code: Auth #7719",
+        prose: [
+            "Official electronic funds transfer confirmation receipt generated by Union Capital Banking systems for transaction sequence reference 09284192. ",
+            "Please retain this electronic notification for your accounting and fiscal audit records as outgoing international transfers cannot be reversed once clearinghouse settlement completes. ",
+            "Your international supplier payment remittance of four thousand two hundred fifty dollars was verified under digital security ",
+            { word: "Auth #7719", isTarget: true },
+            " and will credit the beneficiary institution account within one to two business days. ",
+            "If you did not authorize this remittance, lock your online banking access immediately via emergency telephone support."
+        ],
+        visualCards: [
+            { icon: "🏦", label: "Financial Bank", val: "Union Capital", isTarget: false },
+            { icon: "💵", label: "Transfer Sum", val: "$4,250.00 USD", isTarget: false },
+            { icon: "🔐", label: "Authorization", val: "Auth #7719", isTarget: true },
+            { icon: "📄", label: "Transaction Ref", val: "Ref #09284192", isTarget: false },
+            { icon: "⏱️", label: "Clearance Window", val: "1-2 Business Days", isTarget: false },
+            { icon: "🛡️", label: "Security Status", val: "Verified & Locked", isTarget: false }
+        ]
+    }
+};
+
+// Automatic Shuffling Queue
+let scenarioQueue = [];
+let currentScenario = null;
+
+function getNextShuffledScenario() {
+    if (scenarioQueue.length === 0) {
+        // Refill and shuffle using Fisher-Yates
+        scenarioQueue = Object.keys(SCENARIOS).sort(() => 0.5 - Math.random());
+        // Avoid immediate repeat if more than 1 scenario exists
+        if (currentScenario && scenarioQueue[0] === currentScenario.id && scenarioQueue.length > 1) {
+            scenarioQueue.push(scenarioQueue.shift());
+        }
+    }
+    const nextKey = scenarioQueue.shift();
+    return SCENARIOS[nextKey];
+}
+
+function updateScenarioHeader() {
+    if (!currentScenario) return;
+    document.getElementById("scenarioNameDisplay").textContent = currentScenario.name;
+    document.getElementById("scenarioCategoryBadge").textContent = currentScenario.category;
+}
+
+function shuffleToNextScenario(userTriggered = false) {
+    currentScenario = getNextShuffledScenario();
+    updateScenarioHeader();
+    resetChallenge();
+
+    trackEvent('challenge_auto_shuffle', {
+        scenario_id: currentScenario.id,
+        scenario_name: currentScenario.name,
+        category: currentScenario.category,
+        user_triggered: userTriggered
+    });
+}
+
+// Application State
+let timerStartTime = 0;
+let timerInterval = null;
+let round1Duration = 0;
+let round2Duration = 0;
+
+// DOM Selectors
+const challengeWidget = document.getElementById("challengeWidget");
+const fullscreenToggleBtn = document.getElementById("fullscreenToggleBtn");
+const liveTimerWrap = document.getElementById("liveTimerWrap");
+const liveTimerDisplay = document.getElementById("liveTimerDisplay");
+
+const stageIntro = document.getElementById("stageIntro");
+const stageRound1 = document.getElementById("stageRound1");
+const stageIntermission = document.getElementById("stageIntermission");
+const stageRound2 = document.getElementById("stageRound2");
+const stageResults = document.getElementById("stageResults");
+
+const round1PromptText = document.getElementById("round1PromptText");
+const round2PromptText = document.getElementById("round2PromptText");
+const wallOfTextBox = document.getElementById("wallOfTextBox");
+const visualTargetDeck = document.getElementById("visualTargetDeck");
+const intermissionTimeCallout = document.getElementById("intermissionTimeCallout");
+
+const speedupMetricDisplay = document.getElementById("speedupMetricDisplay");
+const speedupSummarySentence = document.getElementById("speedupSummarySentence");
+const resTimeRound1 = document.getElementById("resTimeRound1");
+const resTimeRound2 = document.getElementById("resTimeRound2");
+const barFillRound1 = document.getElementById("barFillRound1");
+const barFillRound2 = document.getElementById("barFillRound2");
+
+// Initialize on page load with first auto-shuffled scenario
+window.addEventListener("DOMContentLoaded", () => {
+    currentScenario = getNextShuffledScenario();
+    updateScenarioHeader();
+});
+
+/* ======================================================
+   TIMER ENGINE
+====================================================== */
+function startLiveTimer() {
+    stopLiveTimer();
+    timerStartTime = performance.now();
+    liveTimerWrap.style.display = "flex";
+    liveTimerDisplay.textContent = "0.00s";
+
+    timerInterval = setInterval(() => {
+        const elapsed = (performance.now() - timerStartTime) / 1000;
+        liveTimerDisplay.textContent = elapsed.toFixed(2) + "s";
+    }, 40);
+}
+
+function stopLiveTimer() {
+    if (timerInterval) {
+        clearInterval(timerInterval);
+        timerInterval = null;
+    }
+    liveTimerWrap.style.display = "none";
+    return (performance.now() - timerStartTime) / 1000;
+}
+
+/* ======================================================
+   CHALLENGE STAGE CONTROLLER
+====================================================== */
+function resetChallenge() {
+    stopLiveTimer();
+    stageIntro.style.display = "flex";
+    stageRound1.style.display = "none";
+    stageIntermission.style.display = "none";
+    stageRound2.style.display = "none";
+    stageResults.style.display = "none";
+}
+
+function retryCurrentScenario() {
+    startRoundOne();
+    trackEvent('challenge_retry', { scenario_id: currentScenario.id });
+}
+
+/* --- ROUND 1 (WALL OF TEXT) --- */
+function startRoundOne() {
+    resetChallenge();
+    stageIntro.style.display = "none";
+    stageRound1.style.display = "flex";
+
+    round1PromptText.textContent = currentScenario.prompt;
+    renderWallOfText();
+
+    startLiveTimer();
+
+    trackEvent('challenge_round1_start', {
+        scenario_id: currentScenario.id,
+        target_text: currentScenario.targetText
+    });
+}
+
+function renderWallOfText() {
+    wallOfTextBox.innerHTML = "";
+
+    currentScenario.prose.forEach(segment => {
+        if (typeof segment === "string") {
+            const words = segment.split(/(\s+)/);
+            words.forEach(chunk => {
+                if (chunk.trim().length > 0) {
+                    const span = document.createElement("span");
+                    span.className = "interactive-word";
+                    span.textContent = chunk;
+                    span.onclick = () => handleWrongWordClick(span);
+                    wallOfTextBox.appendChild(span);
+                } else {
+                    wallOfTextBox.appendChild(document.createTextNode(chunk));
+                }
+            });
+        } else if (segment.isTarget) {
+            const targetSpan = document.createElement("span");
+            targetSpan.className = "interactive-word";
+            targetSpan.textContent = segment.word;
+            targetSpan.style.fontWeight = "inherit";
+            targetSpan.onclick = () => handleCorrectRound1Click();
+            wallOfTextBox.appendChild(targetSpan);
+        }
+    });
+}
+
+function handleWrongWordClick(el) {
+    el.classList.add("clicked-wrong");
+    setTimeout(() => el.classList.remove("clicked-wrong"), 450);
+
+    trackEvent('challenge_round1_click_incorrect', {
+        clicked_text: el.textContent.trim(),
+        scenario_id: currentScenario.id
+    });
+}
+
+function handleCorrectRound1Click() {
+    round1Duration = stopLiveTimer();
+    stageRound1.style.display = "none";
+    stageIntermission.style.display = "flex";
+
+    intermissionTimeCallout.textContent = round1Duration.toFixed(2) + "s";
+
+    trackEvent('challenge_round1_complete', {
+        time_seconds: parseFloat(round1Duration.toFixed(2)),
+        scenario_id: currentScenario.id
+    });
+}
+
+/* --- ROUND 2 (VISUAL CARD) --- */
+function startRoundTwo() {
+    stageIntermission.style.display = "none";
+    stageRound2.style.display = "flex";
+
+    round2PromptText.textContent = currentScenario.prompt;
+    renderVisualCards();
+
+    startLiveTimer();
+
+    trackEvent('challenge_round2_start', {
+        scenario_id: currentScenario.id
+    });
+}
+
+function renderVisualCards() {
+    visualTargetDeck.innerHTML = "";
+
+    const cards = [...currentScenario.visualCards].sort(() => 0.5 - Math.random());
+
+    cards.forEach(c => {
+        const cardEl = document.createElement("div");
+        cardEl.className = `visual-fact-card ${c.isTarget ? 'is-target' : ''}`;
+        cardEl.innerHTML = `
+            <span class="card-icon">${c.icon}</span>
+            <span class="card-label">${c.label}</span>
+            <span class="card-val">${c.val}</span>
+        `;
+
+        if (c.isTarget) {
+            cardEl.onclick = () => handleCorrectRound2Click();
+        } else {
+            cardEl.onclick = () => {
+                cardEl.style.borderColor = "var(--error)";
+                setTimeout(() => cardEl.style.borderColor = "var(--border)", 400);
+            };
+        }
+
+        visualTargetDeck.appendChild(cardEl);
+    });
+}
+
+function handleCorrectRound2Click() {
+    round2Duration = stopLiveTimer();
+    stageRound2.style.display = "none";
+    showResults();
+
+    const speedupPct = Math.round(((round1Duration - round2Duration) / round2Duration) * 100);
+
+    trackEvent('challenge_round2_complete', {
+        round1_seconds: parseFloat(round1Duration.toFixed(2)),
+        round2_seconds: parseFloat(round2Duration.toFixed(2)),
+        speedup_percentage: speedupPct,
+        scenario_id: currentScenario.id
+    });
+}
+
+/* --- RESULTS DISPLAY --- */
+function showResults() {
+    stageResults.style.display = "flex";
+
+    const r1 = Math.max(0.1, round1Duration);
+    const r2 = Math.max(0.1, round2Duration);
+    const speedupPct = Math.round(((r1 - r2) / r2) * 100);
+
+    if (speedupPct > 0) {
+        speedupMetricDisplay.textContent = `+${speedupPct}% Faster`;
+        speedupSummarySentence.textContent = `Your visual cortex extracted the exact same information ${speedupPct}% faster than reading text.`;
+    } else {
+        speedupMetricDisplay.textContent = "High Visual Clarity";
+        speedupSummarySentence.textContent = "You located both quickly! Visual organization eliminates mental translation fatigue.";
+    }
+
+    resTimeRound1.textContent = `${r1.toFixed(2)} seconds`;
+    resTimeRound2.textContent = `${r2.toFixed(2)} seconds`;
+
+    barFillRound1.style.width = "100%";
+    const r2BarPct = Math.max(12, Math.min(100, Math.round((r2 / r1) * 100)));
+    barFillRound2.style.width = r2BarPct + "%";
+}
+
+/* ======================================================
+   FULLSCREEN THEATRE TOGGLE
+====================================================== */
+function toggleWidgetFullscreen() {
+    const isFull = challengeWidget.classList.toggle("is-fullscreen");
+    fullscreenToggleBtn.textContent = isFull ? "✕ Close" : "⛶ Expand";
+    document.body.style.overflow = isFull ? "hidden" : "";
+    trackEvent('toggle_fullscreen', { is_fullscreen: isFull });
+}
+
+document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && challengeWidget.classList.contains("is-fullscreen")) {
+        toggleWidgetFullscreen();
+    }
+});
+
+/* ======================================================
+   DOM NAVIGATION & ANCHOR TRACKING
+====================================================== */
+window.addEventListener("DOMContentLoaded", () => {
+    document.querySelectorAll(".nav-links a, .hero .buttons a").forEach(link => {
+        link.addEventListener("click", () => {
+            trackEvent('cta_click', {
+                link_text: link.textContent.trim(),
+                link_href: link.getAttribute("href")
+            });
+        });
+    });
+
+    const skipLink = document.querySelector(".skip-link");
+    if (skipLink) {
+        skipLink.addEventListener("click", () => {
+            trackEvent('skip_link_click');
+        });
+    }
+});
+</script>
+
+</body>
+</html>
